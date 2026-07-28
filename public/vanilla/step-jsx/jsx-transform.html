@@ -1,0 +1,467 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>JSX의 정체 — 변환 4단계</title>
+<style>
+  html, body { margin: 0; }
+  :root {
+    /* neutrals: slate with a cool bias */
+    --bg: #f4f6fb;
+    --surface: #ffffff;
+    --surface-2: #eef1f8;
+    --ink: #10131c;
+    --ink-soft: #454b5e;
+    --ink-faint: #8b91a6;
+    --line: #dde1ec;
+    --line-strong: #c7ccdd;
+
+    /* stage hues — a journey: sky → violet → emerald → amber */
+    --h1c: #0ea5e9;
+    --h2c: #8b5cf6;
+    --h3c: #10b981;
+    --h4c: #f59e0b;
+
+    /* code tokens (light) */
+    --t-key: #7c3aed;
+    --t-str: #0f766e;
+    --t-tag: #0369a1;
+    --t-attr: #b45309;
+    --t-punc: #6b7280;
+    --t-prop: #be185d;
+    --t-comment: #9aa1b2;
+
+    --accent: var(--h1c);
+    --radius: 16px;
+    --mono: ui-monospace, "SF Mono", "JetBrains Mono", "Cascadia Code", Menlo, Consolas, monospace;
+    --sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", "Malgun Gothic", "Apple SD Gothic Neo", sans-serif;
+    --shadow: 0 1px 2px rgba(16,19,28,.04), 0 12px 32px -12px rgba(16,19,28,.16);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0a0c12;
+      --surface: #12151f;
+      --surface-2: #171b28;
+      --ink: #eef1f8;
+      --ink-soft: #b3b9cc;
+      --ink-faint: #6d7488;
+      --line: #262b3a;
+      --line-strong: #333a4d;
+
+      --t-key: #c4a5ff;
+      --t-str: #5eead4;
+      --t-tag: #7dd3fc;
+      --t-attr: #fcd34d;
+      --t-punc: #8b91a6;
+      --t-prop: #f9a8d4;
+      --t-comment: #565d72;
+
+      --shadow: 0 1px 2px rgba(0,0,0,.4), 0 24px 48px -20px rgba(0,0,0,.7);
+    }
+  }
+  /* explicit toggle overrides — must win both directions */
+  :root[data-theme="light"] {
+    --bg:#f4f6fb;--surface:#fff;--surface-2:#eef1f8;--ink:#10131c;--ink-soft:#454b5e;--ink-faint:#8b91a6;--line:#dde1ec;--line-strong:#c7ccdd;
+    --t-key:#7c3aed;--t-str:#0f766e;--t-tag:#0369a1;--t-attr:#b45309;--t-punc:#6b7280;--t-prop:#be185d;--t-comment:#9aa1b2;
+    --shadow:0 1px 2px rgba(16,19,28,.04),0 12px 32px -12px rgba(16,19,28,.16);
+  }
+  :root[data-theme="dark"] {
+    --bg:#0a0c12;--surface:#12151f;--surface-2:#171b28;--ink:#eef1f8;--ink-soft:#b3b9cc;--ink-faint:#6d7488;--line:#262b3a;--line-strong:#333a4d;
+    --t-key:#c4a5ff;--t-str:#5eead4;--t-tag:#7dd3fc;--t-attr:#fcd34d;--t-punc:#8b91a6;--t-prop:#f9a8d4;--t-comment:#565d72;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 24px 48px -20px rgba(0,0,0,.7);
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--sans);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    background-image:
+      radial-gradient(60rem 40rem at 100% -10%, color-mix(in oklab, var(--accent) 10%, transparent), transparent 70%);
+    transition: background-color .4s;
+  }
+  .wrap {
+    max-width: 940px;
+    margin: 0 auto;
+    padding: clamp(24px, 5vw, 56px) clamp(18px, 4vw, 32px) 72px;
+  }
+
+  /* ---- header ---- */
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: 12.5px;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    display: flex; align-items: center; gap: 10px;
+    margin: 0 0 18px;
+  }
+  .eyebrow::before {
+    content: ""; width: 26px; height: 1px; background: var(--line-strong);
+  }
+  h1.title {
+    font-size: clamp(30px, 6vw, 52px);
+    line-height: 1.05;
+    letter-spacing: -.03em;
+    font-weight: 800;
+    text-wrap: balance;
+    margin: 0 0 14px;
+  }
+  h1.title em {
+    font-style: normal;
+    color: var(--accent);
+    transition: color .5s;
+  }
+  .lede {
+    font-size: clamp(16px, 2.4vw, 18px);
+    color: var(--ink-soft);
+    max-width: 60ch;
+    margin: 0 0 8px;
+  }
+
+  /* ---- pipeline ---- */
+  .pipeline {
+    margin: 40px 0 28px;
+    position: relative;
+  }
+  .track {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    position: relative;
+  }
+  .rail {
+    position: absolute;
+    top: 21px; left: 12.5%; right: 12.5%;
+    height: 2px;
+    background: var(--line);
+    z-index: 0;
+    border-radius: 2px;
+  }
+  .rail-fill {
+    position: absolute; inset: 0 auto 0 0;
+    background: linear-gradient(90deg, var(--h1c), var(--h2c), var(--h3c), var(--h4c));
+    width: 0%;
+    border-radius: 2px;
+    transition: width .55s cubic-bezier(.65,0,.35,1);
+  }
+  .node {
+    position: relative; z-index: 1;
+    display: flex; flex-direction: column; align-items: center; gap: 10px;
+    background: none; border: 0; cursor: pointer;
+    font-family: inherit; color: inherit;
+    padding: 0;
+  }
+  .dot {
+    width: 44px; height: 44px; border-radius: 50%;
+    display: grid; place-items: center;
+    background: var(--surface);
+    border: 2px solid var(--line-strong);
+    font-family: var(--mono); font-weight: 700; font-size: 16px;
+    color: var(--ink-faint);
+    transition: transform .4s cubic-bezier(.34,1.56,.64,1), border-color .4s, background .4s, color .4s, box-shadow .4s;
+  }
+  .node .label {
+    font-size: 12.5px; font-weight: 600; color: var(--ink-faint);
+    text-align: center; letter-spacing: -.01em;
+    transition: color .4s;
+    max-width: 12ch;
+  }
+  .node[data-state="done"] .dot {
+    border-color: var(--nodehue);
+    color: var(--nodehue);
+  }
+  .node[data-state="active"] .dot {
+    border-color: var(--nodehue);
+    background: var(--nodehue);
+    color: #fff;
+    transform: scale(1.12);
+    box-shadow: 0 0 0 6px color-mix(in oklab, var(--nodehue) 18%, transparent);
+  }
+  .node[data-state="active"] .label { color: var(--ink); }
+  .node:focus-visible { outline: none; }
+  .node:focus-visible .dot { box-shadow: 0 0 0 4px color-mix(in oklab, var(--nodehue) 45%, transparent); }
+
+  /* ---- stage panel ---- */
+  .stage {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    border-top: 3px solid var(--accent);
+    transition: border-color .5s;
+  }
+  .stage-head {
+    display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap;
+    padding: 22px 24px 6px;
+  }
+  .stage-num {
+    font-family: var(--mono); font-weight: 700; font-size: 13px;
+    color: var(--accent); letter-spacing: .08em;
+    transition: color .5s;
+  }
+  .stage-title { font-size: clamp(19px, 3vw, 24px); font-weight: 750; letter-spacing: -.02em; margin: 0; }
+  .stage-sub { padding: 0 24px 18px; color: var(--ink-soft); font-size: 15.5px; max-width: 62ch; }
+
+  .panel {
+    margin: 0 24px 22px;
+    background: var(--surface-2);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    min-height: 216px;
+    display: flex; align-items: center;
+    overflow-x: auto;
+  }
+  .fade { animation: rise .5s cubic-bezier(.22,1,.36,1) both; }
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: none; }
+  }
+
+  pre.code {
+    margin: 0; padding: 26px 28px;
+    font-family: var(--mono);
+    font-size: clamp(13px, 2.3vw, 15.5px);
+    line-height: 1.85;
+    tab-size: 2;
+    width: 100%;
+  }
+  .code .k  { color: var(--t-key); }
+  .code .s  { color: var(--t-str); }
+  .code .tag{ color: var(--t-tag); }
+  .code .at { color: var(--t-attr); }
+  .code .p  { color: var(--t-punc); }
+  .code .pr { color: var(--t-prop); }
+  .code .c  { color: var(--t-comment); font-style: italic; }
+  /* shared "materials" carried across every step */
+  .m {
+    border-radius: 5px;
+    padding: 0 2px;
+    background: color-mix(in oklab, var(--accent) 15%, transparent);
+    box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--accent) 30%, transparent);
+    transition: background .5s;
+  }
+
+  /* AST tree (step 2) */
+  .tree {
+    font-family: var(--mono);
+    font-size: clamp(12.5px, 2.2vw, 15px);
+    line-height: 2;
+    padding: 22px 26px;
+    width: 100%;
+  }
+  .tree .branch { color: var(--ink-faint); }
+  .tree .ntype { color: var(--t-key); font-weight: 600; }
+
+  /* ---- note ---- */
+  .note {
+    display: flex; gap: 12px;
+    margin: 0 24px 24px;
+    padding: 15px 17px;
+    background: color-mix(in oklab, var(--accent) 8%, var(--surface));
+    border: 1px solid color-mix(in oklab, var(--accent) 22%, var(--line));
+    border-radius: 12px;
+    font-size: 14.5px; color: var(--ink-soft);
+    transition: background .5s, border-color .5s;
+  }
+  .note b { color: var(--ink); font-weight: 700; }
+  .note .ic { color: var(--accent); flex: none; font-weight: 800; transition: color .5s; }
+
+  /* ---- controls ---- */
+  .controls {
+    display: flex; align-items: center; gap: 12px;
+    margin-top: 24px;
+  }
+  button.ctl {
+    font-family: inherit; font-size: 14.5px; font-weight: 650;
+    padding: 11px 20px; border-radius: 11px; cursor: pointer;
+    border: 1px solid var(--line-strong); background: var(--surface); color: var(--ink);
+    transition: transform .15s, background .2s, border-color .2s, opacity .2s;
+  }
+  button.ctl:hover { border-color: var(--accent); }
+  button.ctl:active { transform: translateY(1px); }
+  button.ctl:disabled { opacity: .4; cursor: not-allowed; }
+  button.ctl.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+  button.ctl.play {
+    margin-left: auto;
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  button.ctl:focus-visible { outline: 3px solid color-mix(in oklab, var(--accent) 45%, transparent); outline-offset: 2px; }
+  .counter { font-family: var(--mono); font-size: 13px; color: var(--ink-faint); font-variant-numeric: tabular-nums; }
+
+  .footnote {
+    margin-top: 34px; padding-top: 20px; border-top: 1px solid var(--line);
+    color: var(--ink-faint); font-size: 13.5px; line-height: 1.7;
+  }
+  .footnote code { font-family: var(--mono); color: var(--ink-soft); background: var(--surface-2); padding: 1px 6px; border-radius: 5px; }
+
+  @media (max-width: 560px) {
+    .node .label { font-size: 11px; }
+    .dot { width: 38px; height: 38px; font-size: 14px; }
+    .rail { top: 18px; }
+    .controls { flex-wrap: wrap; }
+    button.ctl.play { margin-left: 0; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; }
+    .fade { animation: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <p class="eyebrow">React 뜯어보기 · 컴파일 파이프라인</p>
+  <h1 class="title">JSX의 정체 — 결국 <em id="titleWord">평범한 객체</em> 하나다</h1>
+  <p class="lede">브라우저는 <code style="font-family:var(--mono)">&lt;h1&gt;</code> 같은 JSX 문법을 이해하지 못한다. 화면에 그려지기까지 코드는 네 번 모습을 바꾼다. 같은 재료가 어떻게 옷만 갈아입는지 한 단계씩 따라가 본다.</p>
+
+  <nav class="pipeline" aria-label="변환 단계">
+    <div class="track">
+      <div class="rail"><div class="rail-fill" id="railFill"></div></div>
+      <button class="node" data-i="0" style="--nodehue:var(--h1c)">
+        <span class="dot">1</span><span class="label">JSX 작성</span>
+      </button>
+      <button class="node" data-i="1" style="--nodehue:var(--h2c)">
+        <span class="dot">2</span><span class="label">Babel 파싱 · AST</span>
+      </button>
+      <button class="node" data-i="2" style="--nodehue:var(--h3c)">
+        <span class="dot">3</span><span class="label">createElement 변환</span>
+      </button>
+      <button class="node" data-i="3" style="--nodehue:var(--h4c)">
+        <span class="dot">4</span><span class="label">객체 생성</span>
+      </button>
+    </div>
+  </nav>
+
+  <section class="stage" id="stage" aria-live="polite">
+    <div class="stage-head">
+      <span class="stage-num" id="sNum">STEP 1 / 4</span>
+      <h2 class="stage-title" id="sTitle"></h2>
+    </div>
+    <p class="stage-sub" id="sSub"></p>
+    <div class="panel"><div id="sBody" style="width:100%"></div></div>
+    <div class="note"><span class="ic">→</span><span id="sNote"></span></div>
+  </section>
+
+  <div class="controls">
+    <button class="ctl" id="prev">← 이전</button>
+    <button class="ctl primary" id="next">다음 →</button>
+    <span class="counter" id="count">01 / 04</span>
+    <button class="ctl play" id="play"><span id="playIc">▶</span> 자동 재생</button>
+  </div>
+
+  <p class="footnote">
+    <b style="color:var(--ink)">노란 형광펜</b>으로 칠한 <span class="m">h1</span>, <span class="m">className/title</span>, <span class="m">안녕, React</span> 세 재료를 눈으로 쫓아보라 — 문법이 통째로 바뀌어도 이 재료들은 그대로 살아남는다.
+    <br><br>
+    참고: 요즘 Babel/SWC는 3단계에서 <code>React.createElement</code> 대신 자동 런타임 <code>_jsx("h1", …)</code>를 쓰지만, 결과가 4단계의 객체라는 사실은 똑같다. 이 객체를 흔히 <b style="color:var(--ink)">React 엘리먼트</b>라 부르고, React는 이것을 모아 가상 DOM을 만든다.
+  </p>
+</div>
+
+<script>
+  const steps = [
+    {
+      hue: 'var(--h1c)', tword: 'JSX',
+      title: '네가 작성하는 코드',
+      sub: 'JSX는 자바스크립트가 아니다. HTML을 닮은 이 문법은 사람이 읽기 편하라고 만든 "겉포장"일 뿐, 브라우저는 이 상태로는 한 글자도 실행하지 못한다.',
+      body: `<pre class="code fade"><span class="k">const</span> el <span class="p">=</span> <span class="p">&lt;</span><span class="tag m">h1</span> <span class="at m">className</span><span class="p">=</span><span class="s m">"title"</span><span class="p">&gt;</span><span class="s m">안녕, React</span><span class="p">&lt;/</span><span class="tag m">h1</span><span class="p">&gt;</span><span class="p">;</span></pre>`,
+      note: '<b>문제:</b> 브라우저 엔진에 이 코드를 그대로 주면 문법 오류가 난다. 누군가 번역해 줘야 한다.'
+    },
+    {
+      hue: 'var(--h2c)', tword: 'AST',
+      title: 'Babel이 구조를 분해한다',
+      sub: 'Babel(컴파일러)이 코드를 읽어 의미 단위로 잘게 쪼갠 나무 구조, 즉 AST(추상 구문 트리)로 바꾼다. "태그 이름은 h1, 속성은 className, 내용은 텍스트"처럼 뼈대만 남긴다.',
+      body: `<div class="tree fade"><span class="ntype">JSXElement</span>
+<span class="branch">├─</span> openingElement: <span class="tag m">"h1"</span>
+<span class="branch">│&nbsp;&nbsp;└─</span> attribute: <span class="at m">className</span> = <span class="s m">"title"</span>
+<span class="branch">└─</span> children
+<span class="branch">&nbsp;&nbsp;&nbsp;└─</span> JSXText: <span class="s m">"안녕, React"</span></div>`,
+      note: '<b>핵심:</b> 이 단계에서 JSX는 "뜻"으로 해석된다. 태그·속성·자식이라는 세 재료가 또렷이 분리된다.'
+    },
+    {
+      hue: 'var(--h3c)', tword: '함수 호출',
+      title: '함수 호출로 다시 쓴다',
+      sub: 'AST를 바탕으로 Babel이 순수한 자바스크립트를 뱉어낸다. 꺾쇠(<>)는 사라지고, 대신 세 재료가 함수의 인자로 들어간다 — 첫째 태그, 둘째 속성, 셋째 자식.',
+      body: `<pre class="code fade"><span class="k">const</span> el <span class="p">=</span> <span class="pr">React</span><span class="p">.</span><span class="pr">createElement</span><span class="p">(</span>
+  <span class="s m">"h1"</span><span class="p">,</span>                    <span class="c">// 태그</span>
+  <span class="p">{</span> <span class="at m">className</span><span class="p">:</span> <span class="s m">"title"</span> <span class="p">},</span>   <span class="c">// 속성(props)</span>
+  <span class="s m">"안녕, React"</span>             <span class="c">// 자식(children)</span>
+<span class="p">);</span></pre>`,
+      note: '<b>이제 진짜 자바스크립트다.</b> 브라우저가 실행할 수 있는 평범한 함수 호출로 바뀌었다.'
+    },
+    {
+      hue: 'var(--h4c)', tword: '평범한 객체',
+      title: '실행하면 객체가 남는다',
+      sub: 'createElement 함수를 실제로 호출하면 무엇이 튀어나올까? 화려한 무언가가 아니라, 그저 키와 값이 든 자바스크립트 객체 하나다. 이것이 JSX의 최종 정체다.',
+      body: `<pre class="code fade"><span class="k">const</span> el <span class="p">=</span> <span class="p">{</span>
+  <span class="pr">type</span><span class="p">:</span> <span class="s m">"h1"</span><span class="p">,</span>
+  <span class="pr">props</span><span class="p">:</span> <span class="p">{</span>
+    <span class="at m">className</span><span class="p">:</span> <span class="s m">"title"</span><span class="p">,</span>
+    <span class="pr">children</span><span class="p">:</span> <span class="s m">"안녕, React"</span>
+  <span class="p">},</span>
+  <span class="pr">key</span><span class="p">:</span> <span class="k">null</span><span class="p">,</span>
+  <span class="pr">ref</span><span class="p">:</span> <span class="k">null</span>
+<span class="p">};</span></pre>`,
+      note: '<b>결론:</b> JSX = 이 객체를 만드는 지름길. React는 이런 객체(엘리먼트)들을 읽어 실제 화면(DOM)을 그린다.'
+    }
+  ];
+
+  let cur = 0, timer = null;
+  const root = document.documentElement;
+  const $ = id => document.getElementById(id);
+  const nodes = [...document.querySelectorAll('.node')];
+
+  function render(i, animate = true) {
+    cur = i;
+    const s = steps[i];
+    root.style.setProperty('--accent', s.hue);
+    $('titleWord').textContent = s.tword;
+    $('sNum').textContent = `STEP ${i + 1} / 4`;
+    $('sTitle').textContent = s.title;
+    $('sSub').textContent = s.sub;
+    $('sBody').innerHTML = animate ? s.body : s.body.replace(' fade', '');
+    $('sNote').innerHTML = s.note;
+    $('count').textContent = `0${i + 1} / 04`;
+
+    nodes.forEach((n, k) => {
+      n.dataset.state = k === i ? 'active' : (k < i ? 'done' : '');
+    });
+    $('railFill').style.width = (i / (steps.length - 1) * 100) + '%';
+
+    $('prev').disabled = i === 0;
+    $('next').disabled = i === steps.length - 1;
+  }
+
+  $('next').onclick = () => { stop(); if (cur < steps.length - 1) render(cur + 1); };
+  $('prev').onclick = () => { stop(); if (cur > 0) render(cur - 1); };
+  nodes.forEach(n => n.onclick = () => { stop(); render(+n.dataset.i); });
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight') { stop(); if (cur < steps.length - 1) render(cur + 1); }
+    if (e.key === 'ArrowLeft')  { stop(); if (cur > 0) render(cur - 1); }
+  });
+
+  function stop() {
+    if (timer) { clearInterval(timer); timer = null; $('playIc').textContent = '▶'; $('play').lastChild.textContent = ' 자동 재생'; }
+  }
+  $('play').onclick = () => {
+    if (timer) { stop(); return; }
+    $('playIc').textContent = '⏸';
+    $('play').lastChild.textContent = ' 멈춤';
+    if (cur === steps.length - 1) render(0);
+    timer = setInterval(() => {
+      if (cur < steps.length - 1) render(cur + 1);
+      else stop();
+    }, 2600);
+  };
+
+  render(0, false);
+</script>
+</body>
+</html>

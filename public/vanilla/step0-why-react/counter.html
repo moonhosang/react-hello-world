@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <style>
+      /* 순수 HTML 데모용 최소 스타일. 부모 카드와 어울리게 배경은 투명. */
+      html,
+      body {
+        margin: 0;
+        background: transparent;
+        color: #1f2937;
+        font-family: system-ui, "Malgun Gothic", sans-serif;
+      }
+      #value {
+        font-size: 44px;
+        font-weight: 800;
+        margin-bottom: 12px;
+      }
+      button {
+        padding: 8px 16px;
+        border: 1px solid #e5e7eb;
+        background: #fff;
+        border-radius: 10px;
+        cursor: pointer;
+        font-size: 14px;
+      }
+      code {
+        background: rgba(0, 0, 0, 0.06);
+        padding: 1px 5px;
+        border-radius: 4px;
+      }
+      @media (prefers-color-scheme: dark) {
+        html,
+        body {
+          color: #e2e8f0;
+        }
+        button {
+          background: #0f172a;
+          color: #e2e8f0;
+          border-color: #334155;
+        }
+        code {
+          background: rgba(255, 255, 255, 0.12);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!--
+      순수 HTML 방식(옛날 방식).
+      리액트도, JSX도, 컴포넌트도, useRef도 없다. 그냥 HTML + 자바스크립트다.
+    -->
+    <div id="value">0</div>
+    <button id="btn">➕ 증가</button>
+
+    <script>
+      // 명령형(imperative): "어떻게 바꿀지"를 내가 단계별로 직접 지시한다.
+      var count = 0 // 상태를 그냥 변수로 들고 있는다
+
+      // 화면 요소를 직접 찾아둔다 (리액트에는 이런 코드가 없다)
+      var valueEl = document.getElementById('value')
+      var btnEl = document.getElementById('btn')
+
+      btnEl.addEventListener('click', function () {
+        count = count + 1 // 1) 값을 바꾸고
+        valueEl.textContent = count // 2) 화면도 '내가 직접' 갱신한다 (이 줄이 없으면 숫자가 안 바뀐다)
+      })
+    </script>
+  </body>
+</html>
