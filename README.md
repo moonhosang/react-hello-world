@@ -1,162 +1,108 @@
 # ⚛️ 리액트 입문 커리큘럼
 
-> 리액트를 **처음** 배우는 사람을 위한, 읽고 → 보고 → 직접 만들며 배우는 실습형 커리큘럼.
+> 리액트를 **처음** 배우는 사람을 위한, 읽고 → 눌러보고 → 직접 고치며 배우는 실습형 커리큘럼.
 
-한 개의 Vite 앱 안에서 **0단계부터 차근차근**, 각 단계마다 개념 설명 · 라이브 데모 · 직접 채우는 실습이 함께 있다.
-`npm run dev` 한 번이면 사이드바로 전 과정을 넘겨보며 배울 수 있다.
+한 개의 Vite 앱 안에 **두 트랙**이 있다 — 언어 기초(🟨 JS)와 리액트(⚛️ React). 매 개념마다
+**규칙을 명시하고 → 라이브로 실증하고(버튼·단계별 스텝) → 직접 실습**한다. `npm run dev` 한 번이면 전부 넘겨보며 배운다.
+
+**▶ 라이브 데모: https://moonhosang.github.io/react-hello-world/**
+_(GitHub Pages 자동 배포. main에 push하면 갱신된다.)_
 
 ---
 
 ## 🚀 설치 & 실행
 
-### 1. 사전 준비 — Node.js 설치
-
-이 프로젝트는 **Node.js 18 이상**이 필요하다. (권장: LTS 최신 버전)
-
-- 설치: [nodejs.org](https://nodejs.org) 에서 LTS 버전을 받아 설치한다.
-- 설치 확인 — 터미널에서:
-  ```bash
-  node -v   # v18.x 이상이면 OK
-  npm -v
-  ```
-  `node`를 못 찾는다는 에러가 나면 터미널(또는 컴퓨터)을 재시작한다.
-
-### 2. 의존성 설치
-
-프로젝트 폴더에서 (이 README가 있는 위치) 한 번만 실행한다.
+**Node.js 18 이상**이 필요하다.
 
 ```bash
-npm install
+npm install     # 의존성 설치 (최초 1회)
+npm run dev     # 개발 서버 → http://localhost:5173
 ```
 
-`node_modules/` 폴더가 생기고 필요한 패키지(React, Vite 등)가 설치된다.
-
-### 3. 개발 서버 실행
-
-```bash
-npm run dev
-```
-
-터미널에 뜨는 주소(예: `http://localhost:5173`)를 브라우저에서 연다.
-왼쪽 사이드바에서 강의를 고르고, 코드를 저장하면 화면이 **자동으로 새로고침**된다.
-서버 종료는 터미널에서 `Ctrl + C`.
-
-### 4. 그 밖의 명령
+브라우저에서 뜬 주소를 열고, 왼쪽 사이드바에서 강의를 고른다. 파일을 저장하면 화면이 **자동 새로고침**된다. 종료는 `Ctrl + C`.
 
 ```bash
 npm run build     # 배포용 정적 파일 생성 (dist/)
-npm run preview   # 빌드 결과를 로컬에서 미리보기
+npm run preview   # 빌드 결과 로컬 미리보기
 ```
-
-### ❓ 자주 겪는 문제
-
-- **포트가 이미 쓰인다** → Vite가 자동으로 다음 포트(5174 …)로 열어 준다. 터미널에 뜬 주소를 쓰면 된다.
-- **`npm install`이 실패한다** → Node 버전이 18 이상인지 확인하고, `node_modules/`와 `package-lock.json`을 지운 뒤 다시 설치한다.
-- **화면이 안 바뀐다** → 파일을 저장했는지, 터미널에 에러가 없는지 확인한다.
 
 ---
 
-## ✨ 이 커리큘럼의 특징
+## ✨ 특징
 
-- **대비로 배운다** — 순수 HTML(jQuery/DOM) 방식과 리액트 방식을 **나란히** 놓고 차이를 눈으로 본다.
-  왜 리액트를 쓰는지가 먼저 이해된다.
-- **한 문장으로 관통** — `UI = f(State)`. 화면은 상태의 결과물이라는 원칙이 모든 단계를 꿴다.
-- **직접 만든다** — 단계마다 🎯 실습(빈 `practice.jsx`를 채우고 `👀 정답 보기`로 비교)이 있다.
-- **종합한다** — 몇 단계마다 ✅ 체크포인트로 배운 것을 합쳐 작은 결과물을 만든다.
-- **평서체 · 자세한 주석** — 모든 코드에 왜 그렇게 쓰는지 한국어 주석이 달려 있다.
+- **두 트랙 분리** — 사이드바 상단 탭으로 **⚛️ React**와 **🟨 JS 기본**을 오간다. JS를 알면 바로 React로.
+- **규칙 → 라이브 실증** — 개념을 말로만 두지 않고, **버튼·단계별 스텝(▶ 다음 단계)**으로 눈앞에서 돌려 본다.
+- **잘못을 라이브로** — `setCount(count+1)` 세 번이 왜 +1인지, `onClick={fn()}`이 왜 죽는지, `{0 && ...}`이 왜 화면에 `0`을 찍는지 — **직접 눌러 실패를 겪는다.**
+- **진도 관리** — 목차 항목마다 체크박스 + 전체 진행률 바. **URL 해시**로 위치가 유지돼 새로고침·링크 공유가 된다.
+- **평서체 · 자세한 주석** — 모든 코드에 "왜 이렇게 쓰는지" 한국어 주석.
 
 ---
 
 ## 📚 커리큘럼
 
-| 단계 | 배우는 것 | 실습 결과물 | 폴더 |
-|------|-----------|-------------|------|
-| **0단계** | 반응형 vs 명령형 (순수 HTML과 비교) | 두 방식 카운터 | [`step0-why-react`](src/lessons/step0-why-react/README.md) |
-| **1단계** | 컴포넌트 · 조립 · **재사용** | 인사·시계·날씨·대시보드 | [`step1-components`](src/lessons/step1-components/README.md) |
-| 🔍 **개념** | 함수 vs 리액트 컴포넌트 | 비교표 + 데모 | [`function-vs-component`](src/concepts/function-vs-component/README.md) |
-| 📝 **개념** | JSX의 정체 (무엇으로 변환되나) | 변환 다이어그램 + 라이브 | [`jsx-under-the-hood`](src/concepts/jsx-under-the-hood/README.md) |
-| 🧩 **개념** | 캡슐화 (겉은 컴포넌트, 속은 감춤) | 메뉴 | [`encapsulation`](src/concepts/encapsulation/README.md) |
-| **2단계** | props (2-1 기초 · 2-2 함수·상태·객체) | 프로필 카드 | [`step2-props`](src/lessons/step2-props/README.md) |
-| ✅ **체크포인트 A** | 컴포넌트 + props 종합 | 팀 소개 페이지 | [`checkpointA`](src/checkpoints/checkpointA-team-page/README.md) |
-| **3단계** | useState · 이벤트 (3-1 기초 · 3-2 설계·함정) | 카운터 & 좋아요 | [`step3-state-events`](src/lessons/step3-state-events/README.md) |
-| 🔀 **개념** | props vs state 차이 | 비교표 + 데모 | [`props-vs-state`](src/concepts/props-vs-state/README.md) |
-| 🔁 **개념** | 리렌더링 조건 (언제 다시 그려지나) | 라이브 데모 | [`rerender`](src/concepts/rerender/README.md) |
-| **4단계** | `value` 직접 접근 vs controlled 입력 | 입력 비교 | [`step4-inputs`](src/lessons/step4-inputs/README.md) |
-| **5단계** | map · key · 조건부 렌더링 · 상태 끌어올리기 | 투두 리스트 | [`step5-lists`](src/lessons/step5-lists/README.md) |
-| ✅ **체크포인트 B** | 상태 · 입력 · 리스트 종합 | 장보기 리스트 | [`checkpointB`](src/checkpoints/checkpointB-shopping/README.md) |
-| **6단계** | 폼 입력 응용 (6-1~6-2) | 방명록 | [`step6-forms`](src/lessons/step6-forms/README.md) |
-| **7단계** | Context — prop drilling 해결 · 전역 상태 (7-1~7-2) | 사용자·테마 공유 | [`step7-context`](src/lessons/step7-context/README.md) |
-| **8단계** | useEffect — 부수 효과 (8-1~8-4) | 데이터 불러오기 | [`step8-effects`](src/lessons/step8-effects/README.md) |
-| **9단계** | 에러 읽는 법 (자주 만나는 에러 5종) | 고장난 코드 고치기 | [`step9-errors`](src/lessons/step9-errors/README.md) |
-| 10단계~ | localStorage · 졸업 프로젝트 … | (예정) | |
+### ⚛️ React 트랙
+| 장 | 내용 |
+|---|---|
+| 01 | 왜 리액트인가 (반응형 vs 명령형) |
+| 02 | 컴포넌트와 JSX (JSX 정체 · **문법 규칙 6가지** · 캡슐화) |
+| 03 | Props (값 전달 · **children/합성**) |
+| 04 | 상태(State) · 이벤트 (`useState` · 설계·함정 · **이벤트 전파**) |
+| 05 | 훅(Hook)이란 — 규칙 · 왜 · 리렌더 감각 |
+| 06 | 입력 다루기 (**단방향 데이터 흐름**) |
+| 07 | 리스트 렌더링 (**조건부 렌더링 3패턴** · map·key) |
+| 08 | 폼 입력 응용 (객체 state · 제출 · 유효성 검사) |
+| 09 | Context — 전역 상태 |
+| 10 | `useEffect` — 동기화 · 데이터 불러오기 |
+| 11 | `useReducer` |
+| 12 | 최적화 (`memo`·`useMemo`·`useCallback`) |
+| 13 | Ref와 커스텀 훅 |
+| 14 | 에러 읽는 법 |
+| 15 | **실전 앱** (Lv1 투두 → Lv7 미니 가계부) |
 
----
+_체크포인트·개념 정리 레슨이 사이사이에 있다._
 
-## 🔁 학습 루프
+### 🟨 JS 기본 트랙 (워밍업)
+React 레슨이 "이미 아는 것"으로 전제하는 JS를, **단계별 해부기**로 짚는다.
 
-```
-   개념(README) ──▶ 라이브 데모(보기) ──▶ 🎯 실습(직접 채우고 정답 비교) ──▶ 다음 단계
-                                                                    │
-                                              몇 단계마다  ▼
-                                          ✅ 체크포인트 (배운 것 종합)
-```
+| 강 | 내용 |
+|---|---|
+| J1 | 표현식 해부 (문·식·항·인자로 쪼개 읽기 · 디버깅의 뿌리) |
+| J2 | 화살표 함수 · 삼항 · 템플릿 리터럴 |
+| J3 | **함수는 값이다** (담기·넘기기·실행 · `onClick` 함정 · 커스텀 이벤트) |
+| J4 | truthy / falsy (`&& 0` 함정) |
+| J5 | 배열 `map` · `filter` |
+| J6 | 구조 분해 · 스프레드 |
+| J7 | `Promise` · `async/await` |
 
-1. 단계 폴더의 **`README.md`** 로 개념을 이해한다.
-2. 앱에서 그 강의를 눌러 **동작**을 확인한다. (코드는 각 폴더의 `.jsx`에 주석과 함께)
-3. **`practice.jsx`** 를 열어 TODO를 채운다 → 저장하면 '내 코드' 칸에 바로 반영된다.
-4. 막히면 앱에서 **`👀 정답 보기`** 로 `solution.jsx`와 비교한다.
-5. 체크포인트에서 여러 단계를 합쳐 스스로 만들어 본다.
-
----
-
-## 🗂️ 폴더 구조
-
-```
-리액트공부/
-├─ index.html                    # 앱이 붙는 HTML
-├─ package.json · vite.config.js
-├─ public/
-│  └─ vanilla/                   # 순수 HTML 비교 데모 (단계별 패키지)
-│     ├─ step0-why-react/counter.html      # 0단계 짝: 순수 HTML 카운터
-│     └─ step1-components/dashboard.html    # 1단계 짝: 복붙 방식 대시보드
-└─ src/
-   ├─ main.jsx                   # 앱 시작점
-   ├─ App.jsx                    # 사이드바 + 강의 전환
-   ├─ index.css                  # 전체 스타일
-   ├─ components/
-   │  └─ Practice.jsx            # 공용 실습 블록 (정답 보기 토글)
-   ├─ lessons/                   # ⭐ 단계별 폴더
-   │  ├─ step0-why-react/        # OldWayCounter(iframe) · ReactWayCounter · practice/solution
-   │  ├─ step1-components/       # Greeting·Clock·Announcement·WeatherWidget·Dashboard · practice/solution
-   │  ├─ step2-props/            # 2-1 기초(HelloName·ProfileCard) · 2-2 더 넘겨보기(함수·상태·객체)
-   │  ├─ step3-state-events/     # 3-1 기초(Counter·LikeButton) · 3-2 설계·함정(MultiState·ObjectState·TrapCounter)
-   │  ├─ step4-inputs/           # UncontrolledInput · ControlledInput · practice/solution
-   │  └─ step5-lists/            # TodoInput · TodoList · TodoItem · practice/solution
-   └─ checkpoints/               # 단계 사이 누적 실습
-      ├─ checkpointA-team-page/  # 컴포넌트 + props
-      └─ checkpointB-shopping/   # 상태 + 입력 + 리스트
-```
-
-각 단계 폴더 = **`README.md`(개념) + `index.jsx`(화면) + 하위 컴포넌트 + `practice.jsx`/`solution.jsx`**.
-
-> 리액트 강의(`src/lessons/<step>/`)와 그 순수 HTML 짝(`public/vanilla/<step>/`)이
-> **같은 step 이름으로 1:1 대응**한다.
+앱 안 **🗺️ 로드맵** 페이지에서 앞으로 다룰 내용도 볼 수 있다.
 
 ---
 
 ## 🧩 기술 스택
 
-- **React 18** + **Vite 5** (JavaScript, JSX)
-- 별도 라우터/상태 라이브러리 없이, 사이드바 상태 하나로 강의를 전환한다.
+- **React 18** + **Vite 5** (JavaScript · JSX)
+- 라우터·상태 라이브러리 없이 — 화면 전환은 `currentId` 상태 + URL 해시, 진도는 `localStorage`.
 - 순수 HTML 비교 데모는 `public/`의 정적 파일을 `<iframe>`으로 띄운다.
 
 ---
 
-## 🗺️ 앞으로 (로드맵)
+## 🗂️ 구조 (요약)
 
-- 6단계 · 폼 & 유효성 검사
-- 7단계 · `useEffect` · 데이터 불러오기(fetch)
-- 8단계 · 라우팅(react-router)
-- 종합 프로젝트
+```
+src/
+├─ App.jsx            # 트랙 탭 · 사이드바 목차 · 진행률 · 해시 라우팅
+├─ index.css          # 전체 스타일
+├─ lessons/           # ⚛️ React 강의 (step0 … step12) + 🟨 js-warmup/ (J1~J7)
+├─ concepts/          # 개념 정리 레슨 (JSX 규칙 · 조건부 렌더링 · 리렌더 …)
+├─ checkpoints/       # 단계 누적 실습
+├─ apps/              # 실전 앱 (장바구니 · 회원가입 · 퀴즈 · 가계부 …)
+└─ Roadmap.jsx        # 앞으로 다룰 내용
+```
 
-막히거나 이어서 만들고 싶은 부분이 있으면 언제든 물어보자.
+각 강의 폴더 = 개념 설명 + 라이브 데모 컴포넌트 + (일부) 실습.
+
+---
+
+## 📄 라이선스
+
+[MIT](LICENSE)
