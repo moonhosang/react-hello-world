@@ -39,7 +39,17 @@ function UserCard({ user, onUserNameClick, onActionClick, descMode = 'ok' }) {
           </div>
         </div>
       </div>
-      <p onClick={descOnClick} style={{ margin: '10px 0 0', fontSize: 13, color: 'var(--text)', cursor: descOnClick ? 'pointer' : 'default', lineHeight: 1.5 }} title={descOnClick ? '설명 클릭' : '설명(지금은 클릭 안 됨)'}>
+      <p
+        onClick={descOnClick}
+        style={{
+          margin: '10px 0 0', fontSize: 13, lineHeight: 1.5,
+          color: descOnClick ? 'var(--brand)' : 'var(--text)',
+          cursor: descOnClick ? 'pointer' : 'default',
+          textDecoration: descOnClick ? 'underline dashed' : 'none',
+          textUnderlineOffset: 3,
+        }}
+        title={descOnClick ? '설명 클릭 → action="description"' : '설명(지금은 클릭 안 됨)'}
+      >
         {user.desc}
       </p>
       <div className="button-row" style={{ justifyContent: 'flex-start', marginTop: 10 }}>
@@ -90,7 +100,14 @@ export function UserCardPractice() {
   }
   return (
     <div>
-      <p className="demo-desc" style={{ marginTop: 0 }}>설명(<code>{'<p>{user.desc}</p>'}</code>)의 onClick 자리에 뭘 넣어야 <b>설명 클릭</b>이 될까? 골라서 아래 9개 카드로 확인하라.</p>
+      <div className="lesson-goal" style={{ marginTop: 0 }}>
+        <span className="lesson-goal-tag">🎯 실습 목표</span>
+        <p>
+          9개 카드의 <b>설명(description)</b>을 <b>클릭 가능</b>하게 만들어, 누르면 부모에게 <code>action='description'</code>이 전달되게 한다.
+          <br />📌 <b>배우는 것</b>: 콜백 prop에 함수를 '<b>넘기는</b>' 올바른 형태 — <code>{'() => onActionClick(...)'}</code> (JS <b>J3 · 함수는 값이다</b>).
+        </p>
+      </div>
+      <p className="demo-desc" style={{ marginTop: 8 }}>아래 onClick 형태를 골라 카드로 확인하라. <b>정답이면 설명에 밑줄이 생기고 클릭된다.</b></p>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 6, marginBottom: 8 }}>
         {FIX_OPTS.map((o, k) => (
           <button key={k} className={'chip' + (choice === k ? ' on' : '')} onClick={() => { setChoice(k); setLog('(카드의 설명을 눌러 보라)') }} style={{ fontFamily: mono, fontSize: 12.5, textAlign: 'left' }}>{o.code}</button>
