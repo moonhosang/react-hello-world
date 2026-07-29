@@ -3,6 +3,7 @@
 
 import AppMenu from './AppMenu.jsx'
 import UserCardDemo, { DescActionPractice } from './UserCard.jsx'
+import Practice from '../../components/Practice.jsx'
 
 export default function Encapsulation() {
   return (
@@ -160,10 +161,23 @@ export default function Encapsulation() {
         <li><b>인스턴스 독립</b> — 한 카드를 팔로우해도 나머지는 그대로. 정의는 하나(설계도), 쓸 때마다 <b>독립 인스턴스</b> (→ <b>5-1</b>).</li>
       </ul>
 
-      <div className="try-it">
-        <h4>🎯 실습 — 설명 클릭에 이벤트 붙이기 (onActionClick)</h4>
+      <Practice
+        task="설명 텍스트를 클릭하면 onActionClick('description')이 불리게 하려면, onClick에 어떤 형태를 넣어야 할까?"
+        hints={[
+          "함수를 '넘기는' 것과 '지금 호출'하는 것은 다르다 (JS J3).",
+          "괄호를 붙이면 렌더 때 즉시 실행돼 버린다.",
+          "인자('description')를 넘기면서 나중에 실행하려면 () => 로 감싼다.",
+        ]}
+        practiceFile="concepts/encapsulation/UserCard.jsx"
+        solutionFile="concepts/encapsulation/UserCard.jsx"
+        solution={
+          <pre className="err-code" style={{ margin: 0 }}>{`<p onClick={() => onActionClick('description')}>{user.desc}</p>
+// 화살표로 감싸 "나중에 실행할 함수"로 넘긴다
+// → 클릭할 때 onActionClick('description') 이 불린다`}</pre>
+        }
+      >
         <DescActionPractice />
-      </div>
+      </Practice>
     </section>
   )
 }
