@@ -13,11 +13,18 @@ function RenderedResult() {
   }, [])
   return (
     <div className="jsxt-dom">
-      <span className="jsxt-dom-label">React가 그려낸 진짜 결과 (렌더된 컴포넌트) ↓</span>
+      <span className="jsxt-dom-label">① Badge는 컴포넌트(함수) → React가 실행하면 이 JSX를 반환한다</span>
+      <pre className="concept-flow" style={{ margin: '4px 0 0' }}>{`function Badge({ value }) {
+  return <span className="menu-badge" style={{ background: 'var(--red)' }}>{value}</span>
+}
+// React가 Badge({ value: "hihi" }) 를 실행 → 위 <span> 을 돌려준다`}</pre>
+
+      <span className="jsxt-dom-label" style={{ marginTop: 10 }}>② 그 span이 그려진 결과 (진짜 화면)</span>
       <div className="jsxt-dom-stage" ref={ref}>
         <Badge value="hihi" />
       </div>
-      <span className="jsxt-dom-label" style={{ marginTop: 10 }}>이때 브라우저에 실제로 생긴 HTML ↓</span>
+
+      <span className="jsxt-dom-label" style={{ marginTop: 10 }}>③ 브라우저에 실제로 생긴 HTML (className→class, style 객체→문자열)</span>
       <pre className="concept-flow" style={{ margin: '4px 0 0' }}>{html || '…'}</pre>
     </div>
   )
@@ -80,7 +87,8 @@ const STEPS = [
     ),
     note: (
       <>
-        <b>이게 JSX의 최종 정체다</b> — 키와 값이 든 객체 하나. 그래서 JSX를 변수에 담을 수 있다.
+        <b>이게 JSX의 최종 정체다</b> — 키와 값이 든 객체 하나. <code>type</code>이 <b>Badge 함수</b>를 가리키니,
+        다음 단계에서 React가 그 함수를 <b>실행</b>해 실제 태그(<code>&lt;span&gt;</code>)를 얻는다.
       </>
     ),
   },
@@ -92,7 +100,8 @@ const STEPS = [
     render: () => <RenderedResult />,
     note: (
       <>
-        React는 위 객체를 읽어 <b>실제 DOM</b>을 만든다. 지금 이 뱃지가 바로 그 결과다.
+        <code>type</code>이 <b>Badge(함수)</b>라 React가 실행 → 반환된 <code>&lt;span&gt;</code>이 실제 DOM이 된다.
+        그래서 HTML의 <b>span·class·style은 전부 Badge 안에서 온 것</b>이다 — 튀어나온 게 아니라 앞 단계와 이어진다.
       </>
     ),
   },
