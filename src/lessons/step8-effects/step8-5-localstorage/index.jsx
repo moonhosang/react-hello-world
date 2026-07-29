@@ -91,6 +91,7 @@ export default function Step8_5() {
       {/* ── 실습 ── */}
       <Practice
         task="저장 useEffect와 lazy init을 완성해, 새로고침해도 남는 카운터를 만들자."
+        goal="useEffect로 state를 바깥(localStorage)과 동기화해, 새로고침에도 값이 남게 하는 법을 익힌다."
         hints={[
           '무엇·왜: 새로고침해도 카운트가 남게 한다. state는 새로고침하면 사라지기 때문이다.',
           '어디: TODO 1은 useState의 초기값, TODO 2는 저장용 useEffect 안이다.',

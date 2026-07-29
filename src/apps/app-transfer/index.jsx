@@ -56,6 +56,7 @@ export default function TransferApp({ onGo }) {
       </div>
 
       <PracticeLevels
+        goal="두 배열 사이 항목 이동을 불변성으로 처리하는 법을 익힌다."
         solutionFile="app-transfer/solution.jsx"
         solution={<SolutionTransfer />}
         levels={[

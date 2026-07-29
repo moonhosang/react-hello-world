@@ -65,6 +65,7 @@ export default function SignupApp({ onGo }) {
       </div>
 
       <PracticeLevels
+        goal="유효성 검사·파생 에러가 있는 회원가입 폼을 만든다."
         solutionFile="app-signup/solution.jsx"
         solution={<SolutionSignup />}
         levels={[

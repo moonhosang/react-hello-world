@@ -56,6 +56,7 @@ export default function SearchApp({ onGo }) {
       </div>
 
       <PracticeLevels
+        goal="debounce와 목업 fetch로 '입력 → 잠시 후 검색' UX를 만든다."
         solutionFile="app-search/solution.jsx"
         solution={<SolutionSearch />}
         levels={[

@@ -79,6 +79,7 @@ export default function Stage4() {
 
       <Practice
         task="input을 controlled로 만들어, 입력값과 글자 수를 실시간으로 보여주자."
+        goal="입력을 state에 묶어(controlled), state를 단일 진실의 원천으로 삼는 법을 익힌다."
         hints={[
           'value={text} 와 onChange={(e) => setText(e.target.value)} 를 연결한다.',
           '{text.length}로 글자 수를 센다.',

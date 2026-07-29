@@ -55,6 +55,7 @@ export default function QuizApp({ onGo }) {
       </div>
 
       <PracticeLevels
+        goal="useReducer와 타이머로 퀴즈 게임 흐름(문제·정답·점수)을 만든다."
         solutionFile="app-quiz/solution.jsx"
         solution={<SolutionQuiz />}
         levels={[

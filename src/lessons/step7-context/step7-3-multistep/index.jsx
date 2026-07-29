@@ -78,6 +78,7 @@ export default function Step7_3({ onGo }) {
 
       <Practice
         task="① 무엇·왜 — ProgressBar가 step을 몰라 막대가 첫 칸에 멈춰 있다. Context에서 step을 읽어 진행률이 따라오게 하자."
+        goal="멀리 있는 값을 props 없이 Context로 읽어 쓰는 법을 익힌다."
         hints={[
           '② 어디 — practice.jsx의 ProgressBar 함수 맨 위, step = 0 이라고 고정한 줄.',
           '③ 어떻게 — const { step } = useForm() 로 꺼내고, 아래 const step = 0 을 그 값으로 바꾼다.',

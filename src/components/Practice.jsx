@@ -11,7 +11,7 @@ import { useState } from 'react'
 //   solutionFile : 정답 파일 경로 (라벨 표시용)
 //   children     : 학습자 코드의 렌더 결과 (<PracticeXxx />)
 //   solution     : 정답 코드의 렌더 결과 (<SolutionXxx />)
-export default function Practice({ task, hints = [], practiceFile, solutionFile, children, solution }) {
+export default function Practice({ task, goal, hints = [], practiceFile, solutionFile, children, solution }) {
   const [showSolution, setShowSolution] = useState(false)
 
   return (
@@ -20,6 +20,8 @@ export default function Practice({ task, hints = [], practiceFile, solutionFile,
         <span className="practice-badge">🎯 실습</span>
         <p className="practice-task">{task}</p>
       </div>
+
+      {goal && <span className="learn-tag">🎯 이 실습으로 · {goal}</span>}
 
       {hints.length > 0 && (
         <ul className="practice-hints">

@@ -59,6 +59,7 @@ export default function CartApp({ onGo }) {
       </div>
 
       <PracticeLevels
+        goal="파생 값(합계)과 불변 배열 업데이트를 장바구니로 익힌다."
         solutionFile="app-cart/solution.jsx"
         solution={<SolutionCart />}
         levels={[

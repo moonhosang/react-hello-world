@@ -85,6 +85,7 @@ export default function Step2_1() {
 
       <Practice
         task="Badge 컴포넌트가 props(emoji·label)를 받아 보여주게 만들고, 3개를 다른 값으로 렌더하자."
+        goal="props로 컴포넌트에 값을 주입해, 같은 컴포넌트를 다른 값으로 재사용하는 법을 익힌다."
         hints={[
           'function Badge({ emoji, label }) 처럼 중괄호로 props를 받는다.',
           '<Badge emoji="⚛️" label="React" /> 로 값을 넘긴다.',

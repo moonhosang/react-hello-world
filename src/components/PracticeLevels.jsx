@@ -14,7 +14,7 @@ const DEFAULT_POINTS = [
   '빈 화면에서 상태 설계부터 스스로 만들어 전체를 완성한다.',
 ]
 
-export default function PracticeLevels({ levels, solution, solutionFile }) {
+export default function PracticeLevels({ levels, goal, solution, solutionFile }) {
   const [lv, setLv] = useState(0)
   const [showSolution, setShowSolution] = useState(false)
   const level = levels[lv]
@@ -27,6 +27,8 @@ export default function PracticeLevels({ levels, solution, solutionFile }) {
         <span className="practice-badge">🎯 실습</span>
         <p className="practice-task" style={{ margin: 0 }}>{level.task}</p>
       </div>
+
+      {goal && <span className="learn-tag">🎯 이 실습으로 · {goal}</span>}
 
       {/* 난이도 탭 — 오른쪽으로 갈수록 비운 양이 많아진다 */}
       <div className="plv-tabs">

@@ -23,6 +23,7 @@ export default function CheckpointB() {
 
       <Practice
         task="입력창으로 항목을 추가하고, 목록으로 보여주고, ✕로 삭제되는 장보기 리스트를 완성하자."
+        goal="상태·입력·리스트(추가·삭제)를 하나로 합쳐 작은 앱을 스스로 조립해 본다."
         hints={[
           'input은 controlled로: value={text}, onChange로 setText. (4단계)',
           "추가: setItems([...items, { id: nextId++, name }]) — 새 배열을 만든다. (5단계)",

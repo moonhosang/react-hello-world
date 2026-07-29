@@ -48,6 +48,7 @@ export default function Step3_1() {
 
       <Practice
         task="불이 켜지고 꺼지는 스위치를 useState로 완성하자."
+        goal="useState로 변하는 값을 기억하고, 이벤트로 그 값을 바꾸는 기본을 익힌다."
         hints={[
           'const [on, setOn] = useState(false)',
           'onClick에서 setOn(!on)으로 뒤집는다.',

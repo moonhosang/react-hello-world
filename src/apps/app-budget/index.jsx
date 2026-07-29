@@ -76,6 +76,7 @@ export default function BudgetApp({ onGo }) {
       </BudgetProvider>
 
       <PracticeLevels
+        goal="Context + reducer로 전역 상태를 다루는 실전 앱(가계부)을 만든다."
         solutionFile="app-budget/solution.jsx"
         solution={<SolutionBudget />}
         levels={[

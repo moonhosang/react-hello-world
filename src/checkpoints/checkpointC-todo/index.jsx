@@ -56,6 +56,7 @@ export default function CheckpointC({ onGo }) {
       </div>
 
       <PracticeLevels
+        goal="CRUD·필터·저장을 갖춘 할 일 앱을 난이도별로 스스로 완성한다."
         solutionFile="checkpointC-todo/solution.jsx"
         solution={<SolutionTodo />}
         levels={[

@@ -59,6 +59,7 @@ export default function Stage0() {
 
       <Practice
         task="움직이지 않는 카운터를 '리액트 방식'(useState + setCount)으로 완성하자."
+        goal="화면을 직접 고치는 대신 state를 바꾸면 화면이 따라오는 '반응형' 사고를 첫 손으로 익힌다."
         hints={[
           'const [count, setCount] = useState(0) 로 상태를 만든다.',
           'onClick에서 setCount(count + 1)로 바꾼다.',

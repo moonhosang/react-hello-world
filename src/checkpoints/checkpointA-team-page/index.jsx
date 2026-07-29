@@ -24,6 +24,7 @@ export default function CheckpointA() {
 
       <Practice
         task="Member 컴포넌트(props: emoji·name·role)를 만들고, 팀원 3명을 서로 다른 값으로 보여주자."
+        goal="컴포넌트 + props로 같은 조각을 다른 값으로 재사용하는 법을 종합한다."
         hints={[
           'Member는 props를 받아 카드를 그린다. (2단계 props 복습)',
           '<Member emoji="👩‍💻" name="김코딩" role="프론트엔드" /> 처럼 값을 넘긴다.',

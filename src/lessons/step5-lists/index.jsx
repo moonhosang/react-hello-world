@@ -98,6 +98,7 @@ y.push(2)
 
       <Practice
         task="fruits 배열을 map으로 목록(<li>)으로 그려 보자. 각 항목에 key를 준다."
+        goal="배열을 map으로 JSX 목록으로 바꾸고 key를 주는, 리스트 렌더링의 기본을 익힌다."
         hints={[
           'fruits.map((fruit) => <li key={fruit}>{fruit}</li>)',
           'map으로 만든 요소엔 반드시 고유한 key.',

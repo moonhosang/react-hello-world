@@ -105,6 +105,7 @@ export default function Stage1() {
 
       <Practice
         task="이모지 + 제목 + 설명이 나오는 '나만의 카드' 컴포넌트를 완성하자."
+        goal="화면 조각을 함수(컴포넌트)로 만들어 <이름 />으로 재사용하는 감각을 익힌다."
         hints={[
           'practice.jsx 파일을 열어 return 안을 고친다.',
           '이모지는 <div>🚀</div>, 제목은 <h3>, 설명은 <p>로.',
