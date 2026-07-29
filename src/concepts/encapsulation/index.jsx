@@ -2,7 +2,7 @@
 // 리액트 컴포넌트만으로 구성한 하나의 메뉴로, '조립'과 '숨김'의 의미를 본다.
 
 import AppMenu from './AppMenu.jsx'
-import UserCardDemo, { DescActionPractice } from './UserCard.jsx'
+import UserCardDemo, { UserCardPractice } from './UserCard.jsx'
 import Practice from '../../components/Practice.jsx'
 
 export default function Encapsulation() {
@@ -162,7 +162,7 @@ export default function Encapsulation() {
       </ul>
 
       <Practice
-        task="설명 텍스트를 클릭하면 onActionClick('description')이 불리게 하려면, onClick에 어떤 형태를 넣어야 할까?"
+        task="아래 9개 카드의 '설명 클릭'이 안 된다. onActionClick('description')이 불리도록 onClick 형태를 골라 고쳐 보자."
         hints={[
           "함수를 '넘기는' 것과 '지금 호출'하는 것은 다르다 (JS J3).",
           "괄호를 붙이면 렌더 때 즉시 실행돼 버린다.",
@@ -176,7 +176,7 @@ export default function Encapsulation() {
 // → 클릭할 때 onActionClick('description') 이 불린다`}</pre>
         }
       >
-        <DescActionPractice />
+        <UserCardPractice />
       </Practice>
     </section>
   )
