@@ -93,7 +93,7 @@ export default function Stage1() {
           <span className="compare-tag">😵 순수 HTML (복붙)</span>
           <iframe
             className="vanilla-frame dashboard-frame"
-            src="/vanilla/step1-components/dashboard.html"
+            src={`${import.meta.env.BASE_URL}vanilla/step1-components/dashboard.html`}
             title="순수 HTML 대시보드"
           />
           <p className="compare-hint">

@@ -12,7 +12,7 @@ export default function OldWayCounter() {
       <span className="compare-tag">😵 옛날 방식 (순수 HTML · 명령형)</span>
 
       {/* 리액트가 아니라, 순수 HTML 파일을 그대로 띄운다 */}
-      <iframe className="vanilla-frame" src="/vanilla/step0-why-react/counter.html" title="순수 HTML 카운터" />
+      <iframe className="vanilla-frame" src={`${import.meta.env.BASE_URL}vanilla/step0-why-react/counter.html`} title="순수 HTML 카운터" />
 
       <p className="compare-hint">
         리액트가 전혀 없다. 값이 바뀌면 <code>document.getElementById</code>로 요소를 찾아
