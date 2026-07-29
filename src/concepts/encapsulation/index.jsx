@@ -139,7 +139,7 @@ export default function Encapsulation() {
         </p>
       </div>
       <div className="card">
-        <div className="file-label">📄 UserCard.jsx · 같은 카드를 Flex로 3개 (각자 독립)</div>
+        <div className="file-label">📄 UserCard.jsx · 같은 카드를 Flex로 9개 (각자 독립)</div>
         <UserCardDemo />
       </div>
       <div className="card">

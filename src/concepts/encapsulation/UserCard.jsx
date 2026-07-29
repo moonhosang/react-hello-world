@@ -57,7 +57,7 @@ export default function UserCardDemo() {
   return (
     <div>
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12 }}>
-        {USERS.slice(0, 3).map((u) => (
+        {USERS.map((u) => (
           <UserCard key={u.id} user={u}
             onUserNameClick={(id, name) => push(`👤 이름 클릭 — ${name} (id ${id})`)}
             onActionClick={(action) => push(`⚡ ${u.name} — action="${action}"`)} />
