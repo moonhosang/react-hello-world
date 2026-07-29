@@ -4,6 +4,25 @@
 import { useState, useEffect, useRef } from 'react'
 import Badge from '../../components/Badge.jsx'
 
+// 4단계 — 라이브로 렌더한 Badge와, 그때 실제로 만들어진 '진짜 HTML'을 함께 보여준다.
+function RenderedResult() {
+  const ref = useRef(null)
+  const [html, setHtml] = useState('')
+  useEffect(() => {
+    if (ref.current) setHtml(ref.current.innerHTML)
+  }, [])
+  return (
+    <div className="jsxt-dom">
+      <span className="jsxt-dom-label">React가 그려낸 진짜 결과 (렌더된 컴포넌트) ↓</span>
+      <div className="jsxt-dom-stage" ref={ref}>
+        <Badge value="hihi" />
+      </div>
+      <span className="jsxt-dom-label" style={{ marginTop: 10 }}>이때 브라우저에 실제로 생긴 HTML ↓</span>
+      <pre className="concept-flow" style={{ margin: '4px 0 0' }}>{html || '…'}</pre>
+    </div>
+  )
+}
+
 // 각 단계의 강조색 — 남색 → 보라 → 초록 → 주황으로 흐름을 표현
 const STEPS = [
   {
@@ -70,14 +89,7 @@ const STEPS = [
     tag: '실제 화면 (DOM)',
     tool: { phase: '런타임', icon: '🖥️', name: 'ReactDOM', desc: 'element 객체를 읽어 진짜 DOM 노드로 그린다(커밋).' },
     caption: null,
-    render: () => (
-      <div className="jsxt-dom">
-        <span className="jsxt-dom-label">React가 그려낸 진짜 결과 ↓</span>
-        <div className="jsxt-dom-stage">
-          <Badge value="hihi" />
-        </div>
-      </div>
-    ),
+    render: () => <RenderedResult />,
     note: (
       <>
         React는 위 객체를 읽어 <b>실제 DOM</b>을 만든다. 지금 이 뱃지가 바로 그 결과다.
