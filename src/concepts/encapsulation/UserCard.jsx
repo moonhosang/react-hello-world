@@ -103,8 +103,8 @@ export function UserCardPractice() {
       <div className="lesson-goal" style={{ marginTop: 0 }}>
         <span className="lesson-goal-tag">🎯 실습 목표</span>
         <p>
-          9개 카드의 <b>설명(description)</b>을 <b>클릭 가능</b>하게 만들어, 누르면 부모에게 <code>action='description'</code>이 전달되게 한다.
-          <br />📌 <b>배우는 것</b>: 콜백 prop에 함수를 '<b>넘기는</b>' 올바른 형태 — <code>{'() => onActionClick(...)'}</code> (JS <b>J3 · 함수는 값이다</b>).
+          <code>UserCard</code> <b>한 곳</b>의 설명 onClick만 고쳐서, <b>9개 카드 전부</b>의 설명이 클릭되게(→ <code>action='description'</code> 전달) 만든다.
+          <br />📌 <b>배우는 것</b>: 컴포넌트는 CSS(외형만)와 달리 <b>구조 + 로직(동작·이벤트)까지 한 곳에 묶어 재사용</b>한다 — 정의 한 곳을 고치면 쓰는 곳 <b>전부</b>가 바뀐다. 이게 CSS가 못 하는 캡슐화다. (넘기는 형태 <code>{'() => onActionClick(...)'}</code>는 그 로직을 잇는 방법 · JS J3)
         </p>
       </div>
       <p className="demo-desc" style={{ marginTop: 8 }}>아래 onClick 형태를 골라 카드로 확인하라. <b>정답이면 설명에 밑줄이 생기고 클릭된다.</b></p>
