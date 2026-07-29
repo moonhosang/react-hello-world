@@ -1,7 +1,5 @@
 import { useState } from 'react'
 
-const mono = '"Consolas", ui-monospace, monospace'
-
 // 겉(인터페이스): <UserCard user onUserNameClick onActionClick />
 // 속(감춤): 아바타·이름·역할·상태·설명 + 내부 '팔로우' 상태(useState).
 //   부모는 속(구조·내부 상태)을 모른 채, 콜백 prop으로 이벤트만 값으로 받는다.
@@ -21,7 +19,7 @@ const USERS = [
 
 const DOT = { 온라인: '#16a34a', 자리비움: '#d97706', 오프라인: '#94a3b8' }
 
-function UserCard({ user, onUserNameClick, onActionClick, descMode = 'ok' }) {
+function UserCard({ user, onUserNameClick, onActionClick, descMode = 'ok', extra = null }) {
   const [following, setFollowing] = useState(false)
   // 설명 클릭 동작 — 실습에서 학습자가 고르는 형태:
   //   'ok'  = () => onActionClick('description')  ✅   'noarg' = onActionClick  ⚠️(이벤트만)   'off' = 없음 ❌
@@ -55,6 +53,7 @@ function UserCard({ user, onUserNameClick, onActionClick, descMode = 'ok' }) {
       <div className="button-row" style={{ justifyContent: 'flex-start', marginTop: 10 }}>
         <button className={'chip' + (following ? ' on' : '')} onClick={() => { setFollowing((f) => !f); onActionClick(following ? 'unfollow' : 'follow') }}>{following ? '✓ 팔로잉' : '+ 팔로우'}</button>
         <button className="chip" onClick={() => onActionClick('message')}>메시지</button>
+        {extra && <button className="chip" onClick={() => onActionClick(extra)}>👤 프로필 보기</button>}
       </div>
     </div>
   )
@@ -83,45 +82,52 @@ export default function UserCardDemo() {
   )
 }
 
-// 🎯 실습(고쳐보기) — 카드 9개의 '설명 클릭'이 안 된다. 올바른 onClick 형태를 골라 고쳐라.
-const FIX_OPTS = [
-  { code: "onClick={onActionClick('description')}", mode: 'off', ok: false, msg: '❌ 괄호 때문에 렌더 때 즉시 실행 — 실제론 앱이 깨진다. 클릭용이 아니다. (J3 함정)' },
-  { code: "onClick={() => onActionClick('description')}", mode: 'ok', ok: true, msg: '✅ 정답! 이제 설명을 누르면 action="description"이 부모에 전달된다. 카드 설명을 눌러 보라.' },
-  { code: 'onClick={onActionClick}', mode: 'noarg', ok: false, msg: '⚠️ 클릭 땐 불리지만 "description"을 안 넘긴다 — 이벤트 e만 들어간다.' },
-]
+// 🎯 실습 — UserCard 정의 '한 곳'에 버튼 한 줄을 켜면, 9개 카드 전부에 생긴다 (구조·로직 재사용 = 캡슐화).
 export function UserCardPractice() {
-  const [choice, setChoice] = useState(null)
-  const [log, setLog] = useState('(형태를 고른 뒤, 카드의 설명을 눌러 보라)')
-  const mode = choice !== null ? FIX_OPTS[choice].mode : 'off'
-  const onAction = (u) => (action) => {
-    if (action === 'description') setLog(`⚡ ${u.name} — action="description" ✅`)
-    else if (typeof action === 'string') setLog(`⚡ ${u.name} — action="${action}"`)
-    else setLog(`⚡ ${u.name} — action = (이벤트 객체 · 'description' 아님) ⚠️`)
-  }
+  const [added, setAdded] = useState(false)
+  const [log, setLog] = useState('(카드의 버튼을 눌러 보라)')
+  const onAction = (u) => (action) => setLog(`⚡ ${u.name} — action="${action}"`)
   return (
     <div>
       <div className="lesson-goal" style={{ marginTop: 0 }}>
         <span className="lesson-goal-tag">🎯 실습 목표</span>
         <p>
-          <code>UserCard</code> <b>한 곳</b>의 설명 onClick만 고쳐서, <b>9개 카드 전부</b>의 설명이 클릭되게(→ <code>action='description'</code> 전달) 만든다.
-          <br />📌 <b>배우는 것</b>: 컴포넌트는 CSS(외형만)와 달리 <b>구조 + 로직(동작·이벤트)까지 한 곳에 묶어 재사용</b>한다 — 정의 한 곳을 고치면 쓰는 곳 <b>전부</b>가 바뀐다. 이게 CSS가 못 하는 캡슐화다. (넘기는 형태 <code>{'() => onActionClick(...)'}</code>는 그 로직을 잇는 방법 · JS J3)
+          <code>UserCard</code> <b>한 곳</b>에 '프로필 보기' 버튼 <b>한 줄</b>을 추가해서, <b>9개 카드 전부</b>에 버튼이 생기게 만든다.
+          <br />📌 <b>배우는 것</b>: 컴포넌트는 CSS(외형만)와 달리 <b>구조 + 로직(버튼·클릭)까지 한 곳에 묶어 재사용</b>한다 — 정의 한 곳을 고치면 쓰는 곳 <b>전부</b>가 바뀐다. CSS로는 '요소(버튼)'를 못 만들기에, 이건 컴포넌트만 되는 캡슐화다.
         </p>
       </div>
-      <p className="demo-desc" style={{ marginTop: 8 }}>아래 onClick 형태를 골라 카드로 확인하라. <b>정답이면 설명에 밑줄이 생기고 클릭된다.</b></p>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 6, marginBottom: 8 }}>
-        {FIX_OPTS.map((o, k) => (
-          <button key={k} className={'chip' + (choice === k ? ' on' : '')} onClick={() => { setChoice(k); setLog('(카드의 설명을 눌러 보라)') }} style={{ fontFamily: mono, fontSize: 12.5, textAlign: 'left' }}>{o.code}</button>
-        ))}
+      <div className="card">
+        <div className="file-label">📄 UserCard.jsx — 아래 '한 줄'을 켜면 9개 전부에 버튼이 생긴다</div>
+        <pre className="err-code">{`function UserCard({ user, onActionClick, ... }) {
+  return (
+    <div className="card"> … 아바타 · 이름 · 설명 …
+      <button onClick={() => onActionClick('follow')}>팔로우</button>
+      <button onClick={() => onActionClick('message')}>메시지</button>
+${added
+            ? "      <button onClick={() => onActionClick('profile')}>👤 프로필 보기</button>   // ⭐ 방금 추가 — 9개 전부 반영!"
+            : "      // ⬜ 여기에 '프로필 보기' 버튼 한 줄을 추가하면? ↓ 버튼으로 켜 보라"}
+    </div>
+  )
+}`}</pre>
       </div>
-      {choice !== null && <p className="demo-desc" style={{ margin: '0 0 8px', fontWeight: 600, color: FIX_OPTS[choice].ok ? '#16a34a' : '#dc2626' }}>{FIX_OPTS[choice].msg}</p>}
+      <div className="button-row" style={{ marginBottom: 10 }}>
+        <button className={'chip' + (added ? ' on' : '')} onClick={() => setAdded((a) => !a)}>
+          {added ? '➖ 버튼 빼기 (되돌리기)' : "➕ '프로필 보기' 버튼 추가"}
+        </button>
+      </div>
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10 }}>
         {USERS.map((u) => (
-          <UserCard key={u.id} user={u} descMode={mode}
+          <UserCard key={u.id} user={u} extra={added ? 'profile' : null}
             onUserNameClick={(id, name) => setLog(`👤 ${name} 이름 클릭`)}
             onActionClick={onAction(u)} />
         ))}
       </div>
       <div className="tree-box" style={{ marginTop: 10 }}>결과: <b>{log}</b></div>
+      <p className="demo-desc" style={{ marginTop: 8 }}>
+        {added
+          ? 'UserCard 한 곳에 버튼 한 줄을 켰을 뿐인데, 9개 카드 전부에 프로필 보기가 생겼다 — 이게 구조·로직 재사용(캡슐화)이다. CSS로는 "요소 추가"가 안 된다.'
+          : "'프로필 보기 버튼 추가'를 눌러 보라 — 정의 한 곳만 켜도 9개에 동시에 생긴다."}
+      </p>
     </div>
   )
 }

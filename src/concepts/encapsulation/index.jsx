@@ -162,18 +162,17 @@ export default function Encapsulation() {
       </ul>
 
       <Practice
-        task="아래 9개 카드의 '설명 클릭'이 안 된다. onActionClick('description')이 불리도록 onClick 형태를 골라 고쳐 보자."
+        task="UserCard 한 곳에 '프로필 보기' 버튼 한 줄을 추가해, 9개 카드 전부에 생기게 해 보자."
         hints={[
-          "함수를 '넘기는' 것과 '지금 호출'하는 것은 다르다 (JS J3).",
-          "괄호를 붙이면 렌더 때 즉시 실행돼 버린다.",
-          "인자('description')를 넘기면서 나중에 실행하려면 () => 로 감싼다.",
+          "카드 하나가 아니라 UserCard '정의'를 고친다 — 그럼 쓰는 곳 전부에 반영된다.",
+          "버튼도 함수를 넘긴다: onClick={() => onActionClick('profile')} (JS J3).",
+          "CSS로는 '요소(버튼)'를 못 만든다 — 그래서 컴포넌트다.",
         ]}
         practiceFile="concepts/encapsulation/UserCard.jsx"
         solutionFile="concepts/encapsulation/UserCard.jsx"
         solution={
-          <pre className="err-code" style={{ margin: 0 }}>{`<p onClick={() => onActionClick('description')}>{user.desc}</p>
-// 화살표로 감싸 "나중에 실행할 함수"로 넘긴다
-// → 클릭할 때 onActionClick('description') 이 불린다`}</pre>
+          <pre className="err-code" style={{ margin: 0 }}>{`// UserCard의 버튼 줄 옆에 '한 줄' 추가 → 9개 카드 전부에 생김
+<button onClick={() => onActionClick('profile')}>👤 프로필 보기</button>`}</pre>
         }
       >
         <UserCardPractice />
