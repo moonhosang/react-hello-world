@@ -198,6 +198,25 @@ function SnapshotTrace() {
         })}
         {done && <div style={{ marginTop: 10, fontWeight: 700, color: 'var(--brand)' }}>✔ {t.result}</div>}
       </div>
+      {(() => {
+        const passes = seq.slice(0, shown).filter((s) => s.kind === 'pass')
+        const store = passes.length ? passes[passes.length - 1].next : 0
+        const box = { flex: '1 1 160px', border: '1px solid var(--border)', borderRadius: 10, padding: '8px 10px', textAlign: 'center' }
+        return (
+          <div style={{ display: 'flex', gap: 8, marginTop: 10, flexWrap: 'wrap' }}>
+            <div style={box}>
+              <div style={{ fontSize: 12, color: 'var(--muted)' }}>📸 이 렌더의 count <b>(스냅샷)</b></div>
+              <div style={{ fontSize: 22, fontWeight: 800 }}>{mode === 'wrong' ? '0' : '—'}</div>
+              <div style={{ fontSize: 11, color: 'var(--muted)' }}>{mode === 'wrong' ? '렌더 내내 0으로 고정' : '함수형은 스냅샷 안 씀'}</div>
+            </div>
+            <div style={box}>
+              <div style={{ fontSize: 12, color: 'var(--muted)' }}>🗄️ <b>React 내부 저장소</b></div>
+              <div style={{ fontSize: 22, fontWeight: 800, color: 'var(--brand)' }}>count = {store}</div>
+              <div style={{ fontSize: 11, color: 'var(--muted)' }}>{done ? `→ 다음 렌더의 count = ${store}` : '예약을 처리하며 갱신 중…'}</div>
+            </div>
+          </div>
+        )
+      })()}
       <div className="button-row" style={{ marginTop: 10 }}>
         <button className="chip on" disabled={done} onClick={() => setShown((v) => Math.min(seq.length, v + 1))}>
           {done ? '✅ 끝' : '▶ 다음 단계'}

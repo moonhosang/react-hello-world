@@ -5,7 +5,7 @@ import MultiState from './MultiState.jsx'
 import ObjectState from './ObjectState.jsx'
 import ArrayMutationDemo from './ArrayMutationDemo.jsx'
 import ObjectMutationDemo from './ObjectMutationDemo.jsx'
-import TrapCounter from './TrapCounter.jsx'
+import TrapCounter, { SetStateStoreViz } from './TrapCounter.jsx'
 
 export default function Step3_2() {
   return (
@@ -100,6 +100,7 @@ setTodos([...todos, 새항목])         // ✅   todos.push(새항목); setTodos
         리액트가 큐에 쌓아 <b>직전 결과를 <code>c</code>로 넘겨</b> 차례로 계산한다.
       </p>
       <TrapCounter />
+      <SetStateStoreViz />
       <p className="section-desc">
         📚 더 읽기 ·{' '}
         <a className="doc-link" href="https://ko.react.dev/learn/state-as-a-snapshot" target="_blank" rel="noopener noreferrer">
