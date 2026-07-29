@@ -8,7 +8,7 @@ import TransformAnimation from './TransformAnimation.jsx'
 
 export default function JsxUnderTheHood() {
   // JSX는 사실 객체다. 실제로 뜯어보자.
-  const badgeEl = <Badge value="hi" />
+  const badgeEl = <Badge value="hihi" />
   const divEl = <div className="x" />
 
   return (
@@ -43,7 +43,7 @@ export default function JsxUnderTheHood() {
       </p>
       <div className="card">
         <div className="file-label">📄 jsx-under-the-hood/index.jsx</div>
-        <pre className="concept-flow">{`const badgeEl = <Badge value="hi" />
+        <pre className="concept-flow">{`const badgeEl = <Badge value="hihi" />
 const divEl   = <div className="x" />
 
 typeof badgeEl       →  "${typeof badgeEl}"

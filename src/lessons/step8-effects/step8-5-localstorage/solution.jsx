@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 
 // 이 실습 전용 저장 키. 다른 데모와 겹치지 않게 고유하게 둔다.
-const KEY = 'lesson8-5:practice-count'
+const KEY = 'lesson8-5:solution-count'
 
 export default function SolutionStore() {
   // ① 읽기(lazy init): 함수를 넘겨 첫 렌더에 한 번만 localStorage를 읽는다.

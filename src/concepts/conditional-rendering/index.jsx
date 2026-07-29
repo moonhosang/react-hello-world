@@ -9,6 +9,10 @@ function PatternDemo() {
   const [isLoggedIn, setLoggedIn] = useState(false)
   const [count, setCount] = useState(0)
 
+  // 패턴 3 · 미리 변수에 담기 — 복잡한 조건은 위에서 계산해 변수(badge)에 담아 꽂는다
+  let badge = <span style={{ color: 'var(--muted)' }}>알림 없음</span>
+  if (count > 0) badge = <b>🔔 알림 {count}개</b>
+
   return (
     <div>
       <div className="button-row">
@@ -24,16 +28,18 @@ function PatternDemo() {
         <li>
           <b>삼항</b> → {isLoggedIn ? <span>👋 환영합니다!</span> : <span>🔒 로그인이 필요합니다.</span>}
         </li>
-        {/* 패턴 2 · && — '있을 때만' 보여주기 (조건이 참이면 오른쪽을 그림) */}
+        {/* 패턴 2 · && — '있을 때만' 보여주기 (조건이 참이면 오른쪽을 그림, 거짓이면 아무것도 안 그림) */}
         <li>
           <b>&& (있을 때만)</b> → {isLoggedIn && <span>🟢 접속 중</span>}
-          {!isLoggedIn && <span style={{ color: 'var(--muted)' }}>(로그인하면 표시)</span>}
         </li>
-        {/* 패턴 3 · 미리 변수에 담기 — 복잡하면 위에서 계산해 꽂는다 */}
+        {/* 패턴 3 · 미리 변수에 담기 — 위에서 badge 변수에 담아 그대로 꽂는다 */}
         <li>
-          <b>변수에 담기</b> → {count > 0 ? <b>🔔 알림 {count}개</b> : <span style={{ color: 'var(--muted)' }}>알림 없음</span>}
+          <b>변수에 담기</b> → {badge}
         </li>
       </ul>
+      <p className="demo-desc" style={{ marginTop: 6 }}>
+        👆 로그인을 꺼보라 — <b>삼항</b>은 '🔒 로그인 필요'로 <b>바뀌지만</b>, <b>&&</b> 자리는 <b>아무것도 안 남는다</b>. 그게 '있을 때만'이다.
+      </p>
     </div>
   )
 }
@@ -101,8 +107,8 @@ export default function ConditionalRendering() {
 {isLoggedIn && <span>🟢 접속 중</span>}
 
 // 3) 미리 변수에 담기 — 조건이 복잡하면 위에서 계산해 꽂는다
-let badge = null
-if (count > 0) badge = <b>🔔 {count}</b>
+let badge = <span>알림 없음</span>
+if (count > 0) badge = <b>🔔 알림 {count}개</b>
 return <div>{badge}</div>`}</pre>
       </div>
       <ul className="section-list">

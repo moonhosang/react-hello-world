@@ -62,8 +62,8 @@ export default function Step2_2() {
       </div>
       <p className="section-desc">
         <code>{'<UserCard user={user} />'}</code>로 객체를 통째로 넘기고, 자식은 <code>user.name</code>·<code>user.role</code>로 꺼낸다.<br />
-        펼쳐서 <code>{'<UserCard {...user} />'}</code>로 넘기면 개별 prop과 같다.<br />
-        객체 상태를 바꿀 땐 <b>바뀐 필드만</b> 새 객체로: <code>{"setUser({ ...user, role: '...' })"}</code> (6단계에서 자세히!)
+        펼쳐서 <code>{'<Card {...user} />'}</code>로 넘기면 개별 prop과 같다 — <b>단</b>, 자식이 <code>user</code> 객체가 아니라 <code>name</code>·<code>role</code>을 <b>개별 prop</b>으로 받아야 한다(2-1 <code>ProfileCard</code>처럼). 위 <code>UserCard</code>는 <code>user</code> 하나를 받으니 통째로 넘겨야 한다.<br />
+        객체 상태를 바꿀 땐 <b>바뀐 필드만</b> 새 객체로: <code>{"setUser({ ...user, role: '...' })"}</code> (3-2 · 객체 state에서 자세히!)
       </p>
     </section>
   )

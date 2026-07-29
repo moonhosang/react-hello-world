@@ -153,7 +153,7 @@ export default function Encapsulation() {
 // 속(카드 내부): 자기 버튼이 눌리면 그 함수를 '데이터와 함께' 부른다
 <button onClick={() => onUserNameClick(user.id, user.name)}>{user.name}</button>
 <p onClick={() => onActionClick('description')}>{user.desc}</p>   // 설명 클릭
-<button onClick={() => { setFollowing(f => !f); onActionClick('follow') }}>팔로우</button>`}</pre>
+<button onClick={() => { setFollowing(f => !f); onActionClick(following ? 'unfollow' : 'follow') }}>팔로우</button>`}</pre>
       </div>
       <ul className="section-list">
         <li><b>CSS로는 불가</b> — 스타일은 CSS로 재사용해도, <b>내부 상태(팔로우) · 이벤트 제공(콜백)</b>은 CSS가 못 한다. 이게 "컴포넌트여야 하는" 이유다.</li>

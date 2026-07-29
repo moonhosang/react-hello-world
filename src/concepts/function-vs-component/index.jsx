@@ -114,10 +114,10 @@ export default function FunctionVsComponent() {
       <div className="try-it warn-box">
         <h4>⚠️ 그럼 내 컴포넌트를 '소문자'로 만들면? (예: div)</h4>
         <p>정의를 소문자로 해도 소용없다. 리액트는 <b>이름의 첫 글자</b>만 보고 판단한다.</p>
-        <pre className="err-code">{`function say() { return <Badge value="3" /> }   // 소문자로 정의해도
+        <pre className="err-code">{`function say() { return <Badge value="hihi" /> }   // 소문자로 정의해도
 <say />   // → 리액트는 이 함수를 '무시'하고 빈 <say> 요소를 만든다
 
-function div() { return <Badge value="3" /> }   // HTML 태그와 이름이 겹치면
+function div() { return <Badge value="hihi" /> }   // HTML 태그와 이름이 겹치면
 <div />   // → 진짜 HTML <div>가 그려진다. 내 함수는 완전히 무시된다`}</pre>
         <ul>
           <li>소문자 태그 = 리액트가 <b>HTML 태그로 취급</b> → 내가 만든 함수는 <b>호출되지 않는다.</b></li>

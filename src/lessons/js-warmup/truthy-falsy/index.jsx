@@ -12,6 +12,7 @@ const ROLE = {
   term: { name: '조건/항', color: '#2563eb' },
   operator: { name: '연산자', color: '#dc2626' },
   value: { name: '값', color: '#16a34a' },
+  skipped: { name: '평가 안 함', color: '#94a3b8' },
 }
 const chipStyle = (role) => ({
   border: `1.5px solid ${ROLE[role]?.color ?? '#888'}`,
@@ -107,7 +108,7 @@ function ZeroTrapDemo() {
   const trapSteps = [
     { title: '① 식 전체', parts: [{ label: 'list.length && "장바구니 보기"', role: 'expression' }] },
     { title: '② 왼쪽부터 평가', note: '빈 배열이라 length는 0이다', parts: [{ label: 'list.length', role: 'term' }, { label: '0', role: 'value' }] },
-    { title: '③ 0은 falsy → &&는 왼쪽 값을 그대로 반환', note: '오른쪽("장바구니 보기")은 평가조차 안 한다', parts: [{ label: '0', role: 'value' }, { label: '&&', role: 'operator' }, { label: '"장바구니 보기"', role: 'value' }], result: '→ 0' },
+    { title: '③ 0은 falsy → &&는 왼쪽 값을 그대로 반환', note: '오른쪽("장바구니 보기")은 평가조차 안 한다', parts: [{ label: '0', role: 'value' }, { label: '&&', role: 'operator' }, { label: '"장바구니 보기"', role: 'skipped' }], result: '→ 0' },
     { title: '④ 리액트는 숫자 0을 화면에 그린다', note: 'false·null·undefined는 안 그리지만 숫자 0은 그린다', parts: [{ label: '0', role: 'value' }], result: '→ 화면에 0이 남는다 ❗' },
   ]
   const fixSteps = [

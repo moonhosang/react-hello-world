@@ -118,7 +118,7 @@ export default function Step2_3() {
           <b>중첩이 자유롭다</b> — 껍데기 안에 껍데기를 넣을 수 있다(위 데모의 Card 안 Collapsible).
         </li>
         <li>
-          <b>props 지옥을 줄인다</b> — 중간 컴포넌트에 데이터를 줄줄이 넘기는 대신(→ 9장 prop drilling),
+          <b>props 지옥을 줄인다</b> — 중간 컴포넌트에 데이터를 줄줄이 넘기는 대신(→ 7-1 · prop drilling과 Context),
           필요한 JSX를 <b>바로 그 자리에 끼워</b> 넣는다.
         </li>
       </ul>

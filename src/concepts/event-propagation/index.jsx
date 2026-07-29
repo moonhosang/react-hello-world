@@ -10,7 +10,8 @@ import { useState } from 'react'
 function BubblingDemo() {
   const [log, setLog] = useState([])
   const [stop, setStop] = useState(false)
-  const add = (who) => setLog((l) => [who, ...l].slice(0, 6))
+  // 실행 순서 그대로 보여준다 — 먼저 찍힌 게 위(버튼 → 상자). 순서를 가르치는 데모라 최신순으로 뒤집지 않는다.
+  const add = (who) => setLog((l) => [...l, who].slice(-6))
 
   return (
     <div>
@@ -44,7 +45,7 @@ function BubblingDemo() {
       <div className="tree-box leaf" style={{ marginTop: 10 }}>
         <b>이벤트 로그</b>
         {log.length === 0 ? (
-          <div className="demo-desc">버튼을 눌러 보라. 위에서부터 최신순.</div>
+          <div className="demo-desc">버튼을 눌러 보라. 찍힌 순서 그대로 위 → 아래(버튼 먼저, 상자 나중).</div>
         ) : (
           <ul className="section-list" style={{ margin: '6px 0 0' }}>
             {log.map((row, i) => <li key={i}>{row}</li>)}

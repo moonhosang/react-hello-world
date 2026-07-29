@@ -30,10 +30,8 @@ function StaleUserView({ userId }) {
 function SyncedUserView({ userId }) {
   const [user, setUser] = useState(null)
   useEffect(() => {
-    let alive = true
-    fetchUser(userId).then((u) => alive && setUser(u))
-    return () => { alive = false }
-  }, [userId]) // ✅ userId를 의존성에 넣었다
+    fetchUser(userId).then(setUser)
+  }, [userId]) // ✅ userId를 의존성에 넣었다 — Stale과 딱 이 한 줄만 다르다(정리는 8-2에서)
   return <UserLine user={user} />
 }
 

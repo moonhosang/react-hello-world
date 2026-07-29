@@ -59,7 +59,7 @@ function UserCard({ user, onUserNameClick, onActionClick, descMode = 'ok', extra
   )
 }
 
-// 데모: 완성본 카드 3개
+// 데모: 완성본 카드 9개
 export default function UserCardDemo() {
   const [log, setLog] = useState([])
   const push = (msg) => setLog((l) => [msg, ...l].slice(0, 6))

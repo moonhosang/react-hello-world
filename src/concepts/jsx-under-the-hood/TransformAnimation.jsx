@@ -14,7 +14,7 @@ function RenderedResult() {
   return (
     <div className="jsxt-dom">
       <span className="jsxt-dom-label">① Badge는 컴포넌트(함수) → React가 실행하면 이 JSX를 반환한다</span>
-      <pre className="concept-flow" style={{ margin: '4px 0 0' }}>{`function Badge({ value }) {
+      <pre className="concept-flow" style={{ margin: '4px 0 0' }}>{`function Badge({ value }) {   // 실제 Badge엔 color 기본값도 있다 — 여기선 value만 본다
   return <span className="menu-badge" style={{ background: 'var(--red)' }}>{value}</span>
 }
 // React가 Badge({ value: "hihi" }) 를 실행 → 위 <span> 을 돌려준다`}</pre>

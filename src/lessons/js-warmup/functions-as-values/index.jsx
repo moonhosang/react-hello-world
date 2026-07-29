@@ -276,7 +276,7 @@ function OnClickLab() {
 // 🎯 고쳐보기 — id를 넘겨 remove(id)를 호출해야 하는 삭제 버튼. 맞는 형태를 고른다.
 const FIX_OPTS = [
   { code: 'onClick={remove(id)}', ok: false, msg: '❌ 렌더될 때 remove(id)가 지금 실행돼 버린다 — 화면 그리자마자 삭제된다.' },
-  { code: 'onClick={remove}', ok: false, msg: '❌ 실행은 클릭 때 되지만, id를 못 넘긴다(인자 없이 remove()로 불림).' },
+  { code: 'onClick={remove}', ok: false, msg: '❌ 실행은 클릭 때 되지만, id를 못 넘긴다 — id 자리에 React가 이벤트 객체(e)를 넣어 remove(e)로 불린다(⑧ 참고).' },
   { code: 'onClick={() => remove(id)}', ok: true, msg: '✅ 정답! 인라인으로 감싸, 클릭 때 remove(id)가 실행된다. 인자를 넘길 땐 이 꼴이다.' },
 ]
 function OnClickFixQuiz() {
