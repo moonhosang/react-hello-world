@@ -5,6 +5,42 @@ import { useState } from 'react'
 //   부모는 이 속(구조·내부 상태)을 전혀 모른다. 넘긴 콜백으로 "무슨 일이 생겼는지"만 값으로 받는다.
 //   → 이게 button의 onClick(e)나 J3의 onPick(값)과 똑같은 '이벤트 제공' 구조다.
 
+const mono = '"Consolas", ui-monospace, monospace'
+
+// 🎯 실습 — 설명(description) 클릭에 onActionClick('description')을 붙이는 올바른 형태 고르기 (J3 함수 넘기기 vs 호출)
+const DESC_OPTS = [
+  { code: "onClick={onActionClick('description')}", ok: false, msg: "❌ 괄호 때문에 '렌더 때 즉시' 실행돼 버린다 — 클릭과 무관하다. (J3 함정)" },
+  { code: "onClick={() => onActionClick('description')}", ok: true, msg: "✅ 정답! 클릭할 때 안쪽 onActionClick('description')이 불린다." },
+  { code: 'onClick={onActionClick}', ok: false, msg: "⚠️ 클릭 땐 불리지만 action='description'을 안 넘긴다 (그냥 이벤트 e만 들어감)." },
+]
+export function DescActionPractice() {
+  const [choice, setChoice] = useState(null)
+  const [log, setLog] = useState('(설명을 클릭해 보라)')
+  const picked = choice !== null ? DESC_OPTS[choice] : null
+  const onDescClick = () => setLog(picked?.ok ? '⚡ action="description" 전달됨' : '… 지금 형태론 제대로 안 된다 (위 설명 참고)')
+  return (
+    <div>
+      <p className="demo-desc" style={{ marginTop: 0 }}>
+        설명(<code>{'<p>{user.desc}</p>'}</code>)을 클릭하면 <code>onActionClick('description')</code>이 불리게 하려면, onClick에 뭘 넣어야 할까?
+      </p>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+        {DESC_OPTS.map((o, k) => (
+          <button key={k} className={'chip' + (choice === k ? ' on' : '')} onClick={() => { setChoice(k); setLog('(설명을 클릭해 보라)') }} style={{ fontFamily: mono, fontSize: 12.5, textAlign: 'left' }}>
+            {o.code}
+          </button>
+        ))}
+      </div>
+      {picked && <p className="demo-desc" style={{ marginTop: 8, fontWeight: 600, color: picked.ok ? '#16a34a' : '#dc2626' }}>{picked.msg}</p>}
+      {picked && (
+        <div className="tree-box" style={{ marginTop: 8 }}>
+          <p onClick={onDescClick} style={{ margin: 0, cursor: 'pointer', fontSize: 13 }} title="설명 클릭">📝 (설명) React로 화면을 만든다… ← 눌러 보라</p>
+          <div className="demo-desc" style={{ margin: '6px 0 0' }}>결과: <b>{log}</b></div>
+        </div>
+      )}
+    </div>
+  )
+}
+
 const USERS = [
   { id: 1, emoji: '👩‍💻', name: '김코딩', role: '프론트엔드', status: '온라인', desc: 'React로 화면을 만든다. 요즘은 애니메이션에 빠져 있다.' },
   { id: 2, emoji: '🧑‍🎨', name: '이디자인', role: '디자이너', status: '자리비움', desc: '디자인 시스템을 다듬는다. 커피 없이는 못 산다.' },

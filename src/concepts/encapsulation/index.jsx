@@ -2,7 +2,7 @@
 // 리액트 컴포넌트만으로 구성한 하나의 메뉴로, '조립'과 '숨김'의 의미를 본다.
 
 import AppMenu from './AppMenu.jsx'
-import UserCardDemo from './UserCard.jsx'
+import UserCardDemo, { DescActionPractice } from './UserCard.jsx'
 
 export default function Encapsulation() {
   return (
@@ -17,37 +17,6 @@ export default function Encapsulation() {
         <span className="lesson-goal-tag">🎯 학습 포인트</span>
         <p>컴포넌트는 내부 구현을 감추고 <code>&lt;이름 /&gt;</code>이라는 일관된 사용법만 드러낸다 — 이것이 캡슐화다.</p>
       </div>
-
-      {/* 🧩 상태·동작·이벤트까지 감춘다 — UserCard */}
-      <h3 className="section-title">🧩 속엔 구조뿐 아니라 '상태·동작·이벤트'까지 — UserCard</h3>
-      <span className="learn-tag">📎 학습 포인트 · 카드가 내부 상태·구조를 감추고, 콜백 prop으로 "무슨 일이 생겼는지"만 값으로 알려 준다</span>
-      <p className="section-desc">
-        "그냥 CSS로 하면 되잖아"가 안 통하는 지점이 여기다. 아래 <code>UserCard</code>는 <b>겉으로는 <code>&lt;UserCard user=… /&gt;</code> 한 줄</b>이지만,
-        속에 <b>아바타·이름·역할·상태·설명 + 내부 팔로우 상태(<code>useState</code>)</b>를 감추고 있다. 부모는 그 속을 <b>모른다</b> —
-        대신 <b>콜백 prop</b>(<code>onUserNameClick</code>·<code>onActionClick</code>)으로 이벤트만 값으로 받는다.
-      </p>
-      <div className="card">
-        <div className="file-label">📄 UserCard.jsx · 같은 카드를 Flex로 3개 (각자 독립)</div>
-        <UserCardDemo />
-      </div>
-      <div className="card">
-        <div className="file-label">📄 겉(부모) vs 속(카드) — 콜백으로 이벤트 제공</div>
-        <pre className="err-code">{`// 겉(부모): 카드 속은 모른 채, 함수만 넘겨 둔다
-<UserCard user={u}
-  onUserNameClick={(id, name) => log(\`\${name}(\${id}) 클릭\`)}
-  onActionClick={(action) => log(\`\${u.name} — \${action}\`)}
-/>
-
-// 속(카드 내부): 자기 버튼이 눌리면 그 함수를 '데이터와 함께' 부른다
-<button onClick={() => onUserNameClick(user.id, user.name)}>{user.name}</button>
-<p onClick={() => onActionClick('description')}>{user.desc}</p>   // 설명 클릭
-<button onClick={() => { setFollowing(f=>!f); onActionClick('follow') }}>팔로우</button>`}</pre>
-      </div>
-      <ul className="section-list">
-        <li><b>CSS로는 불가</b> — 스타일은 CSS로 재사용해도, <b>내부 상태(팔로우) · 이벤트 제공(콜백)</b>은 CSS가 못 한다. 이게 "컴포넌트여야 하는" 이유다.</li>
-        <li><b>이벤트 제공자</b> — <code>&lt;button onClick={'{(e)=>…}'}&gt;</code>가 e를 넘기듯, UserCard도 <code>onActionClick(action)</code>으로 값을 넘긴다 (→ JS <b>J3 · 함수는 값이다</b>).</li>
-        <li><b>인스턴스 독립</b> — 한 카드를 팔로우해도 나머지는 그대로. 정의는 하나(설계도), 쓸 때마다 <b>독립 인스턴스</b> (→ <b>5-1</b>).</li>
-      </ul>
 
       <div className="concept">
         <p className="concept-lead">
@@ -154,6 +123,47 @@ export default function Encapsulation() {
         색(스타일)은 CSS로도 한 번에 바꿨지만, <b>화살표(구조)·항목별 라벨(데이터)·클릭(동작)</b>은 CSS가 못 한다.
         그래서 <b>컴포넌트</b>다.
       </p>
+
+      {/* 🧩 피날레 — 기능·구조·스타일이 다 든 컴포넌트 (UserCard) */}
+      <h3 className="section-title">🧩 피날레 — 기능·구조·스타일이 다 든 컴포넌트 (UserCard)</h3>
+      <span className="learn-tag">📎 학습 포인트 · CSS는 style만 재사용, 컴포넌트는 구조·데이터·동작·이벤트까지 통째로 재사용한다</span>
+      <p className="section-desc">
+        MenuItem은 주로 <b>구조·스타일</b> 이야기였다. 이제 <b>기능(내부 상태)·이벤트(콜백)</b>까지 다 든 카드로 마무리하자.
+        <code> UserCard</code>는 겉으론 <code>&lt;UserCard user=… /&gt;</code> 한 줄이지만, 속에 <b>아바타·이름·역할·상태·설명 + 팔로우 상태(<code>useState</code>)</b>를 감춘다.
+        부모는 그 속을 <b>모르고</b>, <b>콜백 prop</b>(<code>onUserNameClick</code>·<code>onActionClick</code>)으로 이벤트만 값으로 받는다.
+      </p>
+      <div className="concept">
+        <p className="concept-lead" style={{ margin: 0 }}>
+          📌 한 줄로: <b>CSS는 style(외형)만 재사용하지만, 컴포넌트는 구조 + 데이터 + 동작 + 이벤트까지 통째로 재사용한다.</b>
+        </p>
+      </div>
+      <div className="card">
+        <div className="file-label">📄 UserCard.jsx · 같은 카드를 Flex로 3개 (각자 독립)</div>
+        <UserCardDemo />
+      </div>
+      <div className="card">
+        <div className="file-label">📄 겉(부모) vs 속(카드) — 콜백으로 이벤트 제공</div>
+        <pre className="err-code">{`// 겉(부모): 카드 속은 모른 채, 함수만 넘겨 둔다
+<UserCard user={u}
+  onUserNameClick={(id, name) => log(name + ' 클릭')}
+  onActionClick={(action) => log(u.name + ' — ' + action)}
+/>
+
+// 속(카드 내부): 자기 버튼이 눌리면 그 함수를 '데이터와 함께' 부른다
+<button onClick={() => onUserNameClick(user.id, user.name)}>{user.name}</button>
+<p onClick={() => onActionClick('description')}>{user.desc}</p>   // 설명 클릭
+<button onClick={() => { setFollowing(f => !f); onActionClick('follow') }}>팔로우</button>`}</pre>
+      </div>
+      <ul className="section-list">
+        <li><b>CSS로는 불가</b> — 스타일은 CSS로 재사용해도, <b>내부 상태(팔로우) · 이벤트 제공(콜백)</b>은 CSS가 못 한다. 이게 "컴포넌트여야 하는" 이유다.</li>
+        <li><b>이벤트 제공자</b> — <code>&lt;button onClick={'{(e)=>…}'}&gt;</code>가 e를 넘기듯, UserCard도 <code>onActionClick(action)</code>으로 값을 넘긴다 (→ JS <b>J3 · 함수는 값이다</b>).</li>
+        <li><b>인스턴스 독립</b> — 한 카드를 팔로우해도 나머지는 그대로. 정의는 하나(설계도), 쓸 때마다 <b>독립 인스턴스</b> (→ <b>5-1</b>).</li>
+      </ul>
+
+      <div className="try-it">
+        <h4>🎯 실습 — 설명 클릭에 이벤트 붙이기 (onActionClick)</h4>
+        <DescActionPractice />
+      </div>
     </section>
   )
 }
