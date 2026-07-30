@@ -1,5 +1,5 @@
 // ============================================================
-// 5단계 · 리스트 (투두)  (배우는 것: 배열 상태, map, key, 조건부 렌더링)
+// 6단계 · 리스트 (투두)  (배우는 것: 배열 상태, map, key, 조건부 렌더링)
 // ============================================================
 // 이 강의는 세 개의 컴포넌트로 나뉜다:
 //   - TodoInput : 입력 담당
@@ -47,7 +47,7 @@ export default function Stage5() {
   return (
     <section>
       <header className="lesson-header">
-        <span className="badge">5단계</span>
+        <span className="badge">6단계</span>
         <h2>투두 리스트</h2>
         <p>배열 상태를 map으로 렌더링하고, 추가/완료/삭제를 구현해 본다.</p>
       </header>

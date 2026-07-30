@@ -1,4 +1,4 @@
-// 6-2 · 폼 제출 (방명록)
+// 7-2 · 폼 제출 (방명록)
 // 제출은 <form onSubmit>으로 받고, 맨 처음에 e.preventDefault()로 새로고침을 막는다.
 // 그다음 폼 값을 원하는 대로 쓴다 — 여기선 방명록 목록에 추가한다.
 
@@ -24,7 +24,7 @@ export default function Step6_2() {
   return (
     <section>
       <header className="lesson-header">
-        <span className="badge form-badge">6-2</span>
+        <span className="badge form-badge">7-2</span>
         <h2>폼 제출</h2>
         <p><code>&lt;form onSubmit&gt;</code>과 <code>preventDefault</code>로 제출을 처리한다.</p>
       </header>

@@ -20,7 +20,7 @@
 
 - 값의 주인은 **DOM(input)** 이다.
 - 타이핑하는 **동안** 리액트는 값을 **모른다(깜깜)** → 실시간 글자 수·검증이 불가능하다.
-- 💡 정말 DOM 값을 직접 읽어야 하면 `useRef` 훅을 쓴다 — **12단계 · Ref와 커스텀 훅**에서 배운다. 지금은 "기본은 controlled"만 익히면 된다.
+- 💡 정말 DOM 값을 직접 읽어야 하면 `useRef` 훅을 쓴다 — **13단계 · Ref와 커스텀 훅**에서 배운다. 지금은 "기본은 controlled"만 익히면 된다.
 
 ## 방식 ② 상태에 묶기 (controlled) — 값의 주인은 state ⭐
 
@@ -74,4 +74,4 @@ const [text, setText] = useState('')
 2. 숫자만 남기기: `onChange`에서 `e.target.value.replace(/\D/g, '')`
 3. uncontrolled 쪽 "리액트가 아는 값"을 실시간으로 바꾸려면? → `value`·`onChange`로 state에 묶기(=controlled로 바꾸기)
 
-→ 이전: [3단계 · 상태와 이벤트](../step3-state-events/README.md) · 다음: [5단계 · 리스트](../step5-lists/README.md)
+→ 이전: [3단계 · 상태와 이벤트](../step3-state-events/README.md) · 다음: [6단계 · 리스트](../step5-lists/README.md)

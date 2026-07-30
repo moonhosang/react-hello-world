@@ -74,7 +74,7 @@ export default function StepHooksBenefits() {
           <li><b>관련 코드 묶기 = useEffect</b> — <code>useCountdown</code>처럼 시작과 정리를 한 함수에 모은다. 생명주기로 흩어지지 않는다.</li>
           <li>공통점 — 둘 다 코드를 <b>'트리·생명주기'가 아니라 '로직 단위'</b>로 나눈다.</li>
           <li>
-            더 자세히는 뒤에서 배운다 — <code>useEffect</code>는 <b>8단계</b>, <b>커스텀 훅</b>은 <b>12단계</b>.
+            더 자세히는 뒤에서 배운다 — <code>useEffect</code>는 <b>9단계</b>, <b>커스텀 훅</b>은 <b>13단계</b>.
             여기서는 '훅이 무엇을 풀어 주는지'만 체험하면 된다.
           </li>
         </ul>

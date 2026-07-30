@@ -1,5 +1,5 @@
 // ============================================================
-// 12단계 · useRef와 커스텀 훅   (배우는 것: ref로 값/DOM 다루기, 로직 재사용)
+// 13단계 · useRef와 커스텀 훅   (배우는 것: ref로 값/DOM 다루기, 로직 재사용)
 // ============================================================
 // state는 '화면에 보이는 값'을 다룬다. 하지만 화면과 무관한 값이나,
 // 진짜 DOM을 직접 만져야 할 때가 있다 — 그게 useRef의 자리다.
@@ -14,7 +14,7 @@ export default function Step12RefHooks() {
   return (
     <section>
       <header className="lesson-header">
-        <span className="badge">12단계</span>
+        <span className="badge">13단계</span>
         <h2>useRef와 커스텀 훅</h2>
         <p>화면과 무관한 값·DOM은 ref로 다루고, 반복되는 로직은 나만의 훅으로 묶어 재사용한다.</p>
       </header>

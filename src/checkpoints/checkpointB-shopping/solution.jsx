@@ -1,7 +1,7 @@
 import { useState } from 'react'
 
 // ✅ 정답 예시 — 장보기 리스트
-// 4단계(controlled input) + 3·5단계(상태 배열 추가/삭제 + map/key)를 모두 씀.
+// 4단계(controlled input) + 3·6단계(상태 배열 추가/삭제 + map/key)를 모두 씀.
 
 let nextId = 1
 

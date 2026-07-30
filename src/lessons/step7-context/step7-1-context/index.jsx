@@ -1,4 +1,4 @@
-// 7-1 · prop drilling → Context로 해결
+// 8-1 · prop drilling → Context로 해결
 // 깊은 자식이 쓰려고 중간 컴포넌트가 필요도 없는 props를 줄줄이 전달하는 문제(prop drilling)와,
 // 그걸 없애는 Context를 한 페이지에서 before/after로 본다.
 //
@@ -33,7 +33,7 @@ export default function Step7_1() {
   return (
     <section>
       <header className="lesson-header">
-        <span className="badge context-badge">7-1</span>
+        <span className="badge context-badge">8-1</span>
         <h2>prop drilling → Context</h2>
         <p>깊은 곳에서 쓰려고 중간이 props를 줄줄이 전달하는 문제를, Context로 없앤다.</p>
       </header>

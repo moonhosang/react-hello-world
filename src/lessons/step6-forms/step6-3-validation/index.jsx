@@ -1,4 +1,4 @@
-// 6-3 · 폼 유효성 검사 (validation)
+// 7-3 · 폼 유효성 검사 (validation)
 //
 // 폼은 값을 받는 것으로 끝나지 않는다. 이메일 형식이 맞는지, 나이가 범위 안인지,
 // 등급을 골랐는지 등 "규칙"을 검사해 통과하기 전엔 제출을 막아야 한다.
@@ -88,7 +88,7 @@ export default function Step6_3() {
   return (
     <section>
       <header className="lesson-header">
-        <span className="badge form-badge">6-3</span>
+        <span className="badge form-badge">7-3</span>
         <h2>폼 유효성 검사</h2>
         <p>입력값을 규칙으로 검사해 에러를 계산하고, 통과하기 전엔 제출을 막는다.</p>
       </header>

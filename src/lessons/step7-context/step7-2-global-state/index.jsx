@@ -1,4 +1,4 @@
-// 7-2 · 전역 상태 바꾸기
+// 8-2 · 전역 상태 바꾸기
 // Provider의 value에 '상태 + setter'를 함께 담으면, 깊은 자식이 전역 값을 읽고 '바꾸기'까지 한다.
 // 이 Context + state 조합이 '전역 상태 관리'의 기본 형태다.
 
@@ -12,7 +12,7 @@ export default function Step7_2() {
   return (
     <section>
       <header className="lesson-header">
-        <span className="badge context-badge">7-2</span>
+        <span className="badge context-badge">8-2</span>
         <h2>전역 상태 바꾸기</h2>
         <p>Provider의 value에 상태와 setter를 함께 담아, 어디서든 읽고 바꾼다.</p>
       </header>

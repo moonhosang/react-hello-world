@@ -156,7 +156,7 @@ export default function JsxRules() {
         <ul className="section-list">
           <li>JSX는 <b>HTML처럼 생겼지만 자바스크립트</b>다 — 그래서 <code>class</code>가 아니라 <code>className</code>.</li>
           <li>값을 꽂을 땐 <b>{'{}'}</b>, 스타일은 <b>객체</b>, 감쌀 땐 <b>{'<>…</>'}</b>.</li>
-          <li>대부분의 위반은 <b>빌드가 실패</b>하거나 <b>빨간 에러</b>로 바로 알려 준다 — 겁먹지 말고 메시지를 읽으면 된다(→ 14장 에러 읽는 법).</li>
+          <li>대부분의 위반은 <b>빌드가 실패</b>하거나 <b>빨간 에러</b>로 바로 알려 준다 — 겁먹지 말고 메시지를 읽으면 된다(→ 11장 에러 읽는 법).</li>
         </ul>
       </div>
     </section>

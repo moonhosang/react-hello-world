@@ -1,4 +1,4 @@
-// 8-4 · 값이 바뀌면 다시 불러오기 (+ 흔한 실수)
+// 9-4 · 값이 바뀌면 다시 불러오기 (+ 흔한 실수)
 // 의존성 배열에 넣은 값(category)이 바뀌면 effect가 다시 실행된다.
 
 import { useState, useEffect } from 'react'
@@ -27,7 +27,7 @@ export default function Step8_4() {
   return (
     <section>
       <header className="lesson-header">
-        <span className="badge effect-badge">8-4</span>
+        <span className="badge effect-badge">9-4</span>
         <h2>값이 바뀌면 다시 불러오기</h2>
         <p>의존성 배열에 넣은 값이 바뀌면 effect가 다시 실행된다.</p>
       </header>

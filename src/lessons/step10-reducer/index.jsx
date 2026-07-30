@@ -1,5 +1,5 @@
 // ============================================================
-// 10단계 · useReducer   (배우는 것: 흩어진 상태 로직을 한 곳으로 모으기)
+// 11단계 · useReducer   (배우는 것: 흩어진 상태 로직을 한 곳으로 모으기)
 // ============================================================
 // 상태를 바꾸는 방법이 하나면 useState로 충분하다.
 // 하지만 증가/감소/리셋/추가/삭제처럼 "바꾸는 방법"이 여러 개고 서로 얽히면,
@@ -34,7 +34,7 @@ export default function Step10Reducer() {
   return (
     <section>
       <header className="lesson-header">
-        <span className="badge">10단계</span>
+        <span className="badge">11단계</span>
         <h2>useReducer — 상태 로직 모으기</h2>
         <p>상태를 바꾸는 방법이 여러 개일 때, 그 로직을 reducer 한 곳에 모으고 화면은 "무엇을 할지"만 보낸다.</p>
       </header>

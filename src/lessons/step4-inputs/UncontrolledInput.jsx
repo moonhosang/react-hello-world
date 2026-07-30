@@ -1,7 +1,7 @@
 // 😵 그냥 둔 input — value·onChange를 아무것도 안 묶었다.
 // 타이핑은 되지만, 값의 '주인'은 DOM(input)이다.
 // 컴포넌트 안에는 이 값을 가리킬 변수가 없어서, 리액트는 사용자가 뭘 쳤는지 전혀 모른다(깜깜).
-// (정말 DOM 값을 직접 읽어야 하면 useRef라는 게 있는데, 그건 12단계에서 배운다.)
+// (정말 DOM 값을 직접 읽어야 하면 useRef라는 게 있는데, 그건 13단계에서 배운다.)
 
 export default function UncontrolledInput() {
   return (

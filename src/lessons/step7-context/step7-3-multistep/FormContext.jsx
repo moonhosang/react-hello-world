@@ -6,7 +6,7 @@ import { createContext, useContext, useState } from 'react'
 // 자식마다 form·onChange·step·next·prev를 줄줄이 전달해야 한다(드릴링).
 // 그래서 상태를 Context 한 곳에 모으고, 필요한 자식이 useForm()으로 직접 꺼낸다.
 //
-// 실무 패턴(7-1 AuthContext와 동일):
+// 실무 패턴(8-1 AuthContext와 동일):
 //   1) Context 객체는 파일 '밖으로 내보내지 않는다'(비공개).
 //   2) 기본값을 undefined로 둬서 Provider 없이 쓴 걸 감지한다.
 //   3) 상태·로직은 Provider 한 곳에 캡슐화하고, 읽기는 useForm() 훅만 내보낸다.

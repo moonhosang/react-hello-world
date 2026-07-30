@@ -45,7 +45,7 @@ export default function ReRender() {
           <li>① 자기 <b>state</b>가 바뀔 때 (<code>setState</code>)</li>
           <li>② 받은 <b>props</b>가 바뀔 때 (부모가 새 값을 넘김)</li>
           <li>③ <b>부모가 리렌더</b>되면 자식도 함께 (기본 동작)</li>
-          <li className="muted-li">＋ 구독한 <b>Context</b> 값이 바뀔 때도 (7단계)</li>
+          <li className="muted-li">＋ 구독한 <b>Context</b> 값이 바뀔 때도 (8단계)</li>
         </ul>
       </div>
 

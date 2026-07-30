@@ -1,5 +1,5 @@
 // ============================================================
-// 9단계 · 에러 읽는 법 (고장난 코드 고치기)
+// 10단계 · 에러 읽는 법 (고장난 코드 고치기)
 // ============================================================
 // 빨간 에러 화면은 무섭지만, 초보가 만나는 에러는 대부분 몇 가지 패턴이다.
 // 각 에러를 "실제 메시지 + ❌원인 + ✅고치기"로 대조해 읽는 법을 익힌다.
@@ -32,7 +32,7 @@ export default function Stage9() {
   return (
     <section>
       <header className="lesson-header">
-        <span className="badge">9단계</span>
+        <span className="badge">10단계</span>
         <h2>에러 읽는 법 — 고장난 코드 고치기</h2>
         <p>빨간 에러 화면 앞에서 당황하지 않는 법. 자주 만나는 에러 5가지를 읽고 고쳐 본다.</p>
       </header>
@@ -58,7 +58,7 @@ export default function Stage9() {
         bad={'items.map((it) => (\n  <li>{it.name}</li>\n))'}
         good={'items.map((it) => (\n  <li key={it.id}>{it.name}</li>\n))'}
       >
-        리스트(<code>map</code>)로 만든 각 요소엔 <b>고유한 <code>key</code></b>를 준다. 보통 데이터의 id를 쓴다. (5단계 리스트 참고)
+        리스트(<code>map</code>)로 만든 각 요소엔 <b>고유한 <code>key</code></b>를 준다. 보통 데이터의 id를 쓴다. (6단계 리스트 참고)
       </ErrorCard>
 
       <ErrorCard
@@ -68,7 +68,7 @@ export default function Stage9() {
         bad={'const [users, setUsers] = useState() // 초기값 없음\n// ...\n{users.map((u) => u.name)}    // 💥 users가 undefined'}
         good={'const [users, setUsers] = useState([]) // 빈 배열로 시작\n// 또는 방어:\n{users?.map((u) => u.name)}'}
       >
-        로딩 전이라 데이터가 <b>undefined</b>면 <code>.map</code>이 터진다. 초기값을 <b>빈 배열</b>로 두거나 <code>?.</code>로 방어한다. (8단계 참고)
+        로딩 전이라 데이터가 <b>undefined</b>면 <code>.map</code>이 터진다. 초기값을 <b>빈 배열</b>로 두거나 <code>?.</code>로 방어한다. (9단계 참고)
       </ErrorCard>
 
       <ErrorCard
@@ -79,7 +79,7 @@ export default function Stage9() {
         bad={'todos.push(newTodo) // 원본을 직접 수정 (참조 그대로)\nsetTodos(todos)      // 같은 참조 → 리렌더 안 함'}
         good={'setTodos([...todos, newTodo]) // 새 배열 → 리렌더'}
       >
-        리액트는 <b>'새 배열/객체'</b>일 때만 다시 그린다. 원본을 바꾸지 말고 새로 만들어 set 한다. (5단계 불변성 참고)
+        리액트는 <b>'새 배열/객체'</b>일 때만 다시 그린다. 원본을 바꾸지 말고 새로 만들어 set 한다. (6단계 불변성 참고)
       </ErrorCard>
 
       <ErrorCard
@@ -89,7 +89,7 @@ export default function Stage9() {
         bad={'useEffect(() => {\n  setCount(count + 1) // 매 렌더마다 실행 → setState → 또 렌더...\n})                   // ← 의존성 배열이 없다!'}
         good={'useEffect(() => {\n  setCount(count + 1)\n}, [])               // 처음 한 번만'}
       >
-        의존성 배열이 없으면 effect가 <b>매 렌더마다</b> 돌고, 그 안에서 state를 바꾸면 <b>무한 반복</b>된다. 의존성 배열을 정확히 준다. (8단계 참고)
+        의존성 배열이 없으면 effect가 <b>매 렌더마다</b> 돌고, 그 안에서 state를 바꾸면 <b>무한 반복</b>된다. 의존성 배열을 정확히 준다. (9단계 참고)
       </ErrorCard>
 
       <ErrorCard

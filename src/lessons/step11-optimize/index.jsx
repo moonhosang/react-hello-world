@@ -1,5 +1,5 @@
 // ============================================================
-// 11단계 · 불필요한 작업 줄이기 — 최적화 (React.memo / useMemo / useCallback)
+// 12단계 · 불필요한 작업 줄이기 — 최적화 (React.memo / useMemo / useCallback)
 // ============================================================
 // 리액트는 상태가 바뀌면 그 컴포넌트와 자식들을 다시 그린다(리렌더).
 // 대부분은 이 리렌더가 싸서 신경 쓸 필요가 없지만, 가끔 비싼 경우가 있다.
@@ -17,7 +17,7 @@ export default function Step11Optimize() {
   return (
     <section>
       <header className="lesson-header">
-        <span className="badge">11단계</span>
+        <span className="badge">12단계</span>
         <h2>불필요한 작업 줄이기 — 최적화</h2>
         <p>리렌더와 무거운 계산을 건너뛰는 세 도구: React.memo · useMemo · useCallback.</p>
       </header>

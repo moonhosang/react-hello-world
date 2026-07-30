@@ -68,7 +68,7 @@ setTodos([...todos, 새항목])         // ✅   todos.push(새항목); setTodos
         <ObjectMutationDemo />
       </div>
       <p className="section-desc">
-        "왜 새 값이어야 하나"의 뿌리(<b>참조 vs 값</b>)는 <b>5단계 리스트</b>에서 배열로 더 깊게, 폼 입력은 <b>6단계</b>에서 이어진다.
+        "왜 새 값이어야 하나"의 뿌리(<b>참조 vs 값</b>)는 <b>6단계 리스트</b>에서 배열로 더 깊게, 폼 입력은 <b>7단계</b>에서 이어진다.
       </p>
 
       <h3 className="section-title">⚠️ 흔한 함정 — 연속 setState (값 vs 함수)</h3>

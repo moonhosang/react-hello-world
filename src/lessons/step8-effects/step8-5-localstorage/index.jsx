@@ -1,4 +1,4 @@
-// 8-5 · 브라우저에 저장하기 (localStorage)
+// 9-5 · 브라우저에 저장하기 (localStorage)
 // state는 새로고침하면 사라진다. 남기고 싶으면 state가 바뀔 때마다 localStorage에 저장하고,
 // 처음 렌더에서 그 값을 읽어와 초기값으로 쓴다. useEffect 챕터의 마지막 응용이다.
 
@@ -14,7 +14,7 @@ export default function Step8_5() {
   return (
     <section>
       <header className="lesson-header">
-        <span className="badge effect-badge">8-5</span>
+        <span className="badge effect-badge">9-5</span>
         <h2>브라우저에 저장하기 (localStorage)</h2>
         <p>state가 바뀔 때마다 localStorage에 저장하고, 처음 렌더에서 그 값을 읽어와 초기값으로 쓴다.</p>
       </header>

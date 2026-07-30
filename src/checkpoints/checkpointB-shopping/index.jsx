@@ -1,7 +1,7 @@
 // ============================================================
-// 체크포인트 B · 장보기 리스트  (3~5단계 종합)
+// 체크포인트 B · 장보기 리스트  (3·4·6단계 종합)
 // ============================================================
-// 상태(3단계) + 입력(4단계) + 리스트(5단계)를 한 번에 쓰는 누적 실습이다.
+// 상태(3단계) + 입력(4단계) + 리스트(6단계)를 한 번에 쓰는 누적 실습이다.
 
 import Practice from '../../components/Practice.jsx'
 import PracticeShopping from './practice.jsx'
@@ -13,7 +13,7 @@ export default function CheckpointB() {
       <header className="lesson-header">
         <span className="badge checkpoint-badge">✅ 체크포인트 B</span>
         <h2>장보기 리스트</h2>
-        <p>3~5단계(상태 · 입력 · 리스트)를 합쳐, 추가/목록/삭제가 되는 장보기 리스트를 직접 만든다.</p>
+        <p>3·4·6단계(상태 · 입력 · 리스트)를 합쳐, 추가/목록/삭제가 되는 장보기 리스트를 직접 만든다.</p>
       </header>
 
       <div className="lesson-goal">
@@ -26,9 +26,9 @@ export default function CheckpointB() {
         goal="상태·입력·리스트(추가·삭제)를 하나로 합쳐 작은 앱을 스스로 조립해 본다."
         hints={[
           'input은 controlled로: value={text}, onChange로 setText. (4단계)',
-          "추가: setItems([...items, { id: nextId++, name }]) — 새 배열을 만든다. (5단계)",
-          '목록: items.map((it) => <li key={it.id}>...</li>). (5단계)',
-          '삭제: setItems(items.filter((x) => x.id !== it.id)). (5단계)',
+          "추가: setItems([...items, { id: nextId++, name }]) — 새 배열을 만든다. (6단계)",
+          '목록: items.map((it) => <li key={it.id}>...</li>). (6단계)',
+          '삭제: setItems(items.filter((x) => x.id !== it.id)). (6단계)',
         ]}
         practiceFile="checkpointB-shopping/practice.jsx"
         solutionFile="checkpointB-shopping/solution.jsx"

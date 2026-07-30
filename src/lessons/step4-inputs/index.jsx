@@ -73,7 +73,7 @@ export default function Stage4() {
         <p className="concept-lead">💡 참고 · 그래도 DOM 값을 직접 읽어야 한다면?</p>
         <p className="section-desc" style={{ marginTop: 0 }}>
           드물게 controlled 없이 DOM의 <code>value</code>를 직접 집어야 할 때가 있다. 그럴 땐 <code>useRef</code>라는 훅을 쓴다 —
-          <b> 12단계 · Ref와 커스텀 훅</b>에서 배운다. 지금은 "<b>기본은 controlled</b>"만 확실히 익히면 된다.
+          <b> 13단계 · Ref와 커스텀 훅</b>에서 배운다. 지금은 "<b>기본은 controlled</b>"만 확실히 익히면 된다.
         </p>
       </div>
 

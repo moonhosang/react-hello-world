@@ -1,4 +1,4 @@
-// 8-1 · useEffect 소개 + 의존성 배열
+// 9-1 · useEffect 소개 + 의존성 배열
 // 렌더 이후에 할 일(부수 효과)을 useEffect에 적는다. 두 번째 인자(의존성 배열)가 '언제 실행할지'를 정한다.
 // 이 레슨의 중심 질문: "왜 의존성이 바뀌면 다시 실행해야 하나?" → 답은 '동기화'다.
 
@@ -31,7 +31,7 @@ function SyncedUserView({ userId }) {
   const [user, setUser] = useState(null)
   useEffect(() => {
     fetchUser(userId).then(setUser)
-  }, [userId]) // ✅ userId를 의존성에 넣었다 — Stale과 딱 이 한 줄만 다르다(정리는 8-2에서)
+  }, [userId]) // ✅ userId를 의존성에 넣었다 — Stale과 딱 이 한 줄만 다르다(정리는 9-2에서)
   return <UserLine user={user} />
 }
 
@@ -304,7 +304,7 @@ export default function Step8_1() {
   return (
     <section>
       <header className="lesson-header">
-        <span className="badge effect-badge">8-1</span>
+        <span className="badge effect-badge">9-1</span>
         <h2>useEffect 소개 + 의존성 배열</h2>
         <p>렌더 이후에 할 일(부수 효과)을 적고, 의존성 배열로 '언제 실행할지'를 정한다.</p>
       </header>
@@ -489,8 +489,8 @@ function onNext(id)      { setUserId(id); fetchUser(id).then(setUser) }
       </div>
       <CodeBlock file="useUserFetch.js (실제 소스)" code={hookRaw} />
       <p className="section-desc">
-        여기선 "왜 의존성이 필요한가"만 짚었다. <b>불러오는 동안의 로딩 처리</b>는 <b>8-3</b>,
-        <b> 같은 버튼을 또 눌러도 안 불러오는 이유</b>는 <b>8-4</b>에서 더 깊게 다룬다.
+        여기선 "왜 의존성이 필요한가"만 짚었다. <b>불러오는 동안의 로딩 처리</b>는 <b>9-3</b>,
+        <b> 같은 버튼을 또 눌러도 안 불러오는 이유</b>는 <b>9-4</b>에서 더 깊게 다룬다.
       </p>
 
       {/* ⑤ 완성해보기 — 의존성 골라 버그 없애기 */}

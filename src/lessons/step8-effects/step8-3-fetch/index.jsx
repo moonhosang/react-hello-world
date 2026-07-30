@@ -1,4 +1,4 @@
-// 8-3 · 데이터 불러오기
+// 9-3 · 데이터 불러오기
 // 마운트되면 데이터를 가져와 state에 넣는다. loading → data 두 상태로 관리한다.
 
 import { useState, useEffect } from 'react'
@@ -25,7 +25,7 @@ export default function Step8_3() {
   return (
     <section>
       <header className="lesson-header">
-        <span className="badge effect-badge">8-3</span>
+        <span className="badge effect-badge">9-3</span>
         <h2>데이터 불러오기</h2>
         <p>마운트되면 데이터를 가져와 state에 넣는다. 로딩 상태도 함께 관리한다.</p>
       </header>

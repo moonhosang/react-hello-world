@@ -1,4 +1,4 @@
-# 9단계 · 에러 읽는 법 (고장난 코드 고치기)
+# 10단계 · 에러 읽는 법 (고장난 코드 고치기)
 
 빨간 에러 화면은 무섭지만, 초보가 만나는 에러는 대부분 몇 가지 패턴이다.
 따라 하는 것 못지않게 **안 될 때 스스로 빠져나오는 법**이 중요하다.
@@ -13,12 +13,12 @@
 
 | # | 증상 | 원인 → 고치기 |
 |---|------|--------------|
-| ① | `key` 경고 | `<li>` → `<li key={it.id}>` (5단계) |
-| ② | `Cannot read properties of undefined (reading 'map')` | `useState()` → `useState([])` / `users?.map` (8단계) |
-| ③ | 화면이 안 바뀜(조용한 버그) | `push` → `[...arr, 새값]` (5단계 불변성) |
-| ④ | `Maximum update depth exceeded`(무한 루프) | useEffect에 의존성 배열 `[]` (8단계) |
+| ① | `key` 경고 | `<li>` → `<li key={it.id}>` (6단계) |
+| ② | `Cannot read properties of undefined (reading 'map')` | `useState()` → `useState([])` / `users?.map` (9단계) |
+| ③ | 화면이 안 바뀜(조용한 버그) | `push` → `[...arr, 새값]` (6단계 불변성) |
+| ④ | `Maximum update depth exceeded`(무한 루프) | useEffect에 의존성 배열 `[]` (9단계) |
 | ⑤ | Rules of Hooks 위반 | 훅은 조건문 밖 **최상단**에서 호출 |
 
 > 에러 메시지는 **적이 아니라 힌트**다. 첫 줄과 파일·줄 번호만 봐도 절반은 풀린다.
 
-→ 이전: [8단계 · useEffect](../step8-effects/README.md)
+→ 이전: [9단계 · useEffect](../step8-effects/README.md)

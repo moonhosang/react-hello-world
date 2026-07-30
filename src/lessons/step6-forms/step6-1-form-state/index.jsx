@@ -1,4 +1,4 @@
-// 6-1 · 여러 입력 → 객체 하나로 관리
+// 7-1 · 여러 입력 → 객체 하나로 관리
 // 입력이 여러 개면 각각 state로 둘 수 있다. 관련 있는 값이면 객체 하나 + 공통 onChange가 편하다.
 
 import { useState } from 'react'
@@ -17,7 +17,7 @@ export default function Step6_1() {
   return (
     <section>
       <header className="lesson-header">
-        <span className="badge form-badge">6-1</span>
+        <span className="badge form-badge">7-1</span>
         <h2>여러 입력 → 객체로 관리</h2>
         <p>입력이 여러 개인 폼. 각각 state로 두거나, 관련 값이면 객체 하나로 묶는다.</p>
       </header>

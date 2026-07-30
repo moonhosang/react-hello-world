@@ -1,4 +1,4 @@
-// 7-3 · 멀티스텝 폼 — Context로 상태 공유
+// 8-3 · 멀티스텝 폼 — Context로 상태 공유
 // 3단계 회원가입 마법사를 Context로 만든다.
 // 진행바·각 스텝·요약이 트리의 서로 다른 위치에서 같은 form·step 상태를 읽고 쓴다.
 // props로 내리면 Wizard가 자식마다 form·onChange·step·next·prev를 줄줄이 전달해야 한다(드릴링).
@@ -23,7 +23,7 @@ export default function Step7_3({ onGo }) {
   return (
     <section>
       <header className="lesson-header">
-        <span className="badge context-badge">7-3</span>
+        <span className="badge context-badge">8-3</span>
         <h2>멀티스텝 폼 — Context로 상태 공유</h2>
         <p>3단계 회원가입 마법사. 진행바·각 스텝·요약이 같은 폼 상태를 props 없이 나눠 쓴다.</p>
       </header>

@@ -1,7 +1,7 @@
 import { useState } from 'react'
 
 // ⚠️ 배열도 객체와 똑같다 — 원본을 push로 바꾸면(참조 그대로) 리액트가 못 알아채 화면이 안 바뀐다.
-// → 항상 새 배열([...items, 새값])을 만들어 set 한다. (5단계 리스트에서 더 자세히)
+// → 항상 새 배열([...items, 새값])을 만들어 set 한다. (6단계 리스트에서 더 자세히)
 export default function ArrayMutationDemo() {
   const [items, setItems] = useState(['🍎'])
 
