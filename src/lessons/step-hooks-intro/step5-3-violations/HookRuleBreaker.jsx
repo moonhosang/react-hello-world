@@ -238,16 +238,6 @@ const [b] = useState(0)      // ❌ return 뒤의 훅 — 위반 실행하면 �
         note="위반 실행 시 훅이 1개 → 2개로 늘어(조건부 return 뒤의 훅이 추가돼) 에러가 난다."
         Comp={EarlyReturnComp}
       />
-      <BoundaryDemo
-        title="📄 🔴 6. try / catch 안 (실제로 에러 발생)"
-        code={`try {
-  if (armed) throw new Error()
-  const [a] = useState(0)   // ❌ 예외가 나면 이 훅을 건너뛴다
-} catch {}
-const [b] = useState(0)`}
-        note="try 안 훅은 예외가 나면 건너뛰어져 개수가 어긋난다 — 그래서 금지다."
-        Comp={TryComp}
-      />
       <CatchDemo
         title="📄 🔴 3. 이벤트 핸들러 안 (실제로 에러 발생)"
         code={`function handleClick() {
@@ -257,6 +247,17 @@ const [b] = useState(0)`}
         run={() => {
           useState(0)
         }}
+      />
+      <EffectDemo />
+      <BoundaryDemo
+        title="📄 🔴 6. try / catch 안 (실제로 에러 발생)"
+        code={`try {
+  if (armed) throw new Error()
+  const [a] = useState(0)   // ❌ 예외가 나면 이 훅을 건너뛴다
+} catch {}
+const [b] = useState(0)`}
+        note="try 안 훅은 예외가 나면 건너뛰어져 개수가 어긋난다 — 그래서 금지다."
+        Comp={TryComp}
       />
       <CatchDemo
         title="📄 규칙 2 — 일반 함수 안에서 호출 (실제로 에러 발생)"
@@ -269,7 +270,6 @@ const [b] = useState(0)`}
           getStatus()
         }}
       />
-      <EffectDemo />
     </div>
   )
 }

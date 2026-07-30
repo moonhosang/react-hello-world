@@ -99,8 +99,8 @@ export default function Step8_5() {
           '어떻게(저장): useEffect(() => { localStorage.setItem(KEY, JSON.stringify(count)) }, [count]) 로 count가 바뀔 때마다 저장한다.',
           '확인: 숫자를 올린 뒤 페이지를 새로고침해 그 값이 그대로 남아 있으면 성공이다.',
         ]}
-        practiceFile="step8-5-localstorage/practice.jsx"
-        solutionFile="step8-5-localstorage/solution.jsx"
+        practiceFile="step8-effects/step8-5-localstorage/practice.jsx"
+        solutionFile="step8-effects/step8-5-localstorage/solution.jsx"
         solution={<SolutionStore />}
       >
         <PracticeStore />

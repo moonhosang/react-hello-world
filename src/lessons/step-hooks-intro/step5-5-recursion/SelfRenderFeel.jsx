@@ -11,7 +11,7 @@ export default function SelfRenderFeel() {
   // ⏱️ 자동을 켜면 매초 스스로 setCount를 불러 '계속 다시 부르는 듯' 반복 렌더된다
   useEffect(() => {
     if (!auto) return
-    const id = setInterval(() => setCount((c) => c + 1), 700) // 🔁 매초 리렌더 유발
+    const id = setInterval(() => setCount((c) => c + 1), 700) // 🔁 0.7초마다 리렌더 유발
     return () => clearInterval(id) // 🧹 끄면(언마운트/의존성 변경) 정리
   }, [auto])
 

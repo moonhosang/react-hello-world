@@ -205,8 +205,8 @@ const [count, setCount] = useState(0)
       </p>
       <div className="card">
         <div className="file-label">📄 객체·배열 스프레드 한눈에</div>
-        <pre className="err-code">{`const user = { name: '민지', age: 20 }
-const next = { ...user, age: 21 }   // { name: '민지', age: 21 } — 새 객체
+        <pre className="err-code">{`const user = { name: '민지', age: 20, city: '서울' }
+const next = { ...user, age: 21 }   // { name: '민지', age: 21, city: '서울' } — 새 객체
 //             └ user를 펼치고, 뒤의 age: 21이 이긴다. user는 그대로!
 
 const arr = [1, 2, 3]

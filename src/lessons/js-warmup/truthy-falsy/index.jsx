@@ -113,8 +113,9 @@ function ZeroTrapDemo() {
   ]
   const fixSteps = [
     { title: '① 식 전체', parts: [{ label: 'list.length > 0 && "장바구니 보기"', role: 'expression' }] },
-    { title: '② 왼쪽 평가', note: '비교식이라 결과가 진짜 불리언이 된다', parts: [{ label: '0', role: 'value' }, { label: '>', role: 'operator' }, { label: '0', role: 'value' }], result: '= false' },
-    { title: '③ false는 화면에 안 나온다', note: '진짜 불리언 false는 React가 그리지 않는다', parts: [{ label: 'false', role: 'value' }], result: '→ (안 보임) ✅' },
+    { title: '② 왼쪽부터 평가 — list.length를 값으로', note: '❌와 똑같이 빈 배열이라 length는 0이다', parts: [{ label: 'list.length', role: 'term' }, { label: '0', role: 'value' }] },
+    { title: '③ 그래서 비교식은 0 > 0', note: '이제 왼쪽이 list.length(=0)라 0 > 0이 된다 — 비교식이라 결과가 진짜 불리언이다', parts: [{ label: '0', role: 'value' }, { label: '>', role: 'operator' }, { label: '0', role: 'value' }], result: '= false' },
+    { title: '④ false는 화면에 안 나온다', note: '진짜 불리언 false는 React가 그리지 않는다', parts: [{ label: 'false', role: 'value' }], result: '→ (안 보임) ✅' },
   ]
   const steps = fixed ? fixSteps : trapSteps
   const done = shown >= steps.length

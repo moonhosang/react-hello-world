@@ -187,7 +187,7 @@ function CallbackDemo() {
   fn()                  // 받은 함수를 여기서
   fn()                  //   두 번 부른다
 }
-const sayHi = () => log('👋 sayHi 실행됨')   // (여기선 화면 로그에 찍는다)
+const sayHi = () => log('👋 sayHi 실행됨')   // (화면 로그에 찍는다 — 아래 데모는 몇 번째인지 #1·#2도 붙인다)
 
 doTwice(sayHi)   // sayHi를 '넘긴다'(괄호 없이!) → doTwice 안에서 fn()으로 2번 실행`}</pre>
       <div className="button-row">

@@ -72,7 +72,7 @@ function Hello() { return <p>안녕</p> }
         <p className="concept-lead">🔎 무엇이 이 데모를 '다시 그리게' 했나?</p>
         <ul className="section-list">
           <li><b>🔁 리렌더 버튼</b> — 누르면 <code>setCount(c =&gt; c + 1)</code>을 부른다. <b>state(count)가 바뀌니</b> 리액트가 다시 그린다.</li>
-          <li><b>▶ 자동 반복</b> — <code>useEffect</code> 안 <code>setInterval</code>이 매초 <code>setCount</code>를 부른다. 역시 <b>state가 바뀌어</b> 다시 그려진다.</li>
+          <li><b>▶ 자동 반복</b> — <code>useEffect</code> 안 <code>setInterval</code>이 0.7초마다 <code>setCount</code>를 부른다. 역시 <b>state가 바뀌어</b> 다시 그려진다.</li>
           <li><b>Math.random 지문</b>은 리렌더를 <b>일으키는 게 아니다.</b> 다시 그려질 때 함께 실행돼 <b>결과를 보여줄 뿐</b>이다.</li>
         </ul>
         <p className="section-desc" style={{ margin: 0 }}>
@@ -122,7 +122,7 @@ function Hello() { return <p>안녕</p> }
       <p className="section-desc">
         핵심 — 리렌더로 <code>useUser()</code> 본문은 <b>매번 다시 실행</b>되지만, 그렇다고 매번 다시 불러오지 않는다:
         <code> useState</code>는 값을 <b>기억</b>하고, <code>useEffect</code>는 <b>deps로 실행 시점을 제어</b>한다.
-        이래서 훅이 <b>계속 다시 실행돼도</b> 앱이 낭비 없이 돈다. (fetch·deps의 자세한 이야기는 <b>8·9장</b>)
+        이래서 훅이 <b>계속 다시 실행돼도</b> 앱이 낭비 없이 돈다. (fetch·deps의 자세한 이야기는 <b>8단계</b>)
       </p>
 
       {/* ── ④ 생명주기 ─────────────────────────────────────── */}
@@ -145,7 +145,7 @@ function Hello() { return <p>안녕</p> }
       </div>
       <p className="section-desc">
         이 세 시점을 다루는 실제 도구가 <code>useEffect</code>다 (마운트=<code>[]</code>, 업데이트=deps,
-        언마운트=cleanup). 이 타이밍을 리액트가 쥐고 있다는 것도 <b>제어의 역전</b>이다 — 자세히는 <b>9장(useEffect)</b>에서 배운다.
+        언마운트=cleanup). 이 타이밍을 리액트가 쥐고 있다는 것도 <b>제어의 역전</b>이다 — 자세히는 <b>8단계(8-1)</b>에서 배운다.
       </p>
 
       {/* ── 정리 ───────────────────────────────────────────── */}
@@ -155,7 +155,7 @@ function Hello() { return <p>안녕</p> }
           <li>컴포넌트는 <b>내가 부르지 않는다</b>. <code>&lt;Hello/&gt;</code>는 요청이고, 부르는 건 <b>리액트</b>다(제어의 역전).</li>
           <li>리액트는 <b>state가 바뀔 때마다 컴포넌트 함수를 다시 실행한다(리렌더)</b>. 마치 스스로를 다시 부르는 것처럼 느껴진다.</li>
           <li>리렌더되면 <b>그 안에서 부른 훅(커스텀 훅 포함)도 다시 실행된다</b> — 단 <code>useState</code>는 값 유지, <code>useEffect</code>는 deps로 제어.</li>
-          <li>그 '언제'가 <b>생명주기</b>다 — <b>마운트 → 업데이트 → 언마운트</b>. 타이밍은 리액트가 정한다(도구 <code>useEffect</code>는 9장).</li>
+          <li>그 '언제'가 <b>생명주기</b>다 — <b>마운트 → 업데이트 → 언마운트</b>. 타이밍은 리액트가 정한다(도구 <code>useEffect</code>는 8단계).</li>
         </ul>
       </div>
     </section>

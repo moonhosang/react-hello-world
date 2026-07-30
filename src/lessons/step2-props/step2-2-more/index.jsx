@@ -28,7 +28,7 @@ export default function Step2_2() {
       <span className="learn-tag">📎 학습 포인트 · 함수를 넘겨 자식이 부모에게 신호를 보내기</span>
       <p className="section-desc">
         <b>함수</b>도 넘길 수 있다. 자식이 그 함수를 호출하면 <b>부모에게 신호를 보내는</b> 셈이다.
-        (5단계 '상태 끌어올리기'의 씨앗)
+        (5단계 리스트 '상태 끌어올리기'의 씨앗)
       </p>
       <div className="card">
         <div className="file-label">📄 GreetButton.jsx · &lt;GreetButton onGreet=&#123;...&#125; /&gt;</div>

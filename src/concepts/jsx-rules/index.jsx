@@ -114,7 +114,7 @@ export default function JsxRules() {
 <div tabindex="0">`}
         good={`<div className="box" onClick={fn}>
 <label htmlFor="id">
-<div tabIndex={0}>`}
+<div tabIndex="0">`}
       />
 
       <RuleCard

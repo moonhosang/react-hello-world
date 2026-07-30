@@ -31,7 +31,7 @@ const EXAMPLES = [
     steps: [
       { title: '① 전체는 하나의 식(expression)', parts: [{ label: 'price * qty + tax', role: 'expression' }] },
       { title: '② 덧셈(+) 기준으로 두 항(term)으로 가른다', note: '+는 *보다 우선순위가 낮다 → 가장 느슨한 +로 바깥을 먼저 가른다', parts: [{ label: 'price * qty', role: 'term' }, { label: '+', role: 'operator' }, { label: 'tax', role: 'term' }] },
-      { title: '③ 각 항을 인자(factor)로 쪼갠다', note: '*는 우선순위가 높다 → 항 안쪽에서 인자로 쪼갠다', parts: [{ label: 'price', role: 'factor' }, { label: '*', role: 'operator' }, { label: 'qty', role: 'factor' }, { label: '+', role: 'operator' }, { label: 'tax', role: 'factor' }] },
+      { title: '③ 왼쪽 항을 인자(factor)로 쪼갠다', note: '*는 우선순위가 높다 → 항 안쪽을 인자로 쪼갠다. tax는 곱셈이 없어 더 쪼갤 게 없으니 그대로 항(term)이다', parts: [{ label: 'price', role: 'factor' }, { label: '*', role: 'operator' }, { label: 'qty', role: 'factor' }, { label: '+', role: 'operator' }, { label: 'tax', role: 'term' }] },
       { title: '④ 변수를 값으로 치환한다', parts: [{ label: '100', role: 'value' }, { label: '*', role: 'operator' }, { label: '3', role: 'value' }, { label: '+', role: 'operator' }, { label: '50', role: 'value' }] },
       { title: '⑤ 우선순위대로 계산 (× 먼저, + 나중)', parts: [{ label: '300', role: 'value' }, { label: '+', role: 'operator' }, { label: '50', role: 'value' }], result: '= 350' },
     ],
@@ -42,7 +42,7 @@ const EXAMPLES = [
     steps: [
       { title: '① 전체는 하나의 식 (불리언이 되는 식)', parts: [{ label: 'age >= 18 && hasTicket', role: 'expression' }] },
       { title: '② && 기준으로 두 항으로 가른다', note: '&&는 >=보다 우선순위가 낮다 → 가장 느슨한 &&로 바깥을 먼저 가른다', parts: [{ label: 'age >= 18', role: 'term' }, { label: '&&', role: 'operator' }, { label: 'hasTicket', role: 'term' }] },
-      { title: '③ 왼쪽 항을 비교식으로 쪼갠다', note: '>=는 &&보다 우선순위가 높다 → 항 안쪽에서 비교식으로', parts: [{ label: 'age', role: 'factor' }, { label: '>=', role: 'operator' }, { label: '18', role: 'factor' }, { label: '&&', role: 'operator' }, { label: 'hasTicket', role: 'factor' }] },
+      { title: '③ 왼쪽 항을 인자(factor)로 쪼갠다', note: '>=는 &&보다 우선순위가 높다 → 왼쪽 항 안쪽을 인자로 쪼갠다. hasTicket은 더 쪼갤 게 없으니 그대로 항(term)이다', parts: [{ label: 'age', role: 'factor' }, { label: '>=', role: 'operator' }, { label: '18', role: 'factor' }, { label: '&&', role: 'operator' }, { label: 'hasTicket', role: 'term' }] },
       { title: '④ 값으로 치환한다', parts: [{ label: '20', role: 'value' }, { label: '>=', role: 'operator' }, { label: '18', role: 'value' }, { label: '&&', role: 'operator' }, { label: 'true', role: 'value' }] },
       { title: '⑤ 비교 먼저, 그다음 &&', note: '왼쪽이 false면 오른쪽은 아예 평가하지 않는다(단축 평가) — React의 cond && <JSX/>가 이 성질을 쓴다', parts: [{ label: 'true', role: 'value' }, { label: '&&', role: 'operator' }, { label: 'true', role: 'value' }], result: '= true' },
     ],

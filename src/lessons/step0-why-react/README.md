@@ -132,7 +132,7 @@ const [count, setCount] = useState(0)
 ## 🛠️ 직접 해보기
 
 1. 두 카운터에 **감소 버튼**을 추가해 보자. 어느 쪽이 손이 더 가나?
-2. `OldWayCounter.jsx`에서 화면 갱신 줄(`displayRef...`)을 지우면? (숫자가 안 바뀜)
+2. `counter.html`(옛날 방식)에서 화면 갱신 줄(`valueEl.textContent = count`)을 지우면? (숫자가 안 바뀜)
 3. `ReactWayCounter.jsx`에서 `setCount(...)` 대신 `count = count + 1`로 바꾸면? (화면이 안 바뀜)
 
 → 다음: [1단계 · 컴포넌트 그 자체](../step1-components/README.md)

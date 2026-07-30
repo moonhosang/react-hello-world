@@ -58,7 +58,7 @@ export default function Stage9() {
         bad={'items.map((it) => (\n  <li>{it.name}</li>\n))'}
         good={'items.map((it) => (\n  <li key={it.id}>{it.name}</li>\n))'}
       >
-        리스트(<code>map</code>)로 만든 각 요소엔 <b>고유한 <code>key</code></b>를 준다. 보통 데이터의 id를 쓴다. (5단계 참고)
+        리스트(<code>map</code>)로 만든 각 요소엔 <b>고유한 <code>key</code></b>를 준다. 보통 데이터의 id를 쓴다. (5단계 리스트 참고)
       </ErrorCard>
 
       <ErrorCard

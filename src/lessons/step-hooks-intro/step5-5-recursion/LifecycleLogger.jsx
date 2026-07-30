@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 
 // 🔬 생명주기 3단계(🟢 마운트 · 🔵 업데이트 · 🔴 언마운트)를 로그로 직접 관찰하는 데모다.
-// ⏰ 리액트가 '언제' 컴포넌트를 부르는지 눈으로 본다. (useEffect의 자세한 사용법은 9장)
+// ⏰ 리액트가 '언제' 컴포넌트를 부르는지 눈으로 본다. (useEffect의 자세한 사용법은 8단계)
 
 // 👶 관찰 대상 자식. 마운트/업데이트/언마운트 시점을 부모에게 로그로 올린다.
 function Child({ n, onLog }) {
@@ -27,7 +27,7 @@ export default function LifecycleLogger() {
     <div>
       <div className="button-row">
         <button className="chip" onClick={() => setN((x) => x + 1)} disabled={!mounted}>🔵 업데이트 (리렌더)</button>
-        <button className="chip on" onClick={() => setMounted((v) => !v)}>
+        <button className="chip on" onClick={() => { if (!mounted) setN(0); setMounted((v) => !v) }}>
           {mounted ? '🔴 언마운트' : '🟢 다시 마운트'}
         </button>
         <button className="chip" onClick={() => setLogs([])}>🧹 로그 지우기</button>

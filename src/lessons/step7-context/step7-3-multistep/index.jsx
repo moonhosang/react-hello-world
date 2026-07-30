@@ -85,8 +85,8 @@ export default function Step7_3({ onGo }) {
           '③ 힌트 — useForm()은 파일 위쪽에서 이미 import 돼 있다(FormProvider로 감싸져 있어 바로 쓸 수 있다).',
           '④ 확인 — 다음/이전을 누르면 "1/3 → 2/3 → 3/3"과 막대 너비가 함께 움직이면 성공.',
         ]}
-        practiceFile="step7-3-multistep/practice.jsx"
-        solutionFile="step7-3-multistep/solution.jsx"
+        practiceFile="step7-context/step7-3-multistep/practice.jsx"
+        solutionFile="step7-context/step7-3-multistep/solution.jsx"
         solution={<SolutionProgress />}
       >
         <PracticeProgress />

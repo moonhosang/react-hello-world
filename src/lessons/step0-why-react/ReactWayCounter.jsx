@@ -5,7 +5,7 @@ import { useState } from 'react'
 // 그러면 리액트가 알아서 화면의 해당 부분을 다시 그려준다.
 //
 //   - {count} 라고 써두면 → count가 바뀔 때마다 그 자리가 자동으로 갱신됨
-//   - displayRef.textContent = ... 같은 "직접 조작"이 전혀 없다!
+//   - valueEl.textContent = ... 같은 "직접 조작"이 전혀 없다! (옛날 방식 counter.html엔 그 줄이 있다)
 
 export default function ReactWayCounter() {
   const [count, setCount] = useState(0)

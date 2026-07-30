@@ -1,5 +1,5 @@
 // 5-1 · 훅(Hook)이란 & 규칙   (배우는 것: 훅의 정체 · 규칙 2가지)
-// 앞의 04단계에서 우리는 이미 useState를 써 봤다. 그 useState가 바로 '훅'이다.
+// 앞의 3단계(3-1)에서 우리는 이미 useState를 써 봤다. 그 useState가 바로 '훅'이다.
 // 이 레슨은 방금 쓴 useState를 anchor 삼아 "이런 게 훅이다"로 일반화한다 (구체 → 추상).
 // 앞으로 배울 useEffect·useRef·useContext … 도 전부 여기서 배우는 규칙을 따른다.
 
@@ -12,7 +12,7 @@ export default function StepHooks1() {
       <header className="lesson-header">
         <span className="badge">5-1</span>
         <h2>훅(Hook)이란 & 규칙</h2>
-        <p>04단계에서 쓴 useState가 바로 '훅'이다. 훅의 정체와, 훅을 부를 때 지켜야 할 규칙을 익힌다.</p>
+        <p>3단계(3-1)에서 쓴 useState가 바로 '훅'이다. 훅의 정체와, 훅을 부를 때 지켜야 할 규칙을 익힌다.</p>
       </header>
 
       {/* 이 단계의 '딱 하나' — 훅은 use로 시작하는 특별한 함수이고, 최상위에서만 부른다 */}
@@ -28,7 +28,7 @@ export default function StepHooks1() {
       <h3 className="section-title">① 훅이란 — 우리가 이미 쓴 useState가 훅이다</h3>
       <span className="learn-tag">📎 학습 포인트 · use로 시작하는 함수들이 훅이고, 컴포넌트가 리액트 기능에 '고리를 거는' 통로다</span>
       <p className="section-desc">
-        04단계에서 <code>const [count, setCount] = useState(0)</code>을 썼다. 이 <code>useState</code>가
+        3단계(3-1)에서 <code>const [count, setCount] = useState(0)</code>을 썼다. 이 <code>useState</code>가
         바로 우리가 처음 쓴 <b>훅(Hook)</b>이다. 훅은 <b>use로 시작하는 함수</b>로, 그냥 함수였던
         컴포넌트가 <b>상태·효과 같은 리액트 기능에 "고리를 거는"</b> 통로다.
       </p>
@@ -41,7 +41,7 @@ export default function StepHooks1() {
           이름이 <code>use</code>로 시작하면 훅이라는 약속이다. 앞으로 이런 훅들을 하나씩 배운다:
         </p>
         <ul className="section-list">
-          <li><code>useState</code> — 변하는 <b>값(상태)</b>을 기억한다 <b>(04단계에서 배움 ✅)</b></li>
+          <li><code>useState</code> — 변하는 <b>값(상태)</b>을 기억한다 <b>(3단계에서 배움 ✅)</b></li>
           <li><code>useEffect</code> — 렌더 후 <b>바깥 세상과의 작업</b>(구독·타이머·요청 등)을 한다</li>
           <li><code>useRef</code> — 다시 그려도 유지되는 <b>상자</b>, DOM에 직접 접근할 때 쓴다</li>
           <li><code>useContext</code> — 멀리 있는 값을 <b>props 없이</b> 꺼내 쓴다</li>
@@ -88,7 +88,8 @@ export default function StepHooks1() {
         </li>
       </ul>
       <p className="section-desc">
-        특히 <b>규칙 1</b>은 아래 자리들에서 어기기 쉽다 — 전부 "컴포넌트 최상위가 아닌 곳"이다. 여기선 훅을 부르지 않는다:
+        아래 6가지 자리에서 규칙을 어기기 쉽다 — <b>1·2·6은 규칙 1</b>(최상위가 아니라 순서·개수가 흔들림),
+        <b> 3·4·5는 규칙 2</b>(리액트 함수 밖이라 호출 자체가 거부됨)에 걸린다. 어느 쪽이든 여기선 훅을 부르지 않는다:
       </p>
       <div className="card">
         <div className="file-label">📄 훅을 부르면 안 되는 6가지 자리 — 전부 ❌</div>
@@ -121,7 +122,8 @@ class Box extends React.Component {
 }`}</pre>
       </div>
       <p className="section-desc">
-        전부 "컴포넌트 <b>최상위</b>에서 <b>매 렌더 같은 순서로</b>"라는 한 가지를 깬다. 그래서 리액트가 값을 짝지을 순서가 흔들린다.
+        <b>1·2·6</b>은 "컴포넌트 최상위에서 매 렌더 같은 순서로"(규칙 1)를 깨서 리액트가 값을 짝지을 순서가 흔들리고,
+        <b> 3·4·5</b>는 애초에 "리액트 함수(컴포넌트·커스텀 훅) 밖"(규칙 2)이라 호출 자체가 거부된다.
       </p>
       <div className="card">
         <div className="file-label">📄 규칙 1 — 조건문 안 호출 ❌ vs 최상위 호출 ✅</div>
@@ -168,7 +170,7 @@ function useToggle(initial = false) {
 
 // 쓰는 쪽은 한 줄 — 커스텀 훅도 '최상위'에서 부른다
 function Light() {
-  const [on, toggle] = useToggle()
+  const [on, toggle] = useToggle(true)   // 처음부터 켜짐(💡)으로 시작
   return <button onClick={toggle}>{on ? '💡' : '🌑'}</button>
 }`}</pre>
       </div>

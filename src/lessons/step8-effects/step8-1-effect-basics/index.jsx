@@ -36,8 +36,8 @@ function SyncedUserView({ userId }) {
 }
 
 // ⚠️ 의존성 배열 자체를 '생략' — effect가 매 렌더마다 실행된다.
-// setRuns가 또 렌더를 부르고, 그 렌더가 또 effect를 불러 800ms마다 '끝없이' 다시 요청한다(무한 루프).
-// (동기 setState였다면 프리징되지만, fetch가 800ms 비동기라 화면이 얼지 않고 '도는 게' 눈에 보인다.)
+// setRuns가 또 렌더를 부르고, 그 렌더가 또 effect를 불러 약 0.8초마다 '끝없이' 다시 요청한다(무한 루프).
+// (동기 setState였다면 프리징되지만, fetch가 약 0.8초 비동기라 화면이 얼지 않고 '도는 게' 눈에 보인다.)
 function NoDepUserView({ userId }) {
   const [user, setUser] = useState(null)
   const [runs, setRuns] = useState(0)
@@ -194,7 +194,7 @@ function FixDepsQuiz() {
   const verdict = {
     empty: '❌ 아직 버그다. []는 처음 한 번만 부른다 → 사용자를 바꿔도 화면이 안 바뀐다. 다시 골라 보라.',
     dep: '✅ 정답! [userId] — userId가 바뀔 때마다 다시 불러와 화면과 항상 맞는다.',
-    none: '⚠️ 배열을 생략하면 매 렌더마다 실행된다 → 아래처럼 800ms마다 끝없이 다시 요청한다(무한 루프). userId만 넣는 게 맞다.',
+    none: '⚠️ 배열을 생략하면 매 렌더마다 실행된다 → 아래처럼 가짜 API 응답(약 0.8초)마다 끝없이 다시 요청한다(무한 루프). 아래 라이브 데모엔 도는 걸 눈으로 보라고 "요청 N회" 카운터를 덧붙였다 — 그 카운터는 이 3줄엔 없다. userId만 넣는 게 맞다.',
   }
   return (
     <div>
@@ -240,11 +240,15 @@ function ChainStepTrace() {
     { uid: '"bbb"', note: '또 바뀜 → 또 동기화' },
   ]
   // 각 단계에 '실제 코드'를 붙인다. effect의 fetchUser에는 그 라운드의 userId 값이 concrete하게 들어간다.
-  const chainOf = (uid) => [
-    { ico: '⚙️', label: 'effect 실행', code: `fetchUser(${uid})` },
-    { ico: '📥', label: 'setState', code: 'setUser(응답)' },
-    { ico: '🔁', label: '리렌더', code: 'return <UserView/>' },
-  ]
+  // 처음(userId 없음)엔 부를 대상이 없어 chain이 돌지 않는다 — note("아직 아무도 안 불러옴")와 맞춘다.
+  const chainOf = (uid) =>
+    uid === 'undefined'
+      ? [{ ico: '⛔', label: 'fetch 안 함', code: 'userId 없음 → 부를 대상이 없다' }]
+      : [
+          { ico: '⚙️', label: 'effect 실행', code: `fetchUser(${uid})` },
+          { ico: '📥', label: 'setState', code: 'setUser(응답)' },
+          { ico: '🔁', label: '리렌더', code: 'return <UserView/>' },
+        ]
   return (
     <div>
       <ol className="chain-rounds">
@@ -485,7 +489,7 @@ function onNext(id)      { setUserId(id); fetchUser(id).then(setUser) }
       </div>
       <CodeBlock file="useUserFetch.js (실제 소스)" code={hookRaw} />
       <p className="section-desc">
-        여기선 "왜 의존성이 필요한가"만 짚었다. <b>불러오는 동안의 로딩·에러 처리</b>는 <b>8-3</b>,
+        여기선 "왜 의존성이 필요한가"만 짚었다. <b>불러오는 동안의 로딩 처리</b>는 <b>8-3</b>,
         <b> 같은 버튼을 또 눌러도 안 불러오는 이유</b>는 <b>8-4</b>에서 더 깊게 다룬다.
       </p>
 

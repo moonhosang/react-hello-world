@@ -103,9 +103,9 @@ export default function Step6_3() {
 
       <div className="concept">
         <p className="concept-lead">
-          진짜 상태는 <b>입력값(form) 하나</b>뿐이다. 에러는 매 렌더마다
-          <code> validate(form)</code>으로 <b>계산</b>한다 — form과 errors를 따로 state로 두면
-          둘이 어긋난다.
+          <b>파생 상태는 errors 하나뿐</b>이다 — 매 렌더마다 <code>validate(form)</code>으로 <b>계산</b>한다.
+          (<code>form·touched·submitted·done</code>은 각각 진짜 state지만, <b>errors만은 저장하지 않는다.</b>)
+          form과 errors를 따로 state로 두면 둘이 어긋난다.
         </p>
       </div>
 
@@ -121,7 +121,7 @@ export default function Step6_3() {
         <pre className="concept-flow">{`function validate(form) {
   const errors = {}
   if (!form.email.includes('@') || !form.email.includes('.'))
-    errors.email = '이메일 형식이 아니다'   // @ 와 . 를 모두 포함해야 한다
+    errors.email = '이메일 형식이 아니다 (@ 와 . 를 포함해야 한다)'
   // ...규칙을 어긴 필드만 담는다
   return errors            // 통과하면 {}
 }
@@ -154,8 +154,9 @@ const errors = validate(form)   // ★ state 아님 — 매 렌더 계산`}</pre
       </p>
       <div className="card">
         <div className="file-label">📄 step6-3-validation/index.jsx · select · number</div>
-        <pre className="concept-flow">{`const age = Number(form.age)               // '25' → 25
-if (form.age === '' || age < 1 || age > 120) errors.age = '1~120 숫자'
+        <pre className="concept-flow">{`const age = Number(form.age)               // '25' → 25 (input 값은 문자열)
+if (form.age === '' || Number.isNaN(age) || age < 1 || age > 120)
+  errors.age = '나이는 1~120 사이 숫자여야 한다'
 
 if (form.grade === '') errors.grade = '등급을 선택하라'  // 미선택`}</pre>
       </div>
@@ -236,8 +237,8 @@ if (form.grade === '') errors.grade = '등급을 선택하라'  // 미선택`}</
           "어떻게: const age = Number(form.age) 로 숫자로 바꾼 뒤, form.age === '' || age < 1 || age > 120 이면 errors.age = '나이는 1~120 사이여야 한다' 를 넣는다.",
           '확인: 나이에 0이나 999를 넣고 제출하면 에러가 뜨고 성공 표시가 안 나오면 성공이다.',
         ]}
-        practiceFile="step6-3-validation/practice.jsx"
-        solutionFile="step6-3-validation/solution.jsx"
+        practiceFile="step6-forms/step6-3-validation/practice.jsx"
+        solutionFile="step6-forms/step6-3-validation/solution.jsx"
         solution={<SolutionValidation />}
       >
         <PracticeValidation />
