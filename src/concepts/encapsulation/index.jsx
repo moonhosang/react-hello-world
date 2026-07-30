@@ -2,7 +2,8 @@
 // 리액트 컴포넌트만으로 구성한 하나의 메뉴로, '조립'과 '숨김'의 의미를 본다.
 
 import AppMenu from './AppMenu.jsx'
-import UserCardDemo, { UserCardPractice } from './UserCard.jsx'
+import UserCardDemo from './UserCard.jsx'
+import { UserCardPractice } from './practice.jsx'
 import Practice from '../../components/Practice.jsx'
 
 export default function Encapsulation() {
@@ -162,16 +163,16 @@ export default function Encapsulation() {
       </ul>
 
       <Practice
-        task="UserCard 한 곳에 '프로필 보기' 버튼 한 줄을 추가해, 9개 카드 전부에 생기게 해 보자."
+        task="기본 UserCard 정의에 '프로필 보기' 버튼 한 줄을 더해(= ExtraUserCard), 9개 카드 전부에 생기게 해 보자."
         hints={[
-          "카드 하나가 아니라 UserCard '정의'를 고친다 — 그럼 쓰는 곳 전부에 반영된다.",
+          "카드 하나가 아니라 UserCard '정의'를 고친다 — 그럼 쓰는 곳 전부에 반영된다. (기본 UserCard.jsx → 한 줄 더한 solution.jsx의 ExtraUserCard)",
           "버튼도 함수를 넘긴다: onClick={() => onActionClick('profile')} (JS J3).",
           "CSS로는 '요소(버튼)'를 못 만든다 — 그래서 컴포넌트다.",
         ]}
-        practiceFile="concepts/encapsulation/UserCard.jsx"
-        solutionFile="concepts/encapsulation/UserCard.jsx"
+        practiceFile="concepts/encapsulation/practice.jsx"
+        solutionFile="concepts/encapsulation/solution.jsx"
         solution={
-          <pre className="err-code" style={{ margin: 0 }}>{`// UserCard의 버튼 줄 옆에 '한 줄' 추가 → 9개 카드 전부에 생김
+          <pre className="err-code" style={{ margin: 0 }}>{`// solution.jsx · ExtraUserCard — 기본 UserCard의 버튼 줄에 '한 줄' 추가 → 9개 카드 전부에 생김
 <button onClick={() => onActionClick('profile')}>👤 프로필 보기</button>`}</pre>
         }
       >
