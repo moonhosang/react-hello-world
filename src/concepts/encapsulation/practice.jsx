@@ -17,6 +17,7 @@ export function UserCardPractice() {
         <p>
           기본 <code>UserCard</code>에는 팔로우·메시지 버튼만 있다. 그 <b>정의 한 곳</b>에 '프로필 보기' 버튼 <b>한 줄</b>을
           더하면(= <code>ExtraUserCard</code>), 그걸 쓰는 <b>9개 카드 전부</b>에 버튼이 생긴다.
+          <br />📍 <b>어디를 고치나</b>: <code>UserCard.jsx</code>의 <code>UserCard</code> 안 <b>버튼 줄</b> — 팔로우·메시지 <code>&lt;button&gt;</code> <b>바로 다음</b>에 프로필 버튼 한 줄을 넣는다. (그 완성형이 <code>solution.jsx</code>의 <code>ExtraUserCard</code>다)
           <br />📌 <b>배우는 것</b>: 컴포넌트는 CSS(외형만)와 달리 <b>구조 + 로직(버튼·클릭)까지 한 곳에 묶어 재사용</b>한다 — 정의 한 곳을 고치면 쓰는 곳 <b>전부</b>가 바뀐다. CSS로는 '요소(버튼)'를 못 만들기에, 이건 컴포넌트만 되는 캡슐화다.
         </p>
       </div>
