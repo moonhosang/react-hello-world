@@ -36,6 +36,15 @@ export default function CheckpointA() {
       >
         <PracticeTeam />
       </Practice>
+
+      <div className="try-it" style={{ marginTop: 16 }}>
+        <h4>🔜 다음 예고 — 곧 궁금해질 질문</h4>
+        <p style={{ margin: 0 }}>
+          지금은 값을 <b>props로 넘기기만</b> 했다(부모가 정해준 고정 값). 그런데 "버튼을 누르면 <b>바뀌는</b> 값"은 어떻게 다룰까?
+          곧 <b>3단계</b>에서 <code>state</code>를 배우면, <b>무엇을 props로 · 무엇을 state로 · 그 state는 누가 소유할지</b>를
+          판단하게 된다 → <b>🔀 개념 · props vs state</b>에서 정리한다.
+        </p>
+      </div>
     </section>
   )
 }
