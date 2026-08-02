@@ -3,6 +3,7 @@
 // 여기서는 세 가지 패턴을 한곳에 모으고, 입문자가 반드시 밟는 && 0 함정을 라이브로 실증한다.
 
 import { useState } from 'react'
+import QuickQuiz from '../../components/QuickQuiz.jsx'
 
 // 🟢 라이브 데모 — 같은 상태를 세 패턴으로 각각 그려 본다.
 function PatternDemo() {
@@ -157,6 +158,56 @@ return <div>{badge}</div>`}</pre>
           <li><b>&& 왼쪽은 불리언</b>으로. 숫자 0 함정을 피한다.</li>
         </ul>
       </div>
+
+      <h3 className="section-title">🧩 확인 드릴 — 삼항 · && · 0 함정, 손에 익히기</h3>
+      <span className="learn-tag">📎 학습 포인트 · 삼항=둘 중 하나, &&=있을 때만, && 왼쪽은 불리언 — 상황만 바꿔 반복 확인한다</span>
+      <QuickQuiz
+        intro="세 패턴 선택과 0 함정을 상황만 바꿔 여섯 번 확인한다. JS 4의 && 0 함정과 같은 규칙이 React에서 어떻게 나오는지도 본다."
+        questions={[
+          {
+            q: '로그인이면 <환영/>, 아니면 <로그인폼/> — 둘 중 하나를 보여주려면?',
+            options: ['{isLoggedIn && <환영/>}', '{isLoggedIn ? <환영/> : <로그인폼/>}', '{isLoggedIn || <로그인폼/>}'],
+            codeOptions: true,
+            answer: 1,
+            explain: '둘 다 그릴 게 있으면 삼항(조건 ? A : B)이다. &&는 "있을 때만" 하나를 그릴 때 쓴다.',
+          },
+          {
+            q: 'isLoggedIn이 false일 때, 아래는 화면에 무엇을 보여주나?',
+            code: `{isLoggedIn && <span>🟢 접속 중</span>}`,
+            options: ['🟢 접속 중', '아무것도 안 보인다', 'false 라는 글자'],
+            answer: 1,
+            explain: '&&는 왼쪽이 false면 아무것도 안 그린다. React는 false·null·undefined를 화면에 그리지 않는다.',
+          },
+          {
+            q: '조건이 복잡할 때, JSX 중괄호 안에서는 if를 쓸 수 없다. 그럼 어떻게 하나?',
+            options: ['중괄호 안에 if문을 직접 쓴다', '위에서 변수(badge)에 담아 {badge}로 꽂는다', 'for문으로 그린다'],
+            answer: 1,
+            explain: 'JSX 중괄호 안엔 if문(문장)을 못 넣는다. 위에서 계산해 변수에 담고, 그 변수를 꽂는다(패턴 3 · 변수에 담기).',
+          },
+          {
+            q: 'count가 0일 때, 아래는 화면에 무엇을 보여주나?',
+            code: `{count && <b>🔔 {count}</b>}`,
+            options: ['아무것도 안 보인다', '숫자 0이 보인다', '🔔 0'],
+            answer: 1,
+            explain: 'count(0)가 falsy라 &&가 0을 반환하고, React는 숫자 0을 그대로 그린다 — JS 4에서 본 그 함정이 여기서 그대로 나온다.',
+          },
+          {
+            q: '위 0 함정을 고치는 가장 흔한 방법은?',
+            options: ['{count > 0 && <b>🔔 {count}</b>}', '{count && <b>🔔 {count}</b>}', '{count.length && <b>🔔 {count}</b>}'],
+            codeOptions: true,
+            answer: 0,
+            explain: '왼쪽을 count > 0 같은 비교식(진짜 불리언)으로 만들면 0일 때 false라 아무것도 안 그려진다.',
+          },
+          {
+            q: '삼항으로 "없을 때는 아무것도 안 보이게" 하려면 빈칸에 무엇을 넣나?',
+            code: `{count ? <Badge n={count} /> : ____}`,
+            options: ['null', '0', "'없음'"],
+            codeOptions: true,
+            answer: 0,
+            explain: "null은 React가 화면에 안 그린다 → 아무것도 안 보인다. 0은 화면에 0이 남고, '없음'은 그 글자가 보인다.",
+          },
+        ]}
+      />
     </section>
   )
 }

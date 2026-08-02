@@ -6,6 +6,7 @@ import HookRuleBreaker from './HookRuleBreaker.jsx'
 import Practice from '../../../components/Practice.jsx'
 import PracticeHookRule from './practice.jsx'
 import SolutionHookRule from './solution.jsx'
+import QuickQuiz from '../../../components/QuickQuiz.jsx'
 
 export default function StepHooks3() {
   return (
@@ -66,6 +67,57 @@ export default function StepHooks3() {
           </li>
         </ul>
       </div>
+
+      <h3 className="section-title">🧩 확인 드릴 — 훅을 부를 수 있는 위치</h3>
+      <span className="learn-tag">📎 학습 포인트 · 훅은 언제나 컴포넌트 '최상위'에서만 부른다 — 위치를 다섯 번 판별한다</span>
+      <QuickQuiz
+        intro="'이 자리에서 useState를 불러도 되나?'를 상황만 바꿔 다섯 번 판별한다. 규칙은 하나 — 최상위에서만 부른다."
+        questions={[
+          {
+            q: '아래 위치에서 useState를 불러도 되나?',
+            code: `function Comp() {
+  const [x, setX] = useState(0)  // 여기
+  return <p>{x}</p>
+}`,
+            options: ['가능하다', '안 된다'],
+            answer: 0,
+            explain: '컴포넌트 함수 최상위다 — 훅을 부르는 정확한 자리다.',
+          },
+          {
+            q: '다음 중 useState를 불러도 되는 위치는?',
+            options: ['컴포넌트 함수 최상위', 'if 블록 안', 'for 반복문 안'],
+            answer: 0,
+            explain: '훅은 최상위에서만 부른다. if·for 안에서 부르면 렌더마다 호출 순서·개수가 달라져 값이 어긋난다.',
+          },
+          {
+            q: '아래 위치에서 useState를 불러도 되나?',
+            code: `function Comp() {
+  for (let i = 0; i < 3; i++) {
+    const [x] = useState(0)  // 여기
+  }
+}`,
+            options: ['안 된다', '가능하다'],
+            answer: 0,
+            explain: '반복문 안은 최상위가 아니다. 도는 횟수에 따라 훅 호출 수가 달라져 규칙 위반이다.',
+          },
+          {
+            q: '이벤트 핸들러(onClick으로 부르는 함수) 안에서 useState를 부르면?',
+            options: ['안 된다 — 핸들러는 최상위가 아니다', '된다 — 함수 안이니까', '버튼이 눌릴 때만 된다'],
+            answer: 0,
+            explain: '핸들러는 컴포넌트 최상위가 아니라 클릭 때 실행되는 함수라 훅을 못 부른다. state는 최상위에서 만들고, 핸들러에선 setX만 부른다.',
+          },
+          {
+            q: '아래 위치에서 useState를 불러도 되나?',
+            code: `function Comp() {
+  if (!user) return null
+  const [x] = useState(0)  // 여기
+}`,
+            options: ['안 된다', '가능하다'],
+            answer: 0,
+            explain: 'user가 없으면 return으로 빠져 useState를 건너뛴다 → 렌더마다 호출 개수가 달라진다. 훅을 return보다 위로 올린다.',
+          },
+        ]}
+      />
     </section>
   )
 }

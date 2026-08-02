@@ -3,6 +3,7 @@
 // 콜백은 전부 화살표 함수다(JS 2강 연결). 둘 다 원본을 바꾸지 않는다(불변성 → React state의 규칙).
 
 import { useState } from 'react'
+import QuickQuiz from '../../../components/QuickQuiz.jsx'
 
 const mono = '"Consolas", ui-monospace, monospace'
 // 배열 원소 칩 — 원본(파랑)·결과(초록)·탈락(빨강 취소선)
@@ -317,6 +318,54 @@ console.log(nums)   // [1, 2, 3, 4]  ← 두 번을 거쳐도 원본 그대로 �
           그래서 체이닝이 되고, React는 <code>{'배열.map(item => <li key={...}>...</li>)'}</code>로 목록을 그린다.
         </p>
       </div>
+
+      <h3 className="section-title">🧩 확인 드릴 — map·filter 결과 예측하기</h3>
+      <span className="learn-tag">📎 학습 포인트 · map은 변환(같은 길이), filter는 선별(짧아짐) · 원본 불변 — 다섯 번 확인한다</span>
+      <QuickQuiz
+        intro="같은 규칙(map=변환·filter=선별·원본 불변)을 배열만 바꿔 다섯 번 확인한다. 결과를 예측해 보라."
+        questions={[
+          {
+            q: '무엇이 나오나?',
+            code: `[1, 2, 3, 4].map(n => n * 2)`,
+            options: ['[2, 4, 6, 8]', '[1, 2, 3, 4]', '[8]'],
+            codeOptions: true,
+            answer: 0,
+            explain: 'map은 각 원소를 콜백(n => n * 2)으로 변환한 새 배열을 준다. 원소 4개 → 결과도 4개(같은 길이).',
+          },
+          {
+            q: '무엇이 나오나?',
+            code: `[1, 2, 3, 4].filter(n => n > 2)`,
+            options: ['[3, 4]', '[1, 2]', '[true, true, false, false]'],
+            codeOptions: true,
+            answer: 0,
+            explain: 'filter는 콜백이 true인 원소만 그대로 남긴다. 3, 4만 n > 2가 참이라 [3, 4]다 — 변환이 아니라 선별이다.',
+          },
+          {
+            q: '원소 4개짜리 배열에 map을 하면 결과 배열의 길이는?',
+            options: ['항상 4 (같은 길이)', '조건에 따라 줄어들 수 있다', '항상 1'],
+            answer: 0,
+            explain: 'map은 원소 하나를 결과 하나에 1:1로 대응시키므로 길이가 그대로다. 길이가 줄 수 있는 건 filter다.',
+          },
+          {
+            q: '아래를 실행한 뒤 nums는 무엇인가?',
+            code: `const nums = [1, 2, 3, 4]
+nums.map(n => n * 2)
+console.log(nums)`,
+            options: ['[1, 2, 3, 4] (그대로)', '[2, 4, 6, 8]', '[]'],
+            codeOptions: true,
+            answer: 0,
+            explain: 'map·filter는 원본을 건드리지 않고 새 배열을 반환할 뿐이다. 반환값을 변수에 안 받았어도 nums는 그대로다(불변).',
+          },
+          {
+            q: '무엇이 나오나?',
+            code: `[1, 2].filter(n => n > 5)`,
+            options: ['[] (빈 배열)', 'undefined', '에러가 난다'],
+            codeOptions: true,
+            answer: 0,
+            explain: '조건을 통과하는 원소가 하나도 없으면 빈 배열 []이 된다. 에러가 아니다.',
+          },
+        ]}
+      />
     </section>
   )
 }

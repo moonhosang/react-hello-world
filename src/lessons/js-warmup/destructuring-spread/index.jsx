@@ -2,6 +2,7 @@
 // React props 받기(2단계)·useState(3-2)·불변성 업데이트의 핵심 전제다.
 
 import { useState } from 'react'
+import QuickQuiz from '../../../components/QuickQuiz.jsx'
 
 const mono = '"Consolas", ui-monospace, monospace'
 
@@ -230,6 +231,51 @@ const more = [...arr, 4]            // [1, 2, 3, 4] — 새 배열, arr은 그�
           <b> 스프레드</b>는 펼쳐서 <b>새 것 만들기</b> — 원본은 그대로 두고, 뒤에 쓴 키가 이긴다. React props와 state 업데이트의 문법이 곧 이 둘이다.
         </p>
       </div>
+
+      <h3 className="section-title">🧩 확인 드릴 — 꺼내기와 새로 만들기</h3>
+      <span className="learn-tag">📎 학습 포인트 · 객체는 키 이름으로, 배열은 순서로 꺼낸다 · 스프레드는 원본을 안 건드리고 새 것을 만든다</span>
+      <QuickQuiz
+        intro="구조 분해와 스프레드를 상황만 바꿔 다섯 번 확인한다. 보기를 하나 골라 보라."
+        questions={[
+          {
+            q: 'const { name, city } = user 이면 city에는 무엇이 담기나?',
+            code: `const user = { name: '민지', age: 20, city: '서울' }
+const { name, city } = user`,
+            options: ["'서울'", "'민지'", 'undefined'],
+            answer: 0,
+            explain: "구조 분해는 키 '이름'으로 맞춰 꺼낸다. city 키의 값 '서울'이 city 변수에 담긴다(쓴 순서와 무관).",
+          },
+          {
+            q: "const [a, b] = ['짜장', '짬뽕', '탕수육'] 이면 b는?",
+            options: ["'짬뽕'", "'짜장'", "'탕수육'"],
+            answer: 0,
+            explain: '배열은 키가 없어 순서로 꺼낸다. 0번째가 a(짜장), 1번째가 b(짬뽕)다.',
+          },
+          {
+            q: 'next를 만든 뒤 원본 user.age는 무엇인가?',
+            code: `const user = { name: '민지', age: 20 }
+const next = { ...user, age: 21 }`,
+            options: ['20 — 원본은 그대로다', '21 — 원본도 바뀐다', 'undefined'],
+            answer: 0,
+            explain: '스프레드는 원본을 펼쳐 담은 새 객체를 만들 뿐이다. user.age는 그대로 20이고, next.age만 21이다(불변성).',
+          },
+          {
+            q: '그럼 next.age는 무엇인가?',
+            code: `const user = { name: '민지', age: 20, city: '서울' }
+const next = { ...user, age: 21 }`,
+            options: ['21 — 뒤에 쓴 키가 이긴다', '20 — 원본 값이 이긴다', '에러 — age가 두 번이다'],
+            answer: 0,
+            explain: '같은 키가 겹치면 뒤에 쓴 것이 이긴다. ...user의 age: 20을 뒤의 age: 21이 덮어써서 next.age는 21이다.',
+          },
+          {
+            q: 'React state에서 배열에 항목을 더할 때 맞는 것은? (원본을 바꾸면 안 된다)',
+            options: ['setList([...list, item])', 'list.push(item)', 'list[list.length] = item'],
+            codeOptions: true,
+            answer: 0,
+            explain: 'push·인덱스 대입은 원본을 바꾼다(불변성 위반). [...list, item]으로 새 배열을 만들어 set 해야 React가 변화를 알아챈다.',
+          },
+        ]}
+      />
     </section>
   )
 }

@@ -3,6 +3,7 @@
 // 입문자가 제일 많이 터지는 곳: onClick={greet} (O) vs onClick={greet()} (X).
 
 import { useState } from 'react'
+import QuickQuiz from '../../../components/QuickQuiz.jsx'
 
 const mono = '"Consolas", ui-monospace, monospace'
 
@@ -603,6 +604,52 @@ useEffect(() => { … }, [])             // effect도 '함수를 넘기는' 것`
           React에 <b>넘길 땐 괄호 없이</b>(<code>onClick={'{greet}'}</code>), 인자가 필요하면 <b>인라인 <code>{'() => greet(x)'}</code></b>로 감싼다.
         </p>
       </div>
+
+      <h3 className="section-title">🧩 확인 드릴 — 넘기기 vs 실행, 손에 익히기</h3>
+      <span className="learn-tag">📎 학습 포인트 · 괄호 ()가 붙으면 '지금 실행', 없으면 '넘기기'다 — 다섯 번 확인해 손에 익힌다</span>
+      <QuickQuiz
+        intro="같은 개념(함수는 값 · 괄호=실행)을 상황만 바꿔 다섯 번 확인한다. 보기를 하나 골라 보라 — 바로 정답과 이유가 나온다."
+        questions={[
+          {
+            q: 'greet는 alert를 부르는 함수다. 아래 마지막 줄을 실행하면 alert가 뜰까?',
+            code: `const greet = () => alert('안녕!')
+const f = greet   // 이 줄`,
+            options: ['바로 alert가 뜬다', '안 뜬다 (아무 일도 안 일어난다)', '에러가 난다'],
+            answer: 1,
+            explain: "괄호가 없으니 실행이 아니라 함수를 f에 '담기'만 한 것이다. f() 라고 불러야 그때 alert가 뜬다.",
+          },
+          {
+            q: '클릭할 때 sayHi가 실행되게 하려면 onClick에 무엇을 줘야 하나?',
+            code: `function sayHi() { alert('hi') }`,
+            options: ['onClick={sayHi()}', 'onClick={sayHi}', 'onClick=sayHi'],
+            codeOptions: true,
+            answer: 1,
+            explain: "onClick={sayHi} — 함수를 '넘겨' 두면 클릭 때 React가 불러 준다. sayHi()는 렌더 도중 즉시 실행되고, onClick엔 그 반환값이 들어가 버튼이 죽는다.",
+          },
+          {
+            q: '이 버튼을 화면에 그리면 alert는 언제 뜰까?',
+            code: `<button onClick={sayHi()}>눌러</button>`,
+            options: ['버튼을 클릭할 때', '화면을 그리는 순간(클릭 안 해도) 바로', '영영 안 뜬다'],
+            answer: 1,
+            explain: '괄호가 붙어 sayHi()가 렌더 도중 즉시 실행된다. 클릭과 무관하게 그리자마자 뜨고, onClick엔 반환값이 들어가 버튼은 죽는다.',
+          },
+          {
+            q: '클릭할 때 remove(3)이 실행되게 하려면?',
+            options: ['onClick={remove(3)}', 'onClick={() => remove(3)}', 'onClick={remove, 3}'],
+            codeOptions: true,
+            answer: 1,
+            explain: '인자를 넘겨야 하면 () => remove(3) 으로 감싼다. onClick={remove(3)}은 렌더 때 즉시 실행돼 버린다.',
+          },
+          {
+            q: 'double = n => n*2 일 때, [1, 2, 3].map(double)에서 double은 어떻게 쓰이나?',
+            code: `const double = n => n * 2;
+[1, 2, 3].map(double)`,
+            options: ['map이 double을 각 원소마다 대신 불러 준다 → [2, 4, 6]', 'double을 지금 한 번만 실행한다', '에러 — 괄호가 없다'],
+            answer: 0,
+            explain: "double을 괄호 없이 '넘기면', map이 원소마다 double(원소)를 대신 불러 준다. onClick={fn}과 똑같은 '넘기기'다.",
+          },
+        ]}
+      />
     </section>
   )
 }

@@ -17,6 +17,7 @@ import ImmutabilityDemo from './ImmutabilityDemo.jsx'
 import Practice from '../../components/Practice.jsx'
 import PracticeList from './practice.jsx'
 import SolutionList from './solution.jsx'
+import QuickQuiz from '../../components/QuickQuiz.jsx'
 
 let nextId = 4 // 새 할 일에 붙일 id (간단히 하기 위해 컴포넌트 밖에 둠)
 
@@ -119,6 +120,46 @@ y.push(2)
           <li>할 일을 <b>더블클릭</b>하면 내용을 수정할 수 있게 만들어 보자. (도전!)</li>
         </ol>
       </div>
+
+      <h3 className="section-title">🧩 확인 드릴 — map · key 손에 익히기</h3>
+      <span className="learn-tag">📎 학습 포인트 · 배열은 map으로 목록이 되고, 각 항목엔 고유 key를 준다 — 다섯 번 확인한다</span>
+      <QuickQuiz
+        intro="같은 규칙(배열 → map → 목록, 항목마다 고유 key)을 상황만 바꿔 다섯 번 확인한다."
+        questions={[
+          {
+            q: '배열 fruits를 화면 목록으로 그리려면?',
+            options: ['fruits.map(fruit => <li key={fruit}>{fruit}</li>)', 'fruits.push(<li>...</li>)', 'for 문으로 fruits를 직접 바꾼다'],
+            codeOptions: true,
+            answer: 0,
+            explain: '배열을 map으로 돌려 원소마다 <li>를 만들면 JSX 목록이 된다. 이게 리스트 렌더링의 기본이다.',
+          },
+          {
+            q: 'map으로 목록을 만들 때 key는 어디에 붙이나?',
+            options: ['map이 돌려주는 가장 바깥 요소(<li>)에', '가장 안쪽 텍스트에', 'map을 부르는 배열 이름에'],
+            answer: 0,
+            explain: 'key는 map이 돌려주는 각 항목의 가장 바깥 요소(<li>)에 붙인다. 그래야 리액트가 항목들을 구별한다.',
+          },
+          {
+            q: 'key 값으로 가장 알맞은 것은?',
+            options: ['항목마다 고유한 값 (예: todo.id)', '모든 항목에 똑같은 문자열', '매번 새로 만드는 랜덤 숫자'],
+            answer: 0,
+            explain: 'key는 항목을 구별하는 이름표라 항목마다 고유해야 한다. 보통 데이터의 id를 쓴다. 같은 값이면 구별이 안 된다.',
+          },
+          {
+            q: 'map으로 만든 목록에 key를 안 주면 어떻게 되나?',
+            options: ['화면엔 나오지만 콘솔에 경고가 뜬다', '빌드가 아예 안 된다', '항목이 거꾸로 나온다'],
+            answer: 0,
+            explain: 'key가 없어도 화면엔 그려지지만 리액트가 콘솔에 경고를 남긴다. 항목을 제대로 구별하려면 고유 key가 필요하다.',
+          },
+          {
+            q: '아래 map의 콜백은 원소마다 무엇을 돌려주나?',
+            code: `todos.map(todo => <li key={todo.id}>{todo.text}</li>)`,
+            options: ['원소마다 <li> 하나 (JSX)', 'todos 배열을 직접 바꾼다', '아무것도 안 돌려준다'],
+            answer: 0,
+            explain: '화살표 함수 본문이 식(JSX)이면 그 값이 그대로 반환된다. 원소마다 <li> 하나가 나와 새 JSX 배열이 되고, 원본 todos는 안 바뀐다.',
+          },
+        ]}
+      />
     </section>
   )
 }

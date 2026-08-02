@@ -6,6 +6,7 @@ import LikeButton from './LikeButton.jsx'
 import Practice from '../../../components/Practice.jsx'
 import PracticeSwitch from './practice.jsx'
 import SolutionSwitch from './solution.jsx'
+import QuickQuiz from '../../../components/QuickQuiz.jsx'
 
 export default function Step3_1() {
   return (
@@ -69,6 +70,48 @@ export default function Step3_1() {
           <li><code>LikeButton.jsx</code>에 좋아요를 누른 <b>횟수</b>를 세는 상태를 추가해 보자.</li>
         </ol>
       </div>
+
+      <h3 className="section-title">🧩 확인 드릴 — useState 손에 익히기</h3>
+      <span className="learn-tag">📎 학습 포인트 · [값, set함수] · set으로만 화면이 바뀐다 — 다섯 번 확인한다</span>
+      <QuickQuiz
+        intro="같은 규칙(변하는 값은 useState, 바꾸는 건 set 함수)을 상황만 바꿔 다섯 번 확인한다."
+        questions={[
+          {
+            q: 'const [count, setCount] = useState(0) 에서 count와 setCount는 각각 무엇인가?',
+            options: ['count = 현재 값, setCount = 바꾸는 함수', 'count = 바꾸는 함수, setCount = 현재 값', '둘 다 현재 값이다'],
+            answer: 0,
+            explain: 'useState는 [현재 값, 그 값을 바꾸는 set 함수]를 순서대로 돌려준다. 앞이 값, 뒤가 함수다.',
+          },
+          {
+            q: '화면에 보이는 카운트를 일반 변수로 두고 아래처럼 바꾸면 화면은?',
+            code: `let count = 0
+count = count + 1   // 화면은?`,
+            options: ['값도 늘고 화면도 1로 바뀐다', '값은 늘어도 화면이 안 바뀐다', '에러가 난다'],
+            answer: 1,
+            explain: '일반 변수를 바꿔도 리액트는 모른다 → 다시 그리지 않아 화면이 그대로다. 게다가 다시 그릴 땐 0으로 초기화된다. 그래서 useState가 필요하다.',
+          },
+          {
+            q: '버튼을 누를 때 화면의 count가 실제로 바뀌게 하려면?',
+            options: ['setCount(count + 1)', 'count = count + 1', 'count++'],
+            codeOptions: true,
+            answer: 0,
+            explain: 'set 함수(setCount)로 바꿔야 리액트가 새 값으로 화면을 다시 그린다. 직접 대입(count = ...)은 화면을 안 바꾼다.',
+          },
+          {
+            q: 'const [on, setOn] = useState(false) 에서 false는 무슨 의미인가?',
+            options: ['on의 초기값(처음 값)', 'on을 절대 못 바꾼다는 뜻', 'set 함수의 이름'],
+            answer: 0,
+            explain: 'useState(초기값)의 인자는 그 상태의 첫 값이다. 여기선 on이 false로 시작하고, 이후 setOn으로 바꾼다.',
+          },
+          {
+            q: '스위치의 on을 뒤집어(켜고 끄기) 화면을 바꾸려면 onClick에 무엇을 줘야 하나?',
+            options: ['onClick={() => setOn(!on)}', 'onClick={() => on = !on}', 'onClick={setOn}'],
+            codeOptions: true,
+            answer: 0,
+            explain: 'setOn(!on)으로 현재 값을 뒤집어 set 한다. on = !on은 직접 대입이라 화면이 안 바뀌고, setOn만 넘기면 무엇으로 바꿀지 안 정해진다.',
+          },
+        ]}
+      />
     </section>
   )
 }

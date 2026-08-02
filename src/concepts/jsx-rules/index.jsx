@@ -3,6 +3,7 @@
 // 입문자가 가장 많이 틀리는 여섯 자리를, 규칙을 명시하고 ❌/✅로 나란히 실증한다.
 
 import { useState } from 'react'
+import QuickQuiz from '../../components/QuickQuiz.jsx'
 
 // 🟢 라이브 데모 — 6가지 규칙을 '모두 지킨' 작은 컴포넌트.
 // 버튼을 누르면 {표현식}이 실시간으로 바뀌는 걸 보여준다(규칙 4).
@@ -159,6 +160,48 @@ export default function JsxRules() {
           <li>대부분의 위반은 <b>빌드가 실패</b>하거나 <b>빨간 에러</b>로 바로 알려 준다 — 겁먹지 말고 메시지를 읽으면 된다(→ 11장 에러 읽는 법).</li>
         </ul>
       </div>
+
+      <h3 className="section-title">🧩 확인 드릴 — 여섯 규칙 골라내기</h3>
+      <span className="learn-tag">📎 학습 포인트 · class→className · 루트 하나 · 태그 닫기 · {'{표현식}'} · style은 객체</span>
+      <QuickQuiz
+        intro="JSX 규칙을 상황만 바꿔 다섯 번 확인한다. 올바른 JSX를 골라 보라."
+        questions={[
+          {
+            q: 'JSX에서 CSS class를 주려면 어떻게 쓰나?',
+            options: ['<div className="box">', '<div class="box">', '<div classname="box">'],
+            codeOptions: true,
+            answer: 0,
+            explain: 'class는 JS 예약어라 JSX에선 className을 쓴다(카멜케이스). for는 htmlFor로 바꾼다.',
+          },
+          {
+            q: '컴포넌트가 <h1>과 <p> 형제 둘을 반환하려면?',
+            options: ['<>…</>(Fragment)로 감싼다', '그냥 나란히 둘을 반환한다', '둘을 붙여 한 태그로 만든다'],
+            answer: 0,
+            explain: '컴포넌트는 요소를 하나만 반환한다. 형제가 여럿이면 <>…</>(Fragment)나 <div>로 감싼다.',
+          },
+          {
+            q: 'JSX에서 <input>을 쓸 때 맞는 것은?',
+            options: ['<input /> 처럼 스스로 닫아야 한다', '<input> 그대로 써도 된다', '<input>은 JSX에서 못 쓴다'],
+            codeOptions: true,
+            answer: 0,
+            explain: 'HTML에서 봐주던 <img>·<br>·<input>도 JSX에선 반드시 닫는다. 자식이 없으면 />로 스스로 닫는다.',
+          },
+          {
+            q: '변수 name의 값을 문장에 넣으려면?',
+            options: ['<p>안녕, {name}</p>', '<p>안녕, name</p>', '<p>안녕, "name"</p>'],
+            codeOptions: true,
+            answer: 0,
+            explain: 'JSX 안에서 JS 값을 쓰려면 중괄호로 감싼다. {name}은 값, name·"name"은 그냥 글자다.',
+          },
+          {
+            q: '글자색을 빨강으로 하는 인라인 스타일은?',
+            options: ["style={{ color: 'red' }}", 'style="color: red"', "style={{ 'font-size': 14 }}"],
+            codeOptions: true,
+            answer: 0,
+            explain: 'style엔 문자열이 아니라 객체를 준다(중괄호 두 겹). 속성명은 카멜케이스(fontSize), 값은 보통 문자열이다.',
+          },
+        ]}
+      />
     </section>
   )
 }

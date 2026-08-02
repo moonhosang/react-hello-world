@@ -3,6 +3,7 @@
 
 import HelloName from './HelloName.jsx'
 import ProfileCard from './ProfileCard.jsx'
+import QuickQuiz from '../../../components/QuickQuiz.jsx'
 import Practice from '../../../components/Practice.jsx'
 import PracticeBadge from './practice.jsx'
 import SolutionBadge from './solution.jsx'
@@ -106,6 +107,48 @@ export default function Step2_1() {
           <li><code>bio</code>를 지웠을 때 어떻게 되는지 확인해 보자. (props는 없을 수도 있다)</li>
         </ol>
       </div>
+
+      <h3 className="section-title">🧩 확인 드릴 — 값 넘기고 받기</h3>
+      <span className="learn-tag">📎 학습 포인트 · 문자열은 "..."로, 그 외 값은 {'{중괄호}'}로 넘긴다 · props는 읽기 전용이다</span>
+      <QuickQuiz
+        intro="props 넘기기·받기를 상황만 바꿔 다섯 번 확인한다. 보기를 하나 골라 보라."
+        questions={[
+          {
+            q: '숫자 20을 age prop으로 넘기려면 어떻게 쓰나?',
+            options: ['age={20}', 'age="20"', 'age=20'],
+            codeOptions: true,
+            answer: 0,
+            explain: '문자열이 아닌 값(숫자·변수·불리언)은 중괄호로 넘긴다. age="20"은 문자열 "20"이 되고, age=20은 문법 오류다.',
+          },
+          {
+            q: '<ProfileCard name="김리액트" /> 로 넘긴 name을 자식이 받아 쓰려면 정의를 어떻게?',
+            options: ['function ProfileCard({ name }) { ... }', 'function ProfileCard(name) { ... }', 'function ProfileCard() { return name }'],
+            codeOptions: true,
+            answer: 0,
+            explain: 'props는 객체 하나로 들어온다. 중괄호로 구조 분해해 { name }으로 받아 {name}으로 쓴다.',
+          },
+          {
+            q: '자식이 받은 props를 props.name = "새이름" 으로 바꾸려 하면?',
+            options: ['안 된다 — props는 읽기 전용이다', '부모의 값까지 바뀐다', '자식에서만 바뀐다'],
+            answer: 0,
+            explain: 'props는 부모 → 자식 한 방향, 읽기 전용이다. 바뀌어야 하는 값이면 state로 둔다(→ 3단계).',
+          },
+          {
+            q: '아래 두 줄은 어떤 관계인가?',
+            code: `<HelloName name="김코딩" />
+<HelloName name="박개발" />`,
+            options: ['같은 컴포넌트를 다른 값으로 재사용', '서로 다른 컴포넌트 두 개', '두 번째가 첫 번째를 덮어쓴다'],
+            answer: 0,
+            explain: '정의는 하나(HelloName)뿐이다. props만 달리해 여러 번 재사용한다 — 정의는 하나, 사용은 여러 번.',
+          },
+          {
+            q: "function HelloName({ name = '손님' }) 일 때, <HelloName /> 은 누구를 인사하나?",
+            options: ['손님', 'undefined', '빈 화면(에러)'],
+            answer: 0,
+            explain: '값을 안 넘기면 구조 분해의 기본값이 쓰인다. name이 없으니 기본값 손님이 들어간다.',
+          },
+        ]}
+      />
     </section>
   )
 }

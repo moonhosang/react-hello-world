@@ -3,6 +3,7 @@
 // React 4.5(조건부 렌더링)의 유명한 함정 {list.length && <List/>} 가 바로 여기서 나온다.
 
 import { useState } from 'react'
+import QuickQuiz from '../../../components/QuickQuiz.jsx'
 
 const mono = '"Consolas", ui-monospace, monospace'
 
@@ -271,6 +272,66 @@ name ? name : '손님'      // truthy면 name, falsy면 '손님'
           <code> &&</code>는 <b>값을 반환</b>하므로 왼쪽이 <code>0</code>이면 <code>0</code>이 화면에 찍힌다 — <b><code>length &gt; 0 &&</code></b> 처럼 불리언으로 만들어라.
         </p>
       </div>
+
+      <h3 className="section-title">🧩 확인 드릴 — falsy와 && 0, 손에 익히기</h3>
+      <span className="learn-tag">📎 학습 포인트 · falsy 6개와 "&&는 값을 반환한다"를 값·상황만 바꿔 반복 확인한다</span>
+      <QuickQuiz
+        intro="falsy 판별과 && 0 함정을 값·상황만 바꿔 일곱 번 확인한다. 하나 고르면 바로 정답과 이유가 나온다."
+        questions={[
+          {
+            q: '다음 값 중 falsy(거짓처럼 구는 값)는 무엇인가?',
+            options: ["'0'", '0', '[]'],
+            codeOptions: true,
+            answer: 1,
+            explain: "숫자 0만 falsy다. 문자열 '0'과 빈 배열 []는 둘 다 truthy다(글자 있는 문자열·객체는 truthy).",
+          },
+          {
+            q: '다음 중 truthy가 아닌 것(= falsy)은?',
+            options: ['[]', '{}', "''"],
+            codeOptions: true,
+            answer: 2,
+            explain: "빈 문자열 ''는 falsy 6개 중 하나다. 빈 배열 []·빈 객체 {}는 비어 있어도 truthy다.",
+          },
+          {
+            q: "Boolean('0') 의 결과는?",
+            code: `Boolean('0')`,
+            options: ['true', 'false', '에러가 난다'],
+            codeOptions: true,
+            answer: 0,
+            explain: "문자열 '0'은 글자가 있는 문자열이라 truthy → Boolean('0')은 true다. 숫자 0과 전혀 다르다.",
+          },
+          {
+            q: "0 && 'hello' 의 결과는 무엇인가?",
+            code: `0 && 'hello'`,
+            options: ['false', '0', "'hello'"],
+            codeOptions: true,
+            answer: 1,
+            explain: "&&는 왼쪽이 falsy면 그 '왼쪽 값'을 그대로 반환한다 → false가 아니라 0이다.",
+          },
+          {
+            q: "2 && 'hi' 의 결과는?",
+            code: `2 && 'hi'`,
+            options: ["'hi'", '2', 'true'],
+            codeOptions: true,
+            answer: 0,
+            explain: "왼쪽이 truthy면 &&는 오른쪽 값을 반환한다 → 'hi'다(true가 아니다).",
+          },
+          {
+            q: 'cartCount가 0일 때, 아래 코드는 화면에 무엇을 보여주나?',
+            code: `{cartCount && <span className="badge">{cartCount}</span>}`,
+            options: ['아무것도 안 보인다', '숫자 0이 보인다', '에러가 난다'],
+            answer: 1,
+            explain: 'cartCount(0)가 falsy라 &&가 0을 반환하고, React는 숫자 0을 화면에 그린다(false·null은 안 그리지만 0은 그린다). → 4.5 조건부 렌더링에서 똑같이 만난다.',
+          },
+          {
+            q: '위 0 함정을 없애려면 &&의 왼쪽을 무엇으로 바꾸나?',
+            options: ['cartCount', 'cartCount > 0', 'cartCount || 0'],
+            codeOptions: true,
+            answer: 1,
+            explain: "왼쪽을 cartCount > 0 같은 비교식으로 만들면 '진짜 불리언'이라, 0일 때 false가 되어 아무것도 안 그려진다.",
+          },
+        ]}
+      />
     </section>
   )
 }

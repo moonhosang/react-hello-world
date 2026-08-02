@@ -541,6 +541,64 @@ function onNext(id)      { setUserId(id); fetchUser(id).then(setUser) }
           <li>"언제 다시 부르지?"가 헷갈리면 <b>"이 효과는 무엇에 맞춰져 있나?"</b>를 물어라. 그게 곧 의존성이다.</li>
         </ul>
       </div>
+
+      <h3 className="section-title">🧩 확인 드릴 — 의존성 배열, 손에 익히기</h3>
+      <span className="learn-tag">📎 학습 포인트 · [] = 한 번 · [값] = 그 값 바뀔 때 · 생략 = 매 렌더(무한) — 일곱 번 확인한다</span>
+      <QuickQuiz
+        intro="같은 규칙(effect는 렌더 뒤 실행 · 의존성이 실행 시점을 정한다)을 상황만 바꿔 확인한다. 하나 골라 보라."
+        questions={[
+          {
+            q: 'useEffect의 의존성 배열이 [] 이면 effect는 언제 실행되나?',
+            options: ['처음 마운트된 뒤 딱 한 번', '매 렌더마다', '전혀 실행되지 않는다'],
+            answer: 0,
+            explain: "[]는 '바뀔 의존성이 없다'는 뜻이라 마운트 직후 한 번만 실행된다. 매 렌더마다 돌게 하려면 배열을 생략한다(거의 안 씀).",
+          },
+          {
+            q: '아래 effect는 언제 다시 실행되나?',
+            code: `useEffect(() => {
+  document.title = '클릭 ' + count + '회';
+}, [count]);`,
+            options: ['count가 바뀔 때마다', '처음 한 번만', '아무 state나 바뀌면 매번'],
+            answer: 0,
+            explain: '의존성에 적은 count가 바뀔 때마다 다시 실행된다. 다른 state가 바뀌어도 count가 그대로면 이 effect는 건너뛴다.',
+          },
+          {
+            q: 'effect에서 fetchUser로 받은 값을 setUser로 넣는데, 의존성 배열을 생략했다. 무슨 일이 나나?',
+            code: `useEffect(() => {
+  fetchUser(userId).then(setUser);
+}); // 배열 없음`,
+            options: ['처음 한 번만 불러온다', '매 렌더마다 실행 → 계속 다시 요청(무한 반복)', '에러가 나서 멈춘다'],
+            answer: 1,
+            explain: '배열을 생략하면 매 렌더마다 실행된다. setUser가 또 렌더를 부르고 그 렌더가 또 effect를 불러 끝없이 반복한다. [userId]를 넣어야 한다.',
+          },
+          {
+            q: 'userId를 바꿨는데 화면이 옛날 사람 그대로다(stale). effect의 의존성 배열이 무엇일 때 이런가?',
+            options: ['[]', '[userId]', '생략'],
+            codeOptions: true,
+            answer: 0,
+            explain: '[]는 처음 한 번만 부르고 userId가 바뀌어도 다시 안 부른다 → 화면이 안 맞는다(stale). [userId]로 바꿔야 userId가 바뀔 때마다 다시 불러 맞춘다.',
+          },
+          {
+            q: '위 stale 버그를 고치려면 의존성 배열을 무엇으로 두어야 하나?',
+            options: ['[userId]', '[]', '생략(배열 없음)'],
+            codeOptions: true,
+            answer: 0,
+            explain: "화면이 userId에 '맞춰져' 있어야 하니 [userId]를 넣는다. 그러면 userId가 바뀔 때마다 effect가 다시 돌아 새 사람을 불러온다.",
+          },
+          {
+            q: 'useEffect에 적은 일은 언제 실행되나?',
+            options: ['화면을 다 그린(렌더한) 뒤', '화면을 그리기 전에 먼저', '클릭할 때만'],
+            answer: 0,
+            explain: "effect는 렌더가 끝난 뒤 실행된다. 그래서 화면 그리기를 막지 않는다. 렌더 '도중'에 하면 안 되는 일(요청·타이머)을 여기로 미루는 것이다.",
+          },
+          {
+            q: '컴포넌트 함수 본문(렌더 도중)에서 바로 setCount(count + 1)을 부르면?',
+            options: ['렌더가 또 렌더를 불러 무한 반복 → 리액트가 막는다', '한 번만 잘 실행된다', '아무 일도 안 일어난다'],
+            answer: 0,
+            explain: "렌더 도중 setState는 또 렌더를 부르고, 그게 또 setState를 불러 무한이 된다(리액트가 'Too many re-renders'로 막는다). 그래서 이런 일은 렌더가 끝난 뒤인 useEffect로 미룬다.",
+          },
+        ]}
+      />
     </section>
   )
 }

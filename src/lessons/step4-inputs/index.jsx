@@ -14,6 +14,7 @@ import ControlledInput from './ControlledInput.jsx'
 import Practice from '../../components/Practice.jsx'
 import PracticeInput from './practice.jsx'
 import SolutionInput from './solution.jsx'
+import QuickQuiz from '../../components/QuickQuiz.jsx'
 
 export default function Stage4() {
   return (
@@ -100,6 +101,46 @@ export default function Stage4() {
           <li><code>UncontrolledInput</code>의 "리액트가 아는 값"을 <b>실시간으로 바꾸려면</b> 무엇이 필요할까? (답: value·onChange로 state에 묶기 = controlled로 바꾸기)</li>
         </ol>
       </div>
+
+      <h3 className="section-title">🧩 확인 드릴 — controlled input 손에 익히기</h3>
+      <span className="learn-tag">📎 학습 포인트 · value로 state를 내리고 onChange로 타이핑을 state에 올린다 — 다섯 번 확인한다</span>
+      <QuickQuiz
+        intro="controlled input의 규칙(value+onChange 짝, 단방향)을 상황만 바꿔 다섯 번 확인한다."
+        questions={[
+          {
+            q: 'input을 controlled로 만들려면 input에 무엇을 묶어야 하나?',
+            options: ['value 와 onChange 둘 다', 'value 하나만', 'onChange 하나만'],
+            answer: 0,
+            explain: 'value로 state를 화면에 내리고, onChange로 타이핑을 state에 올린다. 둘이 짝이라 하나만 있으면 controlled가 안 된다.',
+          },
+          {
+            q: '타이핑한 값을 state에 넣으려면 onChange에 무엇을 써야 하나?',
+            code: `<input value={text} onChange={?} />`,
+            options: ['(e) => setText(e.target.value)', '(e) => setText(e)', 'setText(e.target.value)'],
+            codeOptions: true,
+            answer: 0,
+            explain: '지금 입력창의 값은 e.target.value다. setText(e)는 이벤트 전체를 넣고, 화살표 없는 setText(...)는 렌더 때 즉시 실행돼 버린다.',
+          },
+          {
+            q: 'value={text}만 있고 onChange가 없으면, 입력창에 타이핑하면 어떻게 되나?',
+            options: ['글자가 안 써진다 (state가 안 바뀌니 화면도 그대로)', '잘 써지고 state도 바뀐다', '두 배로 써진다'],
+            answer: 0,
+            explain: 'value가 state에 고정됐는데 setText를 부를 onChange가 없어 state가 안 바뀐다 → 화면도 그대로다. React도 경고를 낸다.',
+          },
+          {
+            q: 'controlled input에서 사용자가 타이핑하면 state가 저절로 바뀌나?',
+            options: ['아니다 — onChange로 내가 setText를 불러야 바뀐다', '그렇다 — 자동으로 양방향 바인딩된다', '타이핑과 무관하게 바뀐다'],
+            answer: 0,
+            explain: 'React는 양방향 바인딩이 아니다. 화면 → state는 반드시 onChange 이벤트를 거쳐 내가 setText를 불러야 한다(단방향).',
+          },
+          {
+            q: 'value·onChange를 안 묶은 input(그냥 두기)은 값의 주인이 누구인가?',
+            options: ['DOM(input) — 리액트는 그 값을 모른다', 'state — 리액트가 안다', '아무도 아니다 — 타이핑이 안 된다'],
+            answer: 0,
+            explain: '그냥 둔 input은 값을 DOM이 가진다. 컴포넌트엔 그 값을 가리킬 변수가 없어 리액트는 깜깜이다. 실시간으로 알려면 controlled로 바꾼다.',
+          },
+        ]}
+      />
     </section>
   )
 }

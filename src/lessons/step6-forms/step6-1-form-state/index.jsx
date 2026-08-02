@@ -2,6 +2,7 @@
 // 입력이 여러 개면 각각 state로 둘 수 있다. 관련 있는 값이면 객체 하나 + 공통 onChange가 편하다.
 
 import { useState } from 'react'
+import QuickQuiz from '../../../components/QuickQuiz.jsx'
 
 export default function Step6_1() {
   // 방법 A: 입력마다 state
@@ -71,6 +72,48 @@ export default function Step6_1() {
         <code>{`setForm({ ...form, [e.target.name]: e.target.value })`}</code> — 바뀐 칸만 새 객체로.
         입력이 100개여도 <code>handleChange</code>는 <b>하나</b>면 된다.
       </p>
+
+      <h3 className="section-title">🧩 확인 드릴 — 객체 state와 공통 onChange</h3>
+      <span className="learn-tag">📎 학습 포인트 · 바뀐 칸만 <code>{'{...form, [name]: value}'}</code>로 덮는다 — 다섯 번 확인한다</span>
+      <QuickQuiz
+        intro="객체 폼을 다루는 규칙(공통 onChange · 한 칸만 갱신)을 상황만 바꿔 다섯 번 확인한다."
+        questions={[
+          {
+            q: '공통 onChange 하나로 여러 입력을 처리할 때, 어느 칸이 바뀌었는지 무엇으로 아나?',
+            code: `<input name="id" value={form.id} onChange={handleChange} />
+<input name="pw" value={form.pw} onChange={handleChange} />`,
+            options: ['e.target.name (input의 name)', 'e.target.value', 'form.id'],
+            answer: 0,
+            explain: 'input마다 name을 다르게 주고, handleChange에서 e.target.name으로 어느 칸인지 구분한다. e.target.value는 "무엇으로 바꿀지"다.',
+          },
+          {
+            q: 'id 칸만 바꾸고 pw는 그대로 두려면 setForm에 무엇을 넘겨야 하나? (form은 { id, pw })',
+            options: ['{ ...form, [e.target.name]: e.target.value }', '{ [e.target.name]: e.target.value }', 'form[e.target.name] = e.target.value'],
+            codeOptions: true,
+            answer: 0,
+            explain: '...form으로 기존 칸을 복사하고 [name]으로 바뀐 칸만 덮는다. {[name]:value}만 쓰면 나머지 칸이 사라지고, form[...] = ... 는 state 직접 변이라 안 된다.',
+          },
+          {
+            q: 'setForm({ [e.target.name]: e.target.value }) 처럼 ...form 없이 하면 어떻게 되나? (form은 { id, pw })',
+            options: ['방금 안 바꾼 칸(pw)이 사라진다', '두 칸 다 잘 유지된다', '에러가 난다'],
+            answer: 0,
+            explain: '새 객체에 바뀐 칸만 담아서, ...form으로 복사 안 한 나머지 칸은 없어진다. 그래서 항상 ...form을 먼저 편다.',
+          },
+          {
+            q: '관련 입력이 여러 개일 때, 객체 하나 + 공통 onChange의 장점은?',
+            options: ['입력이 늘어도 onChange가 하나면 된다', 'state를 아예 안 써도 된다', '입력마다 onChange를 새로 만들어야 한다'],
+            answer: 0,
+            explain: 'input의 name으로 칸을 구분하니, 입력이 100개여도 handleChange 하나로 다 처리한다.',
+          },
+          {
+            q: '객체 폼에서 아이디 input의 value엔 무엇을 넣나? (form은 { id, pw })',
+            options: ['value={form.id}', 'value={form}', 'value={id}'],
+            codeOptions: true,
+            answer: 0,
+            explain: '각 칸은 객체의 해당 필드(form.id·form.pw)를 value로 받는다. form 전체나 없는 변수 id를 넣으면 안 된다.',
+          },
+        ]}
+      />
     </section>
   )
 }

@@ -6,6 +6,7 @@ import ObjectState from './ObjectState.jsx'
 import ArrayMutationDemo from './ArrayMutationDemo.jsx'
 import ObjectMutationDemo from './ObjectMutationDemo.jsx'
 import TrapCounter, { SetStateStoreViz } from './TrapCounter.jsx'
+import QuickQuiz from '../../../components/QuickQuiz.jsx'
 
 export default function Step3_2() {
   return (
@@ -111,6 +112,67 @@ setTodos([...todos, 새항목])         // ✅   todos.push(새항목); setTodos
           state 업데이트 큐 ↗
         </a>
       </p>
+
+      <h3 className="section-title">🧩 확인 드릴 — 상태 규칙 손에 익히기</h3>
+      <span className="learn-tag">📎 학습 포인트 · 직접 바꾸지 말고 set으로 · 배열·객체는 복사본으로 · 연속 set은 값 vs 함수 — 일곱 번 확인한다</span>
+      <QuickQuiz
+        intro="같은 규칙(상태는 읽기 전용 · 새 값으로만 · 스냅샷)을 상황만 바꿔 확인한다. 하나 골라 보라."
+        questions={[
+          {
+            q: 'player 상태를 바꿔 화면에 반영하려 한다. 옳은 것은?',
+            code: `const [player, setPlayer] = useState({ exp: 0 });`,
+            options: ['player.exp = 10', 'setPlayer({ ...player, exp: 10 })', 'player = { exp: 10 }'],
+            codeOptions: true,
+            answer: 1,
+            explain: '상태는 직접 못 바꾼다(읽기 전용). set에 새 객체를 넣어야 리액트가 알아채고 다시 그린다. player.exp = 10 은 값은 바뀌어도 화면이 안 바뀐다.',
+          },
+          {
+            q: 'todos 배열에 새 항목을 더해 화면에 반영하려면?',
+            code: `const [todos, setTodos] = useState([]);`,
+            options: ['todos.push(newTodo)', 'setTodos([...todos, newTodo])', 'todos = [...todos, newTodo]'],
+            codeOptions: true,
+            answer: 1,
+            explain: '원본을 고치지 말고 새 배열을 set에 넣는다. todos.push(...)는 원본을 직접 바꿔 참조가 같아 리액트가 못 알아챈다.',
+          },
+          {
+            q: 'count가 0일 때 버튼에서 아래를 실행하면 count는 얼마가 되나?',
+            code: `setCount(count + 1);
+setCount(count + 1);
+setCount(count + 1);`,
+            options: ['3', '1', '0'],
+            answer: 1,
+            explain: "이 이벤트 동안 count는 스냅샷으로 0에 고정된다. 셋 다 '0 + 1'이라 결과는 1이다. 3이 되게 하려면 setCount(c => c + 1)로 직전 값 기준 계산을 넣어야 한다.",
+          },
+          {
+            q: 'count가 0일 때 아래를 실행하면 count는 얼마가 되나?',
+            code: `setCount(c => c + 1);
+setCount(c => c + 1);
+setCount(c => c + 1);`,
+            options: ['3', '1', '0'],
+            answer: 0,
+            explain: '함수(updater)를 넣으면 리액트가 직전 결과를 c로 넘겨 차례로 계산한다: 0→1→2→3. 값(count + 1)을 넣었다면 스냅샷 고정이라 1에 그친다.',
+          },
+          {
+            q: '다음 중 상태 규칙을 어긴 것은? (player는 객체 상태)',
+            options: ['setPlayer({ ...player, hp: 5 })', 'setPlayer(p => ({ ...p, hp: 5 }))', 'player.hp = 5; setPlayer(player)'],
+            codeOptions: true,
+            answer: 2,
+            explain: 'player.hp = 5 는 원본을 직접 고쳐 참조가 그대로다 → 리액트가 못 알아채 화면이 안 바뀐다. 나머지 둘은 새 객체를 만들어 넣어 안전하다.',
+          },
+          {
+            q: 'todos.push(x) 후 setTodos(todos)를 했는데 화면이 안 바뀐다. 왜일까?',
+            options: ['todos가 같은 참조라 리액트가 바뀐 걸 못 알아채서', '배열이 비어 있어서', 'push가 원래 안 되는 함수라서'],
+            answer: 0,
+            explain: 'push는 원본 배열을 그대로 두고 내용만 바꾼다 → 참조(주소)가 같아 리액트는 "안 바뀌었다"고 본다. [...todos, x]로 새 배열을 만들어야 한다.',
+          },
+          {
+            q: '서로 관련 없는 값(이름, 나이)을 상태로 둘 때 보통 어떻게 하나?',
+            options: ['각각 useState로 따로 둔다', '항상 객체 하나로 묶는다', '상태로 두면 안 된다'],
+            answer: 0,
+            explain: '독립적인 값은 각각 useState가 간단하다. 함께 움직이는 관련 값일 때 객체 하나로 묶는 게 좋다.',
+          },
+        ]}
+      />
     </section>
   )
 }
