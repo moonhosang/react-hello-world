@@ -5,7 +5,7 @@
 import { useState } from 'react'
 import QuickQuiz from '../../../components/QuickQuiz.jsx'
 
-const mono = '"Consolas", ui-monospace, monospace'
+const mono = 'var(--font-mono)'
 
 // JS 1·2강 해부기와 같은 색칩
 const ROLE = {

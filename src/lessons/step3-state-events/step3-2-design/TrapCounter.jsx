@@ -37,7 +37,7 @@ export default function TrapCounter() {
 }
 
 // 🗄️ React 내부 상태 저장소 시각화 — 한 이벤트가 처리되는 동안 '스냅샷 count'와 'React 저장소'가 어떻게 다른지.
-const mono = '"Consolas", ui-monospace, monospace'
+const mono = 'var(--font-mono)'
 const STORE = {
   wrong: {
     tag: '❌ setCount(count + 1)',

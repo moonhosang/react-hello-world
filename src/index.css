@@ -10,7 +10,11 @@
   --green: #16a34a;
   --red: #ef4444;
 
-  font-family: system-ui, "Segoe UI", "Malgun Gothic", -apple-system, sans-serif;
+  /* 본문 = Pretendard, 코드(고정폭) = 나눔고딕코딩. CDN 실패 시 시스템 폰트로 폴백 */
+  --font-sans: "Pretendard Variable", Pretendard, system-ui, "Segoe UI", "Malgun Gothic", -apple-system, sans-serif;
+  --font-mono: "Nanum Gothic Coding", "D2Coding", var(--font-mono);
+
+  font-family: var(--font-sans);
   color: var(--text);
 }
 
@@ -154,7 +158,7 @@ nav {
 }
 .toc-chapter-head.open .toc-chev { transform: rotate(90deg); }
 .toc-ch-n {
-  font-family: "Consolas", ui-monospace, monospace;
+  font-family: var(--font-mono);
   font-size: 11px;
   color: #94a3b8;
   flex: none;
@@ -273,12 +277,12 @@ nav {
 }
 .page-file-ico { font-size: 13px; }
 .page-file code {
-  font-family: "Consolas", ui-monospace, monospace;
+  font-family: var(--font-mono);
   color: var(--text);
   font-size: 12.5px;
 }
 .page-file-entry {
-  font-family: "Consolas", ui-monospace, monospace;
+  font-family: var(--font-mono);
   font-size: 11px;
   color: var(--brand);
   background: var(--brand-soft);
@@ -364,7 +368,7 @@ button {
 /* 확인해보기(반영) 변형 — 초록 톤 */
 .try-it.reflect { background: rgba(34, 197, 94, 0.1); border-color: #bbf7d0; }
 .reflect-before {
-  font-family: "Consolas", ui-monospace, monospace;
+  font-family: var(--font-mono);
   font-size: 13px;
   background: var(--panel);
   border: 1px solid var(--border);
@@ -455,7 +459,7 @@ button {
 
 /* ---------- 데모 카드 상단 파일명 라벨 ---------- */
 .file-label {
-  font-family: "Consolas", ui-monospace, monospace;
+  font-family: var(--font-mono);
   font-size: 12px;
   color: var(--muted);
   text-align: left;
@@ -478,7 +482,7 @@ button {
 .premise-formula {
   font-size: 22px;
   font-weight: 800;
-  font-family: "Consolas", ui-monospace, monospace;
+  font-family: var(--font-mono);
   white-space: nowrap;
   padding-right: 16px;
   border-right: 1px solid rgba(255, 255, 255, 0.4);
@@ -571,7 +575,7 @@ button {
   background: var(--bg);
   border: 1px solid var(--border);
   border-radius: 8px;
-  font-family: "Consolas", ui-monospace, monospace;
+  font-family: var(--font-mono);
   font-size: 12.5px;
   line-height: 1.6;
   overflow-x: auto;
@@ -738,7 +742,7 @@ button {
   text-align: left; cursor: pointer;
   background: var(--panel); border: none;
   padding: 8px 12px;
-  font-family: "Consolas", ui-monospace, monospace; font-size: 12.5px; color: var(--text);
+  font-family: var(--font-mono); font-size: 12.5px; color: var(--text);
 }
 .code-block-head:hover { background: var(--brand-soft); }
 .cb-chev { color: var(--muted); font-size: 10px; transition: transform 0.2s; flex: none; }
@@ -788,7 +792,7 @@ button.tech-tag.link:hover { background: var(--brand); color: #fff; border-color
 .practice-slot { border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
 .practice-slot.is-solution { border-color: var(--green); }
 .slot-label {
-  font-family: "Consolas", ui-monospace, monospace;
+  font-family: var(--font-mono);
   font-size: 12px;
   padding: 8px 12px;
   background: var(--bg);
@@ -907,7 +911,7 @@ button.tech-tag.link:hover { background: var(--brand); color: #fff; border-color
   margin-right: 4px;
 }
 .err-msg {
-  font-family: "Consolas", ui-monospace, monospace;
+  font-family: var(--font-mono);
   font-size: 13px;
   background: #7f1d1d;
   color: #fecaca;
@@ -928,7 +932,7 @@ button.tech-tag.link:hover { background: var(--brand); color: #fff; border-color
   background: var(--bg);
   border: 1px solid var(--border);
   border-radius: 8px;
-  font-family: "Consolas", ui-monospace, monospace;
+  font-family: var(--font-mono);
   font-size: 12.5px;
   line-height: 1.6;
   overflow-x: auto;
@@ -967,7 +971,7 @@ button.tech-tag.link:hover { background: var(--brand); color: #fff; border-color
 }
 .chain-chip-label { font-size: 12.5px; font-weight: 600; }
 .chain-chip-code {
-  font-family: "Consolas", ui-monospace, monospace;
+  font-family: var(--font-mono);
   font-size: 12px;
   color: var(--brand);
   background: var(--panel);
@@ -1036,7 +1040,7 @@ button.tech-tag.link:hover { background: var(--brand); color: #fff; border-color
   margin-bottom: 3px;
 }
 .toc-home-n {
-  font-family: "Consolas", ui-monospace, monospace;
+  font-family: var(--font-mono);
   font-weight: 700;
   font-size: 13px;
   color: var(--brand);
@@ -1094,7 +1098,7 @@ button.tech-tag.link:hover { background: var(--brand); color: #fff; border-color
 
 /* ---------- Context 리렌더 유의사항: 렌더 지문 ---------- */
 .render-tag {
-  font-family: "Consolas", ui-monospace, monospace;
+  font-family: var(--font-mono);
   font-size: 11px;
   color: var(--muted);
   background: var(--bg);
@@ -1143,7 +1147,7 @@ button.tech-tag.link:hover { background: var(--brand); color: #fff; border-color
   width: 34px; height: 34px; border-radius: 50%;
   display: grid; place-items: center;
   background: var(--panel); border: 2px solid var(--border);
-  font-family: "Consolas", ui-monospace, monospace; font-weight: 700; font-size: 14px;
+  font-family: var(--font-mono); font-weight: 700; font-size: 14px;
   color: var(--muted);
   transition: transform .35s cubic-bezier(.34,1.56,.64,1), border-color .35s, background .35s, color .35s, box-shadow .35s;
 }
@@ -1201,7 +1205,7 @@ button.tech-tag.link:hover { background: var(--brand); color: #fff; border-color
 
 /* 코드 표시 */
 .jsxt-code {
-  font-family: "Consolas", ui-monospace, monospace;
+  font-family: var(--font-mono);
   font-size: 14px; line-height: 1.9;
 }
 .jsxt-code.jsxt-block { white-space: pre; display: block; }
@@ -1232,7 +1236,7 @@ button.tech-tag.link:hover { background: var(--brand); color: #fff; border-color
 .jsxt-caption {
   text-align: center; margin: 12px 0 4px;
   font-size: 13px; color: var(--muted);
-  font-family: "Consolas", ui-monospace, monospace;
+  font-family: var(--font-mono);
 }
 .jsxt-arrow { color: var(--hue); font-weight: 700; transition: color .5s; }
 .jsxt-arrow.done { color: var(--green); }
@@ -1263,7 +1267,7 @@ button.tech-tag.link:hover { background: var(--brand); color: #fff; border-color
 .jsxt-btn.primary { background: var(--hue); border-color: var(--hue); color: #fff; }
 .jsxt-btn.play { margin-left: auto; }
 .jsxt-count {
-  font-family: "Consolas", ui-monospace, monospace; font-size: 13px;
+  font-family: var(--font-mono); font-size: 13px;
   color: var(--muted); font-variant-numeric: tabular-nums;
 }
 

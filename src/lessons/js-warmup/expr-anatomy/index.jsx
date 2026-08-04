@@ -123,7 +123,7 @@ function SnapshotTrace() {
   const [mode, setMode] = useState('wrong')
   const [shown, setShown] = useState(0)
   const t = SNAP[mode]
-  const mono = '"Consolas", ui-monospace, monospace'
+  const mono = 'var(--font-mono)'
   // 각 줄을 헤더 + ①식→인자 + ②값 + ③전달 로 평탄화
   const seq = []
   t.reads.forEach((read, i) => {
@@ -241,7 +241,7 @@ function LetTrace() {
     seq.push({ kind: 'assign', next: prev + 1 })
   })
   const done = shown >= seq.length
-  const mono = '"Consolas", ui-monospace, monospace'
+  const mono = 'var(--font-mono)'
   const Label = ({ children }) => (
     <span style={{ fontSize: 12, color: 'var(--muted)', width: LABEL_W, flex: 'none' }}>{children}</span>
   )
@@ -306,7 +306,7 @@ function LetTrace() {
 
 // 실제 React 줄을 토큰마다 용어로 라벨링한다.
 function TermAnatomy() {
-  const mono = '"Consolas", ui-monospace, monospace'
+  const mono = 'var(--font-mono)'
   const tokens = [
     { code: 'setCount', terms: ['식별자 (함수 이름)'], color: '#ca8a04' },
     { code: '(', terms: ['호출 괄호 — 인수를 넘긴다는 표시'], color: '#64748b' },

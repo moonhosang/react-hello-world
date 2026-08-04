@@ -4,7 +4,7 @@
 
 import { useState } from 'react'
 
-const mono = '"Consolas", ui-monospace, monospace'
+const mono = 'var(--font-mono)'
 
 // 가짜 서버 — 0.9초 뒤에 이름을 돌려주는 Promise. 진짜 fetch도 모양은 같다.
 const fakeFetchUser = () => new Promise((res) => setTimeout(() => res('김코딩'), 900))

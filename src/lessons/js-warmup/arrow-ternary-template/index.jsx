@@ -4,7 +4,7 @@
 
 import { useState } from 'react'
 
-const mono = '"Consolas", ui-monospace, monospace'
+const mono = 'var(--font-mono)'
 
 // JS 1강 해부기와 같은 색칩 — 조각의 역할별 색
 const ROLE = {

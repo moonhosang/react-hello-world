@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-const mono = '"Consolas", ui-monospace, monospace'
+const mono = 'var(--font-mono)'
 
 // 보기 순서를 섞을 순열을 만든다 — 저자가 정답을 늘 같은 자리에 둬도 '모르면 B' 찍기가 안 통하게.
 function shuffled(n) {

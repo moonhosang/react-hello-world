@@ -5,7 +5,7 @@
 import { useState } from 'react'
 import QuickQuiz from '../../../components/QuickQuiz.jsx'
 
-const mono = '"Consolas", ui-monospace, monospace'
+const mono = 'var(--font-mono)'
 // 배열 원소 칩 — 원본(파랑)·결과(초록)·탈락(빨강 취소선)
 const numChip = (kind, active) => ({
   border: `1.5px solid ${kind === 'out' ? '#16a34a' : kind === 'drop' ? '#dc2626' : '#2563eb'}`,
