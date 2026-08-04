@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import Home from './Home.jsx'
 import Roadmap from './Roadmap.jsx'
+import Glossary from './Glossary.jsx'
 // 각 강의는 자기 폴더의 index.jsx에서 불러온다. (폴더를 가리키면 index.jsx가 자동 선택됨)
 import Stage0 from './lessons/step0-why-react/index.jsx'
 import Stage1 from './lessons/step1-components/index.jsx'
@@ -145,6 +146,7 @@ const makeSteps = (base, p, extra = {}) =>
 const lessons = [
   { id: 'home', title: '🗺️ 커리큘럼', subtitle: '전체 한눈에', kind: 'home' },
   { id: 'roadmap', title: '🗺️ 로드맵 (예정)', subtitle: '앞으로 다룰 내용', Component: Roadmap, kind: 'home' },
+  { id: 'glossary', title: '📖 용어 사전', subtitle: 'JS·React 용어 총정리', Component: Glossary, kind: 'home' },
   { id: 0, title: '0단계 · 왜 리액트?', subtitle: '반응형 vs 명령형', Component: Stage0, docs: [D.reactingInput, D.thinking] },
   { id: 1, title: '1단계 · 컴포넌트', subtitle: '함수가 화면이 된다', Component: Stage1, docs: [D.firstComponent] },
   { id: 1.4, title: '🔍 개념 · 함수 vs 컴포넌트', subtitle: '컴포넌트는 어떤 함수?', Component: FunctionVsComponent, kind: 'concept', docs: [D.firstComponent, D.pureComponents] },
@@ -646,9 +648,15 @@ export default function App() {
             )
           })}
 
-          {/* 로드맵 — 마지막 장(실전 앱) 뒤에 둔다 */}
+          {/* 용어 사전 · 로드맵 — 마지막 장 뒤에 둔다 */}
           <button
-            className={'toc-home toc-roadmap' + (currentId === 'roadmap' ? ' active' : '')}
+            className={'toc-home toc-roadmap' + (currentId === 'glossary' ? ' active' : '')}
+            onClick={() => go('glossary')}
+          >
+            📖 용어 사전 · JS·React 총정리
+          </button>
+          <button
+            className={'toc-home' + (currentId === 'roadmap' ? ' active' : '')}
             onClick={() => go('roadmap')}
           >
             🗺️ 로드맵 · 앞으로 다룰 내용
