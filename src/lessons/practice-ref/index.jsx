@@ -1,0 +1,69 @@
+// 📝 챕터 연습 · Ref
+// 챕터 14(useRef와 커스텀 훅)를 종합하는 핸즈온 연습 — 난이도 3단계로 직접 만들어 본다.
+
+import PracticeLevels from '../../components/PracticeLevels.jsx'
+import PracticeEasy from './practiceEasy.jsx'
+import PracticeMedium from './practiceMedium.jsx'
+import PracticeHard from './practiceHard.jsx'
+import SolutionFocusRef from './solution.jsx'
+
+export default function PracticeRef() {
+  return (
+    <section>
+      <header className="lesson-header">
+        <span className="badge checkpoint-badge">📝 챕터 연습</span>
+        <h2>Ref — 종합 연습</h2>
+        <p>useRef로 진짜 DOM을 만지고(focus), 화면과 무관한 값을 리렌더 없이 보관해 본다. 쉬움 → 어려움 순으로.</p>
+      </header>
+
+      <div className="lesson-goal">
+        <span className="lesson-goal-tag">🎯 학습 포인트</span>
+        <p><code>useRef</code>는 DOM으로 가는 손잡이이자, 바뀌어도 <b>리렌더를 일으키지 않는</b> 보관함이다. 이벤트 안에서 <code>ref.current</code>를 읽고 쓴다.</p>
+      </div>
+
+      <PracticeLevels
+        goal="useRef로 input 포커스와 '리렌더 없는 값 기억'을 손에 익힌다."
+        solutionFile="practice-ref/solution.jsx"
+        solution={<SolutionFocusRef />}
+        levels={[
+          {
+            label: '쉬움',
+            file: 'practice-ref/practiceEasy.jsx',
+            task: '포커스 버튼을 누르면 입력창에 커서가 가게, onFocus 안 한 줄만 채우자.',
+            hints: [
+              '① 먼저 체험 — 지금은 버튼을 눌러도 입력창에 커서가 안 간다. 이게 고칠 문제다.',
+              '② 어디 — practiceEasy.jsx의 onFocus 함수 안 🟢 TODO. ref는 이미 <input>에 연결돼 있다.',
+              '③ 어떻게 — inputRef.current.focus(). ref.current가 진짜 DOM이라 focus()를 직접 부른다.',
+              '④ 확인 — 버튼을 누르면 입력창에 커서가 깜빡인다.',
+            ],
+            node: <PracticeEasy />,
+          },
+          {
+            label: '중간',
+            file: 'practice-ref/practiceMedium.jsx',
+            task: 'ref를 입력창에 연결하자. <input>에 ref={inputRef}가 빠져 포커스가 안 먹는다.',
+            hints: [
+              '① 무엇·왜 — useRef 상자를 만들어도 <input>에 ref로 연결하지 않으면 current가 비어 있어 focus()가 안 된다.',
+              '② 어디 — practiceMedium.jsx의 <input> 위 🟡 TODO. 포커스 로직(onFocus)은 이미 있다.',
+              '③ 어떻게 — <input ref={inputRef} ... />처럼 ref 속성을 붙여 실제 DOM을 inputRef.current에 담는다.',
+              '④ 확인 — 연결하면 버튼을 눌렀을 때 입력창에 커서가 간다.',
+            ],
+            node: <PracticeMedium />,
+          },
+          {
+            label: '어려움',
+            file: 'practice-ref/practiceHard.jsx',
+            task: '껍데기만 있다. useRef로 input 포커스 + 리렌더 없이 클릭 수 세기를 처음부터 만들자.',
+            hints: [
+              '① 참조 — const inputRef = useRef(null)을 만들고 <input ref={inputRef} />로 연결.',
+              '② 포커스 — const focus = () => inputRef.current.focus(). 버튼 onClick에 연결.',
+              '③ 리렌더 없는 값 — const clicksRef = useRef(0)을 두고, 버튼 클릭 시 clicksRef.current += 1 후 alert로 보여준다. state가 아니라 ref라 화면은 다시 안 그려진다.',
+              '④ 확인 — 포커스 버튼은 커서를 옮기고, 세기 버튼은 화면 변화 없이 누적 횟수를 alert로 보여준다.',
+            ],
+            node: <PracticeHard />,
+          },
+        ]}
+      />
+    </section>
+  )
+}

@@ -15,6 +15,11 @@ import StepHooks3 from './lessons/step-hooks-intro/step5-3-violations/index.jsx'
 import StepHooksRecursion from './lessons/step-hooks-intro/step5-5-recursion/index.jsx'
 import Stage4 from './lessons/step4-inputs/index.jsx'
 import PracticeState from './lessons/practice-state/index.jsx'
+import PracticeInputs from './lessons/practice-inputs/index.jsx'
+import PracticeForms from './lessons/practice-forms/index.jsx'
+import PracticeContext from './lessons/practice-context/index.jsx'
+import PracticeEffects from './lessons/practice-effects/index.jsx'
+import PracticeRef from './lessons/practice-ref/index.jsx'
 import Stage5 from './lessons/step5-lists/index.jsx'
 import Step6_1 from './lessons/step6-forms/step6-1-form-state/index.jsx'
 import Step6_2 from './lessons/step6-forms/step6-2-submit/index.jsx'
@@ -123,6 +128,7 @@ const lessons = [
   { id: 3.6, title: '🔁 개념 · 리렌더링', subtitle: '언제 다시 그려지나', Component: ReRender, kind: 'concept', docs: [D.renderCommit, D.stateSnapshot] },
   { id: 3.7, title: '📝 챕터 연습 · 상태', subtitle: '카운터·객체 state 직접 만들기', Component: PracticeState, kind: 'checkpoint', docs: [D.useState, D.updatingObjects] },
   { id: 4, title: '4단계 · 입력 다루기', subtitle: '그냥 두기 vs controlled · 단방향', Component: Stage4, docs: [D.reactingInput, D.input] },
+  { id: 4.3, title: '📝 챕터 연습 · 입력', subtitle: 'controlled input 직접 만들기', Component: PracticeInputs, kind: 'checkpoint', docs: [D.reactingInput, D.input] },
   { id: 3.81, group: '5단계 · 훅(Hook)', title: '5-1 · 훅이란 & 규칙', subtitle: 'use 함수 · 금지 위치', Component: StepHooks1, kind: 'sub', docs: [D.rulesOfHooks] },
   { id: 3.815, group: '5단계 · 훅(Hook)', title: '5-2 · 훅이 푸는 문제', subtitle: '훅 없이 vs 훅으로', Component: StepHooksBenefits, kind: 'sub', docs: [D.rulesOfHooks] },
   { id: 3.82, group: '5단계 · 훅(Hook)', title: '5-3 · 왜 그런 규칙인가', subtitle: '호출 순서', Component: StepHooks2, kind: 'sub', docs: [D.rulesOfHooks] },
@@ -134,18 +140,22 @@ const lessons = [
   { id: 6.1, group: '7단계 · 폼 입력 응용', title: '7-1 · 여러 입력 → 객체', subtitle: 'state·객체·공통 onChange', Component: Step6_1, kind: 'sub', docs: [D.updatingObjects] },
   { id: 6.2, group: '7단계 · 폼 입력 응용', title: '7-2 · 폼 제출', subtitle: 'onSubmit · 방명록', Component: Step6_2, kind: 'sub', docs: [D.updatingObjects, D.updatingArrays] },
   { id: 6.3, group: '7단계 · 폼 입력 응용', title: '7-3 · 유효성 검사', subtitle: 'validate · 파생 에러 · select', Component: Step6_3, kind: 'sub', docs: [D.updatingObjects, D.input] },
+  { id: 6.9, title: '📝 챕터 연습 · 폼', subtitle: '방명록 — 객체 state·제출 직접 만들기', Component: PracticeForms, kind: 'checkpoint', docs: [D.updatingObjects, D.updatingArrays] },
   { id: 7.1, group: '8단계 · Context (전역 상태)', title: '8-1 · prop drilling → Context', subtitle: '문제 → Provider 해결', Component: Step7_1, kind: 'sub', docs: [D.context, D.useContext] },
   { id: 7.2, group: '8단계 · Context (전역 상태)', title: '8-2 · 전역 상태', subtitle: 'state + setter 공유', Component: Step7_2, kind: 'sub', docs: [D.context, D.useContext] },
   { id: 7.3, group: '8단계 · Context (전역 상태)', title: '8-3 · 멀티스텝 폼', subtitle: 'Context로 상태 공유', Component: Step7_3, kind: 'sub', docs: [D.context, D.useContext, D.reusingLogic] },
+  { id: 7.4, title: '📝 챕터 연습 · Context', subtitle: 'createContext·Provider·useContext 직접 쓰기', Component: PracticeContext, kind: 'checkpoint', docs: [D.context, D.useContext] },
   { id: 8.1, group: '9단계 · useEffect', title: '9-1 · useEffect + 의존성', subtitle: '렌더 후 실행 · deps', Component: Step8_1, kind: 'sub', docs: [D.effects, D.useEffect] },
   { id: 8.2, group: '9단계 · useEffect', title: '9-2 · 정리(cleanup)', subtitle: '타이머 뒷정리', Component: Step8_2, kind: 'sub', docs: [D.effects, D.useEffect] },
   { id: 8.3, group: '9단계 · useEffect', title: '9-3 · 데이터 불러오기', subtitle: 'loading → data', Component: Step8_3, kind: 'sub', docs: [D.effects] },
   { id: 8.4, group: '9단계 · useEffect', title: '9-4 · 다시 불러오기', subtitle: '의존성 변경', Component: Step8_4, kind: 'sub', docs: [D.effects] },
   { id: 8.5, group: '9단계 · useEffect', title: '9-5 · localStorage 저장', subtitle: 'lazy init · JSON · 지속', Component: Step8_5, kind: 'sub', docs: [D.effects, D.useEffect] },
+  { id: 8.9, title: '📝 챕터 연습 · useEffect', subtitle: '의존성 배열·정리(cleanup) 직접 쓰기', Component: PracticeEffects, kind: 'checkpoint', docs: [D.effects, D.useEffect] },
   { id: 9, title: '10단계 · 에러 읽는 법', subtitle: '고장난 코드 고치기', Component: Stage9, docs: [D.rulesOfHooks] },
   { id: 10, title: '11단계 · useReducer', subtitle: '상태 로직 모으기', Component: Step10Reducer, docs: [D.useReducer, D.extractingReducer] },
   { id: 11, title: '12단계 · 최적화', subtitle: 'memo · useMemo · useCallback', Component: Step11Optimize, docs: [D.memo, D.useMemo, D.useCallback] },
   { id: 12, title: '13단계 · Ref와 커스텀 훅', subtitle: 'useRef · 로직 재사용', Component: Step12RefHooks, docs: [D.useRef, D.manipulatingDom, D.reusingLogic] },
+  { id: 12.1, title: '📝 챕터 연습 · Ref', subtitle: 'input 포커스·리렌더 없는 값 직접 만들기', Component: PracticeRef, kind: 'checkpoint', docs: [D.useRef, D.manipulatingDom] },
   { id: 12.5, title: '🛠️ Lv1 · 할 일 리스트+', subtitle: 'CRUD · 필터 · 저장', Component: CheckpointC, kind: 'app', docs: [D.updatingArrays, D.renderingLists] },
   { id: 13, title: '🛠️ Lv2 · 장바구니', subtitle: '수량 · 합계(파생·useMemo)', Component: CartApp, kind: 'app', docs: [D.useMemo, D.updatingArrays] },
   { id: 13.3, title: '🛠️ Lv3 · 회원가입 폼', subtitle: '유효성 검사 · 파생 에러', Component: SignupApp, kind: 'app', docs: [D.updatingObjects, D.input] },
@@ -173,16 +183,16 @@ const CHAPTERS = {
     { n: '02', title: '컴포넌트와 JSX', items: [1, 1.4, 1.45, 1.46, 1.5, 1.6] },
     { n: '03', title: 'Props — 값 전달', items: [2.1, 2.2, 2.3, 2.5] },
     { n: '04', title: '상태(State)', items: [3.1, 3.2, 3.3, 3.5, 3.6, 3.7] },
-    { n: '05', title: '입력 다루기', items: [4] },
+    { n: '05', title: '입력 다루기', items: [4, 4.3] },
     { n: '06', title: '훅(Hook)이란', items: [3.81, 3.815, 3.82, 3.83, 3.84] },
     { n: '07', title: '리스트 렌더링', items: [4.5, 5, 5.5] },
-    { n: '08', title: '폼 입력 응용', items: [6.1, 6.2, 6.3] },
-    { n: '09', title: 'Context — 전역 상태', items: [7.1, 7.2, 7.3] },
-    { n: '10', title: 'useEffect', items: [8.1, 8.2, 8.3, 8.4, 8.5] },
+    { n: '08', title: '폼 입력 응용', items: [6.1, 6.2, 6.3, 6.9] },
+    { n: '09', title: 'Context — 전역 상태', items: [7.1, 7.2, 7.3, 7.4] },
+    { n: '10', title: 'useEffect', items: [8.1, 8.2, 8.3, 8.4, 8.5, 8.9] },
     { n: '11', title: '에러 읽는 법', items: [9] },
     { n: '12', title: 'useReducer', items: [10] },
     { n: '13', title: '최적화', items: [11] },
-    { n: '14', title: 'Ref와 커스텀 훅', items: [12] },
+    { n: '14', title: 'Ref와 커스텀 훅', items: [12, 12.1] },
     { n: '15', title: '실전 앱 (난이도 순)', items: [12.5, 13, 13.3, 13.5, 14, 15, 16] },
   ],
   js: [
@@ -228,6 +238,11 @@ const FILES = {
   3.5: 'concepts/props-vs-state/index.jsx',
   3.6: 'concepts/rerender/index.jsx',
   3.7: 'lessons/practice-state/index.jsx',
+  4.3: 'lessons/practice-inputs/index.jsx',
+  6.9: 'lessons/practice-forms/index.jsx',
+  7.4: 'lessons/practice-context/index.jsx',
+  8.9: 'lessons/practice-effects/index.jsx',
+  12.1: 'lessons/practice-ref/index.jsx',
   3.81: 'lessons/step-hooks-intro/step5-1-what/index.jsx',
   3.815: 'lessons/step-hooks-intro/step5-2-benefits/index.jsx',
   3.82: 'lessons/step-hooks-intro/step5-2-why/index.jsx',
