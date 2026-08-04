@@ -6,7 +6,9 @@ import PracticeL2 from './practiceL2.jsx'
 import PracticeL3 from './practiceL3.jsx'
 import PracticeL4 from './practiceL4.jsx'
 import PracticeL5 from './practiceL5.jsx'
+import PracticeL6 from './practiceL6.jsx'
 import SolutionPriceTags from './solution.jsx'
+import SolutionProfileBadges from './solutionAlt.jsx'
 
 const PRACTICE = {
   shortTitle: 'Props',
@@ -65,7 +67,7 @@ const PRACTICE = {
       node: <PracticeL4 />,
     },
     {
-      label: '도전',
+      label: '처음부터',
       point: '빈 화면에서 컴포넌트부터 스스로 만든다.',
       file: 'practice-props/practiceL5.jsx',
       task: '껍데기만 있다. PriceTag를 처음부터 정의하고, 4번 재사용해 가격표 4개를 띄우자.',
@@ -75,6 +77,20 @@ const PRACTICE = {
         '③ 확인 — 정의 하나로 가격표 4개가 그려진다. 👀 정답 보기로 비교하라.',
       ],
       node: <PracticeL5 />,
+    },
+    {
+      label: '처음부터 (다른 예시)',
+      point: '같은 기술을 다른 예시로 한 번 더 — 빈 화면에서 처음부터.',
+      file: 'practice-props/practiceL6.jsx',
+      task: "이번엔 '프로필 배지'다. props로 emoji·name·status를 받는 Badge를 만들고, 값만 바꿔 여러 번 재사용하자.",
+      hints: [
+        '① 정의 — function Badge({ emoji, name, status }) { return ( … ) }. 하나의 <div>로 감싸고 {중괄호}로 값을 꽂는다.',
+        '② 재사용 — return 안에서 <Badge emoji="👩‍💻" name="김코딩" status="온라인" />처럼 3~4개.',
+        '③ 확인 — 정의 하나로 배지 여러 개가 그려진다. 👀 정답 보기로 비교하라.',
+      ],
+      node: <PracticeL6 />,
+      solution: <SolutionProfileBadges />,
+      solutionFile: 'practice-props/solutionAlt.jsx',
     },
   ],
 }

@@ -6,7 +6,9 @@ import PracticeL2 from './practiceL2.jsx'
 import PracticeL3 from './practiceL3.jsx'
 import PracticeL4 from './practiceL4.jsx'
 import PracticeL5 from './practiceL5.jsx'
+import PracticeL6 from './practiceL6.jsx'
 import SolutionProfile from './solution.jsx'
+import SolutionMedals from './solutionAlt.jsx'
 
 const PRACTICE = {
   shortTitle: 'JS·구조분해',
@@ -65,7 +67,7 @@ const PRACTICE = {
       node: <PracticeL4 />,
     },
     {
-      label: '도전',
+      label: '처음부터',
       point: '빈 화면에서 user부터 처음까지.',
       file: 'practice-js-destructure/practiceL5.jsx',
       task: '껍데기만 있다. user 객체부터 두고, 구조 분해 + 스프레드로 프로필을 만들자.',
@@ -75,6 +77,21 @@ const PRACTICE = {
         '③ 화면에 표시. 👀 정답 보기로 비교하라.',
       ],
       node: <PracticeL5 />,
+    },
+    {
+      label: '처음부터 (다른 예시)',
+      point: '같은 기술을 다른 예시로 한 번 더 — 빈 화면에서 처음부터.',
+      file: 'practice-js-destructure/practiceL6.jsx',
+      task: '이번엔 배열 구조 분해다. 메달 배열을 [gold, silver, bronze]로 나눠 순위표를 처음부터 만들자.',
+      hints: [
+        "① const medals = ['🥇 김코딩', '🥈 이디자인', '🥉 박백엔드'].",
+        '② 배열 구조 분해 — const [gold, silver, bronze] = medals. (순서대로 담긴다)',
+        '③ 화면에 gold·silver·bronze를 줄줄이 표시한다.',
+        '④ 👀 정답 보기로 비교하라.',
+      ],
+      node: <PracticeL6 />,
+      solution: <SolutionMedals />,
+      solutionFile: 'practice-js-destructure/solutionAlt.jsx',
     },
   ],
 }

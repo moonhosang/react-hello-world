@@ -7,7 +7,9 @@ import PracticeL2 from './practiceL2.jsx'
 import PracticeL3 from './practiceL3.jsx'
 import PracticeL4 from './practiceL4.jsx'
 import PracticeL5 from './practiceL5.jsx'
+import PracticeL6 from './practiceL6.jsx'
 import SolutionToggle from './solution.jsx'
+import SolutionCounter from './solutionAlt.jsx'
 
 const PRACTICE = {
   shortTitle: '훅',
@@ -66,7 +68,7 @@ const PRACTICE = {
       node: <PracticeL4 />,
     },
     {
-      label: '도전',
+      label: '처음부터',
       point: '빈 화면에서 커스텀 훅부터 처음까지.',
       file: 'practice-hooks/practiceL5.jsx',
       task: '껍데기만 있다. useToggle 커스텀 훅을 만들고, 그걸 써서 전등 토글을 처음부터 완성하자.',
@@ -76,6 +78,20 @@ const PRACTICE = {
         '③ 마크업 — {on ? "💡 켜짐" : "🌙 꺼짐"}와 버튼(onClick={toggle}). 👀 정답 보기로 비교하라.',
       ],
       node: <PracticeL5 />,
+    },
+    {
+      label: '처음부터 (다른 예시)',
+      point: '같은 기술을 다른 예시로 한 번 더 — 빈 화면에서 처음부터.',
+      file: 'practice-hooks/practiceL6.jsx',
+      task: "이번엔 'useCounter' 커스텀 훅이다. count·increment·reset을 돌려주는 훅을 만들고, 카운터를 처음부터 완성하자.",
+      hints: [
+        '① 훅 — function useCounter(start = 0) { const [count, setCount] = useState(start); const increment = () => setCount((c) => c + 1); const reset = () => setCount(start); return { count, increment, reset } }.',
+        '② 사용 — 컴포넌트 최상위에서 const { count, increment, reset } = useCounter(0). (조건문·반복문 안에서 부르면 훅 규칙 위반)',
+        '③ 마크업 — 🔢 {count}와 [+1](onClick={increment})·[리셋](onClick={reset}) 버튼. 👀 정답 보기로 비교하라.',
+      ],
+      node: <PracticeL6 />,
+      solution: <SolutionCounter />,
+      solutionFile: 'practice-hooks/solutionAlt.jsx',
     },
   ],
 }

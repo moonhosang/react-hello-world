@@ -7,7 +7,9 @@ import PracticeEasy2 from './practiceEasy2.jsx'
 import PracticeMedium from './practiceMedium.jsx'
 import PracticeMedium2 from './practiceMedium2.jsx'
 import PracticeHard from './practiceHard.jsx'
+import PracticeL6 from './practiceL6.jsx'
 import SolutionThemeContext from './solution.jsx'
+import SolutionAlt from './solutionAlt.jsx'
 
 const PRACTICE = {
   shortTitle: 'Context',
@@ -18,7 +20,7 @@ const PRACTICE = {
   solutionFile: 'practice-context/solution.jsx',
   levels: [
     {
-      label: '1 · 읽기',
+      label: '아주 쉬움',
       point: '완성된 Provider에서 값을 한 줄로 꺼낸다.',
       file: 'practice-context/practiceEasy.jsx',
       task: 'Provider는 이미 dark를 흘려보낸다. ThemeBadge가 그 값을 꺼내 보여주게, TODO 한 줄을 채우자.',
@@ -31,7 +33,7 @@ const PRACTICE = {
       node: <PracticeEasy />,
     },
     {
-      label: '2 · 흘려보내기',
+      label: '쉬움',
       point: '이번엔 Provider가 값을 흘려보내게 채운다.',
       file: 'practice-context/practiceEasy2.jsx',
       task: 'ThemeBadge는 이미 useContext로 읽는다. Provider의 value를 dark로 채워 값을 흘려보내자.',
@@ -43,7 +45,7 @@ const PRACTICE = {
       node: <PracticeEasy2 />,
     },
     {
-      label: '3 · 토글',
+      label: '중간',
       point: 'value에 상태+setter를 넣어 깊은 버튼이 토글하게 한다.',
       file: 'practice-context/practiceMedium.jsx',
       task: '깊은 버튼이 테마를 토글하게 하자. Provider의 value를 진짜 상태와 연결한다.',
@@ -56,7 +58,7 @@ const PRACTICE = {
       node: <PracticeMedium />,
     },
     {
-      label: '4 · Provider',
+      label: '어려움',
       point: 'Context·읽기는 됐고, Provider로 감싸 값을 흘려보낸다.',
       file: 'practice-context/practiceMedium2.jsx',
       task: 'Context 정의와 useContext 읽기는 다 돼 있다. 깊은 배지를 Provider로 감싸 값을 흘려보내자.',
@@ -69,7 +71,7 @@ const PRACTICE = {
       node: <PracticeMedium2 />,
     },
     {
-      label: '5 · 처음부터',
+      label: '처음부터',
       point: '빈 화면에서 createContext부터 전부 스스로.',
       file: 'practice-context/practiceHard.jsx',
       task: '껍데기만 있다. createContext부터 Provider·useContext까지 처음부터 이어 붙여, 깊은 자식에 테마를 전달하자.',
@@ -80,6 +82,21 @@ const PRACTICE = {
         '④ 확인 — theme이 "dark"라, prop 한 번 안 넘겼는데 깊은 뱃지에 "🌙 다크"가 뜬다.',
       ],
       node: <PracticeHard />,
+    },
+    {
+      label: '처음부터 (다른 예시)',
+      point: '같은 기술을 다른 예시로 한 번 더 — 빈 화면에서 처음부터.',
+      file: 'practice-context/practiceL6.jsx',
+      task: '이번엔 테마가 아니라 로그인 사용자 이름이다. createContext·Provider·useContext로 깊은 자식에 이름을 전달하자.',
+      hints: [
+        '① Context — const UserContext = createContext("게스트") (이미 있으면 그대로 쓴다).',
+        '② Provider — return에서 <UserContext.Provider value="김코딩"> 로 <DeepHello />를 감싼다.',
+        '③ 읽기 — DeepHello 안에서 const name = useContext(UserContext) 로 꺼내 하드코딩을 지운다.',
+        '④ 확인 — prop 한 번 안 넘겼는데 "👋 김코딩님"이 뜬다. 👀 정답 보기로 비교하라.',
+      ],
+      node: <PracticeL6 />,
+      solution: <SolutionAlt />,
+      solutionFile: 'practice-context/solutionAlt.jsx',
     },
   ],
 }

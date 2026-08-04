@@ -7,7 +7,9 @@ import PracticeStep2 from './practiceStep2.jsx'
 import PracticeMedium from './practiceMedium.jsx'
 import PracticeStep4 from './practiceStep4.jsx'
 import PracticeHard from './practiceHard.jsx'
+import PracticeL6 from './practiceL6.jsx'
 import SolutionGuestbook from './solution.jsx'
+import SolutionAlt from './solutionAlt.jsx'
 
 const PRACTICE = {
   shortTitle: '폼',
@@ -70,7 +72,7 @@ const PRACTICE = {
       node: <PracticeStep4 />,
     },
     {
-      label: '도전',
+      label: '처음부터',
       point: '빈 화면에서 방명록 전체를 처음부터 만든다.',
       file: 'practice-forms/practiceHard.jsx',
       task: '껍데기만 있다. form 객체 state·공통 onChange·제출(이름 필수)·목록을 처음부터 만들자.',
@@ -81,6 +83,21 @@ const PRACTICE = {
         '④ 확인 — 이름 없이는 막히고, 이름을 넣으면 목록에 쌓인다. 👀 정답 보기로 비교하라.',
       ],
       node: <PracticeHard />,
+    },
+    {
+      label: '처음부터 (다른 예시)',
+      point: '같은 기술을 다른 예시로 한 번 더 — 빈 화면에서 처음부터.',
+      file: 'practice-forms/practiceL6.jsx',
+      task: '이번엔 방명록이 아니라 메모 추가 폼이다. 제목을 입력해 추가하면 목록에 쌓이게 처음부터 만들자.',
+      hints: [
+        '① state — const [text, setText] = useState(""); const [memos, setMemos] = useState([]).',
+        '② onChange — controlled input: value={text} onChange={(e) => setText(e.target.value)}.',
+        '③ onSubmit — e.preventDefault() → if (text.trim() === "") return → setMemos([...memos, text]) → setText("").',
+        '④ 확인 — 제목을 넣고 추가하면 목록에 쌓이고, 빈 값은 막힌다. 👀 정답 보기로 비교하라.',
+      ],
+      node: <PracticeL6 />,
+      solution: <SolutionAlt />,
+      solutionFile: 'practice-forms/solutionAlt.jsx',
     },
   ],
 }

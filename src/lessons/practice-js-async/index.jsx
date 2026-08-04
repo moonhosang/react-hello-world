@@ -6,7 +6,9 @@ import PracticeL2 from './practiceL2.jsx'
 import PracticeL3 from './practiceL3.jsx'
 import PracticeL4 from './practiceL4.jsx'
 import PracticeL5 from './practiceL5.jsx'
+import PracticeL6 from './practiceL6.jsx'
 import SolutionAsyncLoader from './solution.jsx'
+import SolutionTwoAwaits from './solutionAlt.jsx'
 
 const PRACTICE = {
   shortTitle: 'JS·비동기',
@@ -65,7 +67,7 @@ const PRACTICE = {
       node: <PracticeL4 />,
     },
     {
-      label: '도전',
+      label: '처음부터',
       point: '빈 화면에서 state·async·버튼을 처음부터.',
       file: 'practice-js-async/practiceL5.jsx',
       task: '껍데기만 있다. 불러오기 버튼을 처음부터 만들자(state + async load + 버튼·결과).',
@@ -75,6 +77,21 @@ const PRACTICE = {
         '③ 화면 — 버튼(loading이면 "⏳ 불러오는 중…")과 결과(👤 {user}). 👀 정답 보기로 비교하라.',
       ],
       node: <PracticeL5 />,
+    },
+    {
+      label: '처음부터 (다른 예시)',
+      point: '같은 기술을 다른 예시로 한 번 더 — 빈 화면에서 처음부터.',
+      file: 'practice-js-async/practiceL6.jsx',
+      task: "이번엔 await를 '두 번 이어' 쓴다. 이름을 받은 뒤 그 이름으로 인사말을 받아 '인사 받기' 버튼을 처음부터 만들자.",
+      hints: [
+        '① state — const [msg, setMsg] = useState(null); const [loading, setLoading] = useState(false).',
+        '② load — setLoading(true) → const name = await fetchName() → const greeting = await fetchGreeting(name) → setMsg(greeting) → setLoading(false).',
+        '③ 두 번째 await는 첫 번째 결과(name)를 쓴다 — 순서대로 이어진다.',
+        '④ 버튼(onClick=load)과 결과(💬 {msg}). 👀 정답 보기로 비교하라.',
+      ],
+      node: <PracticeL6 />,
+      solution: <SolutionTwoAwaits />,
+      solutionFile: 'practice-js-async/solutionAlt.jsx',
     },
   ],
 }

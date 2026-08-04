@@ -6,7 +6,9 @@ import PracticeEasy from './practiceEasy.jsx'
 import PracticeMedium from './practiceMedium.jsx'
 import PracticeApply from './practiceApply.jsx'
 import PracticeHard from './practiceHard.jsx'
+import PracticeL6 from './practiceL6.jsx'
 import SolutionStickers from './solution.jsx'
+import SolutionAlt from './solutionAlt.jsx'
 
 const PRACTICE = {
   shortTitle: '컴포넌트·JSX',
@@ -65,7 +67,7 @@ const PRACTICE = {
       node: <PracticeApply />,
     },
     {
-      label: '도전',
+      label: '처음부터',
       point: '빈 화면에서 컴포넌트부터 스스로 만든다.',
       file: 'concepts/component-practice/practiceHard.jsx',
       task: '껍데기만 있다. Sticker를 처음부터 정의하고, 4번 재사용해 스티커 4개를 띄우자.',
@@ -75,6 +77,21 @@ const PRACTICE = {
         '③ 확인 — 정의 하나로 스티커 4개가 그려진다. 👀 정답 보기로 비교하라.',
       ],
       node: <PracticeHard />,
+    },
+    {
+      label: '처음부터 (다른 예시)',
+      point: '같은 기술을 다른 예시로 한 번 더 — 빈 화면에서 처음부터.',
+      file: 'concepts/component-practice/practiceL6.jsx',
+      task: '이번엔 "알림 배지 카드"다. 껍데기만 있다 — NotiBadge를 처음부터 정의하고 4번 재사용하자.',
+      hints: [
+        '① 정의 — function NotiBadge({ icon, count }) { return ( … ) }. JSX 규칙(단일 루트·className·{중괄호}).',
+        '② 재사용 — <NotiBadge icon="🔔" count={3} />처럼 4번, 값만 다르게.',
+        '③ 값 예시 — 🔔 3 · ✉️ 12 · ❤️ 7 · ⭐ 99.',
+        '④ 확인 — 정의 하나로 배지 4개가 그려진다. Sticker와 같은 컴포넌트·props·재사용이다. 👀 정답 보기로 비교하라.',
+      ],
+      node: <PracticeL6 />,
+      solution: <SolutionAlt />,
+      solutionFile: 'concepts/component-practice/solutionAlt.jsx',
     },
   ],
 }

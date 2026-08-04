@@ -6,7 +6,9 @@ import PracticeL2 from './practiceL2.jsx'
 import PracticeL3 from './practiceL3.jsx'
 import PracticeL4 from './practiceL4.jsx'
 import PracticeL5 from './practiceL5.jsx'
+import PracticeL6 from './practiceL6.jsx'
 import SolutionArrow from './solution.jsx'
+import SolutionAge from './solutionAlt.jsx'
 
 const PRACTICE = {
   shortTitle: 'JS·화살표',
@@ -65,7 +67,7 @@ const PRACTICE = {
       node: <PracticeL4 />,
     },
     {
-      label: '도전',
+      label: '처음부터',
       point: '빈 화면에서 처음부터.',
       file: 'practice-js-arrow/practiceL5.jsx',
       task: '주어진 값(name·score)만 있다. 성적 카드를 처음부터 만들자.',
@@ -75,6 +77,21 @@ const PRACTICE = {
         '③ 카드에 {grade(score)}·{message}를 표시한다. 👀 정답 보기로 비교하라.',
       ],
       node: <PracticeL5 />,
+    },
+    {
+      label: '처음부터 (다른 예시)',
+      point: '같은 기술을 다른 예시로 한 번 더 — 빈 화면에서 처음부터.',
+      file: 'practice-js-arrow/practiceL6.jsx',
+      task: '이번엔 "나이 판정 카드"를 처음부터 만들자 — 성적 등급과 같은 기술(화살표+삼항+템플릿), 소재만 다르다.',
+      hints: [
+        '① 주어진 값 — name=\'민지\', age=15.',
+        '② status = (a) => a >= 20 ? \'성인\' : a >= 14 ? \'청소년\' : \'어린이\'.',
+        '③ message = `${name}님(${age}세) → ${status(age)}`.',
+        '④ 카드에 {status(age)}·{message}를 표시한다. 👀 정답 보기로 비교하라.',
+      ],
+      node: <PracticeL6 />,
+      solution: <SolutionAge />,
+      solutionFile: 'practice-js-arrow/solutionAlt.jsx',
     },
   ],
 }

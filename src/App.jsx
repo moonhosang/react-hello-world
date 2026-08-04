@@ -119,12 +119,15 @@ const D = {
 // base가 숫자면 3.7→3.71 식, 문자열('js-func')이면 js-func-1 식으로 단계 id를 만든다.
 const stepId = (base, i) => (typeof base === 'number' ? Number(`${base}${i + 1}`) : `${base}-${i + 1}`)
 const stepIds = (base, n) => Array.from({ length: n }, (_, i) => stepId(base, i))
+// 표시 번호 — 1·2·3·4 그다음 5-1·5-2('처음부터'를 두 예시로).
+const STEP_NOS = ['1', '2', '3', '4', '5-1', '5-2']
+const stepNo = (i) => STEP_NOS[i] ?? String(i + 1)
 const makeSteps = (base, p, extra = {}) =>
   p.levels.map((lv, i) => ({
     id: stepId(base, i),
-    title: `📝 종합연습 · ${p.shortTitle} ${i + 1}`,
+    title: `📝 종합연습 · ${p.shortTitle} ${stepNo(i)}`,
     subtitle: lv.label,
-    Component: () => <PracticeStep p={p} lv={lv} no={i + 1} total={p.levels.length} />,
+    Component: () => <PracticeStep p={p} lv={lv} no={stepNo(i)} />,
     kind: 'checkpoint',
     isNew: true,
     builds: p.builds,
@@ -221,30 +224,30 @@ const lessons = [
 const CHAPTERS = {
   react: [
     { n: '01', title: '왜 리액트인가', items: [0] },
-    { n: '02', title: '컴포넌트와 JSX', items: [1, 1.4, 1.45, 1.46, 1.5, ...stepIds(1.6, 5)] },
-    { n: '03', title: 'Props — 값 전달', items: [2.1, 2.2, 2.3, 2.5, ...stepIds(2.4, 5)] },
-    { n: '04', title: '상태(State)', items: [3.1, 3.2, 3.3, 3.5, 3.6, ...stepIds(3.7, 5)] },
-    { n: '05', title: '입력 다루기', items: [4, ...stepIds(4.3, 5)] },
-    { n: '06', title: '훅(Hook)이란', items: [3.81, 3.815, 3.82, 3.83, 3.84, ...stepIds(3.9, 5)] },
-    { n: '07', title: '리스트 렌더링', items: [4.5, 5, 5.5, ...stepIds(5.6, 5)] },
-    { n: '08', title: '폼 입력 응용', items: [6.1, 6.2, 6.3, ...stepIds(6.9, 5)] },
-    { n: '09', title: 'Context — 전역 상태', items: [7.1, 7.2, 7.3, ...stepIds(7.4, 5)] },
-    { n: '10', title: 'useEffect', items: [8.1, 8.2, 8.3, 8.4, 8.5, ...stepIds(8.9, 5)] },
+    { n: '02', title: '컴포넌트와 JSX', items: [1, 1.4, 1.45, 1.46, 1.5, ...stepIds(1.6, 6)] },
+    { n: '03', title: 'Props — 값 전달', items: [2.1, 2.2, 2.3, 2.5, ...stepIds(2.4, 6)] },
+    { n: '04', title: '상태(State)', items: [3.1, 3.2, 3.3, 3.5, 3.6, ...stepIds(3.7, 6)] },
+    { n: '05', title: '입력 다루기', items: [4, ...stepIds(4.3, 6)] },
+    { n: '06', title: '훅(Hook)이란', items: [3.81, 3.815, 3.82, 3.83, 3.84, ...stepIds(3.9, 6)] },
+    { n: '07', title: '리스트 렌더링', items: [4.5, 5, 5.5, ...stepIds(5.6, 6)] },
+    { n: '08', title: '폼 입력 응용', items: [6.1, 6.2, 6.3, ...stepIds(6.9, 6)] },
+    { n: '09', title: 'Context — 전역 상태', items: [7.1, 7.2, 7.3, ...stepIds(7.4, 6)] },
+    { n: '10', title: 'useEffect', items: [8.1, 8.2, 8.3, 8.4, 8.5, ...stepIds(8.9, 6)] },
     { n: '11', title: '에러 읽는 법', items: [9] },
     { n: '12', title: 'useReducer', items: [10] },
     { n: '13', title: '최적화', items: [11] },
-    { n: '14', title: 'Ref와 커스텀 훅', items: [12, ...stepIds(12.1, 5)] },
+    { n: '14', title: 'Ref와 커스텀 훅', items: [12, ...stepIds(12.1, 6)] },
     { n: '15', title: '실전 앱 (난이도 순)', items: [12.5, 13, 13.3, 13.5, 14, 15, 16] },
   ],
   js: [
     { n: 'J0', title: 'JS 기본 · 시작', items: ['js-intro'] },
-    { n: 'J1', title: '표현식과 문', items: ['js-expr', ...stepIds('js-expr', 5)] },
-    { n: 'J2', title: '자주 쓰는 문법', items: ['js-arrow', ...stepIds('js-arrow', 5)] },
-    { n: 'J3', title: '함수는 값이다', items: ['js-func', ...stepIds('js-func', 5)] },
-    { n: 'J4', title: '값의 참·거짓', items: ['js-truthy', ...stepIds('js-truthy', 5)] },
-    { n: 'J5', title: '배열 다루기', items: ['js-array', ...stepIds('js-array', 5)] },
-    { n: 'J6', title: '구조 분해·스프레드', items: ['js-destructure', ...stepIds('js-destructure', 5)] },
-    { n: 'J7', title: '비동기', items: ['js-async', ...stepIds('js-async', 5)] },
+    { n: 'J1', title: '표현식과 문', items: ['js-expr', ...stepIds('js-expr', 6)] },
+    { n: 'J2', title: '자주 쓰는 문법', items: ['js-arrow', ...stepIds('js-arrow', 6)] },
+    { n: 'J3', title: '함수는 값이다', items: ['js-func', ...stepIds('js-func', 6)] },
+    { n: 'J4', title: '값의 참·거짓', items: ['js-truthy', ...stepIds('js-truthy', 6)] },
+    { n: 'J5', title: '배열 다루기', items: ['js-array', ...stepIds('js-array', 6)] },
+    { n: 'J6', title: '구조 분해·스프레드', items: ['js-destructure', ...stepIds('js-destructure', 6)] },
+    { n: 'J7', title: '비동기', items: ['js-async', ...stepIds('js-async', 6)] },
   ],
 }
 
@@ -283,7 +286,7 @@ const STEP_DIRS = {
 const STEP_FILES = Object.fromEntries(
   Object.entries(STEP_DIRS).flatMap(([base, dir]) => {
     const b = /^\d+(\.\d+)?$/.test(base) ? Number(base) : base // 숫자꼴만 숫자로, 'js-*'는 문자열 유지
-    return stepIds(b, 5).map((id) => [id, `${dir}/index.jsx`])
+    return stepIds(b, 6).map((id) => [id, `${dir}/index.jsx`])
   })
 )
 

@@ -6,7 +6,9 @@ import PracticeL2 from './practiceL2.jsx'
 import PracticeL3 from './practiceL3.jsx'
 import PracticeL4 from './practiceL4.jsx'
 import PracticeL5 from './practiceL5.jsx'
+import PracticeL6 from './practiceL6.jsx'
 import SolutionExpr from './solution.jsx'
+import SolutionCircle from './solutionAlt.jsx'
 
 const PRACTICE = {
   shortTitle: 'JS·표현식',
@@ -65,7 +67,7 @@ const PRACTICE = {
       node: <PracticeL4 />,
     },
     {
-      label: '도전',
+      label: '처음부터',
       point: '빈 화면에서 처음부터.',
       file: 'practice-js-expr/practiceL5.jsx',
       task: '주어진 값(price·qty·ship·name)만 있다. 총액 카드를 처음부터 만들자.',
@@ -75,6 +77,21 @@ const PRACTICE = {
         '③ 카드에 {total}·{message}를 표시한다. 👀 정답 보기로 비교하라.',
       ],
       node: <PracticeL5 />,
+    },
+    {
+      label: '처음부터 (다른 예시)',
+      point: '같은 기술을 다른 예시로 한 번 더 — 빈 화면에서 처음부터.',
+      file: 'practice-js-expr/practiceL6.jsx',
+      task: '이번엔 "원 넓이 계산 카드"를 처음부터 만들자 — 총액과 같은 기술(식 + 템플릿 리터럴), 소재만 다르다.',
+      hints: [
+        '① 주어진 값 — r(반지름)=5, pi=3.14.',
+        '② area = pi * r * r.',
+        '③ message = `반지름 ${r}인 원의 넓이는 ${area}입니다.`',
+        '④ 카드에 {area}·{message}를 표시한다. 👀 정답 보기로 비교하라.',
+      ],
+      node: <PracticeL6 />,
+      solution: <SolutionCircle />,
+      solutionFile: 'practice-js-expr/solutionAlt.jsx',
     },
   ],
 }

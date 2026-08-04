@@ -6,7 +6,9 @@ import PracticeL2 from './practiceL2.jsx'
 import PracticeL3 from './practiceL3.jsx'
 import PracticeL4 from './practiceL4.jsx'
 import PracticeL5 from './practiceL5.jsx'
+import PracticeL6 from './practiceL6.jsx'
 import SolutionShop from './solution.jsx'
+import SolutionScores from './solutionAlt.jsx'
 
 const PRACTICE = {
   shortTitle: 'JS·배열',
@@ -65,7 +67,7 @@ const PRACTICE = {
       node: <PracticeL4 />,
     },
     {
-      label: '도전',
+      label: '처음부터',
       point: '빈 화면에서 데이터부터 처음까지.',
       file: 'practice-js-array/practiceL5.jsx',
       task: '껍데기만 있다. 상품 배열부터 두고, 재고 필터 + 세일가 목록을 처음부터 만들자.',
@@ -75,6 +77,20 @@ const PRACTICE = {
         '③ 👀 정답 보기로 비교하라.',
       ],
       node: <PracticeL5 />,
+    },
+    {
+      label: '처음부터 (다른 예시)',
+      point: '같은 기술을 다른 예시로 한 번 더 — 빈 화면에서 처음부터.',
+      file: 'practice-js-array/practiceL6.jsx',
+      task: '이번엔 점수 목록이다. 합격자(60점 이상)만 걸러 이름을 보이고, 평균 점수를 구하자.',
+      hints: [
+        '① 합격자 — const pass = students.filter((s) => s.score >= 60). 조건에 맞는 것만 남긴다.',
+        '② 평균 — students.reduce((sum, s) => sum + s.score, 0) / students.length. reduce로 합계를 낸다.',
+        '③ 확인 — 합격자 이름과 평균이 뜬다. 👀 정답 보기로 비교하라.',
+      ],
+      node: <PracticeL6 />,
+      solution: <SolutionScores />,
+      solutionFile: 'practice-js-array/solutionAlt.jsx',
     },
   ],
 }

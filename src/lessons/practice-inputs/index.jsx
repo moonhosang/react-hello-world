@@ -7,7 +7,9 @@ import PracticeStep2 from './practiceStep2.jsx'
 import PracticeMedium from './practiceMedium.jsx'
 import PracticeStep4 from './practiceStep4.jsx'
 import PracticeHard from './practiceHard.jsx'
+import PracticeL6 from './practiceL6.jsx'
 import SolutionInputCard from './solution.jsx'
+import SolutionAlt from './solutionAlt.jsx'
 
 const PRACTICE = {
   shortTitle: '입력',
@@ -70,7 +72,7 @@ const PRACTICE = {
       node: <PracticeStep4 />,
     },
     {
-      label: '도전',
+      label: '처음부터',
       point: '빈 화면에서 전체를 처음부터 만든다.',
       file: 'practice-inputs/practiceHard.jsx',
       task: '껍데기만 있다. controlled input + 글자 수 + "초기화" 버튼을 처음부터 만들자.',
@@ -81,6 +83,21 @@ const PRACTICE = {
         '④ 확인 — 타이핑·글자 수·초기화가 모두 동작한다. 👀 정답 보기로 비교해 보라.',
       ],
       node: <PracticeHard />,
+    },
+    {
+      label: '처음부터 (다른 예시)',
+      point: '같은 기술을 다른 예시로 한 번 더 — 빈 화면에서 처음부터.',
+      file: 'practice-inputs/practiceL6.jsx',
+      task: '이번엔 "검색어 입력"이다. 껍데기만 있다 — controlled input으로 입력을 받아 대문자로 보여 주자.',
+      hints: [
+        '① state — const [q, setQ] = useState("").',
+        '② 묶기 — <input value={q} onChange={(e) => setQ(e.target.value)} />.',
+        '③ 파생 — 대문자: {q.toUpperCase()} (입력값에서 계산).',
+        '④ 확인 — 타이핑하면 아래에 대문자가 실시간으로 뜬다. 앞의 글자 수 카드와 같은 controlled input이다. 👀 정답 보기로 비교하라.',
+      ],
+      node: <PracticeL6 />,
+      solution: <SolutionAlt />,
+      solutionFile: 'practice-inputs/solutionAlt.jsx',
     },
   ],
 }

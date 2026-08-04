@@ -6,7 +6,9 @@ import PracticeL2 from './practiceL2.jsx'
 import PracticeL3 from './practiceL3.jsx'
 import PracticeL4 from './practiceL4.jsx'
 import PracticeL5 from './practiceL5.jsx'
+import PracticeL6 from './practiceL6.jsx'
 import SolutionFuncValue from './solution.jsx'
+import SolutionFuncMap from './solutionAlt.jsx'
 
 const PRACTICE = {
   shortTitle: 'JS·함수값',
@@ -65,7 +67,7 @@ const PRACTICE = {
       node: <PracticeL4 />,
     },
     {
-      label: '도전',
+      label: '처음부터',
       point: '빈 화면에서 처음부터 만든다.',
       file: 'practice-js-func/practiceL5.jsx',
       task: '껍데기만 있다. sayHi 담기 → doTwice로 넘기기 → 두 번 실행을 처음부터 완성하자.',
@@ -75,6 +77,21 @@ const PRACTICE = {
         '③ 연결 — 버튼 onClick={() => doTwice(sayHi)}. 👀 정답 보기로 비교하라.',
       ],
       node: <PracticeL5 />,
+    },
+    {
+      label: '처음부터 (다른 예시)',
+      point: '같은 기술을 다른 예시로 한 번 더 — 빈 화면에서 처음부터.',
+      file: 'practice-js-func/practiceL6.jsx',
+      task: "이번엔 함수를 map에 '넘겨' 보자. double을 만들고 [1,2,3].map(double)로 [2,4,6]을 만들자.",
+      hints: [
+        '① double — const double = (n) => n * 2. 함수를 값으로 만든다.',
+        "② 넘기기 — nums.map(double). double을 괄호 없이 넘기면 map이 원소마다 대신 부른다.",
+        '③ onClick={fn}과 똑같은 넘기기다 — 실행(double())이 아니라 함수 자체를 넘긴다.',
+        '④ 확인 — 결과가 [2, 4, 6]으로 나온다. 👀 정답 보기로 비교하라.',
+      ],
+      node: <PracticeL6 />,
+      solution: <SolutionFuncMap />,
+      solutionFile: 'practice-js-func/solutionAlt.jsx',
     },
   ],
 }

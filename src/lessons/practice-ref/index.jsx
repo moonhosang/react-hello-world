@@ -7,7 +7,9 @@ import PracticeMedium from './practiceMedium.jsx'
 import PracticeCount from './practiceCount.jsx'
 import PracticeCountFull from './practiceCountFull.jsx'
 import PracticeHard from './practiceHard.jsx'
+import PracticeL6 from './practiceL6.jsx'
 import SolutionFocusRef from './solution.jsx'
+import SolutionClearInput from './solutionAlt.jsx'
 
 const PRACTICE = {
   shortTitle: 'Ref',
@@ -18,7 +20,7 @@ const PRACTICE = {
   solutionFile: 'practice-ref/solution.jsx',
   levels: [
           {
-            label: '쉬움',
+            label: '아주 쉬움',
             point: '빈 곳 한 줄만 — ref.current로 DOM을 직접 부른다.',
             file: 'practice-ref/practiceEasy.jsx',
             task: '포커스 버튼을 누르면 입력창에 커서가 가게, onFocus 안 한 줄만 채우자.',
@@ -31,7 +33,7 @@ const PRACTICE = {
             node: <PracticeEasy />,
           },
           {
-            label: '연결',
+            label: '쉬움',
             point: 'ref를 실제 DOM에 연결하는 한 곳을 채운다.',
             file: 'practice-ref/practiceMedium.jsx',
             task: 'ref를 입력창에 연결하자. <input>에 ref={inputRef}가 빠져 포커스가 안 먹는다.',
@@ -44,7 +46,7 @@ const PRACTICE = {
             node: <PracticeMedium />,
           },
           {
-            label: '값 기억',
+            label: '중간',
             point: '리렌더 없는 값을 이벤트에서 직접 바꿔 본다.',
             file: 'practice-ref/practiceCount.jsx',
             task: '리렌더 없는 값(clicksRef)을 쓰자. 포커스는 완성돼 있고, count 안 한 곳만 채운다.',
@@ -57,7 +59,7 @@ const PRACTICE = {
             node: <PracticeCount />,
           },
           {
-            label: '값 기억+',
+            label: '어려움',
             point: '보관함 선언부터 값 변경까지 스스로.',
             file: 'practice-ref/practiceCountFull.jsx',
             task: '이번엔 보관함부터 직접. clicksRef 상자를 만들고(TODO A), count도 채우자(TODO B).',
@@ -81,6 +83,21 @@ const PRACTICE = {
               '④ 확인 — 포커스 버튼은 커서를 옮기고, 세기 버튼은 화면 변화 없이 누적 횟수를 alert로 보여준다.',
             ],
             node: <PracticeHard />,
+          },
+          {
+            label: '처음부터 (다른 예시)',
+            point: '같은 기술을 다른 예시로 한 번 더 — 빈 화면에서 처음부터.',
+            file: 'practice-ref/practiceL6.jsx',
+            task: "이번엔 '검색어 지우기'다. useRef로 input을 참조해, [지우기]를 누르면 값을 비우고 다시 포커스하자.",
+            hints: [
+              '① 참조 — useRef를 import하고 const inputRef = useRef(null)을 만든다.',
+              '② 연결 — <input ref={inputRef} value={text} onChange={...} />로 실제 DOM을 담는다.',
+              '③ 지우기 — 버튼 onClick에서 setText("")로 비우고 inputRef.current.focus()로 다시 포커스.',
+              '④ 확인 — 입력 후 [지우기]를 누르면 값이 비워지고 커서가 다시 입력창으로 간다. 👀 정답 보기로 비교하라.',
+            ],
+            node: <PracticeL6 />,
+            solution: <SolutionClearInput />,
+            solutionFile: 'practice-ref/solutionAlt.jsx',
           },
   ],
 }

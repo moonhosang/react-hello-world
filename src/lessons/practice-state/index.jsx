@@ -6,7 +6,9 @@ import PracticeL2 from './practiceL2.jsx'
 import PracticeL3 from './practiceL3.jsx'
 import PracticeL4 from './practiceL4.jsx'
 import PracticeL5 from './practiceL5.jsx'
+import PracticeL6 from './practiceL6.jsx'
 import SolutionLikeCard from './solution.jsx'
+import SolutionAlt from './solutionAlt.jsx'
 
 const PRACTICE = {
   shortTitle: '상태',
@@ -65,7 +67,7 @@ const PRACTICE = {
       node: <PracticeL4 />,
     },
     {
-      label: '도전',
+      label: '처음부터',
       point: '빈 화면에서 처음부터 전부 만든다.',
       file: 'practice-state/practiceL5.jsx',
       task: '껍데기만 있다. 좋아요 카드를 처음부터 만들자(객체 state + 토글 + 마크업).',
@@ -75,6 +77,21 @@ const PRACTICE = {
         '③ 마크업 — {card.liked ? "❤️" : "🤍"} {card.likes}와 버튼(onClick={toggle}). 👀 정답 보기로 비교하라.',
       ],
       node: <PracticeL5 />,
+    },
+    {
+      label: '처음부터 (다른 예시)',
+      point: '같은 기술을 다른 예시로 한 번 더 — 빈 화면에서 처음부터.',
+      file: 'practice-state/practiceL6.jsx',
+      task: '이번엔 "조회수 카운터"다. 껍데기만 있다 — 숫자 state로 조회 +1·리셋을 처음부터 만들자.',
+      hints: [
+        '① state — const [views, setViews] = useState(0). (숫자 state 하나)',
+        '② +1 — <button onClick={() => setViews((v) => v + 1)}>조회 +1</button>.',
+        '③ 리셋 — <button onClick={() => setViews(0)}>리셋</button>.',
+        '④ 표시 — 👁️ {views}. 좋아요 카드와 같은 "숫자 state + 이벤트"다. 👀 정답 보기로 비교하라.',
+      ],
+      node: <PracticeL6 />,
+      solution: <SolutionAlt />,
+      solutionFile: 'practice-state/solutionAlt.jsx',
     },
   ],
 }

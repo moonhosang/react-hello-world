@@ -6,7 +6,9 @@ import PracticeL2 from './practiceL2.jsx'
 import PracticeL3 from './practiceL3.jsx'
 import PracticeL4 from './practiceL4.jsx'
 import PracticeL5 from './practiceL5.jsx'
+import PracticeL6 from './practiceL6.jsx'
 import SolutionTruthy from './solution.jsx'
+import SolutionTruthyZero from './solutionAlt.jsx'
 
 const PRACTICE = {
   shortTitle: 'JS·truthy',
@@ -65,7 +67,7 @@ const PRACTICE = {
       node: <PracticeL4 />,
     },
     {
-      label: '도전',
+      label: '처음부터',
       point: '빈 화면에서 전부 만든다.',
       file: 'practice-js-truthy/practiceL5.jsx',
       task: '껍데기만 있다. 입력·로그인·기본값·가드까지 처음부터 완성하자.',
@@ -75,6 +77,20 @@ const PRACTICE = {
         '③ 표시 — {name || \'손님\'}, {user && ...}. 👀 정답 보기로 비교하라.',
       ],
       node: <PracticeL5 />,
+    },
+    {
+      label: '처음부터 (다른 예시)',
+      point: '같은 기술을 다른 예시로 한 번 더 — 빈 화면에서 처음부터.',
+      file: 'practice-js-truthy/practiceL6.jsx',
+      task: "이번엔 && 0 함정을 피해 보자. 장바구니가 비면 화면에 '0'이 남지 않게 그리자.",
+      hints: [
+        '① 함정 — {items.length && <b>{items.length}개</b>}는 비었을 때(0) 화면에 숫자 0을 그린다.',
+        '② 고치기 — {items.length > 0 && <b>{items.length}개</b>}. 왼쪽을 진짜 불리언으로.',
+        '③ 확인 — 담기/비우기를 눌러도, 비었을 때 0이 안 남는다. 👀 정답 보기로 비교하라.',
+      ],
+      node: <PracticeL6 />,
+      solution: <SolutionTruthyZero />,
+      solutionFile: 'practice-js-truthy/solutionAlt.jsx',
     },
   ],
 }

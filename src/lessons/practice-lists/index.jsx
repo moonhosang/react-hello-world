@@ -6,7 +6,9 @@ import PracticeL2 from './practiceL2.jsx'
 import PracticeL3 from './practiceL3.jsx'
 import PracticeL4 from './practiceL4.jsx'
 import PracticeL5 from './practiceL5.jsx'
+import PracticeL6 from './practiceL6.jsx'
 import SolutionTagList from './solution.jsx'
+import SolutionTodoList from './solutionAlt.jsx'
 
 const PRACTICE = {
   shortTitle: '리스트',
@@ -65,7 +67,7 @@ const PRACTICE = {
       node: <PracticeL4 />,
     },
     {
-      label: '도전',
+      label: '처음부터',
       point: '빈 화면에서 처음부터 전부 만든다.',
       file: 'practice-lists/practiceL5.jsx',
       task: '껍데기만 있다. 태그 목록을 처음부터 만들자(배열 state + 추가 + map/key + 빈 안내).',
@@ -75,6 +77,21 @@ const PRACTICE = {
         '③ 화면 — 입력창·추가 버튼·목록(map+key)·빈 목록 안내. 👀 정답 보기로 비교하라.',
       ],
       node: <PracticeL5 />,
+    },
+    {
+      label: '처음부터 (다른 예시)',
+      point: '같은 기술을 다른 예시로 한 번 더 — 빈 화면에서 처음부터.',
+      file: 'practice-lists/practiceL6.jsx',
+      task: '이번엔 "할 일 목록"을 처음부터 만들자 — 태그 목록과 같은 기술(배열 state·추가·map/key·빈 안내), 소재만 다르다.',
+      hints: [
+        '① state — const [todos, setTodos] = useState(["리액트 공부", "산책"]); const [text, setText] = useState("").',
+        '② add — 입력값을 다듬어 [...todos, t]로 추가하고 입력 비우기.',
+        '③ 화면 — 입력창·추가 버튼·목록(map+key)·빈 목록 안내.',
+        '④ 확인 — 태그 목록 때와 구조가 똑같다. 👀 정답 보기로 비교하라.',
+      ],
+      node: <PracticeL6 />,
+      solution: <SolutionTodoList />,
+      solutionFile: 'practice-lists/solutionAlt.jsx',
     },
   ],
 }
