@@ -10,8 +10,10 @@ import { useState } from 'react'
 // 단계별 학습 포인트 — 난이도 자체가 무엇을 훈련시키는지. (level.point로 개별 덮어쓰기 가능)
 const DEFAULT_POINTS = [
   '빈 곳 한두 군데만 채우며, 어디에 무엇이 들어가는지 눈에 익힌다.',
+  '같은 수준을 값·상황만 바꿔 한 번 더 — 손에 익힌다.',
   '핵심 로직을 직접 써 보며 데이터의 흐름을 손에 익힌다.',
-  '빈 화면에서 상태 설계부터 스스로 만들어 전체를 완성한다.',
+  '조금 더 넓은 범위를 스스로 이어 붙여 본다.',
+  '빈 화면에서 설계부터 스스로 만들어 전체를 완성한다.',
 ]
 
 export default function PracticeLevels({ levels, goal, solution, solutionFile }) {
@@ -47,7 +49,7 @@ export default function PracticeLevels({ levels, goal, solution, solutionFile })
       </div>
 
       {point && (
-        <span className="learn-tag">{marks[lv]} {['쉬움', '중간', '어려움'][lv] ?? '단계'} · {point}</span>
+        <span className="learn-tag">{marks[lv]} {level.label ?? '단계'} · {point}</span>
       )}
 
       {level.hints?.length > 0 && (

@@ -115,6 +115,23 @@ nav {
 .track-tab:hover { background: rgba(255, 255, 255, 0.12); }
 .track-tab.on { background: var(--brand); color: #fff; }
 
+/* 체크 모드 탭 — 진도/연습/복습 */
+.check-tabs { display: flex; gap: 4px; margin-bottom: 8px; }
+.check-tab {
+  flex: 1;
+  padding: 5px 4px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid transparent;
+  border-radius: 7px;
+  color: #cbd5e1;
+  font-size: 11.5px;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.check-tab:hover { background: rgba(255, 255, 255, 0.12); }
+.check-tab.on { background: var(--brand); color: #fff; }
+
 /* 진행률 바 */
 .progress { padding: 0 4px 12px; }
 .progress-track { height: 6px; background: rgba(255, 255, 255, 0.14); border-radius: 999px; overflow: hidden; }
@@ -132,6 +149,10 @@ nav {
   accent-color: var(--brand);
   cursor: pointer;
 }
+/* '연습' 모드에서 실습형이 아닌 항목 — 체크박스 자리만 비운다(정렬 유지) */
+.toc-check-blank { flex: none; width: 15px; height: 15px; margin: 0 2px; display: inline-block; }
+/* 🆕/🔗 표식 */
+.toc-flag { margin-right: 3px; font-size: 11px; }
 
 .toc-chapter { display: flex; flex-direction: column; }
 .toc-chapter-head {

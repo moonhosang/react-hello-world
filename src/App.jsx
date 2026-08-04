@@ -116,7 +116,7 @@ const lessons = [
   { id: 1.45, title: '📝 개념 · JSX의 정체', subtitle: '무엇으로 변환될까', Component: JsxUnderTheHood, kind: 'concept', docs: [D.jsxMarkup, D.jsxCurly] },
   { id: 1.46, title: '📐 개념 · JSX 문법 규칙 6가지', subtitle: '쓸 때 지켜야 할 것', Component: JsxRules, kind: 'concept', docs: [D.jsxMarkup, D.jsxCurly] },
   { id: 1.5, title: '🧩 개념 · 캡슐화', subtitle: '겉은 컴포넌트, 속은 감춤', Component: Encapsulation, kind: 'concept', docs: [D.importExport] },
-  { id: 1.6, title: '📝 연습 · 컴포넌트와 JSX', subtitle: '컴포넌트 만들기 + JSX 규칙 + 재사용', Component: ComponentPractice, kind: 'checkpoint', docs: [D.firstComponent, D.jsxMarkup] },
+  { id: 1.6, title: '📝 연습 · 컴포넌트와 JSX', subtitle: '컴포넌트 만들기 + JSX 규칙 + 재사용', Component: ComponentPractice, kind: 'checkpoint', isNew: true, builds: '1단계 · 함수 vs 컴포넌트 · JSX 규칙 · 캡슐화', docs: [D.firstComponent, D.jsxMarkup] },
   { id: 2.1, group: '2단계 · props', title: '2-1 · props 기초', subtitle: '값 전달 · 재사용', Component: Step2_1, kind: 'sub', docs: [D.passingProps] },
   { id: 2.2, group: '2단계 · props', title: '2-2 · 더 넘겨보기', subtitle: '함수·상태·객체 전달', Component: Step2_2, kind: 'sub', docs: [D.passingProps] },
   { id: 2.3, group: '2단계 · props', title: '2-3 · children (합성)', subtitle: '태그 사이 내용 받기', Component: Step2_3, kind: 'sub', docs: [D.passingProps] },
@@ -126,9 +126,9 @@ const lessons = [
   { id: 3.3, title: '🌊 개념 · 이벤트 전파 & 전개 props', subtitle: '버블링 · {...obj}', Component: EventPropagation, kind: 'concept', docs: [D.respondingEvents] },
   { id: 3.5, title: '🔀 개념 · props vs state', subtitle: '둘의 차이', Component: PropsVsState, kind: 'concept', docs: [D.thinking, D.stateMemory] },
   { id: 3.6, title: '🔁 개념 · 리렌더링', subtitle: '언제 다시 그려지나', Component: ReRender, kind: 'concept', docs: [D.renderCommit, D.stateSnapshot] },
-  { id: 3.7, title: '📝 챕터 연습 · 상태', subtitle: '카운터·객체 state 직접 만들기', Component: PracticeState, kind: 'checkpoint', docs: [D.useState, D.updatingObjects] },
+  { id: 3.7, title: '📝 챕터 연습 · 상태', subtitle: '카운터·객체 state 직접 만들기', Component: PracticeState, kind: 'checkpoint', isNew: true, builds: '3-1 · 3-2', docs: [D.useState, D.updatingObjects] },
   { id: 4, title: '4단계 · 입력 다루기', subtitle: '그냥 두기 vs controlled · 단방향', Component: Stage4, docs: [D.reactingInput, D.input] },
-  { id: 4.3, title: '📝 챕터 연습 · 입력', subtitle: 'controlled input 직접 만들기', Component: PracticeInputs, kind: 'checkpoint', docs: [D.reactingInput, D.input] },
+  { id: 4.3, title: '📝 챕터 연습 · 입력', subtitle: 'controlled input 직접 만들기', Component: PracticeInputs, kind: 'checkpoint', isNew: true, builds: '4단계 · 3-1', docs: [D.reactingInput, D.input] },
   { id: 3.81, group: '5단계 · 훅(Hook)', title: '5-1 · 훅이란 & 규칙', subtitle: 'use 함수 · 금지 위치', Component: StepHooks1, kind: 'sub', docs: [D.rulesOfHooks] },
   { id: 3.815, group: '5단계 · 훅(Hook)', title: '5-2 · 훅이 푸는 문제', subtitle: '훅 없이 vs 훅으로', Component: StepHooksBenefits, kind: 'sub', docs: [D.rulesOfHooks] },
   { id: 3.82, group: '5단계 · 훅(Hook)', title: '5-3 · 왜 그런 규칙인가', subtitle: '호출 순서', Component: StepHooks2, kind: 'sub', docs: [D.rulesOfHooks] },
@@ -140,22 +140,22 @@ const lessons = [
   { id: 6.1, group: '7단계 · 폼 입력 응용', title: '7-1 · 여러 입력 → 객체', subtitle: 'state·객체·공통 onChange', Component: Step6_1, kind: 'sub', docs: [D.updatingObjects] },
   { id: 6.2, group: '7단계 · 폼 입력 응용', title: '7-2 · 폼 제출', subtitle: 'onSubmit · 방명록', Component: Step6_2, kind: 'sub', docs: [D.updatingObjects, D.updatingArrays] },
   { id: 6.3, group: '7단계 · 폼 입력 응용', title: '7-3 · 유효성 검사', subtitle: 'validate · 파생 에러 · select', Component: Step6_3, kind: 'sub', docs: [D.updatingObjects, D.input] },
-  { id: 6.9, title: '📝 챕터 연습 · 폼', subtitle: '방명록 — 객체 state·제출 직접 만들기', Component: PracticeForms, kind: 'checkpoint', docs: [D.updatingObjects, D.updatingArrays] },
+  { id: 6.9, title: '📝 챕터 연습 · 폼', subtitle: '방명록 — 객체 state·제출 직접 만들기', Component: PracticeForms, kind: 'checkpoint', isNew: true, builds: '7-1 · 7-2 · 7-3', docs: [D.updatingObjects, D.updatingArrays] },
   { id: 7.1, group: '8단계 · Context (전역 상태)', title: '8-1 · prop drilling → Context', subtitle: '문제 → Provider 해결', Component: Step7_1, kind: 'sub', docs: [D.context, D.useContext] },
   { id: 7.2, group: '8단계 · Context (전역 상태)', title: '8-2 · 전역 상태', subtitle: 'state + setter 공유', Component: Step7_2, kind: 'sub', docs: [D.context, D.useContext] },
   { id: 7.3, group: '8단계 · Context (전역 상태)', title: '8-3 · 멀티스텝 폼', subtitle: 'Context로 상태 공유', Component: Step7_3, kind: 'sub', docs: [D.context, D.useContext, D.reusingLogic] },
-  { id: 7.4, title: '📝 챕터 연습 · Context', subtitle: 'createContext·Provider·useContext 직접 쓰기', Component: PracticeContext, kind: 'checkpoint', docs: [D.context, D.useContext] },
+  { id: 7.4, title: '📝 챕터 연습 · Context', subtitle: 'createContext·Provider·useContext 직접 쓰기', Component: PracticeContext, kind: 'checkpoint', isNew: true, builds: '8-1 · 8-2 · 8-3', docs: [D.context, D.useContext] },
   { id: 8.1, group: '9단계 · useEffect', title: '9-1 · useEffect + 의존성', subtitle: '렌더 후 실행 · deps', Component: Step8_1, kind: 'sub', docs: [D.effects, D.useEffect] },
   { id: 8.2, group: '9단계 · useEffect', title: '9-2 · 정리(cleanup)', subtitle: '타이머 뒷정리', Component: Step8_2, kind: 'sub', docs: [D.effects, D.useEffect] },
   { id: 8.3, group: '9단계 · useEffect', title: '9-3 · 데이터 불러오기', subtitle: 'loading → data', Component: Step8_3, kind: 'sub', docs: [D.effects] },
   { id: 8.4, group: '9단계 · useEffect', title: '9-4 · 다시 불러오기', subtitle: '의존성 변경', Component: Step8_4, kind: 'sub', docs: [D.effects] },
   { id: 8.5, group: '9단계 · useEffect', title: '9-5 · localStorage 저장', subtitle: 'lazy init · JSON · 지속', Component: Step8_5, kind: 'sub', docs: [D.effects, D.useEffect] },
-  { id: 8.9, title: '📝 챕터 연습 · useEffect', subtitle: '의존성 배열·정리(cleanup) 직접 쓰기', Component: PracticeEffects, kind: 'checkpoint', docs: [D.effects, D.useEffect] },
+  { id: 8.9, title: '📝 챕터 연습 · useEffect', subtitle: '의존성 배열·정리(cleanup) 직접 쓰기', Component: PracticeEffects, kind: 'checkpoint', isNew: true, builds: '9-1 · 9-2 · 9-5', docs: [D.effects, D.useEffect] },
   { id: 9, title: '10단계 · 에러 읽는 법', subtitle: '고장난 코드 고치기', Component: Stage9, docs: [D.rulesOfHooks] },
   { id: 10, title: '11단계 · useReducer', subtitle: '상태 로직 모으기', Component: Step10Reducer, docs: [D.useReducer, D.extractingReducer] },
   { id: 11, title: '12단계 · 최적화', subtitle: 'memo · useMemo · useCallback', Component: Step11Optimize, docs: [D.memo, D.useMemo, D.useCallback] },
   { id: 12, title: '13단계 · Ref와 커스텀 훅', subtitle: 'useRef · 로직 재사용', Component: Step12RefHooks, docs: [D.useRef, D.manipulatingDom, D.reusingLogic] },
-  { id: 12.1, title: '📝 챕터 연습 · Ref', subtitle: 'input 포커스·리렌더 없는 값 직접 만들기', Component: PracticeRef, kind: 'checkpoint', docs: [D.useRef, D.manipulatingDom] },
+  { id: 12.1, title: '📝 챕터 연습 · Ref', subtitle: 'input 포커스·리렌더 없는 값 직접 만들기', Component: PracticeRef, kind: 'checkpoint', isNew: true, builds: '13단계', docs: [D.useRef, D.manipulatingDom] },
   { id: 12.5, title: '🛠️ Lv1 · 할 일 리스트+', subtitle: 'CRUD · 필터 · 저장', Component: CheckpointC, kind: 'app', docs: [D.updatingArrays, D.renderingLists] },
   { id: 13, title: '🛠️ Lv2 · 장바구니', subtitle: '수량 · 합계(파생·useMemo)', Component: CartApp, kind: 'app', docs: [D.useMemo, D.updatingArrays] },
   { id: 13.3, title: '🛠️ Lv3 · 회원가입 폼', subtitle: '유효성 검사 · 파생 에러', Component: SignupApp, kind: 'app', docs: [D.updatingObjects, D.input] },
@@ -362,19 +362,37 @@ export default function App() {
     if (first != null) setCurrentId(first)
   }
 
-  // 완료(진도) 상태 — localStorage에 저장. Set<id>.
-  const [done, setDone] = useState(() => {
+  // 진도(📖)·연습(✏️)·복습(🔁) 3종을 따로 체크·저장한다.
+  const [study, setStudy] = useState(() => {
     try {
-      return new Set(JSON.parse(localStorage.getItem('doneLessons') || '[]'))
-    } catch {
-      return new Set()
-    }
+      const raw = localStorage.getItem('doneStudy')
+      // 구버전(doneLessons) 값이 있으면 '진도'로 이어받는다.
+      return new Set(JSON.parse(raw ?? localStorage.getItem('doneLessons') ?? '[]'))
+    } catch { return new Set() }
   })
-  const toggleDone = (id) =>
-    setDone((prev) => {
+  const [practice, setPractice] = useState(() => {
+    try { return new Set(JSON.parse(localStorage.getItem('donePractice') || '[]')) } catch { return new Set() }
+  })
+  const [review, setReview] = useState(() => {
+    try { return new Set(JSON.parse(localStorage.getItem('doneReview') || '[]')) } catch { return new Set() }
+  })
+  const [checkMode, setCheckMode] = useState(() => {
+    try { return localStorage.getItem('checkMode') || 'study' } catch { return 'study' }
+  })
+  const CHECK_MODES = [
+    { key: 'study', label: '📖 진도', set: study, setSet: setStudy },
+    { key: 'practice', label: '✏️ 연습', set: practice, setSet: setPractice },
+    { key: 'review', label: '🔁 복습', set: review, setSet: setReview },
+  ]
+  const activeMode = CHECK_MODES.find((m) => m.key === checkMode) ?? CHECK_MODES[0]
+  // '연습' 체크는 실습형 항목(체크포인트·챕터 연습·실전 앱)에만, 진도·복습은 모든 항목에.
+  const isPracticeItem = (l) => l.kind === 'checkpoint' || l.kind === 'app'
+  const modeApplies = (modeKey, l) => (modeKey === 'practice' ? isPracticeItem(l) : true)
+  const toggleCheck = (id) =>
+    activeMode.setSet((prev) => {
       const next = new Set(prev)
       next.has(id) ? next.delete(id) : next.add(id)
-      return next // 저장은 아래 effect가(업데이터는 순수하게 유지)
+      return next
     })
 
   // currentId → 해시 기록 + 마지막 위치 저장. 첫 동기화는 replace로(뒤로가기 깨짐 방지).
@@ -400,12 +418,11 @@ export default function App() {
     return () => window.removeEventListener('hashchange', onHash)
   }, [])
 
-  // done 변경 → 저장 (업데이터 밖에서, StrictMode 이중호출 안전)
-  useEffect(() => {
-    try {
-      localStorage.setItem('doneLessons', JSON.stringify([...done]))
-    } catch {}
-  }, [done])
+  // 3종 체크 변경 → 각각 저장 (업데이터 밖에서, StrictMode 이중호출 안전)
+  useEffect(() => { try { localStorage.setItem('doneStudy', JSON.stringify([...study])) } catch {} }, [study])
+  useEffect(() => { try { localStorage.setItem('donePractice', JSON.stringify([...practice])) } catch {} }, [practice])
+  useEffect(() => { try { localStorage.setItem('doneReview', JSON.stringify([...review])) } catch {} }, [review])
+  useEffect(() => { try { localStorage.setItem('checkMode', checkMode) } catch {} }, [checkMode])
 
   const toggleChapter = (ci) =>
     setOpenChapters((prev) => {
@@ -414,10 +431,11 @@ export default function App() {
       return next
     })
 
-  // 전체 진행률 — 장에 속한 강의만 분모로(home/roadmap 제외)
-  const allIds = CHAPTERS[track].flatMap((c) => c.items)
-  const doneCount = allIds.filter((id) => done.has(id)).length
-  const pct = allIds.length ? Math.round((doneCount / allIds.length) * 100) : 0
+  // 현재 모드의 진행률 — 장에 속한 항목만 분모로(home/roadmap 제외). '연습'은 실습형만.
+  const allItems = CHAPTERS[track].flatMap((c) => c.items).map((id) => byId[id]).filter(Boolean)
+  const modeItems = allItems.filter((l) => modeApplies(checkMode, l))
+  const doneCount = modeItems.filter((l) => activeMode.set.has(l.id)).length
+  const pct = modeItems.length ? Math.round((doneCount / modeItems.length) * 100) : 0
 
   // 현재 id에 해당하는 강의를 찾는다. (없으면 홈으로 안전하게 되돌린다)
   const current = lessons.find((lesson) => lesson.id === currentId) ?? lessons[0]
@@ -452,12 +470,26 @@ export default function App() {
           ))}
         </div>
 
-        {/* 전체 진행률 — 체크박스로 표시한 완료 수 */}
+        {/* 체크 모드 — 진도/연습/복습을 따로 체크·집계한다 */}
+        <div className="check-tabs">
+          {CHECK_MODES.map((m) => (
+            <button
+              key={m.key}
+              className={'check-tab' + (m.key === checkMode ? ' on' : '')}
+              onClick={() => setCheckMode(m.key)}
+              title={m.key === 'practice' ? '실습형 항목만 체크된다' : ''}
+            >
+              {m.label}
+            </button>
+          ))}
+        </div>
+
+        {/* 선택한 모드의 진행률 */}
         <div className="progress">
           <div className="progress-track">
             <div className="progress-fill" style={{ width: pct + '%' }} />
           </div>
-          <span className="progress-text">{doneCount}/{allIds.length} 완료 · {pct}%</span>
+          <span className="progress-text">{activeMode.label} {doneCount}/{modeItems.length} · {pct}%</span>
         </div>
 
         <nav className="toc">
@@ -489,20 +521,30 @@ export default function App() {
                     {ch.items.map((id) => {
                       const l = byId[id]
                       if (!l) return null
+                      const applies = modeApplies(checkMode, l)
+                      const showNew = l.isNew && !study.has(id) // 새로 추가됐고 아직 진도 안 나감
                       return (
                         <div className="toc-item-row" key={id}>
-                          <input
-                            type="checkbox"
-                            className="toc-check"
-                            checked={done.has(id)}
-                            onChange={() => toggleDone(id)}
-                            aria-label={`완료 표시: ${l.title}`}
-                          />
+                          {applies ? (
+                            <input
+                              type="checkbox"
+                              className="toc-check"
+                              checked={activeMode.set.has(id)}
+                              onChange={() => toggleCheck(id)}
+                              aria-label={`${activeMode.label}: ${l.title}`}
+                            />
+                          ) : (
+                            <span className="toc-check-blank" aria-hidden="true" />
+                          )}
                           <button
                             className={'toc-item' + (id === currentId ? ' active' : '')}
                             onClick={() => setCurrentId(id)}
                           >
-                            <span className="toc-item-title">{l.title}</span>
+                            <span className="toc-item-title">
+                              {showNew && <span className="toc-flag" title="새로 추가된 항목">🆕</span>}
+                              {l.builds && <span className="toc-flag" title={`이어서 배운다: ${l.builds}`}>🔗</span>}
+                              {l.title}
+                            </span>
                             <span className="toc-item-sub">{l.subtitle}</span>
                           </button>
                         </div>
