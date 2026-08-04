@@ -44,6 +44,7 @@ import FunctionVsComponent from './concepts/function-vs-component/index.jsx'
 import JsxUnderTheHood from './concepts/jsx-under-the-hood/index.jsx'
 import JsxRules from './concepts/jsx-rules/index.jsx'
 import Encapsulation from './concepts/encapsulation/index.jsx'
+import ComponentPractice from './concepts/component-practice/index.jsx'
 import PropsVsState from './concepts/props-vs-state/index.jsx'
 import ReRender from './concepts/rerender/index.jsx'
 import EventPropagation from './concepts/event-propagation/index.jsx'
@@ -109,6 +110,7 @@ const lessons = [
   { id: 1.45, title: '📝 개념 · JSX의 정체', subtitle: '무엇으로 변환될까', Component: JsxUnderTheHood, kind: 'concept', docs: [D.jsxMarkup, D.jsxCurly] },
   { id: 1.46, title: '📐 개념 · JSX 문법 규칙 6가지', subtitle: '쓸 때 지켜야 할 것', Component: JsxRules, kind: 'concept', docs: [D.jsxMarkup, D.jsxCurly] },
   { id: 1.5, title: '🧩 개념 · 캡슐화', subtitle: '겉은 컴포넌트, 속은 감춤', Component: Encapsulation, kind: 'concept', docs: [D.importExport] },
+  { id: 1.6, title: '📝 연습 · 컴포넌트와 JSX', subtitle: '컴포넌트 만들기 + JSX 규칙 + 재사용', Component: ComponentPractice, kind: 'checkpoint', docs: [D.firstComponent, D.jsxMarkup] },
   { id: 2.1, group: '2단계 · props', title: '2-1 · props 기초', subtitle: '값 전달 · 재사용', Component: Step2_1, kind: 'sub', docs: [D.passingProps] },
   { id: 2.2, group: '2단계 · props', title: '2-2 · 더 넘겨보기', subtitle: '함수·상태·객체 전달', Component: Step2_2, kind: 'sub', docs: [D.passingProps] },
   { id: 2.3, group: '2단계 · props', title: '2-3 · children (합성)', subtitle: '태그 사이 내용 받기', Component: Step2_3, kind: 'sub', docs: [D.passingProps] },
@@ -166,7 +168,7 @@ const lessons = [
 const CHAPTERS = {
   react: [
     { n: '01', title: '왜 리액트인가', items: [0] },
-    { n: '02', title: '컴포넌트와 JSX', items: [1, 1.4, 1.45, 1.46, 1.5] },
+    { n: '02', title: '컴포넌트와 JSX', items: [1, 1.4, 1.45, 1.46, 1.5, 1.6] },
     { n: '03', title: 'Props — 값 전달', items: [2.1, 2.2, 2.3, 2.5] },
     { n: '04', title: '상태(State)', items: [3.1, 3.2, 3.3, 3.5, 3.6] },
     { n: '05', title: '입력 다루기', items: [4] },
@@ -213,6 +215,7 @@ const FILES = {
   1.45: 'concepts/jsx-under-the-hood/index.jsx',
   1.46: 'concepts/jsx-rules/index.jsx',
   1.5: 'concepts/encapsulation/index.jsx',
+  1.6: 'concepts/component-practice/index.jsx',
   2.1: 'lessons/step2-props/step2-1-basics/index.jsx',
   2.2: 'lessons/step2-props/step2-2-more/index.jsx',
   2.3: 'lessons/step2-props/step2-3-children/index.jsx',
