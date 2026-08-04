@@ -35,6 +35,15 @@ const TERMS = [
   { t: '훅 규칙', cat: 'react', to: 3.81, def: '훅은 컴포넌트 최상위에서만 호출. if·반복문·이벤트 핸들러 안에서 부르면 안 된다.' },
   { t: '불변성 (immutability)', cat: 'react', to: 3.2, def: '원본을 바꾸지 말고 새 값을 만들어 넣기. 객체는 {...obj}, 배열은 [...arr]로.' },
   { t: '순수 함수', cat: 'react', to: 3.6, def: '같은 입력이면 같은 출력, 바깥을 건드리지 않는 함수. 렌더·reducer가 그래야 한다.' },
+  { t: '마운트 / 언마운트', cat: 'react', to: 3.84, def: '컴포넌트가 화면에 처음 나타남(마운트) / 사라짐(언마운트). effect·정리가 이때 돈다.' },
+  { t: '생명주기 (lifecycle)', cat: 'react', to: 3.84, def: '마운트 → 업데이트(리렌더) → 언마운트로 이어지는 컴포넌트의 일생.' },
+  { t: '단방향 데이터 흐름', cat: 'react', to: 4, def: '데이터는 부모 → 자식(props)으로만 흐른다. 바꾸려면 콜백으로 위에 요청한다.' },
+  { t: '파생 상태 (derived state)', cat: 'react', to: 6.3, def: '다른 state로 계산되는 값. 저장하지 말고 렌더할 때 계산한다(에러·합계 등).' },
+  { t: '이벤트 객체 (e)', cat: 'react', to: 3.1, def: 'onChange·onClick이 받는 정보 꾸러미. e.target.value·e.preventDefault() 등을 쓴다.' },
+  { t: 'preventDefault', cat: 'react', to: 6.2, def: '폼 제출·링크의 브라우저 기본 동작(새로고침 등)을 막는다. onSubmit에서 자주 쓴다.' },
+  { t: '인스턴스 (독립)', cat: 'react', to: 1.5, def: '정의는 하나(설계도)지만, 쓸 때마다 자기 state를 따로 갖는 독립된 개체.' },
+  { t: 'React element', cat: 'react', to: 1.45, def: 'JSX가 변환된 객체 { type, props }. 컴포넌트(함수)와 다르다 — element는 "결과".' },
+  { t: 'localStorage', cat: 'react', to: 8.5, def: '브라우저에 문자열로 저장하는 곳. 새로고침해도 남는다. JSON으로 객체를 담는다.' },
 
   // ── 🟨 JS ─────────────────────────────────
   { t: '표현식 vs 문 (expression / statement)', cat: 'js', to: 'js-expr', def: '표현식 = 값이 되는 것(1+2). 문 = 실행되는 명령(if·for). JSX 중괄호엔 표현식만.' },
@@ -53,9 +62,28 @@ const TERMS = [
   { t: 'Promise', cat: 'js', to: 'js-async', def: '"나중에 값이 올 상자". 도착하면 .then(값 => ...)이 실행된다.' },
   { t: 'async / await', cat: 'js', to: 'js-async', def: '.then 사슬 대신 const x = await fetchX()로 "기다렸다가" 다음 줄로. 비동기를 동기처럼.' },
   { t: '비동기 (asynchronous)', cat: 'js', to: 'js-async', def: '결과가 지금이 아니라 나중에 오는 것. 그동안 코드·화면은 멈추지 않는다.' },
+  { t: '변수 (let / const)', cat: 'js', to: 'js-expr', def: 'const=재할당 못 함(기본으로 쓴다), let=재할당 가능. var는 옛 방식이라 안 쓴다.' },
+  { t: '스코프 (scope)', cat: 'js', to: 'js-func', def: '변수가 살아 있는 범위. 함수·블록 { } 안에서 만든 변수는 그 안에서만 보인다.' },
+  { t: '클로저 (closure)', cat: 'js', to: 'js-func', def: '함수가 만들어질 때의 바깥 변수를 기억하는 것. 콜백이 그 값을 계속 쓰는 이유.' },
+  { t: '참조 vs 값', cat: 'js', to: 'js-destructure', def: '숫자·문자열은 값으로 복사, 객체·배열은 참조(주소)로 공유. 그래서 불변 갱신이 필요.' },
+  { t: '=== vs ==', cat: 'js', to: 'js-truthy', def: '===는 타입까지 같아야 참(권장). ==는 타입을 변환해 비교해서 함정이 많다.' },
+  { t: '옵셔널 체이닝 (?.)', cat: 'js', to: 'js-truthy', def: 'user?.name — 앞이 null·undefined면 에러 없이 undefined. 안전한 접근.' },
+  { t: '널 병합 (??)', cat: 'js', to: 'js-truthy', def: 'a ?? b — a가 null·undefined일 때만 b. ||와 달리 0·""은 그대로 둔다.' },
+  { t: 'rest 매개변수 (...)', cat: 'js', to: 'js-destructure', def: '남은 인자·속성을 배열/객체로 모은다. 펼치는 스프레드의 반대 방향.' },
+  { t: 'JSON', cat: 'js', to: 8.5, def: '객체를 문자열로 주고받는 형식. JSON.stringify(저장) / JSON.parse(복원).' },
+
+  // ── 🛠️ 도구·기초 ──────────────────────────
+  { t: 'DOM', cat: 'core', to: 0, def: '브라우저가 화면(HTML)을 다루는 실제 트리. 리액트가 이걸 대신 갱신해 준다.' },
+  { t: '가상 DOM (virtual DOM)', cat: 'core', to: 0, def: '리액트가 메모리에 그린 가벼운 사본. 이전과 비교해 바뀐 곳만 진짜 DOM에 반영한다.' },
+  { t: '재조정 (reconciliation)', cat: 'core', to: 0, def: '옛 가상 DOM과 새 것을 비교(diff)해 최소한만 바꾸는 과정. key가 이때 쓰인다.' },
+  { t: 'import / export (모듈)', cat: 'core', to: 1, def: '파일 사이에 값을 주고받는 법. export로 내보내고 import로 가져온다.' },
+  { t: '빌드 도구 (Vite)', cat: 'core', to: 1.45, def: 'JSX·최신 문법을 브라우저가 알아듣는 코드로 바꾸고 개발 서버를 띄운다.' },
+  { t: 'Babel / esbuild', cat: 'core', to: 1.45, def: 'JSX를 함수 호출로 변환(컴파일)하는 도구. 빌드 타임에 돈다.' },
+  { t: 'npm / 패키지', cat: 'core', to: 0, def: '남이 만든 코드(라이브러리)를 받아 쓰는 도구·저장소. react도 패키지다.' },
 ]
 
-const CATS = { react: '⚛️ React', js: '🟨 JS' }
+const CATS = { react: '⚛️ React', js: '🟨 JS', core: '🛠️ 도구·기초' }
+const ICON = { react: '⚛️', js: '🟨', core: '🛠️' }
 
 export default function Glossary({ onGo }) {
   const [q, setQ] = useState('')
@@ -90,13 +118,13 @@ export default function Glossary({ onGo }) {
             ? <span className="demo-desc" style={{ margin: 0 }}>검색 결과가 없다.</span>
             : shown.map((x) => (
               <button key={x.i} className="chip" onClick={() => jump(x.i)} title="정의로 점프">
-                {x.cat === 'react' ? '⚛️' : '🟨'} {x.t}
+                {ICON[x.cat]} {x.t}
               </button>
             ))}
         </div>
       </div>
 
-      {['react', 'js'].map((cat) => {
+      {['react', 'js', 'core'].map((cat) => {
         const items = shown.filter((x) => x.cat === cat)
         if (items.length === 0) return null
         return (
