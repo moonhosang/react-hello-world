@@ -51,6 +51,9 @@ import Step12RefHooks from './lessons/step12-ref-hooks/index.jsx'
 import CheckpointA from './checkpoints/checkpointA-team-page/index.jsx'
 import CheckpointB from './checkpoints/checkpointB-shopping/index.jsx'
 import CheckpointC from './checkpoints/checkpointC-todo/index.jsx'
+import AssembleTodo from './lessons/app-assemble-todo/index.jsx'
+import AssembleCart from './lessons/app-assemble-cart/index.jsx'
+import AssembleSignup from './lessons/app-assemble-signup/index.jsx'
 import CartApp from './apps/app-cart/index.jsx'
 import SignupApp from './apps/app-signup/index.jsx'
 import TransferApp from './apps/app-transfer/index.jsx'
@@ -188,9 +191,12 @@ const lessons = [
   { id: 11, title: '12단계 · 최적화', subtitle: 'memo · useMemo · useCallback', Component: Step11Optimize, docs: [D.memo, D.useMemo, D.useCallback] },
   { id: 12, title: '13단계 · Ref와 커스텀 훅', subtitle: 'useRef · 로직 재사용', Component: Step12RefHooks, docs: [D.useRef, D.manipulatingDom, D.reusingLogic] },
   ...makeSteps(12.1, refPractice),
-  { id: 12.5, title: '🛠️ Lv1 · 할 일 리스트+', subtitle: 'CRUD · 필터 · 저장', Component: CheckpointC, kind: 'app', docs: [D.updatingArrays, D.renderingLists] },
-  { id: 13, title: '🛠️ Lv2 · 장바구니', subtitle: '수량 · 합계(파생·useMemo)', Component: CartApp, kind: 'app', docs: [D.useMemo, D.updatingArrays] },
-  { id: 13.3, title: '🛠️ Lv3 · 회원가입 폼', subtitle: '유효성 검사 · 파생 에러', Component: SignupApp, kind: 'app', docs: [D.updatingObjects, D.input] },
+  { id: 12.4, title: '🛠️ Lv1-1 · 할 일 앱 조립', subtitle: '완성된 조각을 배치·연결 (데이터 흐름)', Component: AssembleTodo, kind: 'app', isNew: true, builds: 'props · 콜백 · 상태 소유(3-1·3.5)', docs: [D.passingProps, D.sharingState] },
+  { id: 12.5, title: '🛠️ Lv1-2 · 할 일 리스트+', subtitle: 'CRUD · 필터 · 저장', Component: CheckpointC, kind: 'app', docs: [D.updatingArrays, D.renderingLists] },
+  { id: 12.9, title: '🛠️ Lv2-1 · 장바구니 조립', subtitle: '조각 배치·연결 (로직은 주어짐)', Component: AssembleCart, kind: 'app', isNew: true, builds: 'props · 콜백 · 상태 소유', docs: [D.useMemo, D.updatingArrays] },
+  { id: 13, title: '🛠️ Lv2-2 · 장바구니', subtitle: '수량 · 합계(파생·useMemo)', Component: CartApp, kind: 'app', docs: [D.useMemo, D.updatingArrays] },
+  { id: 13.2, title: '🛠️ Lv3-1 · 회원가입 폼 조립', subtitle: '완성된 조각을 배치·props로 연결', Component: AssembleSignup, kind: 'app', isNew: true, builds: 'props · onChange · 상태 소유', docs: [D.updatingObjects, D.input] },
+  { id: 13.3, title: '🛠️ Lv3-2 · 회원가입 폼', subtitle: '유효성 검사 · 파생 에러', Component: SignupApp, kind: 'app', docs: [D.updatingObjects, D.input] },
   { id: 13.5, title: '🛠️ Lv4 · 목록 좌↔우 교환', subtitle: '두 배열 이동 · 불변성', Component: TransferApp, kind: 'app', docs: [D.updatingArrays] },
   { id: 14, title: '🛠️ Lv5 · 사용자 검색', subtitle: 'debounce · 목업 fetch', Component: SearchApp, kind: 'app', docs: [D.effects, D.useRef] },
   { id: 15, title: '🛠️ Lv6 · 퀴즈 게임', subtitle: 'useReducer · 타이머', Component: QuizApp, kind: 'app', docs: [D.useReducer, D.useEffect] },
@@ -237,7 +243,7 @@ const CHAPTERS = {
     { n: '12', title: 'useReducer', items: [10] },
     { n: '13', title: '최적화', items: [11] },
     { n: '14', title: 'Ref와 커스텀 훅', items: [12, ...stepIds(12.1, 6)] },
-    { n: '15', title: '실전 앱 (난이도 순)', items: [12.5, 13, 13.3, 13.5, 14, 15, 16] },
+    { n: '15', title: '실전 앱 (난이도 순)', items: [12.4, 12.5, 12.9, 13, 13.2, 13.3, 13.5, 14, 15, 16] },
   ],
   js: [
     { n: 'J0', title: 'JS 기본 · 시작', items: ['js-intro'] },
@@ -339,7 +345,10 @@ const FILES = {
   10: 'lessons/step10-reducer/index.jsx',
   11: 'lessons/step11-optimize/index.jsx',
   12: 'lessons/step12-ref-hooks/index.jsx',
+  12.4: 'lessons/app-assemble-todo/index.jsx',
   12.5: 'checkpoints/checkpointC-todo/index.jsx',
+  12.9: 'lessons/app-assemble-cart/index.jsx',
+  13.2: 'lessons/app-assemble-signup/index.jsx',
   13: 'apps/app-cart/index.jsx',
   13.3: 'apps/app-signup/index.jsx',
   13.5: 'apps/app-transfer/index.jsx',
