@@ -14,6 +14,7 @@ import StepHooks2 from './lessons/step-hooks-intro/step5-2-why/index.jsx'
 import StepHooks3 from './lessons/step-hooks-intro/step5-3-violations/index.jsx'
 import StepHooksRecursion from './lessons/step-hooks-intro/step5-5-recursion/index.jsx'
 import Stage4 from './lessons/step4-inputs/index.jsx'
+import PracticeState from './lessons/practice-state/index.jsx'
 import Stage5 from './lessons/step5-lists/index.jsx'
 import Step6_1 from './lessons/step6-forms/step6-1-form-state/index.jsx'
 import Step6_2 from './lessons/step6-forms/step6-2-submit/index.jsx'
@@ -120,6 +121,7 @@ const lessons = [
   { id: 3.3, title: '🌊 개념 · 이벤트 전파 & 전개 props', subtitle: '버블링 · {...obj}', Component: EventPropagation, kind: 'concept', docs: [D.respondingEvents] },
   { id: 3.5, title: '🔀 개념 · props vs state', subtitle: '둘의 차이', Component: PropsVsState, kind: 'concept', docs: [D.thinking, D.stateMemory] },
   { id: 3.6, title: '🔁 개념 · 리렌더링', subtitle: '언제 다시 그려지나', Component: ReRender, kind: 'concept', docs: [D.renderCommit, D.stateSnapshot] },
+  { id: 3.7, title: '📝 챕터 연습 · 상태', subtitle: '카운터·객체 state 직접 만들기', Component: PracticeState, kind: 'checkpoint', docs: [D.useState, D.updatingObjects] },
   { id: 4, title: '4단계 · 입력 다루기', subtitle: '그냥 두기 vs controlled · 단방향', Component: Stage4, docs: [D.reactingInput, D.input] },
   { id: 3.81, group: '5단계 · 훅(Hook)', title: '5-1 · 훅이란 & 규칙', subtitle: 'use 함수 · 금지 위치', Component: StepHooks1, kind: 'sub', docs: [D.rulesOfHooks] },
   { id: 3.815, group: '5단계 · 훅(Hook)', title: '5-2 · 훅이 푸는 문제', subtitle: '훅 없이 vs 훅으로', Component: StepHooksBenefits, kind: 'sub', docs: [D.rulesOfHooks] },
@@ -170,7 +172,7 @@ const CHAPTERS = {
     { n: '01', title: '왜 리액트인가', items: [0] },
     { n: '02', title: '컴포넌트와 JSX', items: [1, 1.4, 1.45, 1.46, 1.5, 1.6] },
     { n: '03', title: 'Props — 값 전달', items: [2.1, 2.2, 2.3, 2.5] },
-    { n: '04', title: '상태(State)', items: [3.1, 3.2, 3.3, 3.5, 3.6] },
+    { n: '04', title: '상태(State)', items: [3.1, 3.2, 3.3, 3.5, 3.6, 3.7] },
     { n: '05', title: '입력 다루기', items: [4] },
     { n: '06', title: '훅(Hook)이란', items: [3.81, 3.815, 3.82, 3.83, 3.84] },
     { n: '07', title: '리스트 렌더링', items: [4.5, 5, 5.5] },
@@ -225,6 +227,7 @@ const FILES = {
   3.3: 'concepts/event-propagation/index.jsx',
   3.5: 'concepts/props-vs-state/index.jsx',
   3.6: 'concepts/rerender/index.jsx',
+  3.7: 'lessons/practice-state/index.jsx',
   3.81: 'lessons/step-hooks-intro/step5-1-what/index.jsx',
   3.815: 'lessons/step-hooks-intro/step5-2-benefits/index.jsx',
   3.82: 'lessons/step-hooks-intro/step5-2-why/index.jsx',
