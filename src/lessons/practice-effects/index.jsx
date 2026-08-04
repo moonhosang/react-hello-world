@@ -1,7 +1,7 @@
-// 📝 챕터 연습 · useEffect
-// 챕터 10(useEffect)을 종합하는 핸즈온 연습 — 난이도 3단계로 직접 만들어 본다.
+// 📝 챕터 연습 · useEffect (config)
+// 챕터 10(useEffect) 종합 — 같은 완성물을 채워주는 양만 줄여가며 5단계로.
+// 탭 대신 단계별 사이드바 항목으로 쪼개 쓰려고 데이터(config)만 내보낸다. (PracticeStep이 렌더)
 
-import PracticeLevels from '../../components/PracticeLevels.jsx'
 import PracticeEasy from './practiceEasy.jsx'
 import PracticeEasy2 from './practiceEasy2.jsx'
 import PracticeMedium from './practiceMedium.jsx'
@@ -9,25 +9,14 @@ import PracticeMedium2 from './practiceMedium2.jsx'
 import PracticeHard from './practiceHard.jsx'
 import SolutionTimer from './solution.jsx'
 
-export default function PracticeEffects() {
-  return (
-    <section>
-      <header className="lesson-header">
-        <span className="badge checkpoint-badge">📝 챕터 연습</span>
-        <h2>useEffect — 종합 연습</h2>
-        <p>렌더 뒤 할 일(부수 효과)을 useEffect에 적고, 의존성 배열과 정리(cleanup)를 직접 써 본다. 쉬움 → 어려움 순으로.</p>
-      </header>
-
-      <div className="lesson-goal">
-        <span className="lesson-goal-tag">🎯 학습 포인트</span>
-        <p>의존성 배열로 <b>언제 다시 실행할지</b>를 정하고, <code>return</code>으로 <b>뒷정리(clearInterval)</b>를 돌려준다.</p>
-      </div>
-
-      <PracticeLevels
-        goal="의존성 배열과 정리(cleanup)를 직접 채워 타이머·제목 동기화를 완성한다."
-        solutionFile="practice-effects/solution.jsx"
-        solution={<SolutionTimer />}
-        levels={[
+const PRACTICE = {
+  shortTitle: 'useEffect',
+  header: '렌더 뒤 할 일(부수 효과)을 useEffect에 적고, 의존성 배열과 정리(cleanup)를 직접 써 타이머·제목 동기화를 완성한다.',
+  goal: '의존성 배열과 정리(cleanup)를 직접 채워 타이머·제목 동기화를 완성한다.',
+  builds: '9-1 · 9-2 · 9-5',
+  solution: <SolutionTimer />,
+  solutionFile: 'practice-effects/solution.jsx',
+  levels: [
           {
             label: '1 · 의존성',
             point: '완성된 effect에 의존성 배열만 준다.',
@@ -93,8 +82,6 @@ export default function PracticeEffects() {
             ],
             node: <PracticeHard />,
           },
-        ]}
-      />
-    </section>
-  )
+  ],
 }
+export default PRACTICE

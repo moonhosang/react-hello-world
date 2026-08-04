@@ -1,8 +1,7 @@
-// 📝 챕터 연습 · Ref
-// 챕터 14(useRef와 커스텀 훅)를 종합하는 핸즈온 연습 — 난이도 5단계로 직접 만들어 본다.
-// 완성물은 하나(포커스 + 리렌더 없는 클릭 수 세기). 채워진 양만 줄여가며 5칸을 올라간다.
+// 📝 챕터 연습 · Ref (config)
+// 챕터 14(useRef) 종합 — 완성물 하나(포커스 + 리렌더 없는 클릭 수 세기)를
+// 채워주는 양만 줄여가며 5단계로. 단계별 사이드바 항목으로 쪼개려고 데이터만 내보낸다.
 
-import PracticeLevels from '../../components/PracticeLevels.jsx'
 import PracticeEasy from './practiceEasy.jsx'
 import PracticeMedium from './practiceMedium.jsx'
 import PracticeCount from './practiceCount.jsx'
@@ -10,25 +9,14 @@ import PracticeCountFull from './practiceCountFull.jsx'
 import PracticeHard from './practiceHard.jsx'
 import SolutionFocusRef from './solution.jsx'
 
-export default function PracticeRef() {
-  return (
-    <section>
-      <header className="lesson-header">
-        <span className="badge checkpoint-badge">📝 챕터 연습</span>
-        <h2>Ref — 종합 연습</h2>
-        <p>useRef로 진짜 DOM을 만지고(focus), 화면과 무관한 값을 리렌더 없이 보관해 본다. 쉬움 → 처음부터 순으로.</p>
-      </header>
-
-      <div className="lesson-goal">
-        <span className="lesson-goal-tag">🎯 학습 포인트</span>
-        <p><code>useRef</code>는 DOM으로 가는 손잡이이자, 바뀌어도 <b>리렌더를 일으키지 않는</b> 보관함이다. 이벤트 안에서 <code>ref.current</code>를 읽고 쓴다.</p>
-      </div>
-
-      <PracticeLevels
-        goal="useRef로 input 포커스와 '리렌더 없는 값 기억'을 손에 익힌다."
-        solutionFile="practice-ref/solution.jsx"
-        solution={<SolutionFocusRef />}
-        levels={[
+const PRACTICE = {
+  shortTitle: 'Ref',
+  header: 'useRef로 진짜 DOM을 만지고(focus), 화면과 무관한 값을 리렌더 없이 보관해 본다.',
+  goal: "useRef로 input 포커스와 '리렌더 없는 값 기억'을 손에 익힌다.",
+  builds: '13단계',
+  solution: <SolutionFocusRef />,
+  solutionFile: 'practice-ref/solution.jsx',
+  levels: [
           {
             label: '쉬움',
             point: '빈 곳 한 줄만 — ref.current로 DOM을 직접 부른다.',
@@ -94,8 +82,6 @@ export default function PracticeRef() {
             ],
             node: <PracticeHard />,
           },
-        ]}
-      />
-    </section>
-  )
+  ],
 }
+export default PRACTICE
