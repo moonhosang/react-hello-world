@@ -1,16 +1,16 @@
 import { useState } from 'react'
 
-// ✅ 정답 — 좋아요 카드
-// 객체 state 하나(card)로 liked(불리언)·likes(숫자)를 함께 관리하고, 이벤트로 바꾼다.
-// 객체는 통째로 새로 만들어 넣는다({ ...c, ... }) — 바뀐 필드만 덮어쓴다.
-export default function SolutionLikeCard() {
+// 🟢 아주 쉬움 — 거의 다 됐다. toggle 안 setCard의 'likes' 한 줄만 채운다.
+// 지금은 하트는 바뀌는데 숫자가 안 오른다(likes: c.likes 그대로라서). 그 한 줄만 고친다.
+
+export default function PracticeL1() {
   const [card, setCard] = useState({ liked: false, likes: 0 })
 
   const toggle = () => {
     setCard((c) => ({
       ...c,
       liked: !c.liked,
-      likes: c.liked ? c.likes - 1 : c.likes + 1, // 켜질 때 +1, 꺼질 때 -1
+      likes: c.likes, // TODO: 켜질 때 +1, 꺼질 때 -1 (예: c.liked ? c.likes - 1 : c.likes + 1)
     }))
   }
 

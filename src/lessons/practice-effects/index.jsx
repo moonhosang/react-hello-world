@@ -3,7 +3,9 @@
 
 import PracticeLevels from '../../components/PracticeLevels.jsx'
 import PracticeEasy from './practiceEasy.jsx'
+import PracticeEasy2 from './practiceEasy2.jsx'
 import PracticeMedium from './practiceMedium.jsx'
+import PracticeMedium2 from './practiceMedium2.jsx'
 import PracticeHard from './practiceHard.jsx'
 import SolutionTimer from './solution.jsx'
 
@@ -27,7 +29,8 @@ export default function PracticeEffects() {
         solution={<SolutionTimer />}
         levels={[
           {
-            label: '쉬움',
+            label: '1 · 의존성',
+            point: '완성된 effect에 의존성 배열만 준다.',
             file: 'practice-effects/practiceEasy.jsx',
             task: '브라우저 탭 제목을 count에 맞추자. useEffect의 의존성 배열만 채운다.',
             hints: [
@@ -39,7 +42,21 @@ export default function PracticeEffects() {
             node: <PracticeEasy />,
           },
           {
-            label: '중간',
+            label: '2 · 정리',
+            point: '걸린 타이머에 정리(cleanup) 한 줄을 더한다.',
+            file: 'practice-effects/practiceEasy2.jsx',
+            task: '타이머는 이미 걸려 있다. return으로 정리 함수를 돌려주자.',
+            hints: [
+              '① 무엇·왜 — setInterval을 걸면 반드시 정리한다. 안 그러면 컴포넌트가 사라진 뒤에도 계속 돈다.',
+              '② 어디 — practiceEasy2.jsx의 useEffect 안, setInterval 아래 🟢 TODO.',
+              '③ 어떻게 — return () => clearInterval(id).',
+              '④ 확인 — 숫자는 그대로 오르되, 이제 사라질 때 타이머가 멈춘다.',
+            ],
+            node: <PracticeEasy2 />,
+          },
+          {
+            label: '3 · 타이머',
+            point: '타이머 걸기와 정리를 둘 다 스스로 쓴다.',
             file: 'practice-effects/practiceMedium.jsx',
             task: '1초마다 오르는 타이머를 걸고, 정리(cleanup)까지 돌려주자.',
             hints: [
@@ -51,7 +68,21 @@ export default function PracticeEffects() {
             node: <PracticeMedium />,
           },
           {
-            label: '어려움',
+            label: '4 · 시작/멈춤',
+            point: 'running으로 타이머를 켜고 끄게 만든다.',
+            file: 'practice-effects/practiceMedium2.jsx',
+            task: '타이머·정리는 됐다. running(불리언)으로 시작/멈춤되게 두 곳을 고치자.',
+            hints: [
+              '① 무엇·왜 — 지금은 running과 무관하게 무조건 돈다. 조건과 의존성으로 제어한다.',
+              '② TODO 1 — effect 맨 위에 if (!running) return. running이 false면 타이머를 안 건다.',
+              '③ TODO 2 — 의존성 []를 [running]으로. running이 바뀔 때마다 정리 후 다시 건다.',
+              '④ 확인 — 시작을 누르면 오르고, 멈춤을 누르면 선다.',
+            ],
+            node: <PracticeMedium2 />,
+          },
+          {
+            label: '5 · 처음부터',
+            point: '빈 화면에서 state·effect·정리를 전부 스스로.',
             file: 'practice-effects/practiceHard.jsx',
             task: '껍데기만 있다. running·sec state와 시작/멈춤 타이머를 처음부터 만들자.',
             hints: [

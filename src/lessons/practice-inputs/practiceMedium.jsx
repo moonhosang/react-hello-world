@@ -1,19 +1,18 @@
 import { useState } from 'react'
 
-// 🟡 중간 — value를 state에 묶고, 입력값으로 파생 표시(인사말·글자 수)를 이어 보자.
-// 할 일: TODO A(value 묶기)와 TODO B(인사말·글자 수 표시)를 채운다.
+// 🔴 중간 — value·onChange는 됐다(controlled). 입력값에서 '글자 수'를 파생해 덧붙인다.
+// 할 일: 아래 문장 끝에 · {text.length}자 를 이어 붙인다. (state에서 계산하는 파생 값)
 
 export default function PracticeMedium() {
-  const [name, setName] = useState('')
-  const onChange = (e) => setName(e.target.value)
+  const [text, setText] = useState('')
 
   return (
     <div className="demo-card" style={{ padding: 12 }}>
-      {/* TODO A: input에 value={name} 를 묶는다. (지금은 value가 없어 리액트가 값을 화면에 못 되돌린다) */}
-      <input onChange={onChange} placeholder="이름을 입력" style={{ padding: '6px 8px' }} />
-
-      {/* TODO B: 아래를 인사말과 글자 수로 바꾼다. 예: 안녕, {name || '손님'}님 · {name.length}자 */}
-      <p style={{ marginTop: 8 }}>여기에 인사말과 글자 수를 표시하자</p>
+      <input value={text} onChange={(e) => setText(e.target.value)} placeholder="여기에 입력" style={{ padding: '6px 8px' }} />
+      <p style={{ marginTop: 8 }}>
+        리액트가 아는 값: <b>{text || '(없음)'}</b>
+        {/* TODO: 여기에 글자 수를 덧붙인다 — 예:  · <b>{text.length}</b>자 */}
+      </p>
     </div>
   )
 }

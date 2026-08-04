@@ -1,9 +1,12 @@
 // 📝 챕터 연습 · Ref
-// 챕터 14(useRef와 커스텀 훅)를 종합하는 핸즈온 연습 — 난이도 3단계로 직접 만들어 본다.
+// 챕터 14(useRef와 커스텀 훅)를 종합하는 핸즈온 연습 — 난이도 5단계로 직접 만들어 본다.
+// 완성물은 하나(포커스 + 리렌더 없는 클릭 수 세기). 채워진 양만 줄여가며 5칸을 올라간다.
 
 import PracticeLevels from '../../components/PracticeLevels.jsx'
 import PracticeEasy from './practiceEasy.jsx'
 import PracticeMedium from './practiceMedium.jsx'
+import PracticeCount from './practiceCount.jsx'
+import PracticeCountFull from './practiceCountFull.jsx'
 import PracticeHard from './practiceHard.jsx'
 import SolutionFocusRef from './solution.jsx'
 
@@ -13,7 +16,7 @@ export default function PracticeRef() {
       <header className="lesson-header">
         <span className="badge checkpoint-badge">📝 챕터 연습</span>
         <h2>Ref — 종합 연습</h2>
-        <p>useRef로 진짜 DOM을 만지고(focus), 화면과 무관한 값을 리렌더 없이 보관해 본다. 쉬움 → 어려움 순으로.</p>
+        <p>useRef로 진짜 DOM을 만지고(focus), 화면과 무관한 값을 리렌더 없이 보관해 본다. 쉬움 → 처음부터 순으로.</p>
       </header>
 
       <div className="lesson-goal">
@@ -28,6 +31,7 @@ export default function PracticeRef() {
         levels={[
           {
             label: '쉬움',
+            point: '빈 곳 한 줄만 — ref.current로 DOM을 직접 부른다.',
             file: 'practice-ref/practiceEasy.jsx',
             task: '포커스 버튼을 누르면 입력창에 커서가 가게, onFocus 안 한 줄만 채우자.',
             hints: [
@@ -39,7 +43,8 @@ export default function PracticeRef() {
             node: <PracticeEasy />,
           },
           {
-            label: '중간',
+            label: '연결',
+            point: 'ref를 실제 DOM에 연결하는 한 곳을 채운다.',
             file: 'practice-ref/practiceMedium.jsx',
             task: 'ref를 입력창에 연결하자. <input>에 ref={inputRef}가 빠져 포커스가 안 먹는다.',
             hints: [
@@ -51,7 +56,34 @@ export default function PracticeRef() {
             node: <PracticeMedium />,
           },
           {
-            label: '어려움',
+            label: '값 기억',
+            point: '리렌더 없는 값을 이벤트에서 직접 바꿔 본다.',
+            file: 'practice-ref/practiceCount.jsx',
+            task: '리렌더 없는 값(clicksRef)을 쓰자. 포커스는 완성돼 있고, count 안 한 곳만 채운다.',
+            hints: [
+              '① 무엇·왜 — clicksRef 같은 ref는 값이 바뀌어도 화면을 다시 그리지 않는다. "화면과 무관한 값"을 담기 좋다.',
+              '② 어디 — practiceCount.jsx의 count 함수 안 🔴 TODO. clicksRef 상자는 이미 만들어 뒀다.',
+              '③ 어떻게 — clicksRef.current += 1; alert(`버튼을 ${clicksRef.current}번 눌렀다 (리렌더 없음)`).',
+              '④ 확인 — 세기 버튼을 눌러도 화면은 그대로고, 누적 횟수만 alert로 뜬다.',
+            ],
+            node: <PracticeCount />,
+          },
+          {
+            label: '값 기억+',
+            point: '보관함 선언부터 값 변경까지 스스로.',
+            file: 'practice-ref/practiceCountFull.jsx',
+            task: '이번엔 보관함부터 직접. clicksRef 상자를 만들고(TODO A), count도 채우자(TODO B).',
+            hints: [
+              '① 상자(TODO A) — const clicksRef = useRef(0). 화면과 무관한 값이라 state가 아니라 ref로 둔다.',
+              '② 값 변경(TODO B) — clicksRef.current += 1 후 alert로 누적 횟수를 보여준다.',
+              '③ 포커스는 이미 완성돼 있으니 clicksRef 두 곳만 채우면 된다.',
+              '④ 확인 — 세기 버튼이 화면 변화 없이 누적 횟수를 alert로 보여준다.',
+            ],
+            node: <PracticeCountFull />,
+          },
+          {
+            label: '처음부터',
+            point: '빈 화면에서 설계부터 스스로 만들어 전체를 완성한다.',
             file: 'practice-ref/practiceHard.jsx',
             task: '껍데기만 있다. useRef로 input 포커스 + 리렌더 없이 클릭 수 세기를 처음부터 만들자.',
             hints: [

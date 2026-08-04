@@ -1,10 +1,13 @@
 // 📝 챕터 연습 · 상태(State)
-// 챕터 04(상태와 이벤트)를 종합하는 핸즈온 연습 — 난이도 3단계로 직접 만들어 본다.
+// 챕터 04(상태와 이벤트)를 종합하는 핸즈온 연습 — 같은 '좋아요 카드'를
+// 스캐폴딩(채워진 양)만 줄여가며 5단계로 만든다. 완성물은 모두 같다(solution.jsx).
 
 import PracticeLevels from '../../components/PracticeLevels.jsx'
-import PracticeEasy from './practiceEasy.jsx'
-import PracticeMedium from './practiceMedium.jsx'
-import PracticeHard from './practiceHard.jsx'
+import PracticeL1 from './practiceL1.jsx'
+import PracticeL2 from './practiceL2.jsx'
+import PracticeL3 from './practiceL3.jsx'
+import PracticeL4 from './practiceL4.jsx'
+import PracticeL5 from './practiceL5.jsx'
 import SolutionLikeCard from './solution.jsx'
 
 export default function PracticeState() {
@@ -13,54 +16,78 @@ export default function PracticeState() {
       <header className="lesson-header">
         <span className="badge checkpoint-badge">📝 챕터 연습</span>
         <h2>상태(State) — 종합 연습</h2>
-        <p>useState·이벤트·객체 state를 직접 손으로 써 본다. 쉬움 → 어려움 순으로 하나씩.</p>
+        <p>숫자·불리언·객체 state를 이벤트와 이어 '좋아요 카드'를 만든다. 같은 결과를 5단계로, 채워주는 양을 줄여가며.</p>
       </header>
 
       <div className="lesson-goal">
         <span className="lesson-goal-tag">🎯 학습 포인트</span>
-        <p>값이 바뀌면 <b>set 함수</b>로만 바꾼다. 숫자·불리언·객체 state를 이벤트와 이어 화면을 움직인다.</p>
+        <p>값이 바뀌면 <b>set 함수</b>로만 바꾼다. 객체 state는 <code>{'{ ...c, 바뀐 필드 }'}</code>로 새로 만들어 넣는다.</p>
       </div>
 
       <PracticeLevels
-        goal="숫자·불리언·객체 state를 이벤트와 연결해 '좋아요 카드'를 완성한다."
+        goal="객체 state 하나로 liked·likes를 관리하는 '좋아요 카드'를 완성한다."
         solutionFile="practice-state/solution.jsx"
         solution={<SolutionLikeCard />}
         levels={[
           {
-            label: '쉬움',
-            file: 'practice-state/practiceEasy.jsx',
-            task: '좋아요 버튼을 누르면 ❤️ 숫자가 오르게, onLike 안 한 줄만 채우자.',
+            label: '아주 쉬움',
+            point: '거의 다 된 코드에서 딱 한 줄만 채운다.',
+            file: 'practice-state/practiceL1.jsx',
+            task: '하트는 바뀌는데 숫자가 안 오른다. toggle 안 likes 한 줄만 고치자.',
             hints: [
-              '① 먼저 체험 — 지금은 버튼을 눌러도 0에서 안 오른다. 이게 고칠 문제다.',
-              '② 어디 — practiceEasy.jsx의 onLike 함수 안 🟢 TODO.',
-              '③ 어떻게 — setLikes(likes + 1). 값은 =로 못 바꾸고 set 함수로만 바꾼다.',
-              '④ 확인 — 누를 때마다 숫자가 1씩 오른다.',
+              '① 어디 — practiceL1.jsx의 setCard 안, likes: c.likes 라고 된 🟢 줄.',
+              '② 어떻게 — likes: c.liked ? c.likes - 1 : c.likes + 1. (켜질 때 +1, 꺼질 때 -1)',
+              '③ 확인 — 좋아요를 누르면 하트와 함께 숫자가 오르내린다.',
             ],
-            node: <PracticeEasy />,
+            node: <PracticeL1 />,
+          },
+          {
+            label: '쉬움',
+            point: '핵심 한 줄(새 객체 만들기)을 직접 쓴다.',
+            file: 'practice-state/practiceL2.jsx',
+            task: 'toggle 안이 비어 있다. setCard로 새 객체를 넘겨 하트·숫자를 바꾸자.',
+            hints: [
+              '① 무엇·왜 — 객체 state는 통째로 새 객체를 넣는다. { ...c, 바뀐 필드 }로.',
+              '② 어디 — practiceL2.jsx의 toggle 안 🟡 TODO.',
+              '③ 어떻게 — setCard((c) => ({ ...c, liked: !c.liked, likes: c.liked ? c.likes - 1 : c.likes + 1 })).',
+            ],
+            node: <PracticeL2 />,
           },
           {
             label: '중간',
-            file: 'practice-state/practiceMedium.jsx',
-            task: '객체 state에서 이름만 바꾸고 role은 유지하자. onName을 채운다.',
+            point: 'toggle 함수와 이벤트 연결을 스스로 만든다.',
+            file: 'practice-state/practiceL3.jsx',
+            task: 'toggle 함수를 만들고, 버튼에 onClick으로 연결하자.',
             hints: [
-              '① 무엇·왜 — 객체 state는 바뀐 필드만 새 객체로 갱신한다. 통째로 { name: ... }만 넣으면 role이 사라진다.',
-              '② 어디 — practiceMedium.jsx의 onName 안 🟡 TODO.',
-              '③ 어떻게 — setProfile({ ...profile, name: e.target.value }). ...profile로 기존 값을 펼치고 name만 덮어쓴다.',
-              '④ 확인 — 입력하면 이름이 바뀌고, 옆의 role(프론트엔드)은 그대로 남는다.',
+              '① TODO A — const toggle = () => setCard((c) => ({ ...c, liked: !c.liked, likes: c.liked ? c.likes - 1 : c.likes + 1 })).',
+              '② TODO B — 버튼에 onClick={toggle}을 붙인다.',
+              '③ 확인 — 버튼이 살아나 하트·숫자가 바뀐다.',
             ],
-            node: <PracticeMedium />,
+            node: <PracticeL3 />,
           },
           {
             label: '어려움',
-            file: 'practice-state/practiceHard.jsx',
-            task: '껍데기만 있다. liked(불리언)와 count(숫자)를 처음부터 만들어, 하트 토글 + 숫자 반영을 완성하자.',
+            point: '고정된 화면을 state로 살려 낸다.',
+            file: 'practice-state/practiceL4.jsx',
+            task: '고정된 겉모습만 있다. state와 toggle을 만들어 실제로 움직이게 하자.',
             hints: [
-              '① state — const [liked, setLiked] = useState(false); const [count, setCount] = useState(0).',
-              '② 토글 — 버튼 클릭 시 setLiked(v => !v). count는 켜질 때 +1, 꺼질 때 -1: setCount(c => liked ? c - 1 : c + 1).',
-              '③ 화면 — {liked ? "❤️" : "🤍"} {count}와 버튼(onClick={toggle}).',
-              '④ 확인 — 누를 때마다 하트가 채워지고/비워지고, 숫자가 따라 오르내린다.',
+              '① TODO A — useState를 import하고 const [card, setCard] = useState({ liked: false, likes: 0 }).',
+              '② TODO B — toggle 함수(liked 반대·likes ±1).',
+              '③ TODO C — 🤍/0/className/버튼을 card·toggle을 쓰도록 바꾼다: {card.liked ? "❤️" : "🤍"} {card.likes}, onClick={toggle}.',
             ],
-            node: <PracticeHard />,
+            node: <PracticeL4 />,
+          },
+          {
+            label: '도전',
+            point: '빈 화면에서 처음부터 전부 만든다.',
+            file: 'practice-state/practiceL5.jsx',
+            task: '껍데기만 있다. 좋아요 카드를 처음부터 만들자(객체 state + 토글 + 마크업).',
+            hints: [
+              '① state — const [card, setCard] = useState({ liked: false, likes: 0 }).',
+              '② toggle — setCard((c) => ({ ...c, liked: !c.liked, likes: c.liked ? c.likes - 1 : c.likes + 1 })).',
+              '③ 마크업 — {card.liked ? "❤️" : "🤍"} {card.likes}와 버튼(onClick={toggle}). 👀 정답 보기로 비교하라.',
+            ],
+            node: <PracticeL5 />,
           },
         ]}
       />

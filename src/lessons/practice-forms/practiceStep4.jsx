@@ -1,9 +1,9 @@
 import { useState } from 'react'
 
-// 🔴 중간 — onChange·제출은 됐다. 이제 '이름 필수' 검증 한 줄을 더한다.
-// 할 일: handleSubmit 안, 목록에 넣기 전에 이름이 비면 막는(return) 줄을 넣는다.
+// 🟣 중간+ — 로직은 다 됐다. 목록이 비었을 때 '안내 문구'를 조건부로 보여준다.
+// 할 일: <ul> 안을 entries가 비면 안내, 있으면 목록으로 바꾼다(조건부 렌더).
 
-export default function PracticeMedium() {
+export default function PracticeStep4() {
   const [form, setForm] = useState({ name: '', message: '' })
   const [entries, setEntries] = useState([])
 
@@ -11,7 +11,7 @@ export default function PracticeMedium() {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    // TODO: 이름이 비면 여기서 막는다 — if (form.name.trim() === '') return
+    if (form.name.trim() === '') return
     setEntries([...entries, form])
     setForm({ name: '', message: '' })
   }
@@ -22,9 +22,9 @@ export default function PracticeMedium() {
       <div className="form-row"><label>메시지</label><input name="message" value={form.message} onChange={handleChange} placeholder="한마디" /></div>
       <button className="chip on" type="submit" style={{ marginTop: 8 }}>남기기</button>
       <ul className="section-list" style={{ marginTop: 8 }}>
-        {entries.length === 0
-          ? <li className="demo-desc">아직 방명록이 비어 있다.</li>
-          : entries.map((x, i) => <li key={i}><b>{x.name}</b>: {x.message || '(메시지 없음)'}</li>)}
+        {/* TODO: entries.length === 0 이면 <li className="demo-desc">아직 방명록이 비어 있다.</li>,
+                 아니면 entries.map(...) 로 목록을 그린다 */}
+        {entries.map((x, i) => <li key={i}><b>{x.name}</b>: {x.message || '(메시지 없음)'}</li>)}
       </ul>
     </form>
   )
