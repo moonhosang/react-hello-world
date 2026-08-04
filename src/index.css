@@ -20,6 +20,10 @@
 
 * { box-sizing: border-box; }
 
+/* 코드·표는 가로로 넘치면 자체 스크롤 — 화면 밖으로 삐져나가지 않게 */
+pre { max-width: 100%; overflow-x: auto; }
+.table-wrap { overflow-x: auto; }
+
 body {
   margin: 0;
   background: var(--bg);
@@ -247,8 +251,18 @@ nav {
 
 .content {
   flex: 1;
+  min-width: 0; /* flex 자식이 줄어들 수 있게 — 코드 블록 가로 넘침 방지 */
   padding: 40px 48px;
   max-width: 900px;
+}
+
+/* 모바일 목차 오버레이 배경 (기본은 숨김, 폰에서만 표시) */
+.sidebar-backdrop {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  z-index: 55;
 }
 
 /* 사이드바 접기/펼치기 */
@@ -1108,13 +1122,27 @@ button.tech-tag.link:hover { background: var(--brand); color: #fff; border-color
 }
 
 @media (max-width: 720px) {
-  .layout { flex-direction: column; }
-  .sidebar { width: 100%; height: auto; position: static; overflow: visible; }
-  .toc { max-height: 60vh; }
-  .content { padding: 24px; }
+  /* 목차를 화면 위에 덮는 오버레이로 — 열려 있을 때만 보이고, 탭하면 닫힌다 */
+  .sidebar {
+    position: fixed; top: 0; left: 0;
+    width: min(300px, 86vw); height: 100vh;
+    z-index: 60; overflow-y: auto;
+    box-shadow: 4px 0 24px rgba(0, 0, 0, 0.35);
+  }
+  .toc { max-height: none; }
+  .sidebar-backdrop { display: block; }
+  .content { padding: 20px 16px; max-width: 100%; }
+  .layout.sidebar-collapsed .content { padding-top: 60px; }
   .compare-grid { grid-template-columns: 1fr; }
   .two-col { grid-template-columns: 1fr; }
   .err-cols { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 430px) {
+  .content { padding: 16px 12px; }
+  .content h2 { font-size: 20px; }
+  .lesson-header h2 { font-size: 21px; }
+  .check-tab { font-size: 10.5px; padding: 5px 2px; }
 }
 
 /* ---------- Context 리렌더 유의사항: 렌더 지문 ---------- */

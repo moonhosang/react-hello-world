@@ -323,10 +323,11 @@ export default function App() {
   // 사이드바 열림/접힘 — 집중 모드·좁은 화면용. localStorage에 저장.
   const [sidebarOpen, setSidebarOpen] = useState(() => {
     try {
-      return localStorage.getItem('sidebarOpen') !== 'false'
-    } catch {
-      return true
-    }
+      const v = localStorage.getItem('sidebarOpen')
+      if (v != null) return v !== 'false'
+    } catch {}
+    // 첫 방문: 넓은 화면은 열고, 폰(≤720px)은 접어 둔다.
+    return typeof window !== 'undefined' ? window.innerWidth > 720 : true
   })
   useEffect(() => {
     try {
@@ -441,8 +442,16 @@ export default function App() {
   const current = lessons.find((lesson) => lesson.id === currentId) ?? lessons[0]
   const Current = current.Component
 
+  // 강의 이동 — 폰(≤720px)에선 목차를 자동으로 닫아 내용이 바로 보이게 한다.
+  const go = (id) => {
+    setCurrentId(id)
+    try { if (window.innerWidth <= 720) setSidebarOpen(false) } catch {}
+  }
+
   return (
     <div className={'layout' + (sidebarOpen ? '' : ' sidebar-collapsed')}>
+      {/* 모바일: 목차가 열리면 뒤를 덮는 배경(탭하면 닫힘) */}
+      {sidebarOpen && <div className="sidebar-backdrop" onClick={() => setSidebarOpen(false)} aria-hidden="true" />}
       <aside className="sidebar">
         <div className="book-title">
           <span className="book-ico">📖</span>
@@ -495,7 +504,7 @@ export default function App() {
         <nav className="toc">
           <button
             className={'toc-home' + (currentId === 'home' ? ' active' : '')}
-            onClick={() => setCurrentId('home')}
+            onClick={() => go('home')}
           >
             🗺️ 커리큘럼 한눈에
           </button>
@@ -538,7 +547,7 @@ export default function App() {
                           )}
                           <button
                             className={'toc-item' + (id === currentId ? ' active' : '')}
-                            onClick={() => setCurrentId(id)}
+                            onClick={() => go(id)}
                           >
                             <span className="toc-item-title">
                               {showNew && <span className="toc-flag" title="새로 추가된 항목">🆕</span>}
@@ -559,7 +568,7 @@ export default function App() {
           {/* 로드맵 — 마지막 장(실전 앱) 뒤에 둔다 */}
           <button
             className={'toc-home toc-roadmap' + (currentId === 'roadmap' ? ' active' : '')}
-            onClick={() => setCurrentId('roadmap')}
+            onClick={() => go('roadmap')}
           >
             🗺️ 로드맵 · 앞으로 다룰 내용
           </button>
