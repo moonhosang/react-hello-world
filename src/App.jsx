@@ -22,6 +22,16 @@ import formsPractice from './lessons/practice-forms/index.jsx'
 import contextPractice from './lessons/practice-context/index.jsx'
 import effectsPractice from './lessons/practice-effects/index.jsx'
 import refPractice from './lessons/practice-ref/index.jsx'
+import propsPractice from './lessons/practice-props/index.jsx'
+import hooksPractice from './lessons/practice-hooks/index.jsx'
+import listsPractice from './lessons/practice-lists/index.jsx'
+import jsExprPractice from './lessons/practice-js-expr/index.jsx'
+import jsArrowPractice from './lessons/practice-js-arrow/index.jsx'
+import jsFuncPractice from './lessons/practice-js-func/index.jsx'
+import jsTruthyPractice from './lessons/practice-js-truthy/index.jsx'
+import jsArrayPractice from './lessons/practice-js-array/index.jsx'
+import jsDestrPractice from './lessons/practice-js-destructure/index.jsx'
+import jsAsyncPractice from './lessons/practice-js-async/index.jsx'
 import Stage5 from './lessons/step5-lists/index.jsx'
 import Step6_1 from './lessons/step6-forms/step6-1-form-state/index.jsx'
 import Step6_2 from './lessons/step6-forms/step6-2-submit/index.jsx'
@@ -106,9 +116,10 @@ const D = {
 
 // 챕터 연습을 '단계별 항목'으로 쪼갠다 — 각 단계가 자기 진도/연습/복습 체크를 갖게.
 // base 3.7 → id 3.71 … 3.75 (사이드바 종합연습 1~5)
-const stepId = (base, i) => Number(`${base}${i + 1}`)
+// base가 숫자면 3.7→3.71 식, 문자열('js-func')이면 js-func-1 식으로 단계 id를 만든다.
+const stepId = (base, i) => (typeof base === 'number' ? Number(`${base}${i + 1}`) : `${base}-${i + 1}`)
 const stepIds = (base, n) => Array.from({ length: n }, (_, i) => stepId(base, i))
-const makeSteps = (base, p) =>
+const makeSteps = (base, p, extra = {}) =>
   p.levels.map((lv, i) => ({
     id: stepId(base, i),
     title: `📝 종합연습 · ${p.shortTitle} ${i + 1}`,
@@ -117,6 +128,7 @@ const makeSteps = (base, p) =>
     kind: 'checkpoint',
     isNew: true,
     builds: p.builds,
+    ...extra,
   }))
 
 // 강의 목록이다. 새 강의를 추가하면 여기에 한 줄만 넣으면 사이드바에 자동으로 나타난다.
@@ -189,6 +201,18 @@ const lessons = [
   { id: 'js-array', title: 'JS 5 · 배열 map · filter', subtitle: '변환·거르기 · 리스트 전제', Component: JsArrayMethods, track: 'js' },
   { id: 'js-destructure', title: 'JS 6 · 구조 분해 · 스프레드', subtitle: 'props·불변성 전제', Component: JsDestructuring, track: 'js' },
   { id: 'js-async', title: 'JS 7 · Promise · async/await', subtitle: '비동기 · fetch 전제', Component: JsAsync, track: 'js' },
+
+  // 추가된 챕터 종합연습(단계별 항목). 표시 순서는 CHAPTERS가 정하므로 여기 끝에 모아 둔다.
+  ...makeSteps(2.4, propsPractice),
+  ...makeSteps(3.9, hooksPractice),
+  ...makeSteps(5.6, listsPractice),
+  ...makeSteps('js-expr', jsExprPractice, { track: 'js' }),
+  ...makeSteps('js-arrow', jsArrowPractice, { track: 'js' }),
+  ...makeSteps('js-func', jsFuncPractice, { track: 'js' }),
+  ...makeSteps('js-truthy', jsTruthyPractice, { track: 'js' }),
+  ...makeSteps('js-array', jsArrayPractice, { track: 'js' }),
+  ...makeSteps('js-destructure', jsDestrPractice, { track: 'js' }),
+  ...makeSteps('js-async', jsAsyncPractice, { track: 'js' }),
 ]
 
 // 책 목차 구조: 트랙(track) → 장(章) → 절(節). items는 위 lessons의 id를 가리킨다.
@@ -198,11 +222,11 @@ const CHAPTERS = {
   react: [
     { n: '01', title: '왜 리액트인가', items: [0] },
     { n: '02', title: '컴포넌트와 JSX', items: [1, 1.4, 1.45, 1.46, 1.5, ...stepIds(1.6, 5)] },
-    { n: '03', title: 'Props — 값 전달', items: [2.1, 2.2, 2.3, 2.5] },
+    { n: '03', title: 'Props — 값 전달', items: [2.1, 2.2, 2.3, 2.5, ...stepIds(2.4, 5)] },
     { n: '04', title: '상태(State)', items: [3.1, 3.2, 3.3, 3.5, 3.6, ...stepIds(3.7, 5)] },
     { n: '05', title: '입력 다루기', items: [4, ...stepIds(4.3, 5)] },
-    { n: '06', title: '훅(Hook)이란', items: [3.81, 3.815, 3.82, 3.83, 3.84] },
-    { n: '07', title: '리스트 렌더링', items: [4.5, 5, 5.5] },
+    { n: '06', title: '훅(Hook)이란', items: [3.81, 3.815, 3.82, 3.83, 3.84, ...stepIds(3.9, 5)] },
+    { n: '07', title: '리스트 렌더링', items: [4.5, 5, 5.5, ...stepIds(5.6, 5)] },
     { n: '08', title: '폼 입력 응용', items: [6.1, 6.2, 6.3, ...stepIds(6.9, 5)] },
     { n: '09', title: 'Context — 전역 상태', items: [7.1, 7.2, 7.3, ...stepIds(7.4, 5)] },
     { n: '10', title: 'useEffect', items: [8.1, 8.2, 8.3, 8.4, 8.5, ...stepIds(8.9, 5)] },
@@ -214,13 +238,13 @@ const CHAPTERS = {
   ],
   js: [
     { n: 'J0', title: 'JS 기본 · 시작', items: ['js-intro'] },
-    { n: 'J1', title: '표현식과 문', items: ['js-expr'] },
-    { n: 'J2', title: '자주 쓰는 문법', items: ['js-arrow'] },
-    { n: 'J3', title: '함수는 값이다', items: ['js-func'] },
-    { n: 'J4', title: '값의 참·거짓', items: ['js-truthy'] },
-    { n: 'J5', title: '배열 다루기', items: ['js-array'] },
-    { n: 'J6', title: '구조 분해·스프레드', items: ['js-destructure'] },
-    { n: 'J7', title: '비동기', items: ['js-async'] },
+    { n: 'J1', title: '표현식과 문', items: ['js-expr', ...stepIds('js-expr', 5)] },
+    { n: 'J2', title: '자주 쓰는 문법', items: ['js-arrow', ...stepIds('js-arrow', 5)] },
+    { n: 'J3', title: '함수는 값이다', items: ['js-func', ...stepIds('js-func', 5)] },
+    { n: 'J4', title: '값의 참·거짓', items: ['js-truthy', ...stepIds('js-truthy', 5)] },
+    { n: 'J5', title: '배열 다루기', items: ['js-array', ...stepIds('js-array', 5)] },
+    { n: 'J6', title: '구조 분해·스프레드', items: ['js-destructure', ...stepIds('js-destructure', 5)] },
+    { n: 'J7', title: '비동기', items: ['js-async', ...stepIds('js-async', 5)] },
   ],
 }
 
@@ -245,9 +269,22 @@ const STEP_DIRS = {
   7.4: 'lessons/practice-context',
   8.9: 'lessons/practice-effects',
   12.1: 'lessons/practice-ref',
+  2.4: 'lessons/practice-props',
+  3.9: 'lessons/practice-hooks',
+  5.6: 'lessons/practice-lists',
+  'js-expr': 'lessons/practice-js-expr',
+  'js-arrow': 'lessons/practice-js-arrow',
+  'js-func': 'lessons/practice-js-func',
+  'js-truthy': 'lessons/practice-js-truthy',
+  'js-array': 'lessons/practice-js-array',
+  'js-destructure': 'lessons/practice-js-destructure',
+  'js-async': 'lessons/practice-js-async',
 }
 const STEP_FILES = Object.fromEntries(
-  Object.entries(STEP_DIRS).flatMap(([base, dir]) => stepIds(Number(base), 5).map((id) => [id, `${dir}/index.jsx`]))
+  Object.entries(STEP_DIRS).flatMap(([base, dir]) => {
+    const b = /^\d+(\.\d+)?$/.test(base) ? Number(base) : base // 숫자꼴만 숫자로, 'js-*'는 문자열 유지
+    return stepIds(b, 5).map((id) => [id, `${dir}/index.jsx`])
+  })
 )
 
 // 각 강의 페이지의 진입 파일 경로(src/ 기준). 상단 파일 바에 표시해, 어느 파일을 열어 고칠지 알려준다.
