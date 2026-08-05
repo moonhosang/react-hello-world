@@ -204,6 +204,27 @@ export default function Step10Reducer({ onGo }) {
         <li><b>⑤ 잠금(lock-in)</b> — 코드 곳곳이 그 라이브러리 방식에 물들면, 나중에 <b>다른 걸로 바꾸기</b>가 큰 공사가 된다.</li>
         <li><b>⑥ 공급망 보안</b> — 내가 직접 안 쓴 <b>깊은 의존성</b> 하나에 취약점·악성코드가 섞이면 그게 <b>내 앱까지</b> 딸려 들어온다. (2016년 <code>left-pad</code>라는 11줄짜리 작은 패키지가 사라져 수많은 프로젝트 빌드가 멈춘 일도 있다.)</li>
       </ul>
+
+      {/* 🔀 같은 패키지 다른 버전 — 버전 충돌 구체 예 */}
+      <div className="card">
+        <div className="file-label">🔀 아주 흔한 충돌 — 나와 라이브러리가 '같은 패키지의 다른 버전'을 원할 때</div>
+        <pre className="err-code">{`내가 원함:   lodash@1.1   (내 코드가 이 버전 API에 맞춰 짜여 있음)
+MUI가 원함:  lodash@3.1   (MUI 내부에서 이 버전을 씀)
+
+// 둘의 API가 달라서 하나로 못 맞추면?
+// ① 운 좋으면 — npm이 둘 다 설치한다
+//    node_modules 안에 lodash 1.1과 3.1이 '동시에' 존재
+//    → 번들에 같은 라이브러리가 두 벌 → 용량 2배
+// ② 운 나쁘면 — 앱에 '딱 하나'만 있어야 하는 패키지(React 등)면
+//    → 충돌로 안 돌거나 "두 개의 React" 같은 괴상한 에러`}</pre>
+      </div>
+      <p className="section-desc">
+        내가 <code>lodash@1.1</code>을 쓰고 싶은데 MUI가 내부에서 <code>lodash@3.1</code>을 요구하는 상황이다.
+        npm이 버전별로 따로 담아 주기도 하지만(→ 같은 코드가 <b>두 벌</b> 들어가 번들이 커진다), React처럼
+        <b> 앱에 딱 하나만 존재해야</b> 하는 패키지라면 <b>충돌로 터진다</b>. 문제는 이 버전을 <b>내가 고른 게 아니라</b>는 것 —
+        <b> 남(MUI)의 내부 사정</b> 때문에 내 버전 선택이 묶인다. 라이브러리를 많이 깔수록 이런 <b>버전 줄다리기</b>가 곳곳에서 생긴다.
+      </p>
+
       <div className="concept">
         <p className="concept-lead">🧱 그래서 "의존성 최소화" 철학</p>
         <p className="section-desc" style={{ marginTop: 0 }}>
