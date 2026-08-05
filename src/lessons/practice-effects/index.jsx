@@ -15,7 +15,7 @@ const PRACTICE = {
   shortTitle: 'useEffect',
   header: '렌더 뒤 할 일(부수 효과)을 useEffect에 적고, 의존성 배열과 정리(cleanup)를 직접 써 타이머·제목 동기화를 완성한다.',
   goal: '의존성 배열과 정리(cleanup)를 직접 채워 타이머·제목 동기화를 완성한다.',
-  builds: '9-1 · 9-2 · 9-5',
+  builds: '9-1 · 9-3 · 9-6',
   solution: <SolutionTimer />,
   solutionFile: 'practice-effects/solution.jsx',
   levels: [

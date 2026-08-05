@@ -10,7 +10,7 @@ export default function Clock() {
     <div className="clock">
       🕐 이 컴포넌트가 처음 그려진 시각: <b>{time}</b>
       <small style={{ display: 'block', marginTop: 4, opacity: 0.7 }}>
-        이 시계는 왜 안 흐를까? → 9-2(정리)에서 useEffect로 살아 움직이게 만든다.
+        이 시계는 왜 안 흐를까? → 9-3(정리)에서 useEffect로 살아 움직이게 만든다.
       </small>
     </div>
   )

@@ -1,6 +1,6 @@
 // 🟨 JS 7강 · Promise · async / await   (배우는 것: '나중에 오는 값'을 다루는 법)
 // 네트워크 요청처럼 결과가 지금 당장이 아니라 나중에 오는 코드를 읽고 쓴다.
-// React 9-3(useEffect에서 데이터 불러오기)의 전제다.
+// React 9-4(useEffect에서 데이터 불러오기)의 전제다.
 
 import { useState } from 'react'
 
@@ -252,7 +252,7 @@ fetchUser().then(user => fetchPosts(user).then(posts => { ... }))`}</pre>
       <div className="card">
         <div className="file-label">🔗 React로 이어지는 길 — useEffect에서 데이터 불러오기</div>
         <p className="section-desc" style={{ margin: 0 }}>
-          React에선 이 패턴을 <b>9-3 · useEffect에서 데이터 불러오기</b>로 다시 만난다 — "화면이 뜨면 요청 보내고, 도착하면
+          React에선 이 패턴을 <b>9-4 · useEffect에서 데이터 불러오기</b>로 다시 만난다 — "화면이 뜨면 요청 보내고, 도착하면
           <code> setState</code>로 화면 갱신". 참고로 effect 콜백에 <b><code>async</code>를 직접 붙이지 않는</b> 규칙이 있는데,
           왜 그런지와 올바른 모양은 거기서 배운다. 오늘 배운 상자·await 감각이 그대로 전제다.
         </p>

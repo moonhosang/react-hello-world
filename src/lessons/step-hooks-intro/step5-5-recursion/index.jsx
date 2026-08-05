@@ -87,7 +87,7 @@ function Hello() { return <p>안녕</p> }
         ※ 이건 <b>같은 컴포넌트를 '다시 실행'</b>하는 것이지, 함수가 자기를 부르는 '재귀'(호출 스택이 쌓이는)와는 다르다.
       </p>
       <p className="section-desc" style={{ marginTop: 0 }}>
-        🔗 이 "스스로를 다시 부르는 감각"이 <b>멈추지 않으면</b> 어떻게 되는지는 <b>9-1 · useEffect</b>의 완성해보기에서
+        🔗 이 "스스로를 다시 부르는 감각"이 <b>멈추지 않으면</b> 어떻게 되는지는 <b>9-2 · useEffect</b>의 완성해보기에서
         <b> 실제 무한 루프</b>로 볼 수 있다 — effect가 <code>setState</code>→리렌더→effect→… 로 끝없이 이어지고,
         <b> 의존성 배열</b>이 그 연쇄의 브레이크가 된다.
       </p>

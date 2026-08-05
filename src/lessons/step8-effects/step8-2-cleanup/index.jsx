@@ -1,4 +1,4 @@
-// 9-2 · 정리(cleanup) 함수
+// 9-3 · 정리(cleanup) 함수
 // effect에서 return하는 함수가 정리다. 컴포넌트가 사라지기 직전(또는 다음 effect 전)에 실행된다.
 
 import { useState, useEffect } from 'react'
@@ -61,7 +61,7 @@ export default function Step8_2() {
   return (
     <section>
       <header className="lesson-header">
-        <span className="badge effect-badge">9-2</span>
+        <span className="badge effect-badge">9-3</span>
         <h2>정리(cleanup) — 뒷정리하기</h2>
         <p>타이머·구독처럼 "걸어둔 것"은 effect가 return하는 함수에서 정리한다.</p>
       </header>
