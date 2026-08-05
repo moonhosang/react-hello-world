@@ -178,6 +178,44 @@ export default function Step10Reducer({ onGo }) {
           </p>
         </div>
       </div>
+
+      {/* ⚠️ 외부 의존성이 골치아픈 이유 — 구체적으로 (MUI 예시) */}
+      <h3 className="section-title">⚠️ 외부 의존성이 왜 골치아픈가 — 구체적으로</h3>
+      <span className="learn-tag">📎 학습 포인트 · 라이브러리 하나가 딸린 의존성·버전·유지보수·번들·보안을 통째로 데려온다</span>
+      <p className="section-desc">
+        "그냥 <code>npm install</code> 한 줄인데 뭐가 문제야?" 싶다. 예를 들어 유명한 UI 라이브러리 <b>MUI</b>(Material UI, <code>mui.com</code>) 하나를 깔면,
+        겉으론 버튼·다이얼로그가 예쁘게 나오지만 뒤에서 이런 일들이 따라온다:
+      </p>
+      <div className="card">
+        <div className="file-label">📦 MUI 하나 = 딸려오는 것들 (전이 의존성)</div>
+        <pre className="err-code">{`내 앱
+└─ @mui/material          ← 내가 깐 것 (한 줄)
+   ├─ @emotion/react       ← 스타일 엔진 (자동으로 딸려옴)
+   ├─ @emotion/styled
+   ├─ @mui/system · @mui/utils · @mui/base …
+   └─ (그 각각이 또 자기 의존성을 딸고 온다)
+// npm install 한 줄 → node_modules에 수십~수백 개 패키지가 생긴다`}</pre>
+      </div>
+      <ul className="section-list">
+        <li><b>① 전이 의존성 (내가 안 고른 것들)</b> — MUI 하나 깔았을 뿐인데 emotion 등 <b>남의 패키지 수십 개</b>가 함께 들어온다. node_modules가 수백 MB가 되고, 내 앱이 실제로 뭘 실행하는지 다 알기 어려워진다.</li>
+        <li><b>② 버전 충돌 (peer dependency)</b> — MUI는 "React 18 이상"을 요구하고 다른 라이브러리는 "React 17만" 요구하면 <b>둘을 같이 못 쓴다</b>. React 메이저 버전을 올리고 싶어도 MUI가 아직 지원 안 하면 <b>업그레이드가 발이 묶인다</b>.</li>
+        <li><b>③ 유지보수·수명 (남의 손에 달림)</b> — 그 라이브러리가 업데이트를 멈추거나 방향을 바꾸면 내 앱도 <b>같이 낡는다</b>. 새 React에서 경고·에러가 떠도 <b>내가 직접 못 고친다</b>.</li>
+        <li><b>④ 번들 크기 (사용자 다운로드)</b> — 버튼 하나 예쁘게 쓰려고 큰 라이브러리를 통째로 → 사용자가 받을 JS가 커져 <b>첫 화면이 느려진다</b>.</li>
+        <li><b>⑤ 잠금(lock-in)</b> — 코드 곳곳이 그 라이브러리 방식에 물들면, 나중에 <b>다른 걸로 바꾸기</b>가 큰 공사가 된다.</li>
+        <li><b>⑥ 공급망 보안</b> — 내가 직접 안 쓴 <b>깊은 의존성</b> 하나에 취약점·악성코드가 섞이면 그게 <b>내 앱까지</b> 딸려 들어온다. (2016년 <code>left-pad</code>라는 11줄짜리 작은 패키지가 사라져 수많은 프로젝트 빌드가 멈춘 일도 있다.)</li>
+      </ul>
+      <div className="concept">
+        <p className="concept-lead">🧱 그래서 "의존성 최소화" 철학</p>
+        <p className="section-desc" style={{ marginTop: 0 }}>
+          어떤 오픈소스·팀은 이 골칫거리를 피하려고 <b>외부 의존성을 극도로 아낀다</b> — 꼭 필요한 것만 넣고, 아니면 <b>직접 작게 만들어</b> 쓴다.
+          상태 관리도 마찬가지라, 새 라이브러리 대신 리액트 <b>내장 <code>useReducer + Context</code></b>로 버틴다. <b>"덜 깔수록 덜 깨진다."</b>
+        </p>
+      </div>
+      <p className="section-desc">
+        ⚖️ 물론 <b>반대편 이야기</b>도 있다 — 잘 만든 라이브러리는 <b>바퀴를 다시 발명하지 않게</b> 해 시간을 크게 아끼고, 나보다 더 많이 검증됐다.
+        그래서 "무조건 안 쓴다"가 아니라, <b>이 골칫거리를 감수할 만큼 값어치가 있나</b>를 그때그때 따져 넣는 게 핵심이다.
+      </p>
+
       <div className="try-it">
         <h4>🧭 그래서 언제 무엇을</h4>
         <ul>

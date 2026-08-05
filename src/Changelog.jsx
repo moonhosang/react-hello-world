@@ -70,7 +70,7 @@ const RELEASES = [
         ch: '12 · useReducer',
         items: [
           { no: '11', t: '상태 로직 모으기', c: 'dispatch → reducer → 새 state 트레이스' },
-          { no: '11', t: '실전 상태관리 노트', c: 'Redux Toolkit·Zustand·MobX vs 의존성 없이 Context — 언제 무엇을 쓰나' },
+          { no: '11', t: '실전 상태관리 노트', c: 'Redux Toolkit·Zustand·MobX vs 의존성 없이 Context · 외부 의존성이 골치아픈 이유(MUI 전이의존성·버전충돌·번들·공급망)' },
         ],
       },
       {
@@ -113,7 +113,7 @@ const RELEASES = [
 ]
 
 // 자동 팝업 판단 기준 — 내용이 바뀔 때마다 올린다. 저장된 값과 다르면 "새 게 있다".
-export const CHANGELOG_LATEST = 'v8-2026-08-05'
+export const CHANGELOG_LATEST = 'v9-2026-08-05'
 
 // 챕터 번호가 어느 트랙 것인지 앞에 붙인다. 01~15=⚛️ React, J0~J7=🟨 JS 기본, 그 외(공통)는 없음.
 const trackPrefix = (ch) =>
