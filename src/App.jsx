@@ -47,6 +47,7 @@ import Step8_1b from './lessons/step8-effects/step8-1b-why/index.jsx'
 import Step8_2 from './lessons/step8-effects/step8-2-cleanup/index.jsx'
 import Step8_3 from './lessons/step8-effects/step8-3-fetch/index.jsx'
 import Step8_4 from './lessons/step8-effects/step8-4-refetch/index.jsx'
+import Step8_4b from './lessons/step8-effects/step8-4b-cleanup-bugs/index.jsx'
 import Step8_5 from './lessons/step8-effects/step8-5-localstorage/index.jsx'
 import Stage9 from './lessons/step9-errors/index.jsx'
 import Step10Reducer from './lessons/step10-reducer/index.jsx'
@@ -190,7 +191,8 @@ const lessons = [
   { id: 8.2, group: '9단계 · useEffect', title: '9-3 · 정리(cleanup)', subtitle: '타이머 뒷정리', Component: Step8_2, kind: 'sub', docs: [D.effects, D.useEffect] },
   { id: 8.3, group: '9단계 · useEffect', title: '9-4 · 데이터 불러오기', subtitle: 'loading → data', Component: Step8_3, kind: 'sub', docs: [D.effects] },
   { id: 8.4, group: '9단계 · useEffect', title: '9-5 · 다시 불러오기', subtitle: '의존성 변경', Component: Step8_4, kind: 'sub', docs: [D.effects] },
-  { id: 8.5, group: '9단계 · useEffect', title: '9-6 · localStorage 저장', subtitle: 'lazy init · JSON · 지속', Component: Step8_5, kind: 'sub', docs: [D.effects, D.useEffect] },
+  { id: 8.45, group: '9단계 · useEffect', title: '9-6 · 정리 빠뜨리면', subtitle: '누수 · 경합(alive)', Component: Step8_4b, kind: 'sub', isNew: true, docs: [D.effects, D.useEffect] },
+  { id: 8.5, group: '9단계 · useEffect', title: '9-7 · localStorage 저장', subtitle: 'lazy init · JSON · 지속', Component: Step8_5, kind: 'sub', docs: [D.effects, D.useEffect] },
   ...makeSteps(8.9, effectsPractice),
   { id: 9, title: '10단계 · 에러 읽는 법', subtitle: '고장난 코드 고치기', Component: Stage9, docs: [D.rulesOfHooks] },
   { id: 10, title: '11단계 · useReducer', subtitle: '상태 로직 모으기', Component: Step10Reducer, docs: [D.useReducer, D.extractingReducer] },
@@ -244,7 +246,7 @@ const CHAPTERS = {
     { n: '07', title: '리스트 렌더링', items: [4.5, 5, 5.5, ...stepIds(5.6, 6)] },
     { n: '08', title: '폼 입력 응용', items: [6.1, 6.2, 6.3, ...stepIds(6.9, 6)] },
     { n: '09', title: 'Context — 전역 상태', items: [7.1, 7.2, 7.3, ...stepIds(7.4, 6)] },
-    { n: '10', title: 'useEffect', items: [8.1, 8.15, 8.2, 8.3, 8.4, 8.5, ...stepIds(8.9, 6)] },
+    { n: '10', title: 'useEffect', items: [8.1, 8.15, 8.2, 8.3, 8.4, 8.45, 8.5, ...stepIds(8.9, 6)] },
     { n: '11', title: '에러 읽는 법', items: [9] },
     { n: '12', title: 'useReducer', items: [10] },
     { n: '13', title: '최적화', items: [11] },
@@ -347,6 +349,7 @@ const FILES = {
   8.2: 'lessons/step8-effects/step8-2-cleanup/index.jsx',
   8.3: 'lessons/step8-effects/step8-3-fetch/index.jsx',
   8.4: 'lessons/step8-effects/step8-4-refetch/index.jsx',
+  8.45: 'lessons/step8-effects/step8-4b-cleanup-bugs/index.jsx',
   8.5: 'lessons/step8-effects/step8-5-localstorage/index.jsx',
   9: 'lessons/step9-errors/index.jsx',
   10: 'lessons/step10-reducer/index.jsx',

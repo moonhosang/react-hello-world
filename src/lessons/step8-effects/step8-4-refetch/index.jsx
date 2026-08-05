@@ -4,6 +4,7 @@
 import { useState, useEffect } from 'react'
 import { fetchUsers, fetchUser } from '../../../lib/fakeApi.js'
 import SourceTrace from '../../../components/SourceTrace.jsx'
+import TechTags from '../../../components/TechTags.jsx'
 
 // 아래 목록 데모와 '같은' effect. 값이 바뀌면 정리 → 재실행되는 순서와, alive로 옛 응답을 버리는 이유를 짚는다.
 const REFETCH_CODE = `useEffect(() => {
@@ -72,7 +73,7 @@ const REFETCH_STEPS = [
   },
 ]
 
-export default function Step8_4() {
+export default function Step8_4({ onGo }) {
   const [category, setCategory] = useState('all')
   const [users, setUsers] = useState([])
   const [loading, setLoading] = useState(true)
@@ -167,59 +168,16 @@ export default function Step8_4() {
         <UserCard userId={userId} />
       </div>
 
-      {/* 🧭 alive 플래그 자세히 — 입문자용 (경합/race) */}
-      <h3 className="section-title">🧭 자세히 · <code>alive</code> 플래그는 무엇을·왜 막나 (경합)</h3>
-      <span className="learn-tag">📎 학습 포인트 · 요청이 겹치면 '늦게 도착한 옛 응답'이 새 화면을 덮을 수 있다 → alive로 옛 응답을 버린다</span>
-      <p className="section-desc">
-        <code>let alive = true // 이 요청이 아직 유효한가</code> — 이 한 줄이 입문자에겐 낯설다. <code>alive</code>는
-        <b> "이 요청이 아직 화면에 맞는가"를 표시하는 깃발</b>(true/false)이다. 왜 필요한지는 <b>구체적인 상황</b>으로 보면 단번에 이해된다.
-      </p>
-
-      <div className="card">
-        <div className="file-label">😱 alive가 없다면 — 이런 버그가 난다</div>
-        <p className="section-desc" style={{ margin: '0 0 8px' }}>
-          네트워크는 <b>요청마다 도착 시간이 다르다</b>. 그래서 빨리 누르면 <b>응답 순서가 뒤바뀔 수</b> 있다:
+      {/* alive(경합) 깊은 설명은 9-6으로 이동 */}
+      <div className="concept">
+        <p className="concept-lead">🧭 <code>alive</code>는 왜 있나? — 경합(race) 방지</p>
+        <p className="section-desc" style={{ marginTop: 0 }}>
+          위 effect의 <code>let alive = true</code>는 <b>"이 응답이 아직 화면에 맞는가"</b>를 표시하는 깃발이다.
+          빠르게 전환하면 <b>늦게 온 옛 응답이 새 화면을 덮는</b> 경합 버그가 나는데, 정리에서 <code>alive = false</code>로
+          옛 응답을 버려 막는다. <b>구체적 시나리오와 함께 "정리를 빠뜨리면 나는 버그"는 다음 강의 9-6</b>에서 자세히 본다.
         </p>
-        <ol className="chain-rounds" style={{ counterReset: 'none' }}>
-          <li className="chain-round">
-            <div className="chain-round-head"><span className="chain-round-no">1</span><span><b>userId 1</b> 클릭 → 1번 요청 출발</span><span className="chain-round-note">하필 느림 · 2초 걸림</span></div>
-          </li>
-          <li className="chain-round">
-            <div className="chain-round-head"><span className="chain-round-no">2</span><span>0.1초 뒤 마음 바뀜 → <b>userId 3</b> 클릭 → 3번 요청 출발</span><span className="chain-round-note">빠름 · 0.5초</span></div>
-          </li>
-          <li className="chain-round active">
-            <div className="chain-round-head"><span className="chain-round-no">3</span><span>0.5초: <b>3번 응답 도착</b> → 화면에 <b>3번 사람</b> ✅</span><span className="chain-round-note">버튼도 3 · 맞음</span></div>
-          </li>
-          <li className="chain-round" style={{ borderColor: 'var(--red)' }}>
-            <div className="chain-round-head"><span className="chain-round-no" style={{ background: 'var(--red)' }}>4</span><span>2초: <b>1번 응답이 뒤늦게</b> 도착 → <code>setUser(1번)</code></span><span className="chain-round-note" style={{ color: 'var(--red)' }}>화면이 1번으로 되돌아감 ❌</span></div>
-          </li>
-        </ol>
-        <p className="demo-desc" style={{ margin: '8px 0 0' }}>
-          결과: 버튼은 <b>3</b>인데 화면은 <b>1</b>. <b>늦게 온 옛 응답</b>이 새 화면을 덮어썼다 — 이게 <b>경합(race condition)</b>이다.
-        </p>
+        <TechTags items={[{ label: '➡️ 9-6 · 정리 빠뜨리면 (누수·경합)', to: 8.45 }]} onGo={onGo} />
       </div>
-
-      <div className="card">
-        <div className="file-label">🛡️ alive가 하는 일 — 옛 응답을 버린다</div>
-        <pre className="err-code">{`useEffect(() => {
-  let alive = true                    // ← 이 '실행'만의 깃발 (effect가 돌 때마다 새로 생김)
-  fetchUser(userId).then((data) => {
-    if (!alive) return                // ← 내가 이미 '옛것'이면 응답을 버린다
-    setUser(data)                     // 유효할 때만 화면에 반영
-  })
-  return () => { alive = false }      // ← 정리: userId가 또 바뀌면 이 실행을 '옛것'으로
-}, [userId])`}</pre>
-        <ul className="section-list">
-          <li><b>alive는 실행마다 따로 있다</b> — effect가 다시 돌 때마다 <code>let alive = true</code>가 <b>새로</b> 만들어진다. (각 실행이 자기 <code>alive</code>를 기억한다 = <b>클로저</b>, → JS 3 · 함수는 값이다)</li>
-          <li><b>정리가 먼저 돈다</b> — userId가 1→3으로 바뀌면, 리액트는 새 effect(3번)를 돌리기 <b>전에 이전 effect(1번)의 정리</b>를 부른다 → 1번의 <code>alive</code>가 <b>false</b>가 된다.</li>
-          <li><b>그래서 1번 응답이 늦게 와도</b> <code>if (!alive) return</code>에 걸려 <b>조용히 버려진다</b> → 화면은 3번 그대로. 버그가 사라진다.</li>
-        </ul>
-      </div>
-
-      <p className="section-desc">
-        📖 한 줄로: <b><code>alive</code> = "이 응답이 아직 화면에 맞는가"를 표시하는 깃발</b>. 빠르게 전환할 때만 드물게 터지는 버그라 눈엔 잘 안 보이지만,
-        데이터를 불러오는 effect에선 <b>이 정리 패턴을 습관처럼</b> 붙이는 게 안전하다. (위 🔬 트레이스 ⑤ 정리 → ⑥ 새 요청 → ⑦ alive와 함께 보면 완전히 맞물린다.)
-      </p>
 
       <div className="try-it warn-box">
         <h4>❌ 흔한 실수</h4>
