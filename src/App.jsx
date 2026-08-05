@@ -3,6 +3,7 @@ import Home from './Home.jsx'
 import Roadmap from './Roadmap.jsx'
 import Glossary from './Glossary.jsx'
 import Changelog, { CHANGELOG_LATEST } from './Changelog.jsx'
+import LessonErrorBoundary from './components/LessonErrorBoundary.jsx'
 // 각 강의는 자기 폴더의 index.jsx에서 불러온다. (폴더를 가리키면 index.jsx가 자동 선택됨)
 import Stage0 from './lessons/step0-why-react/index.jsx'
 import Stage1 from './lessons/step1-components/index.jsx'
@@ -753,7 +754,10 @@ export default function App() {
 
         {/* Component가 있으면 그 강의를, 없으면(홈/알 수 없는 id) 커리큘럼 목록을 보여준다 */}
         {Current ? (
-          <Current onGo={setCurrentId} />
+          // key={current.id} — 강의를 바꾸면 바운더리가 리셋돼, 터진 강의에서 넘어오면 정상 렌더된다.
+          <LessonErrorBoundary key={current.id}>
+            <Current onGo={setCurrentId} />
+          </LessonErrorBoundary>
         ) : (
           <Home chapters={CHAPTERS[track]} byId={byId} onGo={setCurrentId} />
         )}

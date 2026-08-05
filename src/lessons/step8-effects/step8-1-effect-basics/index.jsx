@@ -5,6 +5,7 @@
 import { useState, useEffect, Component, Fragment } from 'react'
 import CodeBlock from '../../../components/CodeBlock.jsx'
 import SourceTrace from '../../../components/SourceTrace.jsx'
+import QuickQuiz from '../../../components/QuickQuiz.jsx'
 import { fetchUser } from '../../../lib/fakeApi.js'
 import { useUserFetch } from './useUserFetch.js'
 import hookRaw from './useUserFetch.js?raw'
