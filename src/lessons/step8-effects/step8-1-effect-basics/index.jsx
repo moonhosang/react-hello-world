@@ -4,6 +4,7 @@
 
 import { useState, useEffect, Component, Fragment } from 'react'
 import CodeBlock from '../../../components/CodeBlock.jsx'
+import SourceTrace from '../../../components/SourceTrace.jsx'
 import { fetchUser } from '../../../lib/fakeApi.js'
 import { useUserFetch } from './useUserFetch.js'
 import hookRaw from './useUserFetch.js?raw'
@@ -128,6 +129,54 @@ function UserFetchDemo() {
     </div>
   )
 }
+
+// 이 레슨 본문의 두 effect(①[] · ②[count])가 첫 렌더·클릭 때 어떤 순서로 도는지 짚는다.
+const BASIC_CODE = `const [count, setCount] = useState(0)
+
+useEffect(() => {
+  setLog('실행됨')                  // ① 마운트 뒤 한 번
+}, [])                             // [] = 처음 한 번만
+
+useEffect(() => {
+  document.title = '클릭 ' + count  // ② 탭 제목 동기화
+}, [count])                        // [count] = count 바뀔 때마다`
+
+const BASIC_STEPS = [
+  {
+    hl: [1],
+    tag: '① 첫 렌더',
+    t: '컴포넌트 함수가 실행돼 화면을 그린다',
+    d: (<><code>count</code>가 0으로 시작한다. 함수가 <code>return</code>한 JSX가 화면에 그려진다. <b>effect는 아직 안 돈다</b>(렌더 뒤로 미뤄짐).</>),
+    note: 'count = 0',
+  },
+  {
+    hl: [3, 4, 5, 7, 8, 9],
+    tag: '② effect 실행',
+    t: '렌더가 끝난 뒤 두 effect가 위→아래로',
+    d: (<>화면을 다 그린 뒤 effect가 <b>적힌 순서대로</b> 실행된다. ①은 <code>setLog</code> 한 번, ②는 탭 제목을 <b>"클릭 0회"</b>로 맞춘다.</>),
+    note: '탭 제목 = 클릭 0회',
+  },
+  {
+    hl: [1],
+    tag: '③ ➕ 클릭',
+    t: 'setCount(1) → 리렌더',
+    d: (<>버튼을 누르면 <code>setCount</code>로 <code>count</code>가 <b>0 → 1</b>이 되고, 컴포넌트가 다시 실행된다(리렌더).</>),
+    note: 'count = 1',
+  },
+  {
+    hl: [5, 9],
+    tag: '④ 의존성 비교',
+    t: '리액트가 각 의존성을 이전 렌더와 비교한다',
+    d: (<>①의 <code>[]</code>는 비교할 게 없다 → <b>건너뜀</b>. ②의 <code>[count]</code>는 <b>0 → 1</b>로 달라졌다 → <b>다시 실행 대상</b>.</>),
+  },
+  {
+    hl: [7, 8],
+    tag: '⑤ ②만 재실행',
+    t: '탭 제목만 갱신, ①은 건너뛴다',
+    d: (<>그래서 ②만 다시 돌아 탭 제목이 <b>"클릭 1회"</b>가 된다. ①은 처음 그대로. → <b>의존성 배열이 "무엇에 맞춰 다시 돌지"를 정한다.</b></>),
+    note: '탭 제목 = 클릭 1회',
+  },
+]
 
 // 렌더 중 에러를 잡아 화면에 보여 주는 작은 에러 바운더리. (아래 무한 루프 데모가 쓴다)
 class RenderErrorBoundary extends Component {
@@ -342,6 +391,15 @@ export default function Step8_1() {
         <button onClick={() => setCount(count + 1)}>➕ 클릭</button>
         <p className="demo-desc">② <code>[count]</code> → 브라우저 <b>탭 제목</b>이 "클릭 {count}회"로 바뀐다.</p>
       </div>
+
+      {/* 🔬 위 ①·②가 도는 순서 */}
+      <h3 className="section-title">🔬 코드가 도는 순서 — 위 ①·②를 한 단계씩</h3>
+      <span className="learn-tag">📎 학습 포인트 · effect는 렌더 뒤 실행 · 클릭하면 리액트가 의존성을 비교해 바뀐 effect만 다시 돌린다</span>
+      <p className="section-desc">
+        위 두 데모(①·②)가 <b>같은 화면에서 어떤 순서로</b> 도는지 짚어 보자. <b>다음 ▶</b>으로 넘기며,
+        <b> 클릭했을 때 ①은 건너뛰고 ②만 다시 도는</b> 이유(④·⑤)를 확인하라.
+      </p>
+      <SourceTrace file="step8-1-effect-basics/index.jsx (본문 요약)" code={BASIC_CODE} steps={BASIC_STEPS} />
 
       {/* ②-2 렌더는 순수해야 한다 — 부수효과 금지 (라이브 무한 루프) */}
       <h3 className="section-title">②-2 🚫 렌더 '중'엔 부수효과 금지 — 렌더는 순수해야 한다</h3>

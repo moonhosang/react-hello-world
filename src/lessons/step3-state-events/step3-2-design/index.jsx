@@ -7,6 +7,59 @@ import ArrayMutationDemo from './ArrayMutationDemo.jsx'
 import ObjectMutationDemo from './ObjectMutationDemo.jsx'
 import TrapCounter, { SetStateStoreViz } from './TrapCounter.jsx'
 import QuickQuiz from '../../../components/QuickQuiz.jsx'
+import SourceTrace from '../../../components/SourceTrace.jsx'
+
+// 연속 setState 함정 — 값을 넣으면 왜 +3이 아니라 +1인지 한 줄씩 짚는다.
+const SNAP_CODE = `// count는 지금 0 (이 렌더의 '스냅샷'으로 고정돼 있다)
+function handleClick() {
+  setCount(count + 1)   // 0 + 1 → "다음 count를 1로"
+  setCount(count + 1)   // 여전히 0 + 1 → "1로"
+  setCount(count + 1)   // 여전히 0 + 1 → "1로"
+}
+// 결과: 1  (+3이 아니다!)`
+
+const SNAP_STEPS = [
+  {
+    hl: [1, 2],
+    tag: '① 전제',
+    t: 'count는 이 이벤트 동안 0으로 고정',
+    d: (<>한 번의 클릭이 처리되는 동안 <code>count</code>는 <b>이 렌더의 스냅샷</b>이라 <b>0에 고정</b>이다. 이 함수 안에서 <code>count</code>는 무슨 일이 있어도 <b>계속 0</b>이다.</>),
+    note: 'count = 0 (고정)',
+  },
+  {
+    hl: [3],
+    tag: '② 첫 줄',
+    t: 'setCount(0 + 1) → "1로 바꿔줘"',
+    d: (<><code>count</code>가 0이니 <code>setCount(count + 1)</code>은 <code>setCount(1)</code>이다. "다음 렌더의 count를 <b>1</b>로" 하라고 큐에 넣는다.</>),
+    note: '큐: [1]',
+  },
+  {
+    hl: [4],
+    tag: '③ 둘째 줄',
+    t: 'count는 아직도 0 → 또 setCount(1)',
+    d: (<>여기서도 <code>count</code>는 <b>여전히 0</b>이다(set은 이 함수 안 값을 바꾸지 않는다). 그래서 또 <code>setCount(0 + 1)</code> = <code>setCount(1)</code>. 앞의 1을 <b>덮어쓴다</b>.</>),
+    note: '큐: [1, 1]',
+  },
+  {
+    hl: [5],
+    tag: '④ 셋째 줄',
+    t: '똑같이 setCount(1)',
+    d: (<>세 번째도 <code>count</code>는 0이라 <code>setCount(1)</code>. 세 줄이 <b>전부 같은 값 1</b>을 큐에 넣었다.</>),
+    note: '큐: [1, 1, 1]',
+  },
+  {
+    hl: [7],
+    tag: '⑤ 결과',
+    t: '리렌더는 한 번, 마지막 값 1',
+    d: (<>이벤트가 끝나면 리액트가 <b>리렌더를 한 번</b> 한다. 큐의 값들이 전부 1이라 <code>count</code>는 <b>1</b>. 세 번 불렀는데 <b>+3이 아니라 +1</b>인 이유가 이것이다.</>),
+    note: 'count = 1',
+  },
+  {
+    tag: '⑥ 고치려면',
+    t: 'setCount(c => c + 1) — 값 대신 계산 방법',
+    d: (<>함수를 넘기면 리액트가 <b>직전 결과</b>를 <code>c</code>로 넘겨 차례로 계산한다: <b>0 → 1 → 2 → 3</b>. "고정된 값"이 아니라 "직전 값에 +1"이라 <b>+3</b>이 된다. 아래 데모·표에서 두 방식을 나란히 확인하라.</>),
+  },
+]
 
 export default function Step3_2() {
   return (
@@ -100,6 +153,11 @@ setTodos([...todos, 새항목])         // ✅   todos.push(새항목); setTodos
         그래서 <code>count + 1</code>은 매번 "고정된 그 값 + 1" = 같은 결과. 반대로 <code>c =&gt; c + 1</code>은
         리액트가 큐에 쌓아 <b>직전 결과를 <code>c</code>로 넘겨</b> 차례로 계산한다.
       </p>
+
+      {/* 🔬 소스 + 동작 과정 — 왜 +3이 아니라 +1인지 */}
+      <span className="learn-tag">📎 학습 포인트 · 한 줄씩 보면 세 번 다 setCount(1) — count가 스냅샷으로 0에 고정됐기 때문</span>
+      <SourceTrace file="TrapCounter.jsx · 값 버전 (왜 +1?)" code={SNAP_CODE} steps={SNAP_STEPS} />
+
       <TrapCounter />
       <SetStateStoreViz />
       <p className="section-desc">

@@ -4,6 +4,58 @@
 // 자동으로 props.children 으로 전달된다. 이걸로 '껍데기(래퍼) 컴포넌트'를 만든다.
 
 import { useState } from 'react'
+import SourceTrace from '../../../components/SourceTrace.jsx'
+
+// 태그 '사이'의 내용이 어떻게 props.children이 되어 자리에 꽂히는지 짚는다.
+const CHILDREN_CODE = `// 쓰는 쪽 — 여는/닫는 태그 '사이'에 내용을 넣는다
+<Card title="공지">
+  <p>오늘은 합성을 배운다.</p>
+</Card>
+
+// 껍데기 — 그 내용을 children으로 받아 자리에 꽂는다
+function Card({ title, children }) {
+  return (
+    <div className="box">
+      <h4>{title}</h4>
+      {children}
+    </div>
+  )
+}`
+
+const CHILDREN_STEPS = [
+  {
+    hl: [2, 8],
+    tag: '① 속성',
+    t: 'title="공지"는 지금까지의 속성 prop',
+    d: (<><code>title="공지"</code>는 2-1에서 배운 <b>속성</b> prop이다. 자식은 <code>{'{ title }'}</code>로 받는다.</>),
+  },
+  {
+    hl: [3],
+    tag: '② 사이의 내용',
+    t: '태그 사이의 JSX가 children이 된다',
+    d: (<>여는 <code>&lt;Card&gt;</code>와 닫는 <code>&lt;/Card&gt;</code> <b>사이</b>에 넣은 <code>&lt;p&gt;...&lt;/p&gt;</code>. 이건 속성이 아니다 — 리액트가 이걸 <b><code>children</code>이라는 특별한 prop</b>에 자동으로 담는다.</>),
+    note: 'children = <p>오늘은 합성을 배운다.</p>',
+  },
+  {
+    hl: [8],
+    tag: '③ 받기',
+    t: 'title과 children을 함께 받는다',
+    d: (<>자식은 <code>{'{ title, children }'}</code>로 받는다. <code>children</code>은 넘겨준 <b>JSX 덩어리 그 자체</b>다.</>),
+  },
+  {
+    hl: [12],
+    tag: '④ 자리에 꽂기',
+    t: '{children}을 쓴 자리에 그려진다',
+    d: (<><code>{'{children}'}</code>을 쓴 그 자리에 넘겨준 <code>&lt;p&gt;</code>가 그대로 그려진다. → <b>Card는 안에 뭐가 올지 몰라도</b> 감싸는 '틀'만 제공한다.</>),
+    note: '화면: [공지] 오늘은 합성을 배운다.',
+  },
+  {
+    hl: [12],
+    tag: '⑤ 무엇이든·중첩',
+    t: '틀은 재사용, 내용만 갈아끼운다',
+    d: (<>사이에 문단·버튼·또 다른 컴포넌트 <b>무엇을 넣어도</b> <code>{'{children}'}</code> 자리에 꽂힌다. 껍데기 안에 껍데기(Card 안 Collapsible)도 된다. 이게 리액트의 <b>합성</b>이다.</>),
+  },
+]
 
 // 🟢 껍데기 컴포넌트 — 안에 무엇이 들어올지 모른 채, 감싸는 '틀'만 제공한다.
 function Card({ title, children }) {
@@ -93,6 +145,10 @@ export default function Step2_3() {
   <p>오늘은 합성을 배운다.</p>   {/* 이 <p>가 children */}
 </Card>`}</pre>
       </div>
+
+      {/* 🔬 소스 + 동작 과정 — 태그 사이 내용이 children이 되는 순서 */}
+      <span className="learn-tag">📎 학습 포인트 · 속성(title)과 달리, 태그 사이 내용은 children이라는 특별한 prop으로 들어와 {'{children}'} 자리에 꽂힌다</span>
+      <SourceTrace file="Card — children 합성 흐름" code={CHILDREN_CODE} steps={CHILDREN_STEPS} />
 
       {/* ② 라이브 */}
       <h3 className="section-title">② 같은 틀, 다른 내용 (라이브)</h3>

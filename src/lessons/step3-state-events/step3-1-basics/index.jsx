@@ -7,6 +7,62 @@ import Practice from '../../../components/Practice.jsx'
 import PracticeSwitch from './practice.jsx'
 import SolutionSwitch from './solution.jsx'
 import QuickQuiz from '../../../components/QuickQuiz.jsx'
+import SourceTrace from '../../../components/SourceTrace.jsx'
+
+// 아래 Counter와 '같은' 로직. 클릭 → set → 리렌더로 화면이 바뀌는 순서를 짚는다.
+const COUNTER_CODE = `function Counter() {
+  const [count, setCount] = useState(0)   // [현재값, 바꾸는 함수]
+
+  return (
+    <div>
+      <div>{count}</div>                   // 현재 count를 화면에
+      <button onClick={() => setCount(count + 1)}>➕</button>
+    </div>
+  )
+}`
+
+const COUNTER_STEPS = [
+  {
+    hl: [1, 2],
+    tag: '① 첫 렌더',
+    t: 'Counter 함수가 실행된다',
+    d: (<>화면에 처음 붙을 때 함수가 한 번 돈다. <code>useState(0)</code>이 <b>[현재값 0, 바꾸는 함수 setCount]</b>를 돌려준다.</>),
+    note: 'count = 0',
+  },
+  {
+    hl: [6],
+    tag: '② 화면',
+    t: 'return의 JSX가 그려진다',
+    d: (<><code>{'{count}'}</code> 자리에 지금 값 <b>0</b>이 찍힌다. 화면에 숫자 0이 보인다.</>),
+    note: '화면: 0',
+  },
+  {
+    hl: [7],
+    tag: '③ ➕ 클릭',
+    t: 'onClick 안의 setCount(count + 1) 실행',
+    d: (<>버튼을 누르면 <code>() =&gt; setCount(count + 1)</code>이 실행된다. 지금 <code>count</code>가 0이라 <code>setCount(1)</code>을 부르는 셈이다.</>),
+  },
+  {
+    hl: [2],
+    tag: '④ 리렌더 예약',
+    t: 'set은 값을 즉시 바꾸지 않고 다시 그리기를 예약한다',
+    d: (<><code>setCount(1)</code>은 <code>count</code>를 그 자리에서 바꾸는 게 <b>아니다</b>. "다음 <code>count</code>는 1"이라 기록하고 Counter를 <b>다시 실행</b>하도록 예약한다. (직접 <code>count = 1</code>은 화면을 못 바꾼다 — 이 길뿐이다.)</>),
+  },
+  {
+    hl: [1, 2],
+    tag: '⑤ 리렌더',
+    t: 'Counter가 다시 실행된다',
+    d: (<>예약대로 함수가 다시 돈다. 이번엔 <code>useState</code>가 <b>기억해 둔 1</b>을 돌려준다(초기값 0은 첫 렌더에만 쓰였다).</>),
+    note: 'count = 1',
+  },
+  {
+    hl: [6],
+    tag: '⑥ 화면 갱신',
+    t: '{count}가 1로 다시 그려진다',
+    d: (<>화면의 숫자가 <b>1</b>로 바뀐다. → <b>"변하는 값은 useState, 바꾸는 건 set 함수"</b>가 이 6단계의 전부다. 다시 누르면 ③부터 반복.</>),
+    note: '화면: 1',
+  },
+]
 
 export default function Step3_1() {
   return (
@@ -44,6 +100,16 @@ export default function Step3_1() {
         상태는 <b>이벤트</b>(클릭·입력 등)에 반응해 바뀐다. 버튼의 <code>onClick</code>에서
         <code> setCount(count + 1)</code>처럼 set을 부르면, 리액트가 새 값으로 화면을 다시 그린다.
       </p>
+
+      {/* 🔬 소스 + 동작 과정 — 클릭이 화면을 바꾸는 6단계 */}
+      <h3 className="section-title">🔬 코드가 도는 순서 — 클릭이 화면을 바꾸기까지</h3>
+      <span className="learn-tag">📎 학습 포인트 · 클릭 → set → 리렌더 → 화면 갱신. set은 값을 즉시 바꾸는 게 아니라 '다시 그리기'를 예약한다</span>
+      <p className="section-desc">
+        아래는 <code>Counter</code>의 <b>실제 로직</b>이다. <b>다음 ▶</b>으로 넘기며 <b>지금 어느 줄이 도는지</b>와 그때 <code>count</code>가 어떻게 바뀌는지 따라가 보라.
+        핵심은 <b>④ — set이 값을 바로 바꾸는 게 아니라 리렌더를 예약</b>한다는 점이다.
+      </p>
+      <SourceTrace file="Counter.jsx (핵심 로직)" code={COUNTER_CODE} steps={COUNTER_STEPS} />
+
       <Counter />
       <LikeButton />
 

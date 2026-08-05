@@ -7,6 +7,56 @@ import QuickQuiz from '../../../components/QuickQuiz.jsx'
 import Practice from '../../../components/Practice.jsx'
 import PracticeBadge from './practice.jsx'
 import SolutionBadge from './solution.jsx'
+import SourceTrace from '../../../components/SourceTrace.jsx'
+
+// 값 하나가 부모 → props → 자식 화면까지 어떻게 흐르는지 짚는다. (아래 ProfileCard와 같은 구조)
+const PROPS_CODE = `// 부모 — 값을 건넨다 (HTML 속성처럼)
+<ProfileCard emoji="👩‍💻" name="김리액트" role="프론트엔드" />
+
+// 자식 — props로 받아 화면에 꽂는다
+function ProfileCard({ emoji, name, role }) {
+  return (
+    <div className="card">
+      <div>{emoji}</div>
+      <h3>{name}</h3>
+      <p>{role}</p>
+    </div>
+  )
+}`
+
+const PROPS_STEPS = [
+  {
+    hl: [2],
+    tag: '① 부모가 건넨다',
+    t: '값을 속성처럼 붙인다',
+    d: (<>부모가 <code>&lt;ProfileCard ... /&gt;</code>를 쓰며 <code>emoji</code>·<code>name</code>·<code>role</code> 값을 붙인다. 함수에 <b>인자를 넘기는 것</b>과 똑같다.</>),
+  },
+  {
+    hl: [5],
+    tag: '② 하나로 묶임',
+    t: '리액트가 props 객체로 만들어 넘긴다',
+    d: (<>넘긴 값들을 리액트가 <b>객체 하나</b>로 묶어 자식 함수의 인자로 준다. 정의부의 <code>{'{ emoji, name, role }'}</code>은 그 객체에서 값을 <b>꺼내는 구조 분해</b>다.</>),
+    note: "props = { emoji:'👩‍💻', name:'김리액트', role:'프론트엔드' }",
+  },
+  {
+    hl: [8, 9, 10],
+    tag: '③ 화면에 꽂기',
+    t: '받은 값을 자리에 그린다',
+    d: (<>받은 값을 <code>{'{emoji}'}</code>·<code>{'{name}'}</code>·<code>{'{role}'}</code> 자리에 넣어 그린다. → 카드 하나가 완성된다.</>),
+    note: '화면: 👩‍💻 / 김리액트 / 프론트엔드',
+  },
+  {
+    hl: [2, 5],
+    tag: '④ 재사용',
+    t: '정의는 하나, 값만 바꿔 여러 번',
+    d: (<>다른 사람은? 정의(5줄)는 <b>그대로</b> 두고 부모에서 값만 다르게 — <code>&lt;ProfileCard name="이디자인" ... /&gt;</code>. <b>같은 틀, 다른 카드</b>가 된다.</>),
+  },
+  {
+    tag: '⑤ 한 방향',
+    t: 'props는 읽기 전용이다',
+    d: (<>props는 <b>부모 → 자식 한 방향</b>으로만 흐른다. 자식은 받은 값을 <b>읽기만</b> 하고 못 바꾼다(<code>props.name = ...</code> ❌). 바뀌어야 하는 값이면 <b>state</b>로 둔다(3단계).</>),
+  },
+]
 
 export default function Step2_1() {
   return (
@@ -62,6 +112,14 @@ export default function Step2_1() {
         정의는 <code>function HelloName(&#123; name &#125;)</code> — 중괄호로 받을 값 이름을 적는다.
         <br />사용은 <code>&lt;HelloName name="김코딩" /&gt;</code> — 넘길 값을 적는다. (함수의 인자와 똑같다)
       </p>
+
+      {/* 🔬 소스 + 동작 과정 — 값이 부모→자식 화면까지 흐르는 순서 */}
+      <h3 className="section-title">🔬 코드가 도는 순서 — 값이 부모에서 자식 화면까지</h3>
+      <span className="learn-tag">📎 학습 포인트 · 부모가 붙인 값 → 리액트가 props 객체로 묶음 → 자식이 구조 분해로 받아 화면에 꽂음</span>
+      <p className="section-desc">
+        아래는 <code>ProfileCard</code>와 <b>같은 구조</b>다. <b>다음 ▶</b>으로 넘기며 <b>값 하나가 부모에서 자식 화면까지</b> 어떻게 건너가는지 따라가 보라.
+      </p>
+      <SourceTrace file="ProfileCard — 값 전달 흐름" code={PROPS_CODE} steps={PROPS_STEPS} />
 
       <h3 className="section-title">③ props 여러 개 넘기기</h3>
       <span className="learn-tag">📎 학습 포인트 · 여러 값을 넘겨 카드 하나를 사람마다 재사용하기</span>

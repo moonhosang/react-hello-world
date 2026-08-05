@@ -4,8 +4,64 @@
 
 import { useState, useEffect } from 'react'
 import Practice from '../../../components/Practice.jsx'
+import SourceTrace from '../../../components/SourceTrace.jsx'
 import PracticeStore from './practice.jsx'
 import SolutionStore from './solution.jsx'
+
+// 아래 메모 데모와 '같은' 로직. 읽기(lazy init) → 저장(useEffect) → 새로고침 복원을 짚는다.
+const STORE_CODE = `const [note, setNote] = useState(() => {      // 읽기 (lazy init)
+  try {
+    const saved = localStorage.getItem(KEY)   // 문자열 또는 null
+    return saved == null ? '' : JSON.parse(saved)
+  } catch {
+    return ''                                 // 깨졌으면 기본값
+  }
+})
+
+useEffect(() => {                             // 저장
+  localStorage.setItem(KEY, JSON.stringify(note))
+}, [note])                                    // note가 바뀔 때마다`
+
+const STORE_STEPS = [
+  {
+    hl: [1, 3],
+    tag: '① 첫 렌더 · 읽기',
+    t: 'useState에 넘긴 함수가 딱 한 번 실행된다',
+    d: (<>마운트될 때 <code>useState(() =&gt; ...)</code>의 <b>함수</b>가 <b>처음 한 번만</b> 실행된다(lazy init). 그 안에서 <code>localStorage.getItem(KEY)</code>로 저장된 문자열을 읽는다.</>),
+  },
+  {
+    hl: [4],
+    tag: '② 초기값 결정',
+    t: '있으면 되돌리고, 없으면 빈 값으로',
+    d: (<>저장된 게 있으면 <code>JSON.parse</code>로 원래 값으로 되돌려 초기값, 없으면(<code>null</code>) <code>''</code>. 이 값이 <code>note</code>의 <b>시작값</b>이 된다.</>),
+    note: "첫 방문: '' · 재방문: 저장된 메모",
+  },
+  {
+    tag: '③ 왜 함수로?',
+    t: "useState(getItem(...)) ❌ vs useState(() => ...) ✅",
+    d: (<><code>useState(localStorage.getItem(KEY))</code>처럼 <b>값</b>을 넘기면 <b>매 렌더마다</b> <code>getItem</code>이 돈다(첫 렌더에만 쓰이는데도 낭비). <code>() =&gt;</code>로 <b>함수</b>를 넘겨야 <b>첫 렌더에만</b> 읽는다.</>),
+  },
+  {
+    hl: [10, 11, 12],
+    tag: '④ 저장 effect',
+    t: '렌더 뒤 저장 effect가 돈다',
+    d: (<>저장은 화면 그리기 <b>외의</b> 일이라 <code>useEffect</code>에 있다. <code>localStorage</code>는 <b>문자열만</b> 담으니 <code>JSON.stringify</code>로 바꿔 <code>setItem</code>. 의존성은 <code>[note]</code>.</>),
+  },
+  {
+    hl: [12],
+    tag: '⑤ 입력',
+    t: '타이핑 → setNote → 저장 effect 재실행',
+    d: (<>글자를 치면 <code>setNote</code>로 <code>note</code>가 바뀌어 리렌더. 의존성 <code>[note]</code>가 <b>달라졌으니</b> 저장 effect가 <b>다시 실행</b>돼 새 값을 localStorage에 써 둔다.</>),
+    note: 'localStorage[KEY] = 방금 친 글자',
+  },
+  {
+    hl: [1, 3, 4],
+    tag: '⑥ 새로고침',
+    t: 'state는 사라져도, 읽기가 되살린다',
+    d: (<>페이지를 새로 열면 <code>note</code> state는 <b>초기화</b>된다. 하지만 첫 렌더의 lazy init이 <b>아까 저장한 값</b>을 localStorage에서 다시 읽어 초기값으로 복원한다 → <b>"새로고침해도 남는다"</b>. 읽기와 저장이 한 쌍이라 가능한 일이다.</>),
+    note: '화면: 지난번에 적은 메모 그대로',
+  },
+]
 
 // 이 데모 전용 저장 키. 다른 데모/실습과 겹치지 않게 고유하게 둔다.
 const DEMO_KEY = 'lesson8-5:demo-note'
@@ -76,6 +132,15 @@ export default function Step8_5() {
           객체·배열은 <b>반드시</b> <code>JSON.stringify</code> / <code>JSON.parse</code>를 거친다.
         </p>
       </div>
+
+      {/* 🔬 소스 + 동작 과정 — 읽기 → 저장 → 새로고침 복원 */}
+      <h3 className="section-title">🔬 코드가 도는 순서 — 읽고 · 저장하고 · 되살리고</h3>
+      <span className="learn-tag">📎 학습 포인트 · ① 첫 렌더에 읽고 → ④·⑤ 바뀔 때마다 저장 → ⑥ 새로고침 때 다시 읽어 복원</span>
+      <p className="section-desc">
+        아래는 메모 데모의 <b>실제 로직</b>이다. <b>다음 ▶</b>으로 넘기며, <b>읽기(1~8줄)는 첫 렌더에 한 번</b>,
+        <b> 저장(10~12줄)은 바뀔 때마다</b> 도는 걸 보라. 이 둘이 한 쌍이라 <b>⑥ 새로고침</b> 때 값이 되살아난다.
+      </p>
+      <SourceTrace file="step8-5-localstorage/index.jsx · PersistedNote" code={STORE_CODE} steps={STORE_STEPS} />
 
       {/* ── 라이브 데모 ── */}
       <span className="learn-tag">📎 학습 포인트 · lazy init(읽기) + useEffect(저장)을 합치면 "새로고침해도 남는" 값이 된다</span>

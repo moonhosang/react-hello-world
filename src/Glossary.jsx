@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
 
 // 📖 용어 사전 — JS·React에서 은근히 걸리는 말들을 한 곳에.
 //   상세 정의 + (필요하면) 간략 예시 코드 + 처음 배우는 레슨으로 점프.
@@ -85,12 +85,28 @@ const TERMS = [
 
 const CATS = { react: '⚛️ React', js: '🟨 JS', core: '🛠️ 도구·기초' }
 
+// 용어명을 안전한 DOM id로. (getElementById는 아무 문자열이나 되지만 공백·기호는 정리)
+const termId = (t) => 'term-' + t.replace(/[^0-9A-Za-z가-힣]+/g, '-')
+
 export default function Glossary({ onGo }) {
   const [q, setQ] = useState('')
+  // 목록에서 눌러 이동한 용어를 잠깐 강조한다.
+  const [hl, setHl] = useState(null)
+  const hlTimer = useRef(null)
+  // 언마운트 때 남은 타이머 정리 (9단계 cleanup과 같은 이유)
+  useEffect(() => () => clearTimeout(hlTimer.current), [])
 
   const jumpCat = (cat) => {
     const el = document.getElementById(`sec-${cat}`)
     if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  }
+  // 용어 목록에서 클릭 → 그 상세 카드로 스크롤 + 잠깐 강조
+  const jumpTerm = (t) => {
+    const el = document.getElementById(termId(t))
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' })
+    setHl(t)
+    clearTimeout(hlTimer.current)
+    hlTimer.current = setTimeout(() => setHl(null), 1400)
   }
 
   const kw = q.trim().toLowerCase()
@@ -121,6 +137,45 @@ export default function Glossary({ onGo }) {
         </div>
       </div>
 
+      {/* 📑 용어 목록 — 카테고리별로 한눈에. 누르면 아래 상세로 바로 이동한다. */}
+      <div className="card" style={{ marginTop: 12, padding: '14px 16px' }}>
+        <div style={{ display: 'flex', alignItems: 'baseline', gap: 8, marginBottom: 4 }}>
+          <b style={{ fontSize: 14 }}>📑 용어 목록</b>
+          <span className="demo-desc" style={{ margin: 0, fontSize: 12.5 }}>이름을 누르면 아래 상세로 이동한다</span>
+        </div>
+        {Object.keys(CATS).map((cat) => {
+          const items = shown.filter((x) => x.cat === cat)
+          if (items.length === 0) return null
+          return (
+            <div key={cat} style={{ display: 'flex', gap: 10, alignItems: 'baseline', padding: '8px 0', borderTop: '1px solid var(--border)' }}>
+              <button
+                className="chip"
+                onClick={() => jumpCat(cat)}
+                title={`${CATS[cat]} 섹션으로`}
+                style={{ fontSize: 12, fontWeight: 700, flex: 'none', whiteSpace: 'nowrap' }}
+              >
+                {CATS[cat]} {items.length}
+              </button>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
+                {items.map((x) => (
+                  <button
+                    key={x.t}
+                    className={'chip' + (hl === x.t ? ' on' : '')}
+                    onClick={() => jumpTerm(x.t)}
+                    style={{ fontSize: 12.5, padding: '4px 10px' }}
+                  >
+                    {x.t}
+                  </button>
+                ))}
+              </div>
+            </div>
+          )
+        })}
+        {shown.length === 0 && (
+          <p className="demo-desc" style={{ margin: '8px 0 0' }}>검색 결과가 없다. 다른 말로 찾아보라.</p>
+        )}
+      </div>
+
       {Object.keys(CATS).map((cat) => {
         const items = shown.filter((x) => x.cat === cat)
         if (items.length === 0) return null
@@ -129,7 +184,17 @@ export default function Glossary({ onGo }) {
             <h3 className="section-title" id={`sec-${cat}`}>{CATS[cat]}</h3>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
               {items.map((x) => (
-                <div className="card" key={x.t} style={{ padding: '12px 14px' }}>
+                <div
+                  className="card"
+                  key={x.t}
+                  id={termId(x.t)}
+                  style={{
+                    padding: '12px 14px',
+                    scrollMarginTop: 12,
+                    transition: 'box-shadow .3s, background .3s',
+                    ...(hl === x.t ? { boxShadow: '0 0 0 2px var(--brand)', background: 'var(--brand-soft)' } : {}),
+                  }}
+                >
                   <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', gap: 10, flexWrap: 'wrap' }}>
                     <b style={{ fontSize: 15 }}>{x.t}</b>
                     <button className="chip" style={{ fontSize: 12 }} onClick={() => onGo(x.to)}>레슨으로 →</button>
@@ -143,9 +208,6 @@ export default function Glossary({ onGo }) {
         )
       })}
 
-      {shown.length === 0 && (
-        <p className="section-desc" style={{ marginTop: 16 }}>검색 결과가 없다. 다른 말로 찾아보라.</p>
-      )}
       <p className="section-desc" style={{ marginTop: 16 }}>
         📌 용어가 헷갈리면 여기로 돌아와 검색하면 된다. "레슨으로 →"를 누르면 그 용어를 처음 배우는 곳으로 이동한다.
       </p>

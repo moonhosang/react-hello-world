@@ -5,6 +5,66 @@ import { useState } from 'react'
 import GreetButton from './GreetButton.jsx'
 import LikeParent from './LikeParent.jsx'
 import UserParent from './UserParent.jsx'
+import SourceTrace from '../../../components/SourceTrace.jsx'
+
+// 부모 상태 → prop → 자식 갱신. 부모가 상태를 바꾸면 그걸 받은 자식이 왜 따라 바뀌는지 짚는다.
+const LIKE_CODE = `function LikeParent() {
+  const [likes, setLikes] = useState(0)   // 부모가 상태를 '소유'
+
+  return (
+    <>
+      <LikeDisplay likes={likes} />        // 상태를 prop으로 내려준다
+      <button onClick={() => setLikes(likes + 1)}>👍</button>
+    </>
+  )
+}
+
+function LikeDisplay({ likes }) {          // 자식은 받기만
+  return <div>❤️ {likes}</div>
+}`
+
+const LIKE_STEPS = [
+  {
+    hl: [1, 2],
+    tag: '① 부모가 소유',
+    t: 'likes 상태는 부모가 가진다',
+    d: (<>상태 <code>likes</code>는 부모 <code>LikeParent</code>가 가진다(0으로 시작). 자식은 상태가 없다.</>),
+    note: 'likes = 0',
+  },
+  {
+    hl: [6, 12],
+    tag: '② 내려주기',
+    t: '상태를 prop으로 자식에게',
+    d: (<>부모가 <code>&lt;LikeDisplay likes={'{likes}'} /&gt;</code>로 그 값을 내려준다. 자식은 <code>{'{ likes }'}</code>로 받아 <b>❤️ 0</b>을 그린다.</>),
+    note: '화면: ❤️ 0',
+  },
+  {
+    hl: [7],
+    tag: '③ 👍 클릭',
+    t: 'setLikes로 부모 상태를 바꾼다',
+    d: (<>버튼을 누르면 <code>setLikes(0 + 1)</code>. <b>부모</b>의 <code>likes</code>가 1로 바뀌며 <b>부모</b> 리렌더가 예약된다.</>),
+    note: 'likes = 1',
+  },
+  {
+    hl: [1, 6],
+    tag: '④ 부모 리렌더',
+    t: '부모가 새 값으로 다시 실행',
+    d: (<>부모가 다시 돌며 이번엔 <code>likes = 1</code>. <code>&lt;LikeDisplay likes={'{1}'} /&gt;</code>로 <b>새 값</b>을 내려준다.</>),
+  },
+  {
+    hl: [11, 12],
+    tag: '⑤ 자식도 갱신',
+    t: '새 prop을 받은 자식이 다시 그려진다',
+    d: (<>바뀐 prop을 받은 자식도 다시 그려져 <b>❤️ 1</b>. → <b>부모 상태가 바뀌면, 그걸 받은 자식이 자동으로 따라 바뀐다.</b></>),
+    note: '화면: ❤️ 1',
+  },
+  {
+    hl: [11],
+    tag: '⑥ 자식은 못 바꾼다',
+    t: '값의 주인은 늘 부모',
+    d: (<>자식은 <code>likes</code>를 <b>읽기만</b> 한다. 자식이 바꾸고 싶으면? 부모에게 받은 <b>함수를 호출해 신호를 보낸다</b>(위 ④ 함수 prop, 그리고 '상태 끌어올리기'). 상태의 주인은 그대로 부모다.</>),
+  },
+]
 
 export default function Step2_2() {
   const [msg, setMsg] = useState('')
@@ -42,6 +102,10 @@ export default function Step2_2() {
         지금까지 prop은 고정 값이었다. 부모가 <b>상태(state)</b>를 만들어 prop으로 내려주면,
         부모가 상태를 바꿀 때마다 <b>자식도 함께 갱신</b>된다. (상태 → prop → 자식)
       </p>
+      {/* 🔬 소스 + 동작 과정 — 부모 상태가 바뀌면 자식이 따라 바뀌는 순서 */}
+      <span className="learn-tag">📎 학습 포인트 · 클릭 → 부모 상태 변경 → 부모 리렌더 → 새 prop → 자식 갱신</span>
+      <SourceTrace file="LikeParent → LikeDisplay (상태를 prop으로)" code={LIKE_CODE} steps={LIKE_STEPS} />
+
       <div className="card">
         <div className="file-label">📄 LikeParent.jsx (부모) · LikeDisplay.jsx (자식)</div>
         <LikeParent />

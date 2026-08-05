@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react'
 import Home from './Home.jsx'
 import Roadmap from './Roadmap.jsx'
 import Glossary from './Glossary.jsx'
+import Changelog, { CHANGELOG_LATEST } from './Changelog.jsx'
 // 각 강의는 자기 폴더의 index.jsx에서 불러온다. (폴더를 가리키면 index.jsx가 자동 선택됨)
 import Stage0 from './lessons/step0-why-react/index.jsx'
 import Stage1 from './lessons/step1-components/index.jsx'
@@ -403,6 +404,11 @@ export default function App() {
   // (인덱스 기준 — 트랙 중 장 수가 많은 react 기준으로 초기화)
   const [openChapters, setOpenChapters] = useState(() => new Set(CHAPTERS.react.map((_, i) => i)))
   const firstSync = useRef(true) // 첫 해시 기록은 replace(히스토리 오염 방지)
+  // 📖 용어 사전 팝업 — 어느 강의에서든 사이드바 버튼(또는 단축키 G)으로 띄운다.
+  const [glossaryOpen, setGlossaryOpen] = useState(false)
+  // 🆕 변경 내역 팝업 — 새 항목이 있으면 처음에 한 번 자동으로 뜨고, 닫으면 다시 안 뜬다.
+  const [changelogOpen, setChangelogOpen] = useState(false)
+  const [changelogNew, setChangelogNew] = useState(false)
   // 사이드바 열림/접힘 — 집중 모드·좁은 화면용. localStorage에 저장.
   const [sidebarOpen, setSidebarOpen] = useState(() => {
     try {
@@ -501,6 +507,43 @@ export default function App() {
     window.addEventListener('hashchange', onHash)
     return () => window.removeEventListener('hashchange', onHash)
   }, [])
+
+  // 용어 사전 팝업 단축키 — G로 열고 Esc로 닫는다. (입력창에 타이핑 중일 땐 무시)
+  useEffect(() => {
+    const onKey = (e) => {
+      if (e.key === 'Escape') {
+        setGlossaryOpen(false)
+        setChangelogOpen(false) // 이번만 닫기(기록하지 않음) — "다시 보지 않기"는 버튼으로
+        return
+      }
+      const t = e.target
+      const typing = t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.isContentEditable)
+      if (!typing && !e.metaKey && !e.ctrlKey && !e.altKey && (e.key === 'g' || e.key === 'G')) {
+        e.preventDefault()
+        setGlossaryOpen((v) => !v)
+      }
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [])
+
+  // 변경 내역: 마지막으로 본 것보다 새 항목이 있으면 처음에 한 번 자동으로 띄운다.
+  useEffect(() => {
+    try {
+      if (localStorage.getItem('changelogSeen') !== CHANGELOG_LATEST) {
+        setChangelogNew(true)
+        setChangelogOpen(true)
+      }
+    } catch {}
+  }, [])
+  // 그냥 닫기 — 이번만 닫는다(기록하지 않아 다음에 또 자동으로 뜰 수 있다).
+  const closeChangelog = () => setChangelogOpen(false)
+  // "다시 보지 않기" — 본 것으로 기록 → 새 항목이 생기기 전엔 자동으로 안 뜬다.
+  const dismissChangelog = () => {
+    setChangelogOpen(false)
+    setChangelogNew(false)
+    try { localStorage.setItem('changelogSeen', CHANGELOG_LATEST) } catch {}
+  }
 
   // 3종 체크 변경 → 각각 저장 (업데이터 밖에서, StrictMode 이중호출 안전)
   useEffect(() => { try { localStorage.setItem('doneStudy', JSON.stringify([...study])) } catch {} }, [study])
@@ -648,10 +691,10 @@ export default function App() {
             )
           })}
 
-          {/* 용어 사전 · 로드맵 — 마지막 장 뒤에 둔다 */}
+          {/* 용어 사전 · 로드맵 — 마지막 장 뒤에 둔다. 용어 사전은 팝업으로 띄운다(상단 런처와 같은 동작). */}
           <button
-            className={'toc-home toc-roadmap' + (currentId === 'glossary' ? ' active' : '')}
-            onClick={() => go('glossary')}
+            className="toc-home toc-roadmap"
+            onClick={() => setGlossaryOpen(true)}
           >
             📖 용어 사전 · JS·React 총정리
           </button>
@@ -663,10 +706,24 @@ export default function App() {
           </button>
         </nav>
 
-        <p className="hint">
-          각 강의 폴더의 <code>.jsx</code> 파일을 직접 수정하며 실습해 보자.<br />
-          저장하면 화면이 자동으로 새로고침된다.
-        </p>
+        {/* 📖 용어 사전 · 🆕 변경 내역 — 하단에 작게. 어느 강의에서든 팝업으로 띄운다. */}
+        <div className="side-tools">
+          <button
+            className="side-tool"
+            onClick={() => setGlossaryOpen(true)}
+            title="용어 사전 열기 (단축키 G) — 지금 보던 강의는 그대로 있다"
+          >
+            📖 용어 사전
+          </button>
+          <button
+            className="side-tool"
+            onClick={() => setChangelogOpen(true)}
+            title="변경 내역 보기 — 무엇이 새로 바뀌었나"
+          >
+            🆕 변경 내역
+            {changelogNew && <span className="side-dot" aria-label="새 항목 있음" />}
+          </button>
+        </div>
       </aside>
 
       <main className="content">
@@ -708,6 +765,51 @@ export default function App() {
           </footer>
         )}
       </main>
+
+      {/* 📖 용어 사전 팝업 — 강의를 벗어나지 않고 바로 찾아본다. 배경/✕/Esc로 닫는다. */}
+      {glossaryOpen && (
+        <div className="modal-backdrop" onClick={() => setGlossaryOpen(false)}>
+          <div
+            className="modal-panel"
+            onClick={(e) => e.stopPropagation()}
+            role="dialog"
+            aria-modal="true"
+            aria-label="용어 사전"
+          >
+            <button className="modal-close" onClick={() => setGlossaryOpen(false)} aria-label="용어 사전 닫기 (Esc)">
+              ✕
+            </button>
+            <div className="modal-body">
+              {/* 팝업 안에서 '레슨으로 →'를 누르면 그 강의로 이동하며 팝업이 닫힌다 */}
+              <Glossary onGo={(id) => { setGlossaryOpen(false); go(id) }} />
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* 🆕 변경 내역 팝업 — 처음 한 번 자동, 닫으면 다시 안 뜬다 */}
+      {changelogOpen && (
+        <div className="modal-backdrop" onClick={closeChangelog}>
+          <div
+            className="modal-panel"
+            onClick={(e) => e.stopPropagation()}
+            role="dialog"
+            aria-modal="true"
+            aria-label="변경 내역"
+          >
+            <button className="modal-close" onClick={closeChangelog} aria-label="변경 내역 닫기 (Esc)">
+              ✕
+            </button>
+            <div className="modal-body">
+              <Changelog />
+            </div>
+            <div className="modal-foot">
+              <button className="chip" onClick={dismissChangelog}>🙈 다시 보지 않기</button>
+              <button className="chip on" onClick={closeChangelog}>닫기</button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

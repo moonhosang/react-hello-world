@@ -3,6 +3,74 @@
 
 import { useState, useEffect } from 'react'
 import { fetchUsers, fetchUser } from '../../../lib/fakeApi.js'
+import SourceTrace from '../../../components/SourceTrace.jsx'
+
+// 아래 목록 데모와 '같은' effect. 값이 바뀌면 정리 → 재실행되는 순서와, alive로 옛 응답을 버리는 이유를 짚는다.
+const REFETCH_CODE = `useEffect(() => {
+  let alive = true                     // 이 요청이 아직 유효한가
+  setLoading(true)
+  fetchUsers(category).then((data) => {
+    if (!alive) return                 // 그새 또 바뀌었으면 버린다
+    setUsers(data)
+    setLoading(false)
+  })
+  return () => { alive = false }       // 정리: 이전 요청을 '무효'로
+}, [category, refreshKey])             // 이 값이 바뀌면 다시 실행`
+
+const REFETCH_STEPS = [
+  {
+    hl: [1, 10],
+    tag: '① 첫 실행',
+    t: '마운트 때 effect가 한 번 돈다',
+    d: (<>의존성은 <code>[category, refreshKey]</code>. 처음엔 <code>category = 'all'</code>로 시작한다. 렌더가 끝난 뒤 effect가 실행된다.</>),
+    note: "category = 'all'",
+  },
+  {
+    hl: [2, 3, 4],
+    tag: '② 요청',
+    t: 'alive=true로 표시하고 요청을 건다',
+    d: (<><code>alive</code>를 <b>true</b>로 두고, <code>setLoading(true)</code> 뒤 <code>fetchUsers('all')</code>로 요청 시작. 응답은 약 0.8초 뒤에 온다.</>),
+  },
+  {
+    hl: [5, 6, 7],
+    tag: '③ 응답',
+    t: 'alive가 참이라 결과를 반영한다',
+    d: (<>응답이 오면 <code>if (!alive) return</code>을 통과(아직 유효) → <code>setUsers</code>·<code>setLoading(false)</code>로 목록을 그린다.</>),
+    note: "화면: all 목록 (3명)",
+  },
+  {
+    hl: [10],
+    tag: '④ 값 변경',
+    t: 'frontend 클릭 → 의존성이 달라진다',
+    d: (<><code>setCategory('frontend')</code>로 <code>category</code>가 <b>'all' → 'frontend'</b>. 리액트가 의존성을 이전과 <b>비교</b>해 "달라졌다"를 알아채고, effect를 <b>다시 실행</b>할 준비를 한다.</>),
+    note: "category = 'frontend'",
+  },
+  {
+    hl: [9],
+    tag: '⑤ 정리 먼저',
+    t: '다시 실행 전에 이전 정리 함수가 먼저 돈다',
+    d: (<>새 effect를 돌리기 <b>직전</b>, 리액트는 <b>이전</b> effect의 정리 함수를 부른다 → 이전 요청의 <code>alive = false</code>. 이제 이전 요청이 늦게 도착해도 <b>3번째 줄에서 버려진다</b>.</>),
+    note: "이전 요청 alive = false (무효)",
+  },
+  {
+    hl: [2, 3, 4],
+    tag: '⑥ 새 요청',
+    t: '새 effect가 새 요청을 건다',
+    d: (<>새로 도는 effect는 <b>새</b> <code>alive = true</code>로 시작해 <code>fetchUsers('frontend')</code>를 부른다. 이렇게 "값이 바뀌면 자동으로 다시 불러오기"가 된다.</>),
+  },
+  {
+    hl: [5, 9],
+    tag: '⑦ 왜 alive?',
+    t: '경합(race) — 옛 응답이 새 응답을 덮어쓰지 않게',
+    d: (<>요청이 겹치면 <b>응답 순서가 뒤바뀔 수</b> 있다(옛 요청이 더 늦게 도착). <code>alive</code> 플래그로 <b>"지금 화면에 맞는 응답만"</b> 반영하고, 무효가 된 옛 응답은 <code>if (!alive) return</code>으로 <b>조용히 버린다</b>.</>),
+  },
+  {
+    hl: [10],
+    tag: '⑧ 같은 값',
+    t: "'all'을 또 눌러도 다시 안 부른다",
+    d: (<>이미 <code>'all'</code>인데 <code>'all'</code>을 또 누르면 <code>category</code>가 <b>그대로</b> → 의존성이 안 바뀌어 effect가 <b>다시 안 돈다</b>(같은 값 <code>setState</code>라 리렌더도 생략). 그래서 강제로 부르려면 <code>refreshKey</code>를 <b>+1</b>해 <b>일부러 바뀌는 값</b>을 의존성에 넣는다.</>),
+  },
+]
 
 export default function Step8_4() {
   const [category, setCategory] = useState('all')
@@ -42,6 +110,15 @@ export default function Step8_4() {
           <code>[category]</code>를 의존성으로 두면, 카테고리를 바꿀 때마다 자동으로 다시 불러온다.
         </p>
       </div>
+
+      {/* 🔬 소스 + 동작 과정 — 값 변경 → 정리 → 재실행, 그리고 alive */}
+      <h3 className="section-title">🔬 코드가 도는 순서 — 값이 바뀌면 정리하고 다시 부른다</h3>
+      <span className="learn-tag">📎 학습 포인트 · 의존성이 바뀌면 ⑤ 이전 정리 → ⑥ 새 실행 순서로 돈다 · alive로 옛 응답을 버린다</span>
+      <p className="section-desc">
+        아래는 목록 데모의 <b>실제 effect</b>다. <b>다음 ▶</b>으로 넘기며 <b>④ 값 변경 → ⑤ 정리 → ⑥ 새 요청</b> 순서를 보라.
+        특히 <b>왜 <code>alive</code> 플래그가 필요한지</b>(⑦)와 <b>같은 값은 왜 다시 안 부르는지</b>(⑧)가 이 레슨의 핵심이다.
+      </p>
+      <SourceTrace file="step8-4-refetch/index.jsx (핵심 effect)" code={REFETCH_CODE} steps={REFETCH_STEPS} />
 
       <h3 className="section-title">① 카테고리가 바뀌면 목록 다시 불러오기</h3>
       <span className="learn-tag">📎 학습 포인트 · 의존성 <code>[category]</code>가 바뀌면 목록을 자동으로 다시 가져온다</span>
