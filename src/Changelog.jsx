@@ -110,6 +110,10 @@ const RELEASES = [
 // 자동 팝업 판단 기준 — 내용이 바뀔 때마다 올린다. 저장된 값과 다르면 "새 게 있다".
 export const CHANGELOG_LATEST = 'v5-2026-08-05'
 
+// 챕터 번호가 어느 트랙 것인지 앞에 붙인다. 01~15=⚛️ React, J0~J7=🟨 JS 기본, 그 외(공통)는 없음.
+const trackPrefix = (ch) =>
+  /^\d/.test(ch) ? '⚛️ React · ' : /^J\d/.test(ch) ? '🟨 JS 기본 · ' : ''
+
 export default function Changelog() {
   // 최신 날짜(맨 위)를 기본으로 선택한다.
   const [sel, setSel] = useState(0)
@@ -141,7 +145,7 @@ export default function Changelog() {
         {r.title && <p className="cl-release-title">{r.title}</p>}
         {r.groups.map((g) => (
           <div className="cl-group" key={g.ch}>
-            <div className="cl-group-title">{g.ch}</div>
+            <div className="cl-group-title">{trackPrefix(g.ch)}{g.ch}</div>
             {g.items.map((it, i) => (
               <div className="cl-item" key={i}>
                 <span className="cl-no">{it.no}</span>
