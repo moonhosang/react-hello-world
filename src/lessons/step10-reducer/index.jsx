@@ -10,6 +10,7 @@
 import CounterReducer from './CounterReducer.jsx'
 import TodoReducer from './TodoReducer.jsx'
 import SourceTrace from '../../components/SourceTrace.jsx'
+import TechTags from '../../components/TechTags.jsx'
 
 // dispatch(무엇) → reducer(어떻게) → 새 state → 리렌더.
 const REDUCER_CODE = `function reducer(state, action) {
@@ -79,7 +80,7 @@ function reducer(state, action) {
 const [count, dispatch] = useReducer(reducer, 0)
 // 화면은 dispatch({ type: '...' })만 보낸다`
 
-export default function Step10Reducer() {
+export default function Step10Reducer({ onGo }) {
   return (
     <section>
       <header className="lesson-header">
@@ -149,6 +150,50 @@ export default function Step10Reducer() {
           <li><code>TodoReducer.jsx</code>에 <code>case 'clearDone'</code>을 더해, <b>완료된 할 일을 한 번에 지우는</b> 버튼을 만들어 보자. (힌트: <code>filter</code>)</li>
         </ol>
       </div>
+
+      {/* 🌍 실전에선 — 전용 상태관리 vs 의존성 없이 */}
+      <h3 className="section-title">🌍 실전에선 — 전용 상태관리 라이브러리 vs 내장으로 버티기</h3>
+      <span className="learn-tag">📎 학습 포인트 · reducer의 아이디어(state + action)는 실전 상태관리로 확장된다 · 하지만 라이브러리는 '외부 의존성'이다</span>
+      <p className="section-desc">
+        <code>useReducer</code>는 <b>한 컴포넌트</b>의 얽힌 상태를 모은다. 그런데 앱이 커져 <b>여러 화면이 같은 상태</b>를
+        공유하기 시작하면(로그인·장바구니·테마 등) '전역 상태 관리'가 필요해진다. 여기서 갈림길이 있다.
+      </p>
+      <div className="two-col">
+        <div className="card">
+          <div className="file-label">📦 전용 라이브러리를 쓴다 (실전에서 흔함)</div>
+          <ul className="section-list" style={{ margin: 0 }}>
+            <li><b>Redux Toolkit</b> — 바로 이 <code>state + action + reducer</code> 아이디어를 앱 전역으로 확장한 표준.</li>
+            <li><b>Zustand</b>·<b>Jotai</b> — 훨씬 가볍게 전역 상태를 두는 요즘 인기 라이브러리.</li>
+            <li><b>MobX</b> — 관찰(observable) 방식. 접근이 다르지만 목적은 같다.</li>
+          </ul>
+          <p className="demo-desc" style={{ margin: '8px 0 0' }}>공통점 — 전부 여기서 배운 <b>"무엇을 할지(action)를 보내면 상태가 바뀐다"</b>의 확장이다.</p>
+        </div>
+        <div className="card">
+          <div className="file-label">🧱 의존성 없이 내장으로 버틴다</div>
+          <p className="section-desc" style={{ margin: 0 }}>
+            라이브러리는 <b>외부 의존성</b>이다. 번들 크기·러닝커브·유지보수 부담이 따라온다. 그래서
+            <b> 의존성을 극도로 아끼는 프로젝트</b>(무거운 의존성을 피하려는 오픈소스, 최소 번들 지향 앱 등)는
+            리액트 <b>내장</b> <code>useReducer + Context</code> 조합만으로 전역 상태를 만든다 —
+            <b> 8-2에서 본 그것</b>이 바로 그 방법이다. 새 의존성 없이 충분히 굴러간다.
+          </p>
+        </div>
+      </div>
+      <div className="try-it">
+        <h4>🧭 그래서 언제 무엇을</h4>
+        <ul>
+          <li><b>작고 지역적</b> → <code>useState</code>.</li>
+          <li><b>한 컴포넌트 안에서 로직이 얽힘</b> → <code>useReducer</code>(이 강의).</li>
+          <li><b>앱 전역 공유</b> → 먼저 <code>useReducer + Context</code>로 시도(의존성 0). 규모·성능 요구가 커지면 그때 <b>Redux Toolkit·Zustand</b> 같은 전용 라이브러리를 도입한다.</li>
+          <li>원칙 — <b>라이브러리는 "정말 필요할 때" 늦게 넣는다.</b> 미리 깔지 않는다.</li>
+        </ul>
+      </div>
+      <TechTags
+        items={[
+          { label: '8-2 · 전역 상태 (Context+reducer)', to: 7.2 },
+          { label: '8-1 · prop drilling → Context', to: 7.1 },
+        ]}
+        onGo={onGo}
+      />
     </section>
   )
 }
