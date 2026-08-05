@@ -18,6 +18,52 @@ import Practice from '../../components/Practice.jsx'
 import PracticeList from './practice.jsx'
 import SolutionList from './solution.jsx'
 import QuickQuiz from '../../components/QuickQuiz.jsx'
+import SourceTrace from '../../components/SourceTrace.jsx'
+
+// 배열 상태 — map으로 목록 렌더 + 추가 시 '새 배열'을 만들어 set → 리렌더 → 목록 갱신.
+const LIST_CODE = `function addTodo(text) {
+  setTodos([...todos, { id: nextId++, text, done: false }])  // 새 배열!
+}
+
+// 화면 — 배열을 map으로 목록으로
+{todos.map((todo) => (
+  <li key={todo.id}>{todo.text}</li>    // 항목마다 <li> + 고유 key
+))}`
+
+const LIST_STEPS = [
+  {
+    hl: [6, 7, 8],
+    tag: '① 렌더',
+    t: '배열을 map으로 목록으로 그린다',
+    d: (<><code>todos</code> 배열을 <code>map</code>으로 돌려 항목마다 <code>&lt;li&gt;</code> 하나. <code>key={'{todo.id}'}</code>로 각 줄에 이름표를 붙여 리액트가 항목을 <b>구별</b>한다.</>),
+    note: 'todos 3개 → <li> 3개',
+  },
+  {
+    hl: [2],
+    tag: '② 추가',
+    t: '[...todos, 새항목]으로 새 배열을 만든다',
+    d: (<><code>addTodo('산책')</code> 호출. <code>[...todos, 새항목]</code>으로 기존을 <b>복사한 새 배열</b>을 만든다(<code>push</code> ❌).</>),
+    note: '새 배열: 기존 3 + 1 = 4개',
+  },
+  {
+    hl: [2],
+    tag: '③ 왜 새 배열?',
+    t: 'push는 같은 상자 → 리액트가 못 알아챈다',
+    d: (<><code>push</code>로 원본을 바꾸면 <b>같은 참조(상자)</b>라 리액트는 "안 바뀜"으로 본다. <code>[...todos, x]</code>는 <b>새 상자</b>라 "달라졌다"를 알아채 리렌더한다. (불변성)</>),
+  },
+  {
+    hl: [6, 7, 8],
+    tag: '④ 리렌더',
+    t: 'map이 다시 돌아 <li> 4개',
+    d: (<><code>setTodos</code>가 리렌더를 일으켜 <code>map</code>이 다시 돈다. 이번엔 <code>&lt;li&gt;</code> 4개. <code>key</code> 덕에 리액트가 <b>새로 생긴 항목만</b> 화면에 붙인다.</>),
+    note: '화면: <li> 4개',
+  },
+  {
+    tag: '⑤ toggle · delete',
+    t: '수정·삭제도 "새 배열을 만들어 set"',
+    d: (<>완료 토글은 <code>map</code>으로 그 항목만 바꾼 새 배열, 삭제는 <code>filter</code>로 뺀 새 배열. 추가·수정·삭제 <b>셋 다 같은 패턴</b> — 원본을 건드리지 않고 새 배열을 만든다.</>),
+  },
+]
 
 let nextId = 4 // 새 할 일에 붙일 id (간단히 하기 위해 컴포넌트 밖에 둠)
 
@@ -96,6 +142,10 @@ y.push(2)
         <code>push</code>로 바꾸면 화면이 안 바뀐다. 항상 <code>[...arr, 새값]</code>처럼 <b>새 배열</b>을 만들어 set 한다.
       </p>
       <ImmutabilityDemo />
+
+      <h3 className="section-title">🔬 코드가 도는 순서 — 추가하면 목록이 늘어나기까지</h3>
+      <span className="learn-tag">📎 학습 포인트 · map으로 목록을 그리고, 추가는 '새 배열'을 만들어 set → 리렌더로 목록이 갱신된다</span>
+      <SourceTrace file="투두 — 배열 렌더 & 추가" code={LIST_CODE} steps={LIST_STEPS} />
 
       <Practice
         task="fruits 배열을 map으로 목록(<li>)으로 그려 보자. 각 항목에 key를 준다."

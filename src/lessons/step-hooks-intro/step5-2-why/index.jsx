@@ -3,6 +3,50 @@
 // 조건부 호출이 순서를 밀어 값이 어긋나는 과정을 데모로 눈으로 확인한다.
 
 import HookOrderDemo from './HookOrderDemo.jsx'
+import SourceTrace from '../../../components/SourceTrace.jsx'
+
+// 리액트는 훅을 '부른 순서(슬롯)'로 값과 짝짓는다. 조건부 호출이 순서를 밀어 값이 어긋나는 과정.
+const ORDER_CODE = `function Form() {
+  const [name, setName] = useState('')      // 훅 0번 슬롯
+  const [age,  setAge]  = useState(0)        // 훅 1번 슬롯
+  const [ok,   setOk]   = useState(false)    // 훅 2번 슬롯
+  // ...
+}`
+
+const ORDER_STEPS = [
+  {
+    hl: [2, 3, 4],
+    tag: '① 첫 렌더',
+    t: '부른 순서대로 슬롯에 저장한다',
+    d: (<>리액트는 훅을 <b>이름으로 모른다.</b> <b>부른 순서</b>로 값을 짝짓는다 — 0번=name, 1번=age, 2번=ok.</>),
+    note: '슬롯 [0]=name · [1]=age · [2]=ok',
+  },
+  {
+    hl: [2, 3, 4],
+    tag: '② 다시 렌더',
+    t: '같은 순서라 정확히 다시 짝지어진다',
+    d: (<>다음 렌더에도 <b>같은 순서</b>로 부르니 0→name, 1→age, 2→ok로 딱 맞는다. 그래서 값이 <b>유지</b>된다.</>),
+    note: '슬롯 [0]=name · [1]=age · [2]=ok (그대로)',
+  },
+  {
+    hl: [2],
+    tag: '③ 조건부로 건너뛰면',
+    t: 'if로 첫 훅을 건너뛰면 슬롯이 밀린다',
+    d: (<>만약 <code>name</code> 훅을 <code>if</code>로 감싸 어떤 렌더에서 <b>건너뛰면</b>? 이제 <b>age가 0번</b>, ok가 1번으로 <b>한 칸씩 밀린다.</b></>),
+    note: '슬롯 [0]=age · [1]=ok · [2]=∅ (밀림!)',
+  },
+  {
+    hl: [3, 4],
+    tag: '④ 어긋남',
+    t: '리액트는 0번=name인 줄 아는데 age가 들어왔다',
+    d: (<>리액트는 여전히 "0번 = name"으로 기억하는데 실제 0번엔 <code>age</code> 값이 들어왔다 → <b>값이 엉뚱하게 짝지어지고</b> <code>"change in the order of Hooks"</code> 에러가 난다.</>),
+  },
+  {
+    tag: '⑤ 규칙',
+    t: '그래서 늘 최상위에서 같은 순서로',
+    d: (<>슬롯이 밀리지 않게 하려면 훅을 <b>조건문·반복문 없이 최상위에서, 언제나 같은 순서로</b> 부른다. 그게 규칙 1의 진짜 이유다.</>),
+  },
+]
 
 export default function StepHooks2() {
   return (
@@ -33,6 +77,8 @@ export default function StepHooks2() {
         아래 데모에서 버튼을 눌러 훅 하나를 <b>조건부로 건너뛰면</b> 어떻게 순서가 밀려 값이 어긋나는지 직접 볼 수 있다.
         (데모 코드는 <code>HookOrderDemo.jsx</code>에 있다.)
       </p>
+      <span className="learn-tag">📎 학습 포인트 · 훅은 이름이 아니라 '부른 순서(슬롯)'로 기억된다 — 건너뛰면 슬롯이 밀린다</span>
+      <SourceTrace file="Form — 훅 호출 순서(슬롯)" code={ORDER_CODE} steps={ORDER_STEPS} />
       <HookOrderDemo />
       <p className="section-desc">
         그래서 규칙은 결국 하나로 모인다 — <b>훅은 언제나 같은 순서로, 최상위에서 부른다.</b> 그러면 리액트가 값을 헷갈리지 않는다.

@@ -1106,24 +1106,39 @@ button.tech-tag.link:hover { background: var(--brand); color: #fff; border-color
   .modal-panel { max-height: 92vh; }
 }
 
-/* 변경 내역 목록 */
-.changelog { display: flex; flex-direction: column; gap: 14px; margin-top: 4px; }
-.changelog-entry { display: flex; gap: 12px; }
-.changelog-date {
-  flex: none; width: 84px; padding-top: 2px;
-  font-size: 12.5px; color: var(--muted); font-variant-numeric: tabular-nums;
+/* 변경 내역 — 날짜 탭(배지) + 고른 날짜의 챕터별 목록 */
+.cl-tabs { display: flex; flex-wrap: wrap; gap: 8px; margin: 10px 0 4px; }
+.cl-tab {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 6px 12px; border: 1px solid var(--border); border-radius: 999px;
+  background: var(--panel); color: var(--text);
+  font-size: 13px; font-weight: 700; cursor: pointer;
+  font-variant-numeric: tabular-nums; transition: background 0.15s, border-color 0.15s;
 }
-.changelog-latest {
-  display: inline-block; margin-top: 4px;
-  font-size: 10px; font-weight: 800; color: var(--brand);
-  background: var(--brand-soft); border-radius: 6px; padding: 1px 6px;
+.cl-tab:hover { border-color: var(--brand); }
+.cl-tab.on { background: var(--brand); color: #fff; border-color: var(--brand); }
+.cl-tab-latest {
+  font-size: 10px; font-weight: 800; padding: 1px 6px; border-radius: 6px;
+  background: var(--red); color: #fff;
 }
-.changelog-body { flex: 1; border-left: 2px solid var(--border); padding-left: 14px; }
-.changelog-title { font-size: 14.5px; }
-@media (max-width: 560px) {
-  .changelog-entry { flex-direction: column; gap: 4px; }
-  .changelog-body { border-left: none; padding-left: 0; }
+.cl-tab.on .cl-tab-latest { background: rgba(255, 255, 255, 0.25); }
+.cl-release-title { margin: 8px 0 2px; font-size: 13px; color: var(--muted); }
+.changelog { display: flex; flex-direction: column; gap: 18px; margin-top: 8px; }
+.cl-group { padding-left: 4px; }
+.cl-group-title {
+  font-size: 12px; font-weight: 800; letter-spacing: 0.02em; color: var(--brand);
+  padding-bottom: 6px; margin-bottom: 2px; border-bottom: 1px solid var(--border);
 }
+.cl-item { display: flex; align-items: baseline; gap: 10px; padding: 7px 0; }
+.cl-no {
+  flex: none; min-width: 40px; text-align: center;
+  font-size: 12px; font-weight: 800; color: var(--brand);
+  background: var(--brand-soft); border-radius: 6px; padding: 2px 6px;
+  font-variant-numeric: tabular-nums;
+}
+.cl-body { flex: 1; display: flex; flex-direction: column; gap: 2px; }
+.cl-t { font-size: 14px; }
+.cl-c { font-size: 13px; color: var(--muted); line-height: 1.5; }
 
 /* ---------- 강의 하단: 공식 문서 링크 ---------- */
 .doc-links {

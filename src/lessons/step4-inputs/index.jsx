@@ -15,6 +15,55 @@ import Practice from '../../components/Practice.jsx'
 import PracticeInput from './practice.jsx'
 import SolutionInput from './solution.jsx'
 import QuickQuiz from '../../components/QuickQuiz.jsx'
+import SourceTrace from '../../components/SourceTrace.jsx'
+
+// controlled input 한 글자 왕복 — 타이핑 → onChange → set → 리렌더 → value로 되돌기.
+const INPUT_CODE = `function NameInput() {
+  const [text, setText] = useState('')
+
+  return (
+    <input
+      value={text}                                // ① state → 화면
+      onChange={(e) => setText(e.target.value)}   // ② 화면 → state
+    />
+  )
+}`
+
+const INPUT_STEPS = [
+  {
+    hl: [2, 6],
+    tag: '① 첫 렌더',
+    t: '빈 값으로 시작',
+    d: (<><code>text</code>가 <code>''</code>로 시작한다. <code>value={'{text}'}</code>라 입력창은 <b>빈 값</b>으로 그려진다.</>),
+    note: "text = ''",
+  },
+  {
+    hl: [7],
+    tag: '② 타이핑',
+    t: "'K'를 치면 onChange가 발생",
+    d: (<>글자를 쳐도 입력창이 <b>저절로 바뀌지 않는다.</b> <code>onChange</code> 이벤트가 발생해 <code>(e) =&gt; setText(e.target.value)</code>가 실행된다. <code>e.target.value</code>는 방금 친 <b>'K'</b>.</>),
+    note: "e.target.value = 'K'",
+  },
+  {
+    hl: [7],
+    tag: '③ set',
+    t: 'setText로 state를 바꾼다',
+    d: (<><code>setText('K')</code> → <code>text</code>가 <b>'K'</b>로 바뀌며 리렌더가 예약된다. 값의 주인은 DOM이 아니라 <b>state</b>가 된다.</>),
+    note: "text = 'K'",
+  },
+  {
+    hl: [2, 6],
+    tag: '④ 리렌더',
+    t: 'value={text}라 화면에 되돌아온다',
+    d: (<>컴포넌트가 다시 실행되며 <code>text = 'K'</code>. <code>value={'{text}'}</code>라 입력창에 <b>'K'</b>가 그려진다 — 방금 친 글자가 <b>state를 한 바퀴 돌아</b> 화면에 나타난 것이다.</>),
+    note: '화면: K',
+  },
+  {
+    tag: '⑤ 단방향',
+    t: '항상 state를 거쳐 한 방향으로',
+    d: (<>타이핑 → onChange → set → 리렌더 → value. 화면이 <b>저절로</b> 바뀐 게 아니라 늘 <b>state를 거친다</b>(단방향). <code>onChange</code>를 빼면 <code>value</code>가 <code>''</code>에 고정돼 <b>글자가 안 써진다.</b></>),
+  },
+]
 
 export default function Stage4() {
   return (
@@ -65,6 +114,8 @@ export default function Stage4() {
 ② 화면 → state  (자동 아님! 이벤트를 거친다)
    타이핑 ──onChange(e)──▶ setText(e.target.value) ──▶ text`}</pre>
       </div>
+      <span className="learn-tag">📎 학습 포인트 · 한 글자가 타이핑 → onChange → set → 리렌더 → value로 한 바퀴 돈다</span>
+      <SourceTrace file="controlled input — 한 글자 왕복" code={INPUT_CODE} steps={INPUT_STEPS} />
       <p className="section-desc">
         핵심은 <b>②</b>다 — 사용자가 타이핑해도 state가 <b>저절로</b> 바뀌지 않는다. <code>onChange</code>라는 이벤트를 받아
         <b> 내가 직접 <code>setText</code></b>를 불러야 비로소 state가 바뀐다. (Vue의 <code>v-model</code> 같은 <b>양방향 바인딩이 아니다</b>.)

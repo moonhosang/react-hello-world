@@ -5,6 +5,54 @@
 
 import CustomHookDemo from './CustomHookDemo.jsx'
 import InstanceDemo from './InstanceDemo.jsx'
+import SourceTrace from '../../../components/SourceTrace.jsx'
+
+// 커스텀 훅 — 최상위에서 useToggle 호출 → 안에서 useState → 반환 → 사용. "훅 안에서 훅"의 흐름.
+const TOGGLE_CODE = `// use로 시작하는 '내 함수' = 커스텀 훅
+function useToggle(initial = false) {
+  const [on, setOn] = useState(initial)   // 훅 안에서 훅 호출 — 정상!
+  const toggle = () => setOn((v) => !v)
+  return [on, toggle]
+}
+
+// 쓰는 쪽 — 커스텀 훅도 '최상위'에서 부른다
+function Light() {
+  const [on, toggle] = useToggle(true)    // 처음부터 켜짐(💡)
+  return <button onClick={toggle}>{on ? '💡' : '🌑'}</button>
+}`
+
+const TOGGLE_STEPS = [
+  {
+    hl: [10],
+    tag: '① 호출',
+    t: 'Light가 최상위에서 useToggle을 부른다',
+    d: (<><code>Light</code>가 렌더되며 <b>맨 바깥(최상위)</b>에서 <code>useToggle(true)</code>를 부른다. 커스텀 훅도 조건문·반복문 안이 아니라 최상위에서 부른다(규칙 1).</>),
+  },
+  {
+    hl: [3],
+    tag: '② 훅 안의 훅',
+    t: 'useToggle 안에서 useState 실행',
+    d: (<><code>useToggle</code> 안으로 들어가 <code>useState(true)</code>가 돈다 → <code>on = true</code>, <code>setOn</code> 확보. 이름이 <code>use</code>로 시작하니 <b>훅을 불러도 되는 곳</b>(규칙 2)이라 정상이다.</>),
+    note: 'on = true',
+  },
+  {
+    hl: [4, 5],
+    tag: '③ 반환',
+    t: '[on, toggle]을 돌려준다',
+    d: (<><code>toggle</code> 함수를 만들고 <code>[on, toggle]</code>을 반환한다. <code>useState</code>가 <code>[값, set함수]</code>를 주듯, 커스텀 훅도 필요한 걸 배열/객체로 돌려준다.</>),
+  },
+  {
+    hl: [10, 11],
+    tag: '④ 사용',
+    t: 'Light가 받아 💡을 그린다',
+    d: (<><code>Light</code>는 <code>[on, toggle]</code>을 받아 버튼에 💡을 그린다. 클릭 → <code>toggle</code> → <code>setOn</code> → 리렌더 → 다시 ①부터.</>),
+  },
+  {
+    tag: '⑤ 독립',
+    t: '같은 훅을 여러 곳에서 써도 안 섞인다',
+    d: (<>같은 <code>useToggle</code>을 조명·알림 두 곳에서 써도, <b>각 인스턴스가 자기 <code>on</code> 슬롯</b>을 따로 갖는다. 정의는 하나(설계도), 상태는 사용처마다 독립이다.</>),
+  },
+]
 
 export default function StepHooks1() {
   return (
@@ -159,21 +207,8 @@ function setOnlineStatus() {          // ❌ 컴포넌트도 커스텀 훅도 �
         <b> 커스텀 훅</b>이라 부른다. <code>use</code>로 시작하는 <b>내 함수</b>를 만들고 그 안에서 리액트 훅을 부르면,
         여러 컴포넌트가 그 로직을 <b>한 줄로 재사용</b>한다.
       </p>
-      <div className="card">
-        <div className="file-label">📄 useToggle — 커스텀 훅 안에서 useState를 부른다</div>
-        <pre className="concept-flow">{`// use로 시작하는 '내 함수' = 커스텀 훅
-function useToggle(initial = false) {
-  const [on, setOn] = useState(initial)   // 👈 훅 안에서 훅 호출 — 정상이다!
-  const toggle = () => setOn((v) => !v)
-  return [on, toggle]
-}
-
-// 쓰는 쪽은 한 줄 — 커스텀 훅도 '최상위'에서 부른다
-function Light() {
-  const [on, toggle] = useToggle(true)   // 처음부터 켜짐(💡)으로 시작
-  return <button onClick={toggle}>{on ? '💡' : '🌑'}</button>
-}`}</pre>
-      </div>
+      <span className="learn-tag">📎 학습 포인트 · 최상위에서 커스텀 훅 호출 → 그 안에서 useState → 반환 → 사용</span>
+      <SourceTrace file="useToggle — 커스텀 훅 흐름" code={TOGGLE_CODE} steps={TOGGLE_STEPS} />
       <div className="card">
         <div className="file-label">📄 CustomHookDemo.jsx · useToggle 라이브 (같은 훅, 두 곳에서 각자 독립)</div>
         <CustomHookDemo />

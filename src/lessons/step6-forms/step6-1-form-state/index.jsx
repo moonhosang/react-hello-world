@@ -3,6 +3,52 @@
 
 import { useState } from 'react'
 import QuickQuiz from '../../../components/QuickQuiz.jsx'
+import SourceTrace from '../../../components/SourceTrace.jsx'
+
+// 객체 하나 + 공통 onChange — name으로 칸을 구분하고, 바뀐 칸만 새 객체로 덮는다.
+const FORM_CODE = `const [form, setForm] = useState({ id: '', pw: '' })
+
+function handleChange(e) {
+  setForm({ ...form, [e.target.name]: e.target.value })
+}
+
+<input name="id" value={form.id} onChange={handleChange} />
+<input name="pw" value={form.pw} onChange={handleChange} />`
+
+const FORM_STEPS = [
+  {
+    hl: [1],
+    tag: '① 객체 하나',
+    t: '두 칸을 객체 하나에 모은다',
+    d: (<>입력마다 state를 두는 대신, 관련 값을 <b>객체 하나</b> <code>form</code>에 모은다.</>),
+    note: "form = { id: '', pw: '' }",
+  },
+  {
+    hl: [7, 3],
+    tag: '② id칸 타이핑',
+    t: "'kim' 입력 → handleChange 실행",
+    d: (<>id 칸에 타이핑하면 공통 <code>handleChange</code>가 돈다. <code>e.target.name</code>은 <b>'id'</b>(어느 칸인지), <code>e.target.value</code>는 <b>'kim'</b>(무엇으로).</>),
+  },
+  {
+    hl: [4],
+    tag: '③ 바뀐 칸만',
+    t: '{...form, [name]: value}로 한 칸만 덮는다',
+    d: (<><code>...form</code>으로 기존 두 칸을 복사하고, <code>[e.target.name]</code>이 <b>'id'</b>라 id만 'kim'으로 덮는다. <code>[대괄호]</code>는 <b>계산된 key</b> — 변수 값을 key로 쓴다.</>),
+    note: "form = { id: 'kim', pw: '' }",
+  },
+  {
+    hl: [4],
+    tag: '④ 왜 ...form?',
+    t: '빼면 다른 칸이 사라진다',
+    d: (<><code>...form</code>을 빼고 <code>{'{ [name]: value }'}</code>만 쓰면 새 객체엔 id만 남아 <b>pw 칸이 사라진다.</b> 그래서 항상 기존을 편 뒤 한 칸만 덮는다.</>),
+  },
+  {
+    hl: [7, 8],
+    tag: '⑤ 한 개면 충분',
+    t: '입력 100개여도 handleChange는 하나',
+    d: (<>두 input이 <b>같은</b> <code>handleChange</code>를 쓴다. <code>name</code>으로 칸을 구분하니, 입력이 아무리 많아도 핸들러는 하나면 된다.</>),
+  },
+]
 
 export default function Step6_1() {
   // 방법 A: 입력마다 state
@@ -72,6 +118,8 @@ export default function Step6_1() {
         <code>{`setForm({ ...form, [e.target.name]: e.target.value })`}</code> — 바뀐 칸만 새 객체로.
         입력이 100개여도 <code>handleChange</code>는 <b>하나</b>면 된다.
       </p>
+      <span className="learn-tag">📎 학습 포인트 · name으로 어느 칸인지 알고, {'{...form, [name]: value}'}로 그 칸만 덮는다</span>
+      <SourceTrace file="객체 폼 — 공통 onChange" code={FORM_CODE} steps={FORM_STEPS} />
 
       <h3 className="section-title">🧩 확인 드릴 — 객체 state와 공통 onChange</h3>
       <span className="learn-tag">📎 학습 포인트 · 바뀐 칸만 <code>{'{...form, [name]: value}'}</code>로 덮는다 — 다섯 번 확인한다</span>

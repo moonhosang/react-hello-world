@@ -3,6 +3,56 @@
 // 그다음 폼 값을 원하는 대로 쓴다 — 여기선 방명록 목록에 추가한다.
 
 import { useState } from 'react'
+import SourceTrace from '../../../components/SourceTrace.jsx'
+
+// 제출 흐름 — onSubmit → preventDefault → 검증 → 목록 추가 → 폼 비우기.
+const SUBMIT_CODE = `function handleSubmit(e) {
+  e.preventDefault()                       // ① 새로고침 막기
+  if (form.name.trim() === '' ||
+      form.msg.trim() === '') return       // ② 빈 값이면 중단
+  setEntries([{ id: nextId++, ...form },
+              ...entries])                 // ③ 목록 맨 앞에 추가
+  setForm({ name: '', msg: '' })           // ④ 폼 비우기
+}
+
+<form onSubmit={handleSubmit}>
+  <button type="submit">남기기</button>
+</form>`
+
+const SUBMIT_STEPS = [
+  {
+    hl: [11, 12],
+    tag: '① 제출',
+    t: '남기기(또는 Enter) → onSubmit 발생',
+    d: (<><code>type="submit"</code> 버튼을 누르거나 Enter를 치면 <code>&lt;form&gt;</code>의 <code>onSubmit={'{handleSubmit}'}</code>이 실행된다.</>),
+  },
+  {
+    hl: [2],
+    tag: '② preventDefault',
+    t: '새로고침(기본 동작) 막기',
+    d: (<>핸들러 <b>맨 처음</b>에 <code>e.preventDefault()</code>. 이걸 빼면 브라우저가 폼 기본 동작으로 <b>페이지를 새로고침</b>해 입력값이 다 날아간다.</>),
+  },
+  {
+    hl: [3, 4],
+    tag: '③ 검증',
+    t: '빈 값이면 return으로 중단',
+    d: (<>이름·메시지가 비었으면 <code>return</code>으로 <b>일찍 끝낸다</b>(아래 추가 코드로 안 감). 빈 방명록이 쌓이지 않게.</>),
+  },
+  {
+    hl: [5, 6],
+    tag: '④ 추가',
+    t: '새 배열로 목록 맨 앞에 추가',
+    d: (<><code>setEntries([새항목, ...entries])</code> — 기존을 편 <b>새 배열</b>(불변성) 맨 앞에 넣는다. <code>{'{ id, ...form }'}</code>으로 지금 폼 값을 복사해 담는다.</>),
+    note: 'entries = [새 글, ...기존]',
+  },
+  {
+    hl: [7],
+    tag: '⑤ 비우기',
+    t: 'setForm으로 입력창을 비운다',
+    d: (<><code>setForm({'{ name: "", msg: "" }'})</code>로 입력을 초기화. 두 <code>setState</code>가 리렌더를 일으켜 <b>목록엔 새 글, 입력창은 빈 상태</b>가 된다.</>),
+    note: "form = { name: '', msg: '' }",
+  },
+]
 
 let nextId = 1
 
@@ -67,6 +117,9 @@ export default function Step6_2() {
           )}
         </ul>
       </div>
+
+      <span className="learn-tag">📎 학습 포인트 · 제출 → preventDefault → 검증 → 목록 추가 → 폼 비우기 순서로 돈다</span>
+      <SourceTrace file="방명록 — 제출 흐름" code={SUBMIT_CODE} steps={SUBMIT_STEPS} />
 
       <div className="try-it">
         <h4>💡 알아두기</h4>
