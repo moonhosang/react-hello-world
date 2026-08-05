@@ -21,8 +21,50 @@ import { NicknameExercise } from './NicknameExercise.jsx'
 import { HookPatternDemo } from './HookPatternDemo.jsx'
 import { RerenderCaveat } from './RerenderCaveat.jsx'
 import { NestedContextDemo } from './NestedProviderDemo.jsx'
+import SourceTrace from '../../../components/SourceTrace.jsx'
 
-const NAMES = ['김코딩', '이해커', '박리액트', '최프론트']
+// Context — Provider로 값을 흘리고, 깊은 자식이 useContext로 직접 꺼낸다(중간은 props 없음).
+const CTX_CODE = `<UserContext.Provider value={user}>   // 통로에 값을 흘린다
+  <Page />                            // 중간은 user를 안 받는다
+</UserContext.Provider>
+
+function CtxBadge() {                  // 깊은 자식(leaf)
+  const user = useContext(UserContext) // 통로에서 직접 꺼낸다
+  return <b>{user.name}</b>
+}`
+
+const CTX_STEPS = [
+  {
+    hl: [1],
+    tag: '① Provider',
+    t: 'value로 통로에 값을 흘린다',
+    d: (<><code>&lt;UserContext.Provider value={'{user}'}&gt;</code>로 감싼 범위 <b>어디서든</b> 이 <code>user</code>를 꺼낼 수 있게 통로에 흘린다.</>),
+  },
+  {
+    hl: [2],
+    tag: '② 중간 통과',
+    t: '중간 컴포넌트는 props를 안 받는다',
+    d: (<><code>Page</code>·<code>Sidebar</code> 같은 중간 컴포넌트는 <code>user</code>를 <b>props로 받지 않는다.</b> 그냥 자식을 그릴 뿐 — prop drilling이 사라진다.</>),
+  },
+  {
+    hl: [5, 6],
+    tag: '③ leaf가 꺼냄',
+    t: 'useContext로 직접 꺼낸다',
+    d: (<>깊은 <code>CtxBadge</code>가 <code>useContext(UserContext)</code>로 <b>가장 가까운 Provider</b>의 값을 직접 꺼낸다. 아무리 깊어도 한 줄.</>),
+    note: 'user.name = 김코딩',
+  },
+  {
+    hl: [1],
+    tag: '④ 값 변경',
+    t: '구독한 곳만 리렌더된다',
+    d: (<>이름을 바꿔 <code>value</code>가 바뀌면, <code>useContext</code>로 <b>구독한 컴포넌트만</b> 리렌더된다. 값을 안 쓰는 중간 컴포넌트는 그대로.</>),
+  },
+  {
+    tag: '⑤ 새 객체 주의',
+    t: 'value에 매번 새 객체면 전부 리렌더',
+    d: (<><code>value={'{{ ...user }}'}</code>처럼 매 렌더 <b>새 객체</b>를 넣으면 값이 안 바뀌어도 참조가 달라 <b>구독자 전부</b>가 리렌더된다 → <code>useMemo</code>로 value를 고정한다.</>),
+  },
+]
 
 export default function Step7_1() {
   const [user, setUser] = useState({ name: NAMES[0], role: '입문자' })
@@ -101,6 +143,9 @@ export default function Step7_1() {
           <CtxPage />
         </UserContext.Provider>
       </div>
+
+      <span className="learn-tag">📎 학습 포인트 · Provider가 값을 흘리고, 깊은 자식이 useContext로 직접 꺼낸다 — 중간은 props 없음</span>
+      <SourceTrace file="Context — Provider → useContext" code={CTX_CODE} steps={CTX_STEPS} />
 
       <div className="try-it">
         <h4>💡 실습 — 여기도 닉네임을 추가한다면?</h4>

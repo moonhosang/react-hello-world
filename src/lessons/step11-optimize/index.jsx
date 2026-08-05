@@ -12,6 +12,55 @@
 import { MemoDemo } from './MemoDemo.jsx'
 import { UseMemoDemo } from './UseMemoDemo.jsx'
 import { UseCallbackDemo } from './UseCallbackDemo.jsx'
+import SourceTrace from '../../components/SourceTrace.jsx'
+
+// React.memo — 부모가 리렌더돼도 props가 같으면 자식 렌더를 건너뛴다.
+const MEMO_CODE = `const Child = memo(function Child({ label }) {
+  return <div>{label} · {Math.random()}</div>   // 렌더 지문
+})
+
+function Parent() {
+  const [count, setCount] = useState(0)
+  return (
+    <>
+      <button onClick={() => setCount(count + 1)}>+1</button>
+      <Child label="고정" />        // props가 안 바뀐다
+    </>
+  )
+}`
+
+const MEMO_STEPS = [
+  {
+    hl: [9],
+    tag: '① +1 클릭',
+    t: 'Parent가 리렌더된다',
+    d: (<><code>setCount</code>로 <code>count</code>가 바뀌어 <code>Parent</code>가 다시 렌더된다. <b>기본이라면</b> 자식 <code>Child</code>도 따라 리렌더된다.</>),
+  },
+  {
+    hl: [1, 10],
+    tag: '② props 비교',
+    t: 'memo가 이전 props와 비교한다',
+    d: (<><code>Child</code>는 <code>memo</code>로 감쌌다. 리액트가 이전 props와 이번 props를 비교한다 — <code>label</code>은 <b>'고정' → '고정'</b>, 같다.</>),
+  },
+  {
+    hl: [2],
+    tag: '③ 건너뛴다',
+    t: 'props가 같으니 렌더를 생략',
+    d: (<>props가 같으니 <code>Child</code> 함수를 <b>다시 실행하지 않고</b> 이전 결과를 재사용한다 → 렌더 지문(<code>Math.random</code>)이 <b>안 바뀐다</b>.</>),
+    note: 'Child 지문 유지 = 리렌더 안 함',
+  },
+  {
+    hl: [10],
+    tag: '④ 무력화 주의',
+    t: '매 렌더 새 참조를 넘기면 memo가 깨진다',
+    d: (<>만약 <code>&lt;Child onClick={'{() => {}}'} /&gt;</code>처럼 <b>매 렌더 새 함수/새 객체</b>를 넘기면 참조가 달라 "props 바뀜"으로 오해 → memo 무력화. <code>useCallback</code>/<code>useMemo</code>로 참조를 <b>고정</b>해야 짝이 맞는다.</>),
+  },
+  {
+    tag: '⑤ 기본은 안 씀',
+    t: '측정으로 특정했을 때만',
+    d: (<>리렌더는 대개 <b>싸다</b>. memo·useMemo·useCallback도 비교/기억 비용이 있어, 가벼운 곳에 바르면 오히려 손해다. <b>측정으로 진짜 비싼 곳</b>을 특정했을 때만 쓴다.</>),
+  },
+]
 
 export default function Step11Optimize() {
   return (
@@ -49,6 +98,8 @@ export default function Step11Optimize() {
         <div className="file-label">📄 MemoDemo.jsx · memo 없는 자식 vs memo 자식</div>
         <MemoDemo />
       </div>
+      <span className="learn-tag">📎 학습 포인트 · 부모 리렌더 → memo가 props 비교 → 같으면 자식 렌더를 건너뛴다</span>
+      <SourceTrace file="React.memo — 렌더 건너뛰기" code={MEMO_CODE} steps={MEMO_STEPS} />
 
       <h3 className="section-title">② useMemo — 입력이 같으면 무거운 계산을 건너뛴다</h3>
       <span className="learn-tag">📎 학습 포인트 · useMemo는 의존성이 안 바뀌면 이전 계산 결과를 그대로 재사용한다</span>

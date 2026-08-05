@@ -15,6 +15,48 @@ import { useState } from 'react'
 import Practice from '../../../components/Practice.jsx'
 import PracticeValidation from './practice.jsx'
 import SolutionValidation from './solution.jsx'
+import SourceTrace from '../../../components/SourceTrace.jsx'
+
+// 파생 상태 — errors는 저장하지 않고 매 렌더 validate(form)로 계산한다.
+const VALID_CODE = `const [form, setForm] = useState({ email: '', age: '', grade: '' })
+
+const errors = validate(form)   // ★ state 아님 — 매 렌더 계산
+
+function shownError(field) {     // 언제 보여줄지 따로 결정
+  return touched[field] || submitted ? errors[field] : undefined
+}`
+
+const VALID_STEPS = [
+  {
+    hl: [1],
+    tag: '① 진짜 상태는 form',
+    t: '입력값만 useState로 둔다',
+    d: (<>진짜 상태는 입력값 <code>form</code>(+ touched·submitted). <b>errors는 저장하지 않는다.</b></>),
+  },
+  {
+    hl: [3],
+    tag: '② 매 렌더 계산',
+    t: 'errors = validate(form)',
+    d: (<>렌더될 때마다 <code>validate(form)</code>으로 <b>errors를 새로 계산</b>한다. <code>form</code>이 바뀌면 errors도 자동으로 최신 — <b>어긋날 수가 없다.</b> (form과 errors를 각각 state로 두면 둘이 어긋난다.)</>),
+  },
+  {
+    tag: '③ 타이핑',
+    t: 'form 변경 → 리렌더 → 다시 계산',
+    d: (<>이메일 칸에 타이핑하면 <code>setForm</code> → 리렌더 → 그 렌더에서 <code>validate</code>가 다시 돌아 <code>errors.email</code>이 갱신된다. 따로 <code>setErrors</code> 할 필요가 없다.</>),
+    note: "email 'a' → errors.email = '이메일 형식이 아니다'",
+  },
+  {
+    hl: [5, 6, 7],
+    tag: '④ 노출 시점',
+    t: 'touched/submitted일 때만 보여준다',
+    d: (<>errors는 처음부터 다 계산되지만, <code>shownError</code>가 <b>그 칸을 건드렸거나(touched) 제출했을 때만</b> 보여준다. 안 건드린 칸에 빨간 에러를 미리 뿌리지 않는다.</>),
+  },
+  {
+    tag: '⑤ 제출',
+    t: '에러가 비어야 통과',
+    d: (<>제출 시 <code>submitted=true</code>로 모든 칸 에러를 드러내고, <code>errors</code>가 <b>빈 객체</b>면 통과, 하나라도 있으면 막는다. 파생이라 "지금 form" 기준으로 항상 정확하다.</>),
+  },
+]
 
 // 등급 셀렉트 후보 — 맨 앞 ''는 '아직 안 고름'을 뜻하는 기본값이다(고르면 에러가 사라진다).
 const GRADE_OPTIONS = [
@@ -143,6 +185,10 @@ const errors = validate(form)   // ★ state 아님 — 매 렌더 계산`}</pre
   return touched[field] || submitted ? errors[field] : undefined
 }`}</pre>
       </div>
+
+      {/* 🔬 파생 에러가 도는 순서 */}
+      <span className="learn-tag">📎 학습 포인트 · errors는 저장하지 않고 매 렌더 validate(form)로 계산 → 항상 form과 일치</span>
+      <SourceTrace file="유효성 — 파생 errors 흐름" code={VALID_CODE} steps={VALID_STEPS} />
 
       {/* ③ 다양한 입력 — select · number */}
       <h3 className="section-title">③ 다양한 입력 — select · number</h3>

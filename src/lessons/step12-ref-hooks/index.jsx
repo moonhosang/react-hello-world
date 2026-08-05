@@ -9,6 +9,54 @@ import FocusInput from './FocusInput.jsx'
 import RefVsState from './RefVsState.jsx'
 import ToggleBox from './ToggleBox.jsx'
 import WindowWidthBadge from './WindowWidthBadge.jsx'
+import SourceTrace from '../../components/SourceTrace.jsx'
+
+// useRef — .current는 리렌더를 안 일으키는 상자 + 진짜 DOM 손잡이.
+const REF_CODE = `const inputRef = useRef(null)      // 리렌더를 안 일으키는 상자
+const countRef = useRef(0)
+
+<input ref={inputRef} />           // 실제 DOM이 .current에 담긴다
+
+function focus() {
+  inputRef.current.focus()         // DOM에 직접 명령
+}
+function tick() {
+  countRef.current += 1            // 값만 바뀜 — 화면은 그대로
+}`
+
+const REF_STEPS = [
+  {
+    hl: [1, 2],
+    tag: '① 상자',
+    t: 'useRef는 { current } 상자를 준다',
+    d: (<><code>useRef(초기값)</code>은 <code>{'{ current: 값 }'}</code> 상자를 돌려준다. 리렌더가 일어나도 <b>같은 상자가 그대로 유지</b>된다.</>),
+    note: 'inputRef={current:null} · countRef={current:0}',
+  },
+  {
+    hl: [4],
+    tag: '② DOM 연결',
+    t: 'ref를 붙이면 진짜 DOM이 담긴다',
+    d: (<><code>&lt;input ref={'{inputRef}'} /&gt;</code>로 이 input의 <b>실제 DOM</b>이 마운트 때 <code>inputRef.current</code>에 담긴다.</>),
+  },
+  {
+    hl: [7],
+    tag: '③ 명령',
+    t: 'current로 DOM에 직접 명령',
+    d: (<>버튼에서 <code>inputRef.current.focus()</code> → DOM에 <b>직접 명령</b>해 커서가 들어간다(명령형 동작 — focus·scroll·재생 등).</>),
+  },
+  {
+    hl: [10],
+    tag: '④ 리렌더 없음',
+    t: 'current를 바꿔도 화면은 그대로',
+    d: (<><code>countRef.current += 1</code>은 <b>값만</b> 바꾼다. <code>state</code>와 달리 <b>리렌더를 일으키지 않아</b> 화면은 그대로다. 렌더 사이에 조용히 기억할 값(이전 값·타이머 id 등)에 쓴다.</>),
+    note: 'countRef.current = 1 · 화면 변화 없음',
+  },
+  {
+    tag: '⑤ state와 구분',
+    t: '보여줄 값은 state, 기억만 할 값은 ref',
+    d: (<>화면에 <b>보여야</b> 하는 값은 <code>state</code>, 화면과 무관하게 <b>기억만</b> 할 값·DOM 손잡이는 <code>ref</code>. <code>current</code>는 이벤트·effect 안에서 만지고 <b>렌더 도중엔 건드리지 않는다.</b></>),
+  },
+]
 
 export default function Step12RefHooks() {
   return (
@@ -42,6 +90,9 @@ export default function Step12RefHooks() {
         state를 바꾸면 화면이 다시 그려지지만, ref.current를 바꾸면 값만 바뀌고 화면은 그대로다.
       </p>
       <RefVsState />
+
+      <span className="learn-tag">📎 학습 포인트 · ref.current는 리렌더를 안 일으킨다 · DOM 손잡이로도 쓴다 (state와 반대)</span>
+      <SourceTrace file="useRef — 상자 & DOM 손잡이" code={REF_CODE} steps={REF_STEPS} />
 
       <h3 className="section-title">③ 커스텀 훅으로 로직 재사용</h3>
       <span className="learn-tag">📎 학습 포인트 · 커스텀 훅 = use로 시작하는 함수, 안에서 다른 훅을 쓴다</span>

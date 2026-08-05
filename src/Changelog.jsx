@@ -36,6 +36,25 @@ const RELEASES = [
         ],
       },
       {
+        ch: '07 · 리스트',
+        items: [{ no: '6', t: '투두 리스트', c: '배열 map 렌더 & 추가(새 배열·불변성) 트레이스' }],
+      },
+      {
+        ch: '08 · 폼',
+        items: [
+          { no: '7-1', t: '여러 입력 → 객체', c: '객체 하나 + 공통 onChange 트레이스' },
+          { no: '7-2', t: '폼 제출', c: '제출 → preventDefault → 추가 → 비우기' },
+          { no: '7-3', t: '유효성 검사', c: '파생 errors(저장 안 함) 흐름 트레이스' },
+        ],
+      },
+      {
+        ch: '09 · Context',
+        items: [
+          { no: '8-1', t: 'prop drilling → Context', c: 'Provider → useContext로 값 꺼내기' },
+          { no: '8-2', t: '전역 상태', c: '상태 + setter를 Context로 공유' },
+        ],
+      },
+      {
         ch: '10 · useEffect',
         items: [
           { no: '9-1', t: 'useEffect 소개', c: '두 effect가 클릭 때 갈라지는 트레이스' },
@@ -44,6 +63,18 @@ const RELEASES = [
           { no: '9-4', t: '다시 불러오기', c: '값 변경 → 정리 → 새 요청 + alive' },
           { no: '9-5', t: 'localStorage', c: '읽기 → 저장 → 새로고침 복원' },
         ],
+      },
+      {
+        ch: '12 · useReducer',
+        items: [{ no: '11', t: '상태 로직 모으기', c: 'dispatch → reducer → 새 state 트레이스' }],
+      },
+      {
+        ch: '13 · 최적화',
+        items: [{ no: '12', t: 'memo·useMemo·useCallback', c: 'React.memo가 렌더를 건너뛰는 판단' }],
+      },
+      {
+        ch: '14 · Ref',
+        items: [{ no: '13', t: 'useRef·커스텀 훅', c: 'ref = 리렌더 없는 상자 & DOM 손잡이' }],
       },
       {
         ch: '공통 · 도구',
@@ -77,7 +108,7 @@ const RELEASES = [
 ]
 
 // 자동 팝업 판단 기준 — 내용이 바뀔 때마다 올린다. 저장된 값과 다르면 "새 게 있다".
-export const CHANGELOG_LATEST = 'v4-2026-08-05'
+export const CHANGELOG_LATEST = 'v5-2026-08-05'
 
 export default function Changelog() {
   // 최신 날짜(맨 위)를 기본으로 선택한다.

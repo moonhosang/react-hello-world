@@ -9,6 +9,55 @@
 
 import CounterReducer from './CounterReducer.jsx'
 import TodoReducer from './TodoReducer.jsx'
+import SourceTrace from '../../components/SourceTrace.jsx'
+
+// dispatch(무엇) → reducer(어떻게) → 새 state → 리렌더.
+const REDUCER_CODE = `function reducer(state, action) {
+  switch (action.type) {
+    case 'increment': return state + 1   // 새 state를 계산해 return
+    case 'reset':     return 0
+    default:          return state
+  }
+}
+const [count, dispatch] = useReducer(reducer, 0)
+
+<button onClick={() => dispatch({ type: 'increment' })}>+1</button>`
+
+const REDUCER_STEPS = [
+  {
+    hl: [8],
+    tag: '① 설정',
+    t: 'useReducer(reducer, 0) → [count, dispatch]',
+    d: (<><code>useReducer(reducer, 0)</code>가 <b>[현재값 count, dispatch]</b>를 준다. <code>count</code>는 0으로 시작, 바꿀 땐 <code>dispatch</code>로 action을 보낸다.</>),
+    note: 'count = 0',
+  },
+  {
+    hl: [10],
+    tag: '② dispatch',
+    t: '"무엇을 할지"(action)만 보낸다',
+    d: (<>+1 클릭 → <code>dispatch({'{ type: "increment" }'})</code>. 화면은 <b>무엇을 할지</b>만 보낸다 — <b>어떻게</b> 바꿀지는 여기 안 적는다.</>),
+  },
+  {
+    hl: [1, 2, 3],
+    tag: '③ reducer 실행',
+    t: 'reducer(현재 state, action)이 불린다',
+    d: (<>리액트가 <code>reducer(0, {'{type:"increment"}'})</code>을 부른다. <code>switch</code>가 <code>action.type</code>에 걸려 <code>return state + 1</code> = <b>1</b>.</>),
+    note: 'reducer(0, increment) → 1',
+  },
+  {
+    hl: [3],
+    tag: '④ 새 state',
+    t: 'return한 값이 새 count가 된다',
+    d: (<>reducer가 돌려준 <b>1</b>이 다음 <code>count</code>가 된다. 원본을 건드리지 않고 <b>새 값을 return</b>(순수 함수)해 리렌더가 예약된다.</>),
+    note: 'count = 1',
+  },
+  {
+    hl: [8],
+    tag: '⑤ 리렌더',
+    t: '화면 갱신 — 로직은 reducer 한 곳',
+    d: (<><code>count = 1</code>로 다시 렌더돼 화면이 바뀐다. <b>dispatch(무엇) → reducer(어떻게) → 새 state</b> — 바꾸는 규칙이 여러 개여도 전부 <code>reducer</code> 한 곳에 모인다.</>),
+  },
+]
 
 const compareState = `// useState — 바꾸는 방법마다 로직이 흩어진다
 const [count, setCount] = useState(0)
@@ -54,6 +103,9 @@ export default function Step10Reducer() {
         <code>+1 · -1 · 0으로</code> 어떻게 바꿀지는 아래 <code>reducer</code> 함수 한 곳이 결정한다.
       </p>
       <CounterReducer />
+
+      <span className="learn-tag">📎 학습 포인트 · dispatch(무엇) → reducer(어떻게 바꿀지 계산) → 새 state → 리렌더</span>
+      <SourceTrace file="useReducer — dispatch → reducer 흐름" code={REDUCER_CODE} steps={REDUCER_STEPS} />
 
       <h3 className="section-title">② useState vs useReducer</h3>
       <span className="learn-tag">📎 학습 포인트 · 바꾸는 방법이 많고 서로 얽힐 때 reducer가 더 낫다</span>
