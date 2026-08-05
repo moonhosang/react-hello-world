@@ -66,6 +66,8 @@ const CTX_STEPS = [
   },
 ]
 
+const NAMES = ['김코딩', '이해커', '박리액트', '최프론트']
+
 export default function Step7_1() {
   const [user, setUser] = useState({ name: NAMES[0], role: '입문자' })
   // 맨 위 상태의 이름만 바꾼다 → drilling은 5단계를 타고, Context는 통로로 흘러 leaf까지 반영된다.
