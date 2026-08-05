@@ -298,6 +298,7 @@ useEffect(() => {
           items={[
             { label: '9-3 · 정리(cleanup)', to: 8.2 },
             { label: '9-5 · 다시 불러오기', to: 8.4 },
+            { label: '🧠 클로저 (JS 3)', to: 'js-func' },
           ]}
           onGo={onGo}
         />

@@ -4,8 +4,38 @@
 
 import { useState } from 'react'
 import QuickQuiz from '../../../components/QuickQuiz.jsx'
+import TechTags from '../../../components/TechTags.jsx'
 
 const mono = 'var(--font-mono)'
+
+// ⑨ 클로저 — 함수가 '만들어질 때의 바깥 변수'를 기억한다.
+// makeCounter를 부를 때마다 새 count가 생기고, 돌려준 함수가 그 count를 계속 붙잡는다(독립).
+const makeCounter = () => {
+  let count = 0 // 바깥(지역) 변수
+  return () => ++count // 이 함수가 자기 count를 '기억'한다 = 클로저
+}
+function ClosureDemo() {
+  const [a] = useState(makeCounter) // 각자 독립된 count를 품은 함수 (첫 렌더에 한 번 생성)
+  const [b] = useState(makeCounter)
+  const [log, setLog] = useState([])
+  const hit = (label, fn) => setLog((l) => [`${label} → ${fn()}`, ...l].slice(0, 8))
+  return (
+    <div>
+      <div className="button-row">
+        <button className="chip on" onClick={() => hit('A a()', a)}>A 세기</button>
+        <button className="chip on" onClick={() => hit('B b()', b)}>B 세기</button>
+        <button className="chip" onClick={() => setLog([])}>지우기</button>
+      </div>
+      <div className="tree-box" style={{ marginTop: 10, fontFamily: mono, fontSize: 12.5, minHeight: 42 }}>
+        {log.length === 0 ? <span style={{ color: 'var(--muted)' }}>A·B를 번갈아 눌러 보라 — 각자 따로 센다.</span> : log.map((l, i) => <div key={i}>{l}</div>)}
+      </div>
+      <p className="demo-desc" style={{ marginTop: 8 }}>
+        A와 B는 <b>같은 <code>makeCounter</code></b>로 만들었지만 <b>각자 자기 <code>count</code></b>를 기억한다 — A를 눌러도 B는 그대로다.
+        <code> count</code>는 <code>makeCounter</code>가 끝나면 사라질 지역 변수인데, <b>돌려준 함수가 계속 붙잡고 있어</b> 살아남는다. 이게 <b>클로저</b>다.
+      </p>
+    </div>
+  )
+}
 
 // JS 1·2강 해부기와 같은 색칩
 const ROLE = {
@@ -328,7 +358,7 @@ function CustomEventDemo() {
   )
 }
 
-export default function JsFunctions() {
+export default function JsFunctions({ onGo }) {
   return (
     <section>
       <header className="lesson-header">
@@ -595,6 +625,37 @@ useEffect(() => { … }, [])             // effect도 '함수를 넘기는' 것`
         <li>이게 React의 <b>콜백 prop</b>이자 <b>상태 끌어올리기</b>다 — 자식이 "이런 일이 생겼다(색 골랐다)"고 부모에게 <b>값으로 알리는</b> 통로다 (→ React 2단계·상태 공유).</li>
         <li>정리: <b>이벤트는 마법이 아니다.</b> "함수를 넘겨 두면(②③), 일이 생길 때 그쪽이 값과 함께 불러 준다"가 전부다.</li>
       </ul>
+
+      {/* ⑨ 클로저 */}
+      <h3 className="section-title">⑨ 🧠 클로저 — 함수가 '바깥 값'을 기억한다</h3>
+      <span className="learn-tag">📎 학습 포인트 · 함수는 만들어질 때의 바깥 변수를 계속 기억한다 · 만들 때마다 그 기억은 '독립'이다</span>
+      <p className="section-desc">
+        함수가 값이라 <b>담고·넘기고·실행</b>한다고 했다. 하나 더 — 함수는 <b>자기가 만들어질 때 곁에 있던 바깥 변수</b>를 계속 <b>기억</b>한다.
+        이걸 <b>클로저(closure)</b>라 한다.
+      </p>
+      <div className="card">
+        <div className="file-label">📄 makeCounter — 돌려준 함수가 바깥 count를 붙잡는다</div>
+        <pre className="err-code">{`function makeCounter() {
+  let count = 0            // 바깥(지역) 변수
+  return () => ++count     // 이 함수가 count를 '기억'한다 (클로저)
+}
+
+const a = makeCounter()   // a는 자기만의 count(=0)를 품는다
+const b = makeCounter()   // b는 '또 다른' count(=0)를 품는다 (독립)
+a()  // 1
+a()  // 2
+b()  // 1  ← a와 안 섞인다`}</pre>
+      </div>
+      <div className="card">
+        <div className="file-label">🔬 눌러 보기 — A·B가 각자 센다 · 📄 ClosureDemo · index.jsx</div>
+        <ClosureDemo />
+      </div>
+      <ul className="section-list">
+        <li><code>count</code>는 <code>makeCounter</code>가 끝나면 사라질 지역 변수인데, <b>돌려준 함수가 계속 붙잡고 있어</b> 살아남는다.</li>
+        <li><b>만들 때마다 독립</b> — <code>makeCounter()</code>를 부를 때마다 <b>새 <code>count</code></b>가 생긴다. 그래서 a와 b가 안 섞인다.</li>
+        <li>⚛️ <b>React 곳곳이 클로저다</b> — 이벤트 핸들러·<code>setInterval</code> 콜백이 <b>그때의 state·props를 기억</b>하고, useEffect의 정리 함수가 <b>그 실행의 값</b>을 붙잡는다. <b>9-6의 <code>alive</code> 플래그</b>가 "실행마다 자기 것을 기억"하는 게 바로 이 원리다.</li>
+      </ul>
+      <TechTags items={[{ label: '⚛️ 9-6 · alive가 클로저인 이유', to: 8.45 }]} onGo={onGo} />
 
       <div className="concept">
         <p className="concept-lead">📖 한 줄 요약</p>

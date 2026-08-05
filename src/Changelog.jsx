@@ -70,7 +70,7 @@ const RELEASES = [
         ch: '12 · useReducer',
         items: [
           { no: '11', t: '상태 로직 모으기', c: 'dispatch → reducer → 새 state 트레이스' },
-          { no: '11', t: '실전 상태관리 노트', c: 'Redux Toolkit·Zustand·MobX vs 의존성 없이 Context · 외부 의존성이 골치아픈 이유(MUI 전이의존성·버전충돌·번들·공급망)' },
+          { no: '11', t: '실전 상태관리 노트', c: 'Redux Toolkit·Zustand·MobX vs 의존성 없이 Context — 언제 무엇을 (외부 의존성 상세는 JS 8로 분리)' },
         ],
       },
       {
@@ -80,6 +80,18 @@ const RELEASES = [
       {
         ch: '14 · Ref',
         items: [{ no: '13', t: 'useRef·커스텀 훅', c: 'ref = 리렌더 없는 상자 & DOM 손잡이' }],
+      },
+      {
+        ch: 'J3 · 함수는 값이다',
+        items: [{ no: 'J3', t: '클로저 추가', c: '클로저 섹션 + 독립 카운터 라이브 데모 · 9-6 alive와 상호 링크(깨진 참조 복구)' }],
+      },
+      {
+        ch: 'J7 · 비동기',
+        items: [{ no: 'J7', t: '교차링크', c: '9-4 데이터 불러오기에서 J7(Promise·async)로 링크 추가' }],
+      },
+      {
+        ch: 'J8 · 패키지와 의존성',
+        items: [{ no: 'J8', t: '신규 레슨', c: 'npm 생태계 — 전이 의존성·버전 충돌·번들·공급망 (useReducer에서 분리)' }],
       },
       {
         ch: '공통 · 도구',
@@ -113,7 +125,7 @@ const RELEASES = [
 ]
 
 // 자동 팝업 판단 기준 — 내용이 바뀔 때마다 올린다. 저장된 값과 다르면 "새 게 있다".
-export const CHANGELOG_LATEST = 'v9-2026-08-05'
+export const CHANGELOG_LATEST = 'v10-2026-08-05'
 
 // 챕터 번호가 어느 트랙 것인지 앞에 붙인다. 01~15=⚛️ React, J0~J7=🟨 JS 기본, 그 외(공통)는 없음.
 const trackPrefix = (ch) =>

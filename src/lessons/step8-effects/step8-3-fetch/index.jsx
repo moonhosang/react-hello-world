@@ -4,6 +4,7 @@
 import { useState, useEffect } from 'react'
 import { fetchUsers } from '../../../lib/fakeApi.js'
 import SourceTrace from '../../../components/SourceTrace.jsx'
+import TechTags from '../../../components/TechTags.jsx'
 
 // 아래 라이브 데모와 '같은' 로직을 줄 단위로 보여 주고, 실행 순서를 한 단계씩 짚는다.
 const FETCH_CODE = `const [users, setUsers] = useState([])          // 목록 (처음엔 빈 배열)
@@ -81,7 +82,7 @@ const FETCH_STEPS = [
   },
 ]
 
-export default function Step8_3() {
+export default function Step8_3({ onGo }) {
   const [users, setUsers] = useState([])
   const [loading, setLoading] = useState(true)
 
@@ -118,6 +119,8 @@ export default function Step8_3() {
           <b> loading → data</b> 두 상태로 관리한다. (여기선 네트워크 대신 가짜 API로 0.8초 지연을 흉내 낸다)
         </p>
       </div>
+      <span className="learn-tag">📎 전제 · <code>fetch</code>·<code>.then</code>·<code>async/await</code>가 낯설면 JS 트랙 J7을 먼저 보라</span>
+      <TechTags items={[{ label: '🟨 J7 · Promise·async/await', to: 'js-async' }]} onGo={onGo} />
 
       {/* 🔬 소스 + 동작 과정 — 아래 라이브 데모가 '어떤 순서로' 도는지 한 단계씩 */}
       <h3 className="section-title">🔬 코드가 도는 순서 — 한 단계씩</h3>

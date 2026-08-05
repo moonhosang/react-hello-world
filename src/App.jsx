@@ -83,6 +83,7 @@ import JsTruthyFalsy from './lessons/js-warmup/truthy-falsy/index.jsx'
 import JsArrayMethods from './lessons/js-warmup/array-methods/index.jsx'
 import JsDestructuring from './lessons/js-warmup/destructuring-spread/index.jsx'
 import JsAsync from './lessons/js-warmup/async-await/index.jsx'
+import JsDeps from './lessons/js-warmup/packages-deps/index.jsx'
 
 // 공식 한국어 문서(ko.react.dev) 링크. { t: 제목, u: URL }
 // 각 강의 하단에 "📚 공식 문서"로 자동 표시된다.
@@ -218,6 +219,7 @@ const lessons = [
   { id: 'js-array', title: 'JS 5 · 배열 map · filter', subtitle: '변환·거르기 · 리스트 전제', Component: JsArrayMethods, track: 'js' },
   { id: 'js-destructure', title: 'JS 6 · 구조 분해 · 스프레드', subtitle: 'props·불변성 전제', Component: JsDestructuring, track: 'js' },
   { id: 'js-async', title: 'JS 7 · Promise · async/await', subtitle: '비동기 · fetch 전제', Component: JsAsync, track: 'js' },
+  { id: 'js-deps', title: 'JS 8 · 패키지와 의존성', subtitle: 'npm 생태계 · 의존성 비용', Component: JsDeps, track: 'js', isNew: true },
 
   // 추가된 챕터 종합연습(단계별 항목). 표시 순서는 CHAPTERS가 정하므로 여기 끝에 모아 둔다.
   ...makeSteps(2.4, propsPractice),
@@ -262,6 +264,7 @@ const CHAPTERS = {
     { n: 'J5', title: '배열 다루기', items: ['js-array', ...stepIds('js-array', 6)] },
     { n: 'J6', title: '구조 분해·스프레드', items: ['js-destructure', ...stepIds('js-destructure', 6)] },
     { n: 'J7', title: '비동기', items: ['js-async', ...stepIds('js-async', 6)] },
+    { n: 'J8', title: '패키지와 의존성', items: ['js-deps'] },
   ],
 }
 
@@ -373,6 +376,7 @@ const FILES = {
   'js-array': 'lessons/js-warmup/array-methods/index.jsx',
   'js-destructure': 'lessons/js-warmup/destructuring-spread/index.jsx',
   'js-async': 'lessons/js-warmup/async-await/index.jsx',
+  'js-deps': 'lessons/js-warmup/packages-deps/index.jsx',
 }
 
 // ── URL 해시 ↔ 강의 id 동기화 헬퍼 ───────────────────────────
