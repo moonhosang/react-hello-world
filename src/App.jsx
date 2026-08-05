@@ -498,6 +498,11 @@ export default function App() {
     } catch {}
   }, [currentId])
 
+  // 강의를 바꾸면 내용을 맨 위로 스크롤한다 — 아래로 내려간 채 다른 강의로 넘어가지 않게.
+  useEffect(() => {
+    try { window.scrollTo(0, 0) } catch {}
+  }, [currentId])
+
   // 뒤로/앞으로·주소 직접 변경 → 상태 반영 (무효 해시는 무시)
   useEffect(() => {
     const onHash = () => {
