@@ -7,6 +7,18 @@ import { useState } from 'react'
 const RELEASES = [
   {
     date: '2026-08-06',
+    title: '입력 타입별 처리',
+    groups: [
+      {
+        ch: '08 · 폼',
+        items: [
+          { no: '7-4', t: '입력 타입별 처리', c: '신규 — checkbox(checked)·radio·여러 체크박스(배열)·공통 onChange 타입 분기' },
+        ],
+      },
+    ],
+  },
+  {
+    date: '2026-08-05',
     title: '동작 과정 트레이스 · 팝업 · 9-x 재구성 · 신규 레슨',
     groups: [
       {
@@ -45,7 +57,6 @@ const RELEASES = [
           { no: '7-1', t: '여러 입력 → 객체', c: '객체 하나 + 공통 onChange 트레이스' },
           { no: '7-2', t: '폼 제출', c: '제출 → preventDefault → 추가 → 비우기' },
           { no: '7-3', t: '유효성 검사', c: '파생 errors(저장 안 함) 흐름 트레이스' },
-          { no: '7-4', t: '입력 타입별 처리', c: '신규 — checkbox(checked)·radio·여러 체크박스(배열)·공통 onChange 타입 분기' },
         ],
       },
       {
@@ -105,21 +116,19 @@ const RELEASES = [
   },
   {
     date: '2026-08-04',
-    title: '용어 사전 신설',
+    title: '용어 사전 · 실전 앱 · 종합연습',
     groups: [
       {
         ch: '공통 · 도구',
-        items: [{ no: '📖', t: '용어 사전', c: 'JS·React 용어 총정리 glossary 추가' }],
+        items: [{ no: '📖', t: '용어 사전', c: 'JS·React 용어 총정리 glossary 신설 + 🛠️ 도구·기초 그룹' }],
       },
-    ],
-  },
-  {
-    date: '2026-08-03',
-    title: '실전 앱 난이도 개편',
-    groups: [
       {
         ch: '15 · 실전 앱',
         items: [{ no: 'Lv1~3', t: '조립/완성 분리', c: '조립(X-1) + 완성(X-2)으로 나눠 난이도를 낮춤' }],
+      },
+      {
+        ch: '종합연습',
+        items: [{ no: '연습', t: '5단계 확장', c: '전 챕터 연습을 3→5단계로 · 빈 챕터 보강 · JS 트랙에도 연습 추가' }],
       },
     ],
   },
