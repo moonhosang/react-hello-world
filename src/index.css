@@ -1055,6 +1055,37 @@ button.tech-tag.link:hover { background: var(--brand); color: #fff; border-color
 .strace-dot.on { background: var(--brand); border-color: var(--brand); }
 .strace-dot:hover { border-color: var(--brand); }
 
+/* ---------- Context 계약 시각 데모 ---------- */
+.contract-panel {
+  border-radius: 14px; padding: 16px 14px; text-align: center;
+  transition: box-shadow 0.2s, border-color 0.2s, background 0.2s;
+}
+.contract-panel .cp-title { font-size: 26px; line-height: 1; margin-bottom: 8px; }
+.contract-panel .cp-line { font-family: var(--font-mono); font-size: 12px; margin: 2px 0; }
+.contract-panel .cp-verdict { font-weight: 800; font-size: 14px; margin-top: 8px; }
+.contract-panel.ok {
+  border: 2px solid var(--green);
+  box-shadow: 0 0 0 4px rgba(22, 163, 74, 0.15), 0 6px 18px rgba(22, 163, 74, 0.18);
+}
+.contract-panel.ok .cp-verdict { color: var(--green); }
+.contract-panel.bad {
+  border: 2px solid var(--red);
+  box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.15);
+  animation: contract-shake 0.5s ease;
+}
+.contract-panel.bad .cp-verdict { color: var(--red); }
+.contract-col-head {
+  display: inline-block; font-size: 12.5px; font-weight: 800; padding: 3px 10px;
+  border-radius: 999px; margin-bottom: 8px;
+}
+.contract-col-head.ok { background: rgba(22, 163, 74, 0.14); color: var(--green); }
+.contract-col-head.bad { background: rgba(239, 68, 68, 0.14); color: var(--red); }
+@keyframes contract-shake {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-4px); }
+  40%, 80% { transform: translateX(4px); }
+}
+
 /* ---------- 용어 사전·변경 내역 런처(사이드바 하단) + 팝업(모달) ---------- */
 .side-tools { display: flex; gap: 6px; margin-top: 12px; }
 .side-tool {
