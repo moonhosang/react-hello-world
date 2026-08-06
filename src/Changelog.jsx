@@ -7,12 +7,19 @@ import { useState } from 'react'
 const RELEASES = [
   {
     date: '2026-08-06',
-    title: '입력 타입별 처리',
+    title: '입력 타입별 처리 · Context 계약',
     groups: [
       {
         ch: '08 · 폼',
         items: [
           { no: '7-4', t: '입력 타입별 처리', c: '신규 — checkbox(checked)·radio·여러 체크박스(배열)·공통 onChange 타입 분기' },
+        ],
+      },
+      {
+        ch: '09 · Context',
+        items: [
+          { no: '8-2', t: '계약으로 묶임 (시각)', c: 'Provider 울타리 안/밖 라이브 데모로 계약 실증 + 장단점 균형' },
+          { no: '8-3', t: 'Context→Props 도전', c: 'ProgressBar가 계약에 묶임 명시 + props로 푸는 실습(트레이드오프)' },
         ],
       },
     ],
@@ -135,7 +142,7 @@ const RELEASES = [
 ]
 
 // 자동 팝업 판단 기준 — 내용이 바뀔 때마다 올린다. 저장된 값과 다르면 "새 게 있다".
-export const CHANGELOG_LATEST = 'v11-2026-08-06'
+export const CHANGELOG_LATEST = 'v12-2026-08-06'
 
 // 챕터 번호가 어느 트랙 것인지 앞에 붙인다. 01~15=⚛️ React, J0~J7=🟨 JS 기본, 그 외(공통)는 없음.
 const trackPrefix = (ch) =>

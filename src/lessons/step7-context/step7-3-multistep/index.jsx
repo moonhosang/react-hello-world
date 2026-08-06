@@ -13,11 +13,45 @@
 //   NavButtons.jsx    · 이전/다음/제출
 //   Review.jsx        · 완료 시 form 전체를 요약
 
+import { useState } from 'react'
 import TechTags from '../../../components/TechTags.jsx'
 import Practice from '../../../components/Practice.jsx'
 import SignupWizard from './SignupWizard.jsx'
 import PracticeProgress from './practice.jsx'
 import SolutionProgress from './solution.jsx'
+
+// 🤝 계약 없는 버전 — step·total을 props로 받는다(순수 UI). Provider가 필요 없어 아무 데서나 재사용된다.
+function PropsProgressBar({ step, total }) {
+  const pct = ((step + 1) / total) * 100
+  return (
+    <div>
+      <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 13, color: 'var(--muted)', marginBottom: 6 }}>
+        <span><b style={{ color: 'var(--brand)' }}>{step + 1}</b> / {total}</span>
+        <span>{Math.round(pct)}%</span>
+      </div>
+      <div style={{ height: 8, borderRadius: 999, background: 'var(--border)', overflow: 'hidden' }}>
+        <div style={{ width: pct + '%', height: '100%', background: 'var(--brand)', transition: 'width .25s' }} />
+      </div>
+    </div>
+  )
+}
+function PropsProgressDemo() {
+  const [step, setStep] = useState(0)
+  return (
+    <div>
+      {/* FormProvider가 전혀 없다 — 그래도 props만으로 잘 돈다 */}
+      <PropsProgressBar step={step} total={3} />
+      <div className="button-row" style={{ marginTop: 10 }}>
+        {[0, 1, 2].map((s) => (
+          <button key={s} className={'chip' + (s === step ? ' on' : '')} onClick={() => setStep(s)}>스텝 {s + 1}</button>
+        ))}
+      </div>
+      <p className="demo-desc" style={{ marginTop: 8 }}>
+        이 진행바는 <b>FormProvider가 하나도 없는</b> 여기서 잘 돈다 — <code>useForm()</code> 계약이 없어 <b>step만 넘기면 어디서든</b> 재사용된다.
+      </p>
+    </div>
+  )
+}
 
 export default function Step7_3({ onGo }) {
   return (
@@ -91,6 +125,41 @@ export default function Step7_3({ onGo }) {
       >
         <PracticeProgress />
       </Practice>
+
+      {/* 🤝 계약 확인 + Props 변환 도전 */}
+      <h3 className="section-title">🤝 계약 확인 + 도전 — Context를 Props로 풀어 보기</h3>
+      <span className="learn-tag">📎 학습 포인트 · ProgressBar의 useForm()은 FormProvider와 맺은 '계약'이다 · props로 풀면 계약은 없어지지만 부모가 넘겨야 한다</span>
+      <p className="section-desc">
+        방금 실습에서 <code>ProgressBar</code>가 <code>useForm()</code>(= <code>useContext</code>)로 step을 꺼내게 만들었다. 그 순간
+        ProgressBar는 <b>8-2에서 본 그 계약</b>에 묶였다 — <b>FormProvider 안에서만 산다.</b> 그럼 <b>계약을 풀어 props로</b> 바꾸면 어떻게 될까?
+      </p>
+      <TechTags items={[{ label: '🤝 8-2 · Context = 계약 (시각)', to: 7.2 }]} onGo={onGo} />
+      <div className="card">
+        <div className="file-label">🔬 라이브 — 계약 없는 props 버전 (FormProvider 밖에서도 돈다)</div>
+        <PropsProgressDemo />
+      </div>
+      <div className="card">
+        <div className="file-label">🛠️ 도전 — ProgressBar를 useForm() 대신 props로 바꿔 보라</div>
+        <pre className="err-code">{`// 지금 (계약: FormProvider 안에서만 산다)
+function ProgressBar() {
+  const { step } = useForm()            // ← Context에서 꺼냄
+  ...
+}
+<ProgressBar />                          // 부모는 아무것도 안 넘긴다
+
+// 도전 — props로 (계약 없음 · 어디서나 재사용)
+function ProgressBar({ step, total }) {  // ← props로 받는다
+  ...
+}
+// 그리고 부모(SignupWizard)가 '명시적으로' 내려줘야 한다:
+const { step } = useForm()
+<ProgressBar step={step} total={STEPS.length} />`}</pre>
+      </div>
+      <ul className="section-list">
+        <li>✅ <b>얻는 것</b> — ProgressBar가 <b>계약에서 자유로워져</b> 어떤 폼·화면에도 <b>재사용</b>된다(위 라이브처럼 Provider 없이도). 테스트도 쉽다.</li>
+        <li>⚠️ <b>치르는 것</b> — 부모가 <code>step</code>을 <b>명시적으로 넘겨야</b> 한다. 트리가 깊으면 이게 <b>드릴링</b>이 된다 — 그래서 이 마법사는 <b>공유 상태</b>엔 Context를 쓴 것이다.</li>
+        <li>📖 <b>정답은 상황에 따라</b> — <b>널리 공유되는 폼 상태</b>는 Context(계약)가 편하고, <b>독립적으로 재사용할 순수 UI</b>(진행바 같은)는 props가 낫다. 실무에선 "<b>진행바는 props, 폼 상태는 Context</b>"처럼 섞기도 한다.</li>
+      </ul>
 
       <div className="try-it">
         <h4>💡 정리</h4>
