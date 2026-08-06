@@ -125,6 +125,20 @@ setTodos([...todos, 새항목])         // ✅   todos.push(새항목); setTodos
         "왜 새 값이어야 하나"의 뿌리(<b>참조 vs 값</b>)는 <b>6단계 리스트</b>에서 배열로 더 깊게, 폼 입력은 <b>7단계</b>에서 이어진다.
       </p>
 
+      <div className="concept">
+        <p className="concept-lead">📚 참고 — '불변성'은 리액트 규칙이 아니라 CS의 일반 개념이다</p>
+        <p className="section-desc" style={{ marginTop: 0 }}>
+          "값을 고치지 말고 새로 만든다"는 <b>불변 객체(immutable object)</b>라는 오래된 설계 개념이다 —
+          바뀌지 않는 값은 <b>공유해도 안전</b>하고, <b>비교가 쉽다</b>(참조만 보면 됨). 리액트는 이 성질을
+          "참조가 다르면 바뀐 것"이라는 <b>빠른 변경 감지</b>에 쓰는 것뿐이다. 궁금하면 읽어 보라(건너뛰어도 된다).
+        </p>
+        <p className="section-desc" style={{ margin: '6px 0 0' }}>
+          <a className="doc-link" href="https://ko.wikipedia.org/wiki/불변객체" target="_blank" rel="noopener noreferrer">
+            위키백과 · 불변객체 (Immutable object) ↗
+          </a>
+        </p>
+      </div>
+
       <h3 className="section-title">⚠️ 흔한 함정 — 연속 setState (값 vs 함수)</h3>
       <span className="learn-tag">📎 학습 포인트 · set에 값을 넣으면 스냅샷 고정이라 +1, 함수(c =&gt; c + 1)를 넣으면 직전 값 기준이라 +3</span>
       <p className="section-desc">

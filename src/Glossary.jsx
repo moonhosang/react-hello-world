@@ -3,7 +3,8 @@ import { useState, useRef, useEffect } from 'react'
 // 📖 용어 사전 — JS·React에서 은근히 걸리는 말들을 한 곳에.
 //   상세 정의 + (필요하면) 간략 예시 코드 + 처음 배우는 레슨으로 점프.
 //   위: 검색 + 카테고리 바로가기만(용어 나열은 아래 상세 한 곳으로 통일 — 중복 제거).
-// term = { t, cat('react'|'js'|'core'), to(레슨 id), def, ex?(예시 코드) }
+// term = { t, cat('react'|'js'|'core'), to(레슨 id), def, ex?(예시 코드), ref?(📚 참고 링크 — {u,t} 하나 또는 배열) }
+//   ref는 엄선 — 개념이 React 요령이 아니라 일반 SW/CS 원리임을 보여주는 출처(MDN·위키백과)만 단다.
 
 const TERMS = [
   // ── ⚛️ React ──────────────────────────────
@@ -25,7 +26,7 @@ const TERMS = [
   { t: 'useEffect', cat: 'react', to: 8.1, def: '렌더가 끝난 뒤 할 일(부수 효과)을 적는 훅. 지금의 props·state에 맞춰 "화면 밖"(fetch·타이머·문서 제목 등)을 동기화한다.', ex: `useEffect(() => {\n  document.title = '클릭 ' + count\n}, [count])` },
   { t: '의존성 배열', cat: 'react', to: 8.1, def: 'useEffect의 둘째 인자. 그 안의 값이 (이전 렌더와) 달라졌을 때만 effect를 다시 실행한다. []=처음 한 번, 생략=매 렌더, [x]=x가 바뀔 때.' },
   { t: '정리 (cleanup)', cat: 'react', to: 8.2, def: 'effect가 return한 함수. 다음 실행 전과 언마운트 때 돌아, 걸어 둔 타이머·구독을 뒷정리한다.', ex: `useEffect(() => {\n  const id = setInterval(f, 1000)\n  return () => clearInterval(id)\n}, [])` },
-  { t: '부수 효과 (side effect)', cat: 'react', to: 8.1, def: '렌더 순수성 밖의 일 — fetch·타이머·DOM 직접 조작·구독 등. 렌더 도중이 아니라 useEffect 안에서 해야 한다.' },
+  { t: '부수 효과 (side effect)', cat: 'react', to: 8.1, def: '렌더 순수성 밖의 일 — fetch·타이머·DOM 직접 조작·구독 등. 렌더 도중이 아니라 useEffect 안에서 해야 한다.', ref: { u: 'https://ko.wikipedia.org/wiki/부작용_(컴퓨터_과학)', t: '위키백과 · 부작용 (컴퓨터 과학)' } },
   { t: 'Context', cat: 'react', to: 7.1, def: 'prop을 줄줄이 넘기지 않고, Provider로 감싼 곳 어디서든 값을 꺼내 쓰게 하는 통로. 테마·로그인 정보처럼 넓게 쓰는 값에 좋다.', ex: `<Ctx.Provider value={theme}> … </Ctx.Provider>\nconst theme = useContext(Ctx)` },
   { t: 'prop drilling', cat: 'react', to: 7.1, def: '값을 쓰지도 않는 중간 컴포넌트를 거쳐 props를 여러 단계 내려보내는 번거로움. 깊어지면 Context로 푼다.' },
   { t: 'useReducer', cat: 'react', to: 10, def: '흩어진 상태 로직을 reducer 한 곳에 모으는 훅. dispatch(action)로 "무엇을 할지"만 보낸다. 서로 얽힌 복잡한 state에 유리하다.', ex: `const [s, dispatch] = useReducer(reducer, init)\ndispatch({ type: 'ADD', text })` },
@@ -34,8 +35,8 @@ const TERMS = [
   { t: 'useRef', cat: 'react', to: 12, def: '리렌더를 일으키지 않는 상자(.current). DOM 참조(예: focus)나 렌더 사이에 값을 기억하는 데 쓴다.', ex: `const ref = useRef(null)\n<input ref={ref} />\nref.current.focus()` },
   { t: '커스텀 훅', cat: 'react', to: 12, def: 'use로 시작하는 내 함수. 상태 로직(useState+useEffect 등)을 담아 여러 컴포넌트가 재사용하게 한다.', ex: `function useToggle(init) {\n  const [on, set] = useState(init)\n  return [on, () => set(o => !o)]\n}` },
   { t: '훅 규칙', cat: 'react', to: 3.81, def: '훅은 컴포넌트(또는 커스텀 훅) 최상위에서만 호출한다. if·반복문·이벤트 핸들러 안에서 부르면 호출 순서가 흔들려 깨진다.' },
-  { t: '불변성 (immutability)', cat: 'react', to: 3.2, def: '원본을 바꾸지 말고 새 값을 만들어 넣기. 객체는 {...obj, k:v}, 배열은 [...arr, x]. 이래야 리액트가 "바뀜"을 알아챈다.', ex: `setUser({ ...user, name: '새이름' })  // O\nuser.name = '새이름'  // X` },
-  { t: '순수 함수', cat: 'react', to: 3.6, def: '같은 입력이면 같은 출력을 내고, 바깥 값을 건드리지 않는 함수. 렌더 함수와 reducer가 이래야 예측 가능하다.' },
+  { t: '불변성 (immutability)', cat: 'react', to: 3.2, def: '원본을 바꾸지 말고 새 값을 만들어 넣기. 객체는 {...obj, k:v}, 배열은 [...arr, x]. 이래야 리액트가 "바뀜"을 알아챈다.', ex: `setUser({ ...user, name: '새이름' })  // O\nuser.name = '새이름'  // X`, ref: { u: 'https://ko.wikipedia.org/wiki/불변객체', t: '위키백과 · 불변객체' } },
+  { t: '순수 함수', cat: 'react', to: 3.6, def: '같은 입력이면 같은 출력을 내고, 바깥 값을 건드리지 않는 함수. 렌더 함수와 reducer가 이래야 예측 가능하다.', ref: { u: 'https://en.wikipedia.org/wiki/Pure_function', t: '위키백과(en) · Pure function' } },
   { t: '마운트 / 언마운트', cat: 'react', to: 3.84, def: '컴포넌트가 화면에 처음 붙는 것(마운트)과 떨어지는 것(언마운트). effect는 마운트 후, cleanup은 언마운트 전에 돈다.' },
   { t: '생명주기 (lifecycle)', cat: 'react', to: 3.84, def: '마운트 → 업데이트(리렌더) → 언마운트로 이어지는 컴포넌트의 일생. 훅에선 useEffect로 이 시점들을 다룬다.' },
   { t: '단방향 데이터 흐름', cat: 'react', to: 4, def: '데이터는 부모 → 자식(props)으로만 흐른다. 자식이 바꾸려면 콜백으로 부모에게 요청한다. 흐름이 한 방향이라 추적이 쉽다.' },
@@ -52,31 +53,31 @@ const TERMS = [
   { t: '화살표 함수', cat: 'js', to: 'js-arrow', def: 'const f = (x) => x*2 처럼 짧게 쓰는 함수. 몸통이 한 줄이면 { }·return을 생략해 값을 바로 반환한다.', ex: `const double = n => n * 2\nconst add = (a, b) => a + b` },
   { t: '삼항 연산자', cat: 'js', to: 'js-arrow', def: '조건 ? A : B — 조건이 참이면 A, 거짓이면 B라는 "값"을 만든다. if와 달리 표현식이라 JSX 안에서 쓸 수 있다.', ex: `const grade = score >= 90 ? 'A' : 'B'` },
   { t: '템플릿 리터럴', cat: 'js', to: 'js-arrow', def: '백틱(`)으로 감싼 문자열. 안에서 ${}로 값을 꽂고, 줄바꿈도 그대로 쓸 수 있다.', ex: '`안녕, ${name}님 (${age}세)`' },
-  { t: '함수는 값이다 (일급 함수)', cat: 'js', to: 'js-func', def: '함수도 값이라 변수에 담고, 인자로 넘기고, 실행한다. 괄호 ()가 "실행" 스위치다. onClick={fn}(넘김) vs onClick={fn()}(즉시 실행)을 구분해야 한다.', ex: `const f = greet   // 넘김(괄호 없음)\nf()               // 실행(괄호)` },
-  { t: '콜백 (callback)', cat: 'js', to: 'js-func', def: '남에게 넘겨 두고 그쪽이 나중에 대신 불러 주는 함수. onClick={fn}, arr.map(fn)이 대표. "넘기기"라 괄호 없이 준다.', ex: `[1,2,3].map(n => n * 2) // 콜백을 map이 대신 부른다` },
-  { t: 'truthy / falsy', cat: 'js', to: 'js-truthy', def: '불리언이 아닌 값도 조건에선 참/거짓으로 취급된다. falsy는 딱 6개(false·0·\'\'·null·undefined·NaN), 나머지는 전부 truthy.', ex: `if ('hi') {}  // truthy\nif (0) {}     // falsy` },
+  { t: '함수는 값이다 (일급 함수)', cat: 'js', to: 'js-func', def: '함수도 값이라 변수에 담고, 인자로 넘기고, 실행한다. 괄호 ()가 "실행" 스위치다. onClick={fn}(넘김) vs onClick={fn()}(즉시 실행)을 구분해야 한다.', ex: `const f = greet   // 넘김(괄호 없음)\nf()               // 실행(괄호)`, ref: { u: 'https://ko.wikipedia.org/wiki/일급_함수', t: '위키백과 · 일급 함수' } },
+  { t: '콜백 (callback)', cat: 'js', to: 'js-func', def: '남에게 넘겨 두고 그쪽이 나중에 대신 불러 주는 함수. onClick={fn}, arr.map(fn)이 대표. "넘기기"라 괄호 없이 준다.', ex: `[1,2,3].map(n => n * 2) // 콜백을 map이 대신 부른다`, ref: { u: 'https://developer.mozilla.org/ko/docs/Glossary/Callback_function', t: 'MDN · 콜백 함수' } },
+  { t: 'truthy / falsy', cat: 'js', to: 'js-truthy', def: '불리언이 아닌 값도 조건에선 참/거짓으로 취급된다. falsy는 딱 6개(false·0·\'\'·null·undefined·NaN), 나머지는 전부 truthy.', ex: `if ('hi') {}  // truthy\nif (0) {}     // falsy`, ref: [{ u: 'https://developer.mozilla.org/ko/docs/Glossary/Truthy', t: 'MDN · Truthy' }, { u: 'https://developer.mozilla.org/ko/docs/Glossary/Falsy', t: 'MDN · Falsy' }] },
   { t: '단락 평가 (short-circuit)', cat: 'js', to: 'js-truthy', def: 'A && B는 A가 거짓이면 A를 그대로 반환(B는 평가조차 안 함). A || B는 A가 참이면 A. 가드·기본값에 쓴다.', ex: `name || '손님'     // 기본값\nuser && user.name  // 가드` },
   { t: 'map · filter', cat: 'js', to: 'js-array', def: 'map = 각 원소를 변환해 같은 길이의 새 배열, filter = 조건을 통과한 것만 모은 새 배열. 둘 다 원본은 안 바꾼다.', ex: `[1,2,3].map(n => n * 2)    // [2,4,6]\n[1,2,3].filter(n => n > 1) // [2,3]` },
-  { t: '구조 분해 (destructuring)', cat: 'js', to: 'js-destructure', def: 'const {name, age} = user / const [a, b] = arr 로 값을 한 번에 꺼내 변수에 담는 문법. props 받을 때 많이 쓴다.', ex: `const { name } = user\nfunction Card({ title }) {}` },
-  { t: '스프레드 (...)', cat: 'js', to: 'js-destructure', def: '{...obj}·[...arr]로 펼쳐 복사한다. {...obj, k: 새값}으로 한 필드만 덮어쓴다. 불변 갱신의 핵심 도구.', ex: `const next = { ...user, name: '새' }\nconst arr2 = [...arr, 4]` },
+  { t: '구조 분해 (destructuring)', cat: 'js', to: 'js-destructure', def: 'const {name, age} = user / const [a, b] = arr 로 값을 한 번에 꺼내 변수에 담는 문법. props 받을 때 많이 쓴다.', ex: `const { name } = user\nfunction Card({ title }) {}`, ref: { u: 'https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment', t: 'MDN · 구조 분해 할당' } },
+  { t: '스프레드 (...)', cat: 'js', to: 'js-destructure', def: '{...obj}·[...arr]로 펼쳐 복사한다. {...obj, k: 새값}으로 한 필드만 덮어쓴다. 불변 갱신의 핵심 도구.', ex: `const next = { ...user, name: '새' }\nconst arr2 = [...arr, 4]`, ref: { u: 'https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Operators/Spread_syntax', t: 'MDN · 스프레드 문법' } },
   { t: '얕은 복사', cat: 'js', to: 'js-destructure', def: '스프레드는 한 겹만 새로 복사한다. 중첩된 안쪽 객체·배열은 여전히 같은 참조를 공유하므로, 깊은 곳을 바꾸려면 그 겹도 새로 만든다.' },
-  { t: 'Promise', cat: 'js', to: 'js-async', def: '"나중에 값이 올 상자". 성공하면 .then(값 => ...), 실패하면 .catch로 받는다. 만들자마자는 pending(대기) 상태다.' },
-  { t: 'async / await', cat: 'js', to: 'js-async', def: '.then 사슬 대신 const x = await f()로 "기다렸다가" 다음 줄로 간다. 비동기 코드를 동기처럼 읽게 해 준다(async 함수 안에서만).', ex: `async function load() {\n  const user = await fetchUser()\n  setUser(user)\n}` },
+  { t: 'Promise', cat: 'js', to: 'js-async', def: '"나중에 값이 올 상자". 성공하면 .then(값 => ...), 실패하면 .catch로 받는다. 만들자마자는 pending(대기) 상태다.', ref: { u: 'https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Promise', t: 'MDN · Promise' } },
+  { t: 'async / await', cat: 'js', to: 'js-async', def: '.then 사슬 대신 const x = await f()로 "기다렸다가" 다음 줄로 간다. 비동기 코드를 동기처럼 읽게 해 준다(async 함수 안에서만).', ex: `async function load() {\n  const user = await fetchUser()\n  setUser(user)\n}`, ref: { u: 'https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Statements/async_function', t: 'MDN · async function' } },
   { t: '비동기 (asynchronous)', cat: 'js', to: 'js-async', def: '결과가 지금이 아니라 나중에 오는 것(네트워크·타이머). 그동안 코드와 화면은 멈추지 않고 계속 진행한다.' },
   { t: '변수 (let / const)', cat: 'js', to: 'js-expr', def: 'const = 재할당 못 함(기본으로 쓴다), let = 재할당 가능. var는 옛 방식이라 요즘은 안 쓴다.', ex: `const PI = 3.14\nlet count = 0\ncount = 1` },
-  { t: '스코프 (scope)', cat: 'js', to: 'js-func', def: '변수가 살아 있는 범위. 함수나 블록 { } 안에서 만든 변수는 그 안에서만 보이고, 밖에서는 쓸 수 없다.' },
-  { t: '클로저 (closure)', cat: 'js', to: 'js-func', def: '함수가 만들어질 때의 바깥 변수를 기억하는 것. 콜백·이벤트 핸들러가 그때의 값을 계속 참조할 수 있는 이유다.' },
+  { t: '스코프 (scope)', cat: 'js', to: 'js-func', def: '변수가 살아 있는 범위. 함수나 블록 { } 안에서 만든 변수는 그 안에서만 보이고, 밖에서는 쓸 수 없다.', ref: { u: 'https://developer.mozilla.org/ko/docs/Glossary/Scope', t: 'MDN · 스코프' } },
+  { t: '클로저 (closure)', cat: 'js', to: 'js-func', def: '함수가 만들어질 때의 바깥 변수를 기억하는 것. 콜백·이벤트 핸들러가 그때의 값을 계속 참조할 수 있는 이유다.', ref: { u: 'https://developer.mozilla.org/ko/docs/Web/JavaScript/Closures', t: 'MDN · 클로저' } },
   { t: '참조 vs 값', cat: 'js', to: 'js-destructure', def: '숫자·문자열은 값으로 복사되고, 객체·배열은 참조(주소)로 공유된다. 그래서 객체를 바꾸려면 새로 만들어야(불변성) 한다.', ex: `const b = a       // 객체면 같은 것을 가리킴\nconst b = { ...a } // 새로 복사` },
-  { t: '=== vs ==', cat: 'js', to: 'js-truthy', def: '===는 타입까지 같아야 참(권장). ==는 타입을 자동 변환해 비교해서 함정이 많다(예: 0 == \'\'가 참).' },
-  { t: '옵셔널 체이닝 (?.)', cat: 'js', to: 'js-truthy', def: 'user?.name — 앞이 null·undefined면 에러 없이 undefined를 준다. 있을지 모르는 값에 안전하게 접근할 때 쓴다.', ex: `user?.profile?.city` },
-  { t: '널 병합 (??)', cat: 'js', to: 'js-truthy', def: 'a ?? b — a가 null·undefined일 때만 b를 쓴다. ||와 달리 0·\'\'·false는 그대로 살린다.', ex: `count ?? 0   // count가 0이어도 0 유지` },
-  { t: 'rest 매개변수 (...)', cat: 'js', to: 'js-destructure', def: '함수 인자나 구조 분해에서 "남은 것"을 배열/객체로 모은다. 펼치는 스프레드의 반대 방향이다.', ex: `const [first, ...rest] = [1, 2, 3] // rest = [2, 3]` },
-  { t: 'JSON', cat: 'js', to: 8.5, def: '객체를 문자열로 주고받는 형식. JSON.stringify(객체→문자열, 저장)와 JSON.parse(문자열→객체, 복원)로 오간다.', ex: `JSON.stringify({ a: 1 }) // '{"a":1}'` },
+  { t: '=== vs ==', cat: 'js', to: 'js-truthy', def: '===는 타입까지 같아야 참(권장). ==는 타입을 자동 변환해 비교해서 함정이 많다(예: 0 == \'\'가 참).', ref: { u: 'https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Operators/Strict_equality', t: 'MDN · 일치 연산자 (===)' } },
+  { t: '옵셔널 체이닝 (?.)', cat: 'js', to: 'js-truthy', def: 'user?.name — 앞이 null·undefined면 에러 없이 undefined를 준다. 있을지 모르는 값에 안전하게 접근할 때 쓴다.', ex: `user?.profile?.city`, ref: { u: 'https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Operators/Optional_chaining', t: 'MDN · 옵셔널 체이닝' } },
+  { t: '널 병합 (??)', cat: 'js', to: 'js-truthy', def: 'a ?? b — a가 null·undefined일 때만 b를 쓴다. ||와 달리 0·\'\'·false는 그대로 살린다.', ex: `count ?? 0   // count가 0이어도 0 유지`, ref: { u: 'https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Operators/Nullish_coalescing', t: 'MDN · 널 병합 연산자' } },
+  { t: 'rest 매개변수 (...)', cat: 'js', to: 'js-destructure', def: '함수 인자나 구조 분해에서 "남은 것"을 배열/객체로 모은다. 펼치는 스프레드의 반대 방향이다.', ex: `const [first, ...rest] = [1, 2, 3] // rest = [2, 3]`, ref: { u: 'https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Functions/rest_parameters', t: 'MDN · rest 매개변수' } },
+  { t: 'JSON', cat: 'js', to: 8.5, def: '객체를 문자열로 주고받는 형식. JSON.stringify(객체→문자열, 저장)와 JSON.parse(문자열→객체, 복원)로 오간다.', ex: `JSON.stringify({ a: 1 }) // '{"a":1}'`, ref: { u: 'https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/JSON', t: 'MDN · JSON' } },
 
   // ── 🛠️ 도구·기초 ──────────────────────────
-  { t: 'DOM', cat: 'core', to: 0, def: '브라우저가 화면(HTML)을 트리로 표현한 것. 원래는 JS로 직접 고쳤지만, 리액트가 대신 갱신해 준다.' },
-  { t: '가상 DOM (virtual DOM)', cat: 'core', to: 0, def: '리액트가 메모리에 그린 가벼운 사본. 새로 그린 것과 이전 것을 비교해 "바뀐 곳만" 진짜 DOM에 반영한다(그래서 빠르다).' },
-  { t: '재조정 (reconciliation)', cat: 'core', to: 0, def: '옛 가상 DOM과 새 것을 비교(diff)해 최소한만 바꾸는 과정. 목록에서 key가 이때 "같은 항목"을 알려 준다.' },
+  { t: 'DOM', cat: 'core', to: 0, def: '브라우저가 화면(HTML)을 트리로 표현한 것. 원래는 JS로 직접 고쳤지만, 리액트가 대신 갱신해 준다.', ref: { u: 'https://developer.mozilla.org/ko/docs/Web/API/Document_Object_Model', t: 'MDN · DOM' } },
+  { t: '가상 DOM (virtual DOM)', cat: 'core', to: 0, def: '리액트가 메모리에 그린 가벼운 사본. 새로 그린 것과 이전 것을 비교해 "바뀐 곳만" 진짜 DOM에 반영한다(그래서 빠르다).', ref: { u: 'https://ko.legacy.reactjs.org/docs/faq-internals.html', t: 'React 문서 · Virtual DOM' } },
+  { t: '재조정 (reconciliation)', cat: 'core', to: 0, def: '옛 가상 DOM과 새 것을 비교(diff)해 최소한만 바꾸는 과정. 목록에서 key가 이때 "같은 항목"을 알려 준다.', ref: { u: 'https://ko.legacy.reactjs.org/docs/reconciliation.html', t: 'React 문서 · 재조정' } },
   { t: 'import / export (모듈)', cat: 'core', to: 1, def: '파일(모듈) 사이에 값을 주고받는 법. export로 내보내고 import로 가져온다. default(기본)와 이름 붙은 것 두 방식.', ex: `export default App\nimport App from './App.jsx'` },
   { t: '빌드 도구 (Vite)', cat: 'core', to: 1.45, def: 'JSX·최신 문법을 브라우저가 알아듣는 코드로 바꾸고, 저장하면 화면을 바로 갱신하는 개발 서버를 띄운다.' },
   { t: 'Babel / esbuild', cat: 'core', to: 1.45, def: 'JSX를 React.createElement 같은 함수 호출로 변환(컴파일)하는 도구. 빌드 타임(브라우저에 보내기 전)에 돈다.' },
@@ -201,6 +202,17 @@ export default function Glossary({ onGo }) {
                   </div>
                   <p className="demo-desc" style={{ margin: '6px 0 0', lineHeight: 1.65 }}>{x.def}</p>
                   {x.ex && <pre className="err-code" style={{ margin: '8px 0 0' }}>{x.ex}</pre>}
+                  {x.ref && (
+                    <p className="demo-desc" style={{ margin: '8px 0 0', fontSize: 12.5 }}>
+                      📚 참고 ·{' '}
+                      {(Array.isArray(x.ref) ? x.ref : [x.ref]).map((r, i) => (
+                        <span key={r.u}>
+                          {i > 0 && <> · </>}
+                          <a className="doc-link" href={r.u} target="_blank" rel="noopener noreferrer">{r.t} ↗</a>
+                        </span>
+                      ))}
+                    </p>
+                  )}
                 </div>
               ))}
             </div>

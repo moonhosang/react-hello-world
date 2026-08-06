@@ -658,6 +658,19 @@ b()  // 1  ← a와 안 섞인다`}</pre>
       <TechTags items={[{ label: '⚛️ 9-6 · alive가 클로저인 이유', to: 8.45 }]} onGo={onGo} />
 
       <div className="concept">
+        <p className="concept-lead">📚 참고 — 클로저는 리액트 용어가 아니라 자바스크립트 언어의 기능이다</p>
+        <p className="section-desc" style={{ marginTop: 0 }}>
+          리액트가 만든 요령이 아니다 — <b>함수가 자기가 만들어진 환경(렌더 시점의 변수들)을 기억하는</b> 건
+          자바스크립트 언어 자체의 동작이고, 함수형 언어들이 오래 써 온 개념이다. 깊이 파고 싶으면 아래를 읽으면 된다(건너뛰어도 된다).
+        </p>
+        <p className="section-desc" style={{ margin: '6px 0 0' }}>
+          <a className="doc-link" href="https://developer.mozilla.org/ko/docs/Web/JavaScript/Closures" target="_blank" rel="noopener noreferrer">
+            MDN · 클로저 (Closures) ↗
+          </a>
+        </p>
+      </div>
+
+      <div className="concept">
         <p className="concept-lead">📖 한 줄 요약</p>
         <p className="section-desc" style={{ marginTop: 0 }}>
           함수는 값이라 <b>담기·넘기기·실행</b> 셋뿐이고, <b>괄호 <code>()</code>가 실행 스위치</b>다.

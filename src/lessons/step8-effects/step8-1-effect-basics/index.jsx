@@ -215,6 +215,24 @@ export default function Step8_1({ onGo }) {
         <b> "그럼 왜 의존성이 바뀌면 다시 도나"</b>는 다음 강의에서 판다.
       </p>
 
+      <div className="concept">
+        <p className="concept-lead">📚 참고 — '부수 효과'와 '순수 함수'는 CS 용어다</p>
+        <p className="section-desc" style={{ marginTop: 0 }}>
+          리액트가 만든 말이 아니다 — <b>부수 효과(side effect)</b>는 "함수가 값 계산 외에 바깥 세상(화면·파일·네트워크)을 건드리는 일",
+          <b> 순수 함수(pure function)</b>는 "같은 입력이면 같은 출력, 부수 효과 없음"이라는 프로그래밍 일반 개념이다.
+          리액트는 이 구분을 <b>렌더(순수) / useEffect(부수 효과)</b>라는 자리로 나눈 것뿐이다.
+        </p>
+        <p className="section-desc" style={{ margin: '6px 0 0' }}>
+          <a className="doc-link" href="https://ko.wikipedia.org/wiki/부작용_(컴퓨터_과학)" target="_blank" rel="noopener noreferrer">
+            위키백과 · 부작용 (컴퓨터 과학) ↗
+          </a>{' '}
+          ·{' '}
+          <a className="doc-link" href="https://en.wikipedia.org/wiki/Pure_function" target="_blank" rel="noopener noreferrer">
+            위키백과(en) · Pure function ↗
+          </a>
+        </p>
+      </div>
+
       {/* 다음 강의로 잇기 */}
       <div className="concept">
         <p className="concept-lead">➡️ 다음 — 9-2 · 왜·어떻게 동작하나</p>

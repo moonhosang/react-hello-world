@@ -330,6 +330,24 @@ function onSearch(id)    { setUserId(id) }   // 자동`}</pre>
         호출 시점을 관리하는 짐을 <b>리액트가 대신 진다</b> — 그것이 의존성 배열의 유용성이다.
       </p>
 
+      <div className="concept">
+        <p className="concept-lead">📚 참고 — '선언형 vs 명령형'은 프로그래밍 패러다임 구분이다</p>
+        <p className="section-desc" style={{ marginTop: 0 }}>
+          위 대비는 리액트 요령이 아니라 오래된 CS 구분이다 — <b>명령형(imperative)</b>은 "어떻게(how) 할지"를
+          단계별로 지시하고, <b>선언형(declarative)</b>은 "무엇(what)을 원하는지"만 말하고 실행은 시스템에 맡긴다.
+          SQL·HTML이 선언형의 대표고, JSX와 의존성 배열도 같은 계열이다. 깊이는 아래에서(건너뛰어도 된다).
+        </p>
+        <p className="section-desc" style={{ margin: '6px 0 0' }}>
+          <a className="doc-link" href="https://ko.wikipedia.org/wiki/선언형_프로그래밍" target="_blank" rel="noopener noreferrer">
+            위키백과 · 선언형 프로그래밍 ↗
+          </a>{' '}
+          ·{' '}
+          <a className="doc-link" href="https://ko.wikipedia.org/wiki/명령형_프로그래밍" target="_blank" rel="noopener noreferrer">
+            위키백과 · 명령형 프로그래밍 ↗
+          </a>
+        </p>
+      </div>
+
       {/* ③ useEffect 없이 하려면? — 이벤트 핸들러 vs Effect */}
       <h3 className="section-title">③ 그럼 useEffect '없이' 하려면? — 두 가지 시도</h3>
       <span className="learn-tag">📎 학습 포인트 · 렌더 중 직접 호출은 ❌(순수 위반·무한 루프) · 이벤트 핸들러는 '경로마다' 붙여야 한다</span>
