@@ -18,7 +18,7 @@ const RELEASES = [
       {
         ch: '8 · Context',
         items: [
-          { no: '🤝', t: 'Context 계약 (신규 개념)', c: '같은 Panel 안/밖 나란히 시각 데모(초록/빨강) · 장단점 확장(일관성 강제·허술한 계약) · Design by Contract 참고 링크' },
+          { no: '🤝', t: 'Context 계약 (신규 개념)', c: '같은 Panel 안/밖 나란히 시각 데모(초록/빨강) · 코드+시각 나란히 · 장단점 확장 · Design by Contract 참고' },
           { no: '8-3', t: 'Context→Props 도전', c: 'ProgressBar가 계약에 묶임 명시 + props로 푸는 실습(트레이드오프)' },
         ],
       },
@@ -149,7 +149,7 @@ const RELEASES = [
 ]
 
 // 자동 팝업 판단 기준 — 내용이 바뀔 때마다 올린다. 저장된 값과 다르면 "새 게 있다".
-export const CHANGELOG_LATEST = 'v14-2026-08-06'
+export const CHANGELOG_LATEST = 'v15-2026-08-06'
 
 // 챕터 번호가 어느 트랙 것인지 앞에 붙인다. 01~15=⚛️ React, J0~J7=🟨 JS 기본, 그 외(공통)는 없음.
 const trackPrefix = (ch) =>

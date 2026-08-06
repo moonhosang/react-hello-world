@@ -99,6 +99,20 @@ export default function ContextContract({ onGo }) {
       <span className="learn-tag">📎 학습 포인트 · 같은 &lt;Panel /&gt;을 Provider 안·밖에 나란히 두면, 안은 값 받고(초록) 밖은 null(빨강·계약 위반)</span>
       <div className="card">
         <div className="file-label">🔬 라이브 — 같은 컴포넌트, 두 자리 (테마 토글하면 안쪽만 반응)</div>
+        <pre className="err-code">{`// 소비자 — Provider 안이면 값(ctx)을 받고, 밖이면 null
+function Panel() {
+  const ctx = useContext(ThemeContext)
+  if (!ctx) return <span>❌ 계약 위반 · null</span>   // 밖: 값이 없다
+  return   <span>✅ dark: {String(ctx.dark)}</span>   // 안: 값을 받는다
+}
+
+// 🔌 Provider 안 — 계약 O (아래 왼쪽 → 초록)
+<ThemeContext.Provider value={{ dark, setDark }}>
+  <Panel />        // ctx를 받는다
+</ThemeContext.Provider>
+
+// 🚫 Provider 밖 — 계약 X (아래 오른쪽 → 빨강)
+<Panel />          // Provider가 없다 → ctx = null`}</pre>
         <ContractDemo />
       </div>
 
