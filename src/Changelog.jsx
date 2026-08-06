@@ -6,8 +6,8 @@ import { useState } from 'react'
 
 const RELEASES = [
   {
-    date: '2026-08-05',
-    title: '동작 과정 트레이스 + 팝업',
+    date: '2026-08-06',
+    title: '동작 과정 트레이스 · 팝업 · 9-x 재구성 · 신규 레슨',
     groups: [
       {
         ch: '03 · Props',
@@ -126,7 +126,7 @@ const RELEASES = [
 ]
 
 // 자동 팝업 판단 기준 — 내용이 바뀔 때마다 올린다. 저장된 값과 다르면 "새 게 있다".
-export const CHANGELOG_LATEST = 'v11-2026-08-05'
+export const CHANGELOG_LATEST = 'v11-2026-08-06'
 
 // 챕터 번호가 어느 트랙 것인지 앞에 붙인다. 01~15=⚛️ React, J0~J7=🟨 JS 기본, 그 외(공통)는 없음.
 const trackPrefix = (ch) =>
