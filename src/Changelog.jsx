@@ -10,16 +10,23 @@ const RELEASES = [
     title: '입력 타입별 처리 · Context 계약',
     groups: [
       {
-        ch: '08 · 폼',
+        ch: '7 · 폼',
         items: [
           { no: '7-4', t: '입력 타입별 처리', c: '신규 — checkbox(checked)·radio·여러 체크박스(배열)·공통 onChange 타입 분기' },
         ],
       },
       {
-        ch: '09 · Context',
+        ch: '8 · Context',
         items: [
-          { no: '8-2', t: '계약으로 묶임 (시각)', c: 'Provider 울타리 안/밖 라이브 데모로 계약 실증 + 장단점 균형' },
+          { no: '🤝', t: 'Context 계약 (신규 개념)', c: 'Provider 울타리 안/밖 시각 데모 + 장단점 균형 — 별도 섹션으로 분리' },
           { no: '8-3', t: 'Context→Props 도전', c: 'ProgressBar가 계약에 묶임 명시 + props로 푸는 실습(트레이드오프)' },
+        ],
+      },
+      {
+        ch: '🧭 내비게이션',
+        items: [
+          { no: 'nav', t: '챕터 번호 정렬', c: '사이드바 챕터 번호를 레슨 단계에 맞춤 (8 · Context에 8-x가 오게)' },
+          { no: 'nav', t: '사이드바 포커스', c: '강의 이동/직접 URL 진입 시 사이드바의 그 항목으로 자동 스크롤' },
         ],
       },
     ],
@@ -29,7 +36,7 @@ const RELEASES = [
     title: '동작 과정 트레이스 · 팝업 · 9-x 재구성 · 신규 레슨',
     groups: [
       {
-        ch: '03 · Props',
+        ch: '2 · Props',
         items: [
           { no: '2-1', t: 'props 기초', c: '값이 부모 → props → 자식 화면까지 흐르는 트레이스' },
           { no: '2-2', t: '더 넘겨보기', c: '부모 상태 → prop → 자식 갱신 트레이스' },
@@ -37,29 +44,29 @@ const RELEASES = [
         ],
       },
       {
-        ch: '04 · 상태',
+        ch: '3 · 상태',
         items: [
           { no: '3-1', t: 'useState 기초', c: '클릭 → set → 리렌더 → 화면 갱신 6단계' },
           { no: '3-2', t: '상태 설계·함정', c: '연속 setState가 +1인 이유(스냅샷)' },
         ],
       },
       {
-        ch: '05 · 입력',
+        ch: '4 · 입력',
         items: [{ no: '4', t: '입력 다루기', c: 'controlled input 한 글자 왕복 트레이스' }],
       },
       {
-        ch: '06 · 훅',
+        ch: '5 · 훅',
         items: [
           { no: '5-1', t: '훅이란 & 규칙', c: '커스텀 훅(useToggle) 호출 흐름' },
           { no: '5-3', t: '왜 그런 규칙인가', c: '훅 호출 순서(슬롯)가 밀리는 과정' },
         ],
       },
       {
-        ch: '07 · 리스트',
+        ch: '6 · 리스트',
         items: [{ no: '6', t: '투두 리스트', c: '배열 map 렌더 & 추가(새 배열·불변성) 트레이스' }],
       },
       {
-        ch: '08 · 폼',
+        ch: '7 · 폼',
         items: [
           { no: '7-1', t: '여러 입력 → 객체', c: '객체 하나 + 공통 onChange 트레이스' },
           { no: '7-2', t: '폼 제출', c: '제출 → preventDefault → 추가 → 비우기' },
@@ -67,14 +74,14 @@ const RELEASES = [
         ],
       },
       {
-        ch: '09 · Context',
+        ch: '8 · Context',
         items: [
           { no: '8-1', t: 'prop drilling → Context', c: 'Provider → useContext로 값 꺼내기' },
           { no: '8-2', t: '전역 상태', c: '상태 + setter를 Context로 공유' },
         ],
       },
       {
-        ch: '10 · useEffect',
+        ch: '9 · useEffect',
         items: [
           { no: '9-1', t: 'useEffect 소개', c: '과적 해소 — 소개(기초)로 분리 · 두 effect 트레이스 · 반복 리렌더링(3-6·5-5) 참조' },
           { no: '9-2', t: '왜·어떻게 동작하나', c: '새 강의 — 동기화·선언형·useUserFetch·완성해보기 (9-1에서 분리)' },
@@ -86,18 +93,18 @@ const RELEASES = [
         ],
       },
       {
-        ch: '12 · useReducer',
+        ch: '11 · useReducer',
         items: [
           { no: '11', t: '상태 로직 모으기', c: 'dispatch → reducer → 새 state 트레이스' },
           { no: '11', t: '실전 상태관리 노트', c: 'Redux Toolkit·Zustand·MobX vs 의존성 없이 Context — 언제 무엇을 (외부 의존성 상세는 JS 8로 분리)' },
         ],
       },
       {
-        ch: '13 · 최적화',
+        ch: '12 · 최적화',
         items: [{ no: '12', t: 'memo·useMemo·useCallback', c: 'React.memo가 렌더를 건너뛰는 판단' }],
       },
       {
-        ch: '14 · Ref',
+        ch: '13 · Ref',
         items: [{ no: '13', t: 'useRef·커스텀 훅', c: 'ref = 리렌더 없는 상자 & DOM 손잡이' }],
       },
       {
@@ -130,7 +137,7 @@ const RELEASES = [
         items: [{ no: '📖', t: '용어 사전', c: 'JS·React 용어 총정리 glossary 신설 + 🛠️ 도구·기초 그룹' }],
       },
       {
-        ch: '15 · 실전 앱',
+        ch: '🛠️ 실전 앱',
         items: [{ no: 'Lv1~3', t: '조립/완성 분리', c: '조립(X-1) + 완성(X-2)으로 나눠 난이도를 낮춤' }],
       },
       {
@@ -142,7 +149,7 @@ const RELEASES = [
 ]
 
 // 자동 팝업 판단 기준 — 내용이 바뀔 때마다 올린다. 저장된 값과 다르면 "새 게 있다".
-export const CHANGELOG_LATEST = 'v12-2026-08-06'
+export const CHANGELOG_LATEST = 'v13-2026-08-06'
 
 // 챕터 번호가 어느 트랙 것인지 앞에 붙인다. 01~15=⚛️ React, J0~J7=🟨 JS 기본, 그 외(공통)는 없음.
 const trackPrefix = (ch) =>

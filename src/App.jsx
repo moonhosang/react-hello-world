@@ -42,6 +42,7 @@ import Step6_3 from './lessons/step6-forms/step6-3-validation/index.jsx'
 import Step6_4 from './lessons/step6-forms/step6-4-input-types/index.jsx'
 import Step7_1 from './lessons/step7-context/step7-1-context/index.jsx'
 import Step7_2 from './lessons/step7-context/step7-2-global-state/index.jsx'
+import ContextContract from './lessons/step7-context/context-contract/index.jsx'
 import Step7_3 from './lessons/step7-context/step7-3-multistep/index.jsx'
 import Step8_1 from './lessons/step8-effects/step8-1-effect-basics/index.jsx'
 import Step8_1b from './lessons/step8-effects/step8-1b-why/index.jsx'
@@ -187,6 +188,7 @@ const lessons = [
   ...makeSteps(6.9, formsPractice),
   { id: 7.1, group: '8단계 · Context (전역 상태)', title: '8-1 · prop drilling → Context', subtitle: '문제 → Provider 해결', Component: Step7_1, kind: 'sub', docs: [D.context, D.useContext] },
   { id: 7.2, group: '8단계 · Context (전역 상태)', title: '8-2 · 전역 상태', subtitle: 'state + setter 공유', Component: Step7_2, kind: 'sub', docs: [D.context, D.useContext] },
+  { id: 7.25, group: '8단계 · Context (전역 상태)', title: '🤝 개념 · Context 계약', subtitle: 'Provider와 묶인다 · 장단점', Component: ContextContract, kind: 'concept', isNew: true, docs: [D.context, D.useContext] },
   { id: 7.3, group: '8단계 · Context (전역 상태)', title: '8-3 · 멀티스텝 폼', subtitle: 'Context로 상태 공유', Component: Step7_3, kind: 'sub', docs: [D.context, D.useContext, D.reusingLogic] },
   ...makeSteps(7.4, contextPractice),
   { id: 8.1, group: '9단계 · useEffect', title: '9-1 · useEffect 소개', subtitle: '렌더 후 실행 · [] · [count]', Component: Step8_1, kind: 'sub', docs: [D.effects, D.useEffect] },
@@ -241,21 +243,22 @@ const lessons = [
 // 새 강의를 추가할 땐 lessons에 한 줄 넣고, 여기 알맞은 트랙·장의 items에 id를 넣으면 된다.
 const CHAPTERS = {
   react: [
-    { n: '01', title: '왜 리액트인가', items: [0] },
-    { n: '02', title: '컴포넌트와 JSX', items: [1, 1.4, 1.45, 1.46, 1.5, ...stepIds(1.6, 6)] },
-    { n: '03', title: 'Props — 값 전달', items: [2.1, 2.2, 2.3, 2.5, ...stepIds(2.4, 6)] },
-    { n: '04', title: '상태(State)', items: [3.1, 3.2, 3.3, 3.5, 3.6, ...stepIds(3.7, 6)] },
-    { n: '05', title: '입력 다루기', items: [4, ...stepIds(4.3, 6)] },
-    { n: '06', title: '훅(Hook)이란', items: [3.81, 3.815, 3.82, 3.83, 3.84, ...stepIds(3.9, 6)] },
-    { n: '07', title: '리스트 렌더링', items: [4.5, 5, 5.5, ...stepIds(5.6, 6)] },
-    { n: '08', title: '폼 입력 응용', items: [6.1, 6.2, 6.3, 6.4, ...stepIds(6.9, 6)] },
-    { n: '09', title: 'Context — 전역 상태', items: [7.1, 7.2, 7.3, ...stepIds(7.4, 6)] },
-    { n: '10', title: 'useEffect', items: [8.1, 8.15, 8.2, 8.3, 8.4, 8.45, 8.5, ...stepIds(8.9, 6)] },
-    { n: '11', title: '에러 읽는 법', items: [9] },
-    { n: '12', title: 'useReducer', items: [10] },
-    { n: '13', title: '최적화', items: [11] },
-    { n: '14', title: 'Ref와 커스텀 훅', items: [12, ...stepIds(12.1, 6)] },
-    { n: '15', title: '실전 앱 (난이도 순)', items: [12.4, 12.5, 12.9, 13, 13.2, 13.3, 13.5, 14, 15, 16] },
+    // n(챕터 번호)은 레슨 배지의 '단계' 번호와 맞춘다 — "8 · Context"에 8-1·8-2 레슨이 오게.
+    { n: '0', title: '왜 리액트인가', items: [0] },
+    { n: '1', title: '컴포넌트와 JSX', items: [1, 1.4, 1.45, 1.46, 1.5, ...stepIds(1.6, 6)] },
+    { n: '2', title: 'Props — 값 전달', items: [2.1, 2.2, 2.3, 2.5, ...stepIds(2.4, 6)] },
+    { n: '3', title: '상태(State)', items: [3.1, 3.2, 3.3, 3.5, 3.6, ...stepIds(3.7, 6)] },
+    { n: '4', title: '입력 다루기', items: [4, ...stepIds(4.3, 6)] },
+    { n: '5', title: '훅(Hook)이란', items: [3.81, 3.815, 3.82, 3.83, 3.84, ...stepIds(3.9, 6)] },
+    { n: '6', title: '리스트 렌더링', items: [4.5, 5, 5.5, ...stepIds(5.6, 6)] },
+    { n: '7', title: '폼 입력 응용', items: [6.1, 6.2, 6.3, 6.4, ...stepIds(6.9, 6)] },
+    { n: '8', title: 'Context — 전역 상태', items: [7.1, 7.2, 7.25, 7.3, ...stepIds(7.4, 6)] },
+    { n: '9', title: 'useEffect', items: [8.1, 8.15, 8.2, 8.3, 8.4, 8.45, 8.5, ...stepIds(8.9, 6)] },
+    { n: '10', title: '에러 읽는 법', items: [9] },
+    { n: '11', title: 'useReducer', items: [10] },
+    { n: '12', title: '최적화', items: [11] },
+    { n: '13', title: 'Ref와 커스텀 훅', items: [12, ...stepIds(12.1, 6)] },
+    { n: '🛠️', title: '실전 앱 (난이도 순)', items: [12.4, 12.5, 12.9, 13, 13.2, 13.3, 13.5, 14, 15, 16] },
   ],
   js: [
     { n: 'J0', title: 'JS 기본 · 시작', items: ['js-intro'] },
@@ -349,6 +352,7 @@ const FILES = {
   6.4: 'lessons/step6-forms/step6-4-input-types/index.jsx',
   7.1: 'lessons/step7-context/step7-1-context/index.jsx',
   7.2: 'lessons/step7-context/step7-2-global-state/index.jsx',
+  7.25: 'lessons/step7-context/context-contract/index.jsx',
   7.3: 'lessons/step7-context/step7-3-multistep/index.jsx',
   8.1: 'lessons/step8-effects/step8-1-effect-basics/index.jsx',
   8.15: 'lessons/step8-effects/step8-1b-why/index.jsx',
@@ -418,6 +422,7 @@ export default function App() {
   // (인덱스 기준 — 트랙 중 장 수가 많은 react 기준으로 초기화)
   const [openChapters, setOpenChapters] = useState(() => new Set(CHAPTERS.react.map((_, i) => i)))
   const firstSync = useRef(true) // 첫 해시 기록은 replace(히스토리 오염 방지)
+  const activeItemRef = useRef(null) // 사이드바의 '지금 강의' 항목 — 이동 시 여기로 스크롤/포커스
   // 📖 용어 사전 팝업 — 어느 강의에서든 사이드바 버튼(또는 단축키 G)으로 띄운다.
   const [glossaryOpen, setGlossaryOpen] = useState(false)
   // 🆕 변경 내역 팝업 — 새 항목이 있으면 처음에 한 번 자동으로 뜨고, 닫으면 다시 안 뜬다.
@@ -515,6 +520,11 @@ export default function App() {
   // 강의를 바꾸면 내용을 맨 위로 스크롤한다 — 아래로 내려간 채 다른 강의로 넘어가지 않게.
   useEffect(() => {
     try { window.scrollTo(0, 0) } catch {}
+  }, [currentId])
+
+  // 강의를 바꾸면 사이드바에서 '지금 강의' 항목을 보이게 스크롤한다(URL로 바로 들어와도 어디인지 보이게).
+  useEffect(() => {
+    try { activeItemRef.current?.scrollIntoView({ block: 'nearest', inline: 'nearest' }) } catch {}
   }, [currentId])
 
   // 뒤로/앞으로·주소 직접 변경 → 상태 반영 (무효 해시는 무시)
@@ -691,6 +701,7 @@ export default function App() {
                             <span className="toc-check-blank" aria-hidden="true" />
                           )}
                           <button
+                            ref={id === currentId ? activeItemRef : null}
                             className={'toc-item' + (id === currentId ? ' active' : '')}
                             onClick={() => go(id)}
                           >
