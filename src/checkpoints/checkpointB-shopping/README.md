@@ -22,4 +22,4 @@
 
 막히면 앱에서 **👀 정답 보기**로 `solution.jsx`와 비교해 보자.
 
-→ 이전: [6단계 · 리스트](../../lessons/step5-lists/README.md) · 다음: [7단계 · 폼 입력 응용](../../lessons/step6-forms/README.md)
+→ 이전: [6단계 · 리스트](../../lessons/step6-lists/README.md) · 다음: [7단계 · 폼 입력 응용](../../lessons/step7-forms/README.md)

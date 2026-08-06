@@ -11,11 +11,11 @@ import Step2_1 from './lessons/step2-props/step2-1-basics/index.jsx'
 import Step2_2 from './lessons/step2-props/step2-2-more/index.jsx'
 import Step3_1 from './lessons/step3-state-events/step3-1-basics/index.jsx'
 import Step3_2 from './lessons/step3-state-events/step3-2-design/index.jsx'
-import StepHooks1 from './lessons/step-hooks-intro/step5-1-what/index.jsx'
-import StepHooksBenefits from './lessons/step-hooks-intro/step5-2-benefits/index.jsx'
-import StepHooks2 from './lessons/step-hooks-intro/step5-2-why/index.jsx'
-import StepHooks3 from './lessons/step-hooks-intro/step5-3-violations/index.jsx'
-import StepHooksRecursion from './lessons/step-hooks-intro/step5-5-recursion/index.jsx'
+import StepHooks1 from './lessons/step5-hooks/step5-1-what/index.jsx'
+import StepHooksBenefits from './lessons/step5-hooks/step5-2-benefits/index.jsx'
+import StepHooks2 from './lessons/step5-hooks/step5-3-why/index.jsx'
+import StepHooks3 from './lessons/step5-hooks/step5-4-violations/index.jsx'
+import StepHooksRecursion from './lessons/step5-hooks/step5-5-recursion/index.jsx'
 import Stage4 from './lessons/step4-inputs/index.jsx'
 import PracticeStep from './components/PracticeStep.jsx'
 // 챕터 연습 config(단계 데이터). 각 폴더 index.jsx는 컴포넌트가 아니라 config 객체를 export한다.
@@ -35,26 +35,26 @@ import jsTruthyPractice from './lessons/practice-js-truthy/index.jsx'
 import jsArrayPractice from './lessons/practice-js-array/index.jsx'
 import jsDestrPractice from './lessons/practice-js-destructure/index.jsx'
 import jsAsyncPractice from './lessons/practice-js-async/index.jsx'
-import Stage5 from './lessons/step5-lists/index.jsx'
-import Step6_1 from './lessons/step6-forms/step6-1-form-state/index.jsx'
-import Step6_2 from './lessons/step6-forms/step6-2-submit/index.jsx'
-import Step6_3 from './lessons/step6-forms/step6-3-validation/index.jsx'
-import Step6_4 from './lessons/step6-forms/step6-4-input-types/index.jsx'
-import Step7_1 from './lessons/step7-context/step7-1-context/index.jsx'
-import Step7_2 from './lessons/step7-context/step7-2-global-state/index.jsx'
-import ContextContract from './lessons/step7-context/context-contract/index.jsx'
-import Step7_3 from './lessons/step7-context/step7-3-multistep/index.jsx'
-import Step8_1 from './lessons/step8-effects/step8-1-effect-basics/index.jsx'
-import Step8_1b from './lessons/step8-effects/step8-1b-why/index.jsx'
-import Step8_2 from './lessons/step8-effects/step8-2-cleanup/index.jsx'
-import Step8_3 from './lessons/step8-effects/step8-3-fetch/index.jsx'
-import Step8_4 from './lessons/step8-effects/step8-4-refetch/index.jsx'
-import Step8_4b from './lessons/step8-effects/step8-4b-cleanup-bugs/index.jsx'
-import Step8_5 from './lessons/step8-effects/step8-5-localstorage/index.jsx'
-import Stage9 from './lessons/step9-errors/index.jsx'
-import Step10Reducer from './lessons/step10-reducer/index.jsx'
-import Step11Optimize from './lessons/step11-optimize/index.jsx'
-import Step12RefHooks from './lessons/step12-ref-hooks/index.jsx'
+import Stage5 from './lessons/step6-lists/index.jsx'
+import Step6_1 from './lessons/step7-forms/step7-1-form-state/index.jsx'
+import Step6_2 from './lessons/step7-forms/step7-2-submit/index.jsx'
+import Step6_3 from './lessons/step7-forms/step7-3-validation/index.jsx'
+import Step6_4 from './lessons/step7-forms/step7-4-input-types/index.jsx'
+import Step7_1 from './lessons/step8-context/step8-1-context/index.jsx'
+import Step7_2 from './lessons/step8-context/step8-2-global-state/index.jsx'
+import ContextContract from './lessons/step8-context/context-contract/index.jsx'
+import Step7_3 from './lessons/step8-context/step8-3-multistep/index.jsx'
+import Step8_1 from './lessons/step9-effects/step9-1-effect-basics/index.jsx'
+import Step8_1b from './lessons/step9-effects/step9-2-why/index.jsx'
+import Step8_2 from './lessons/step9-effects/step9-3-cleanup/index.jsx'
+import Step8_3 from './lessons/step9-effects/step9-4-fetch/index.jsx'
+import Step8_4 from './lessons/step9-effects/step9-5-refetch/index.jsx'
+import Step8_4b from './lessons/step9-effects/step9-6-cleanup-bugs/index.jsx'
+import Step8_5 from './lessons/step9-effects/step9-7-localstorage/index.jsx'
+import Stage9 from './lessons/step10-errors/index.jsx'
+import Step10Reducer from './lessons/step11-reducer/index.jsx'
+import Step11Optimize from './lessons/step12-optimize/index.jsx'
+import Step12RefHooks from './lessons/step13-ref-hooks/index.jsx'
 import CheckpointA from './checkpoints/checkpointA-team-page/index.jsx'
 import CheckpointB from './checkpoints/checkpointB-shopping/index.jsx'
 import CheckpointC from './checkpoints/checkpointC-todo/index.jsx'
@@ -337,34 +337,34 @@ const FILES = {
   7.4: 'lessons/practice-context/index.jsx',
   8.9: 'lessons/practice-effects/index.jsx',
   12.1: 'lessons/practice-ref/index.jsx',
-  3.81: 'lessons/step-hooks-intro/step5-1-what/index.jsx',
-  3.815: 'lessons/step-hooks-intro/step5-2-benefits/index.jsx',
-  3.82: 'lessons/step-hooks-intro/step5-2-why/index.jsx',
-  3.83: 'lessons/step-hooks-intro/step5-3-violations/index.jsx',
-  3.84: 'lessons/step-hooks-intro/step5-5-recursion/index.jsx',
+  3.81: 'lessons/step5-hooks/step5-1-what/index.jsx',
+  3.815: 'lessons/step5-hooks/step5-2-benefits/index.jsx',
+  3.82: 'lessons/step5-hooks/step5-3-why/index.jsx',
+  3.83: 'lessons/step5-hooks/step5-4-violations/index.jsx',
+  3.84: 'lessons/step5-hooks/step5-5-recursion/index.jsx',
   4: 'lessons/step4-inputs/index.jsx',
   4.5: 'concepts/conditional-rendering/index.jsx',
-  5: 'lessons/step5-lists/index.jsx',
+  5: 'lessons/step6-lists/index.jsx',
   5.5: 'checkpoints/checkpointB-shopping/index.jsx',
-  6.1: 'lessons/step6-forms/step6-1-form-state/index.jsx',
-  6.2: 'lessons/step6-forms/step6-2-submit/index.jsx',
-  6.3: 'lessons/step6-forms/step6-3-validation/index.jsx',
-  6.4: 'lessons/step6-forms/step6-4-input-types/index.jsx',
-  7.1: 'lessons/step7-context/step7-1-context/index.jsx',
-  7.2: 'lessons/step7-context/step7-2-global-state/index.jsx',
-  7.25: 'lessons/step7-context/context-contract/index.jsx',
-  7.3: 'lessons/step7-context/step7-3-multistep/index.jsx',
-  8.1: 'lessons/step8-effects/step8-1-effect-basics/index.jsx',
-  8.15: 'lessons/step8-effects/step8-1b-why/index.jsx',
-  8.2: 'lessons/step8-effects/step8-2-cleanup/index.jsx',
-  8.3: 'lessons/step8-effects/step8-3-fetch/index.jsx',
-  8.4: 'lessons/step8-effects/step8-4-refetch/index.jsx',
-  8.45: 'lessons/step8-effects/step8-4b-cleanup-bugs/index.jsx',
-  8.5: 'lessons/step8-effects/step8-5-localstorage/index.jsx',
-  9: 'lessons/step9-errors/index.jsx',
-  10: 'lessons/step10-reducer/index.jsx',
-  11: 'lessons/step11-optimize/index.jsx',
-  12: 'lessons/step12-ref-hooks/index.jsx',
+  6.1: 'lessons/step7-forms/step7-1-form-state/index.jsx',
+  6.2: 'lessons/step7-forms/step7-2-submit/index.jsx',
+  6.3: 'lessons/step7-forms/step7-3-validation/index.jsx',
+  6.4: 'lessons/step7-forms/step7-4-input-types/index.jsx',
+  7.1: 'lessons/step8-context/step8-1-context/index.jsx',
+  7.2: 'lessons/step8-context/step8-2-global-state/index.jsx',
+  7.25: 'lessons/step8-context/context-contract/index.jsx',
+  7.3: 'lessons/step8-context/step8-3-multistep/index.jsx',
+  8.1: 'lessons/step9-effects/step9-1-effect-basics/index.jsx',
+  8.15: 'lessons/step9-effects/step9-2-why/index.jsx',
+  8.2: 'lessons/step9-effects/step9-3-cleanup/index.jsx',
+  8.3: 'lessons/step9-effects/step9-4-fetch/index.jsx',
+  8.4: 'lessons/step9-effects/step9-5-refetch/index.jsx',
+  8.45: 'lessons/step9-effects/step9-6-cleanup-bugs/index.jsx',
+  8.5: 'lessons/step9-effects/step9-7-localstorage/index.jsx',
+  9: 'lessons/step10-errors/index.jsx',
+  10: 'lessons/step11-reducer/index.jsx',
+  11: 'lessons/step12-optimize/index.jsx',
+  12: 'lessons/step13-ref-hooks/index.jsx',
   12.4: 'lessons/app-assemble-todo/index.jsx',
   12.5: 'checkpoints/checkpointC-todo/index.jsx',
   12.9: 'lessons/app-assemble-cart/index.jsx',

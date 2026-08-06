@@ -74,4 +74,4 @@ const [text, setText] = useState('')
 2. 숫자만 남기기: `onChange`에서 `e.target.value.replace(/\D/g, '')`
 3. uncontrolled 쪽 "리액트가 아는 값"을 실시간으로 바꾸려면? → `value`·`onChange`로 state에 묶기(=controlled로 바꾸기)
 
-→ 이전: [3단계 · 상태와 이벤트](../step3-state-events/README.md) · 다음: [6단계 · 리스트](../step5-lists/README.md)
+→ 이전: [3단계 · 상태와 이벤트](../step3-state-events/README.md) · 다음: [6단계 · 리스트](../step6-lists/README.md)
