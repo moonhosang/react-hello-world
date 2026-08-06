@@ -39,6 +39,7 @@ import Stage5 from './lessons/step5-lists/index.jsx'
 import Step6_1 from './lessons/step6-forms/step6-1-form-state/index.jsx'
 import Step6_2 from './lessons/step6-forms/step6-2-submit/index.jsx'
 import Step6_3 from './lessons/step6-forms/step6-3-validation/index.jsx'
+import Step6_4 from './lessons/step6-forms/step6-4-input-types/index.jsx'
 import Step7_1 from './lessons/step7-context/step7-1-context/index.jsx'
 import Step7_2 from './lessons/step7-context/step7-2-global-state/index.jsx'
 import Step7_3 from './lessons/step7-context/step7-3-multistep/index.jsx'
@@ -182,6 +183,7 @@ const lessons = [
   { id: 6.1, group: '7단계 · 폼 입력 응용', title: '7-1 · 여러 입력 → 객체', subtitle: 'state·객체·공통 onChange', Component: Step6_1, kind: 'sub', docs: [D.updatingObjects] },
   { id: 6.2, group: '7단계 · 폼 입력 응용', title: '7-2 · 폼 제출', subtitle: 'onSubmit · 방명록', Component: Step6_2, kind: 'sub', docs: [D.updatingObjects, D.updatingArrays] },
   { id: 6.3, group: '7단계 · 폼 입력 응용', title: '7-3 · 유효성 검사', subtitle: 'validate · 파생 에러 · select', Component: Step6_3, kind: 'sub', docs: [D.updatingObjects, D.input] },
+  { id: 6.4, group: '7단계 · 폼 입력 응용', title: '7-4 · 입력 타입별 처리', subtitle: 'checkbox · radio · 배열', Component: Step6_4, kind: 'sub', isNew: true, docs: [D.updatingObjects, D.input] },
   ...makeSteps(6.9, formsPractice),
   { id: 7.1, group: '8단계 · Context (전역 상태)', title: '8-1 · prop drilling → Context', subtitle: '문제 → Provider 해결', Component: Step7_1, kind: 'sub', docs: [D.context, D.useContext] },
   { id: 7.2, group: '8단계 · Context (전역 상태)', title: '8-2 · 전역 상태', subtitle: 'state + setter 공유', Component: Step7_2, kind: 'sub', docs: [D.context, D.useContext] },
@@ -246,7 +248,7 @@ const CHAPTERS = {
     { n: '05', title: '입력 다루기', items: [4, ...stepIds(4.3, 6)] },
     { n: '06', title: '훅(Hook)이란', items: [3.81, 3.815, 3.82, 3.83, 3.84, ...stepIds(3.9, 6)] },
     { n: '07', title: '리스트 렌더링', items: [4.5, 5, 5.5, ...stepIds(5.6, 6)] },
-    { n: '08', title: '폼 입력 응용', items: [6.1, 6.2, 6.3, ...stepIds(6.9, 6)] },
+    { n: '08', title: '폼 입력 응용', items: [6.1, 6.2, 6.3, 6.4, ...stepIds(6.9, 6)] },
     { n: '09', title: 'Context — 전역 상태', items: [7.1, 7.2, 7.3, ...stepIds(7.4, 6)] },
     { n: '10', title: 'useEffect', items: [8.1, 8.15, 8.2, 8.3, 8.4, 8.45, 8.5, ...stepIds(8.9, 6)] },
     { n: '11', title: '에러 읽는 법', items: [9] },
@@ -344,6 +346,7 @@ const FILES = {
   6.1: 'lessons/step6-forms/step6-1-form-state/index.jsx',
   6.2: 'lessons/step6-forms/step6-2-submit/index.jsx',
   6.3: 'lessons/step6-forms/step6-3-validation/index.jsx',
+  6.4: 'lessons/step6-forms/step6-4-input-types/index.jsx',
   7.1: 'lessons/step7-context/step7-1-context/index.jsx',
   7.2: 'lessons/step7-context/step7-2-global-state/index.jsx',
   7.3: 'lessons/step7-context/step7-3-multistep/index.jsx',

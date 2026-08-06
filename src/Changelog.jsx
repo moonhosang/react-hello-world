@@ -45,6 +45,7 @@ const RELEASES = [
           { no: '7-1', t: '여러 입력 → 객체', c: '객체 하나 + 공통 onChange 트레이스' },
           { no: '7-2', t: '폼 제출', c: '제출 → preventDefault → 추가 → 비우기' },
           { no: '7-3', t: '유효성 검사', c: '파생 errors(저장 안 함) 흐름 트레이스' },
+          { no: '7-4', t: '입력 타입별 처리', c: '신규 — checkbox(checked)·radio·여러 체크박스(배열)·공통 onChange 타입 분기' },
         ],
       },
       {
@@ -125,7 +126,7 @@ const RELEASES = [
 ]
 
 // 자동 팝업 판단 기준 — 내용이 바뀔 때마다 올린다. 저장된 값과 다르면 "새 게 있다".
-export const CHANGELOG_LATEST = 'v10-2026-08-05'
+export const CHANGELOG_LATEST = 'v11-2026-08-05'
 
 // 챕터 번호가 어느 트랙 것인지 앞에 붙인다. 01~15=⚛️ React, J0~J7=🟨 JS 기본, 그 외(공통)는 없음.
 const trackPrefix = (ch) =>
