@@ -208,7 +208,8 @@ function ProfilePosts() {
         </div>
       </div>
       <div className="card">
-        <div className="file-label">🔬 라이브 — 위 오른쪽 구조를 실제로 (세 조각은 각자 한 번만 쓰임)</div>
+        <div className="file-label">📄 MiniProfilePage · MiniHeader · MiniBio · MiniPosts — why-split-components/index.jsx</div>
+        <span className="learn-tag" style={{ marginBottom: 8 }}>🔬 라이브 · 위 오른쪽 구조를 실제로 — 세 조각은 각자 한 번만 쓰인다</span>
         <MiniProfilePage />
         <p className="demo-desc" style={{ marginTop: 8 }}>
           <code>MiniHeader</code>·<code>MiniBio</code>·<code>MiniPosts</code>는 <b>각자 딱 한 번</b> 쓰였다 — 재사용하려고가 아니라 <b>역할별로 나눠 보기 좋게</b> 한 것이다.
