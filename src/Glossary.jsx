@@ -42,7 +42,7 @@ const TERMS = [
   { t: '마운트 / 언마운트', cat: 'react', to: 3.84, def: '컴포넌트가 화면에 처음 붙는 것(마운트)과 떨어지는 것(언마운트). effect는 마운트 후, cleanup은 언마운트 전에 돈다.' },
   { t: '생명주기 (lifecycle)', cat: 'react', to: 3.84, def: '마운트 → 업데이트(리렌더) → 언마운트로 이어지는 컴포넌트의 일생. 훅에선 useEffect로 이 시점들을 다룬다.' },
   { t: '단방향 데이터 흐름', cat: 'react', to: 4, def: '데이터는 부모 → 자식(props)으로만 흐른다. 자식이 바꾸려면 콜백으로 부모에게 요청한다. 흐름이 한 방향이라 추적이 쉽다.' },
-  { t: '파생 상태 (derived state)', cat: 'react', to: 6.3, def: '다른 state로 계산되는 값(에러·합계·필터 결과). state로 저장하지 말고 렌더할 때 계산해야 원본과 어긋나지 않는다.', ex: `const errors = validate(form) // 저장 X, 매 렌더 계산` },
+  { t: '파생 상태 (derived state)', cat: 'react', to: 3.25, def: '다른 state로 계산되는 값(에러·합계·필터 결과). state로 저장하지 말고 렌더할 때 계산해야 원본과 어긋나지 않는다. "변하지만 계산되는 값"이라 상태(원본)와 구분한다.', ex: `const errors = validate(form) // 저장 X, 매 렌더 계산` },
   { t: '이벤트 객체 (e)', cat: 'react', to: 3.1, def: 'onChange·onClick이 자동으로 받는 정보 꾸러미. e.target.value(입력값), e.preventDefault()(기본 동작 취소) 등을 꺼내 쓴다.' },
   { t: 'preventDefault', cat: 'react', to: 6.2, def: '폼 제출·링크 클릭의 브라우저 기본 동작(새로고침·이동)을 막는다. onSubmit에서 거의 항상 쓴다.', ex: `onSubmit={e => { e.preventDefault(); save() }}` },
   { t: '인스턴스 (독립)', cat: 'react', to: 1.5, def: '정의는 하나(설계도)지만, <Card/>를 쓸 때마다 자기 state를 따로 갖는 독립 개체. 한 카드를 눌러도 다른 카드는 그대로다.' },

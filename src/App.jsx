@@ -11,6 +11,7 @@ import Step2_1 from './lessons/step2-props/step2-1-basics/index.jsx'
 import Step2_2 from './lessons/step2-props/step2-2-more/index.jsx'
 import Step3_1 from './lessons/step3-state-events/step3-1-basics/index.jsx'
 import Step3_2 from './lessons/step3-state-events/step3-2-design/index.jsx'
+import Step3_3 from './lessons/step3-state-events/step3-3-derived/index.jsx'
 import StepHooks1 from './lessons/step5-hooks/step5-1-what/index.jsx'
 import StepHooksBenefits from './lessons/step5-hooks/step5-2-benefits/index.jsx'
 import StepHooks2 from './lessons/step5-hooks/step5-3-why/index.jsx'
@@ -103,6 +104,7 @@ const D = {
   renderCommit: { t: '렌더링 그리고 커밋', u: 'https://ko.react.dev/learn/render-and-commit' },
   stateSnapshot: { t: '스냅샷으로서의 State', u: 'https://ko.react.dev/learn/state-as-a-snapshot' },
   queueing: { t: 'state 업데이트 큐', u: 'https://ko.react.dev/learn/queueing-a-series-of-state-updates' },
+  stateStructure: { t: 'State 구조 선택', u: 'https://ko.react.dev/learn/choosing-the-state-structure' },
   respondingEvents: { t: '이벤트에 응답하기', u: 'https://ko.react.dev/learn/responding-to-events' },
   useState: { t: 'useState (레퍼런스)', u: 'https://ko.react.dev/reference/react/useState' },
   input: { t: '<input> (레퍼런스)', u: 'https://ko.react.dev/reference/react-dom/components/input' },
@@ -169,6 +171,7 @@ const lessons = [
   { id: 2.5, title: '✅ 체크포인트 A', subtitle: '팀 소개 페이지 (실습)', Component: CheckpointA, kind: 'checkpoint', docs: [D.passingProps] },
   { id: 3.1, group: '3단계 · 상태와 이벤트', title: '3-1 · useState 기초', subtitle: '카운터 · 좋아요', Component: Step3_1, kind: 'sub', docs: [D.respondingEvents, D.useState] },
   { id: 3.2, group: '3단계 · 상태와 이벤트', title: '3-2 · 상태 설계·함정', subtitle: '여러 상태 · 객체 · 스냅샷', Component: Step3_2, kind: 'sub', docs: [D.stateSnapshot, D.queueing, D.updatingObjects] },
+  { id: 3.25, group: '3단계 · 상태와 이벤트', title: '3-3 · 상태·상수·파생', subtitle: '무엇을 useState에 둘까', Component: Step3_3, kind: 'sub', docs: [D.stateStructure, D.useState] },
   { id: 3.3, title: '🌊 개념 · 이벤트 전파 & 전개 props', subtitle: '버블링 · {...obj}', Component: EventPropagation, kind: 'concept', docs: [D.respondingEvents] },
   { id: 3.5, title: '🔀 개념 · props vs state', subtitle: '둘의 차이', Component: PropsVsState, kind: 'concept', docs: [D.thinking, D.stateMemory] },
   { id: 3.6, title: '🔁 개념 · 리렌더링', subtitle: '언제 다시 그려지나', Component: ReRender, kind: 'concept', docs: [D.renderCommit, D.stateSnapshot] },
@@ -249,7 +252,7 @@ const CHAPTERS = {
     { n: '0', title: '왜 리액트인가', items: [0] },
     { n: '1', title: '컴포넌트와 JSX', items: [1, 1.4, 1.45, 1.46, 1.5, 1.55, ...stepIds(1.6, 6)] },
     { n: '2', title: 'Props — 값 전달', items: [2.1, 2.2, 2.3, 2.5, ...stepIds(2.4, 6)] },
-    { n: '3', title: '상태(State)', items: [3.1, 3.2, 3.3, 3.5, 3.6, ...stepIds(3.7, 6)] },
+    { n: '3', title: '상태(State)', items: [3.1, 3.2, 3.25, 3.3, 3.5, 3.6, ...stepIds(3.7, 6)] },
     { n: '4', title: '입력 다루기', items: [4, ...stepIds(4.3, 6)] },
     { n: '5', title: '훅(Hook)이란', items: [3.81, 3.815, 3.82, 3.83, 3.84, ...stepIds(3.9, 6)] },
     { n: '6', title: '리스트 렌더링', items: [4.5, 5, 5.5, ...stepIds(5.6, 6)] },
@@ -331,6 +334,7 @@ const FILES = {
   2.5: 'checkpoints/checkpointA-team-page/index.jsx',
   3.1: 'lessons/step3-state-events/step3-1-basics/index.jsx',
   3.2: 'lessons/step3-state-events/step3-2-design/index.jsx',
+  3.25: 'lessons/step3-state-events/step3-3-derived/index.jsx',
   3.3: 'concepts/event-propagation/index.jsx',
   3.5: 'concepts/props-vs-state/index.jsx',
   3.6: 'concepts/rerender/index.jsx',
