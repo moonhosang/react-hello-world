@@ -90,13 +90,39 @@ export default function WhySplitComponents({ onGo }) {
           <pre className="err-code">{`function ProfilePage() {
   return (
     <div>
-      {/* 헤더 (여러 줄) */}
-      {/* 소개 (여러 줄) */}
-      {/* 글 목록 (여러 줄) */}
+      {/* 헤더 */}
+      <div style={{ display: 'flex', gap: 12, padding: 16 }}>
+        <img src={avatar} style={{ width: 56, borderRadius: 99 }} />
+        <div>
+          <h2 style={{ margin: 0 }}>김코딩</h2>
+          <p style={{ margin: 0, color: '#888' }}>프론트엔드</p>
+        </div>
+        <button style={{ marginLeft: 'auto' }}>팔로우</button>
+      </div>
+
+      {/* 소개 */}
+      <div style={{ padding: 16 }}>
+        <h3>소개</h3>
+        <p>React로 화면을 만든다. 커피와 단축키를 좋아한다.</p>
+        <div style={{ display: 'flex', gap: 8 }}>
+          <span className="tag">React</span>
+          <span className="tag">JS</span>
+        </div>
+      </div>
+
+      {/* 글 목록 */}
+      <div style={{ padding: 16 }}>
+        <h3>최근 글</h3>
+        <ul>
+          <li>오늘 배운 것</li>
+          <li>내일 할 것</li>
+          <li>다음 주 목표</li>
+        </ul>
+      </div>
     </div>
   )
 }`}</pre>
-          <p className="compare-hint">한 함수가 너무 많은 걸 한다 → 열어보면 막막하다.</p>
+          <p className="compare-hint">한 함수에 헤더·소개·글목록이 다 들어 있다 → 스크롤해야 다 보이고, 뭐가 뭔지 한눈에 안 잡힌다.</p>
         </div>
         <div className="card compare-card react">
           <span className="compare-tag">🧩 역할별로 나눔 — 읽힌다</span>
