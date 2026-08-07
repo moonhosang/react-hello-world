@@ -161,7 +161,7 @@ const lessons = [
   { id: 1.45, title: '📝 개념 · JSX의 정체', subtitle: '무엇으로 변환될까', Component: JsxUnderTheHood, kind: 'concept', docs: [D.jsxMarkup, D.jsxCurly] },
   { id: 1.46, title: '📐 개념 · JSX 문법 규칙 6가지', subtitle: '쓸 때 지켜야 할 것', Component: JsxRules, kind: 'concept', docs: [D.jsxMarkup, D.jsxCurly] },
   { id: 1.5, title: '🧩 개념 · 캡슐화', subtitle: '겉은 컴포넌트, 속은 감춤', Component: Encapsulation, kind: 'concept', docs: [D.importExport] },
-  { id: 1.55, title: '🧩 개념 · 컴포넌트 쪼개는 이유', subtitle: '재사용 vs 구조화', Component: WhySplitComponents, kind: 'concept', isNew: true, docs: [D.firstComponent, D.importExport] },
+  { id: 1.55, title: '🧩 개념 · 컴포넌트를 왜 나눌까', subtitle: '재사용 vs 정리', Component: WhySplitComponents, kind: 'concept', isNew: true, docs: [D.firstComponent, D.importExport] },
   ...makeSteps(1.6, componentPractice),
   { id: 2.1, group: '2단계 · props', title: '2-1 · props 기초', subtitle: '값 전달 · 재사용', Component: Step2_1, kind: 'sub', docs: [D.passingProps] },
   { id: 2.2, group: '2단계 · props', title: '2-2 · 더 넘겨보기', subtitle: '함수·상태·객체 전달', Component: Step2_2, kind: 'sub', docs: [D.passingProps] },

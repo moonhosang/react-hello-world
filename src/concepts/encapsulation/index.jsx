@@ -72,9 +72,9 @@ export default function Encapsulation({ onGo }) {
       <p className="section-desc">
         🧩 위 <code>MenuItem</code>은 <b>재사용</b>으로 쪼갠 경우다. 그런데 컴포넌트를 쪼개는 이유가 재사용만은 아니다 —
         <b> 재사용 안 해도 역할별로 나눠 읽기 좋게(구조화)</b>가 목적일 때가 더 많다. 그 두 목적과 "업무 화면 vs 라이브러리" 이야기는
-        바로 다음 <b>🧩 개념 · 컴포넌트 쪼개는 이유</b>에서 예시 코드와 함께 본다.
+        바로 다음 <b>🧩 개념 · 컴포넌트를 왜 나눌까</b>에서 예시 코드와 함께 본다.
       </p>
-      <TechTags items={[{ label: '🧩 개념 · 컴포넌트 쪼개는 이유', to: 1.55 }]} onGo={onGo} />
+      <TechTags items={[{ label: '🧩 개념 · 컴포넌트를 왜 나눌까', to: 1.55 }]} onGo={onGo} />
 
       <h3 className="section-title">🤔 "순수 HTML도 CSS로 재사용되잖아?" — 이런 반박은?</h3>
       <span className="learn-tag">📎 학습 포인트 · CSS는 스타일만, 컴포넌트는 구조·데이터·동작까지 재사용한다</span>

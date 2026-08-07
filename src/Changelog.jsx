@@ -11,7 +11,7 @@ const RELEASES = [
     groups: [
       {
         ch: '1 · 컴포넌트',
-        items: [{ no: '🧩', t: '컴포넌트 쪼개는 이유 (신규 개념)', c: '재사용 vs 구조화 별도 레슨 — 예시 코드 + 라이브 + 업무/라이브러리 스펙트럼 (Context 계약과 연결)' }],
+        items: [{ no: '🧩', t: '컴포넌트 쪼개는 이유 (신규 개념)', c: '재사용 vs 정리(구조화) 별도 레슨 — 입문자 언어 · 예시 코드 + 라이브 · 전용용어는 옆에서 풀이' }],
       },
       {
         ch: '공통 · 도구',
@@ -173,7 +173,7 @@ const RELEASES = [
 ]
 
 // 자동 팝업 판단 기준 — 내용이 바뀔 때마다 올린다. 저장된 값과 다르면 "새 게 있다".
-export const CHANGELOG_LATEST = 'v18-2026-08-07'
+export const CHANGELOG_LATEST = 'v19-2026-08-07'
 
 // 챕터 번호가 어느 트랙 것인지 앞에 붙인다. 01~15=⚛️ React, J0~J7=🟨 JS 기본, 그 외(공통)는 없음.
 const trackPrefix = (ch) =>
