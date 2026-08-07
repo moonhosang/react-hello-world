@@ -74,8 +74,17 @@ export default function WhySplitComponents({ onGo }) {
       <div className="card">
         <div className="file-label">📄 재사용 — 같은 카드를 데이터만 바꿔서</div>
         <pre className="err-code">{`function UserCard({ userId }) {    // 카드를 '한 번' 만든다
-  // userId로 그 사람 정보를 찾아 보여준다
-  return <div className="card"> … {userId}번 사람 … </div>
+  // ↓ userId로 그 사람 정보를 불러온다
+  //   (useUserInfo는 '커스텀 훅' — 나중에 배울 기법이니 지금은 몰라도 된다)
+  const { loading, errors, userInfo } = useUserInfo({ userId })
+
+  if (loading) return <p>불러오는 중…</p>
+  return (
+    <div className="card">
+      <h3>{userInfo.name}</h3>
+      <p>{userInfo.role}</p>
+    </div>
+  )
 }
 
 // 여러 번 갖다 쓴다 — userId(누구냐)만 바꿔서
@@ -83,7 +92,8 @@ export default function WhySplitComponents({ onGo }) {
 <UserCard userId={2} />
 <UserCard userId={3} />`}</pre>
         <p className="demo-desc" style={{ marginTop: 8 }}>
-          버튼은 <b>글자</b>(<code>children</code>)를 바꿔 재사용했고, 이 카드는 <b>데이터</b>(<code>userId</code>)를 바꿔 재사용한다 — 둘 다 <b>"정의 하나, 사용 여러 번".</b>
+          버튼은 <b>글자</b>(<code>children</code>)를, 이 카드는 <b>데이터</b>(<code>userId</code>)를 바꿔 재사용한다 — 둘 다 <b>"정의 하나, 사용 여러 번".</b>
+          게다가 카드 <b>3개가 각자 자기 정보를 알아서 불러온다</b>(재사용 + 독립). <code>useUserInfo</code> 같은 커스텀 훅은 뒤에서 배우니 지금은 <b>흐름만</b> 보면 된다.
         </p>
       </div>
       <p className="section-desc">
