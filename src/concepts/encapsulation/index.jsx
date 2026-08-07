@@ -68,48 +68,13 @@ export default function Encapsulation({ onGo }) {
         </p>
       </div>
 
-      {/* 🧩 컴포넌트로 쪼개는 이유 — 재사용 vs 구조화 */}
-      <h3 className="section-title">🧩 컴포넌트로 쪼개는 이유 — 재사용만이 아니다</h3>
-      <span className="learn-tag">📎 학습 포인트 · 쪼개는 목적은 '재사용'과 '구조화' 둘 · 한 파일에 여러 컴포넌트면 대개 '구조화'다</span>
+      {/* 쪼개는 이유는 다음 개념 레슨으로 분리 */}
       <p className="section-desc">
-        위 <code>MenuItem</code>은 20번 <b>재사용</b>했다. 그런데 컴포넌트로 쪼개는 이유가 재사용만은 아니다 — 입문자가
-        <b> "한 파일에 컴포넌트가 여러 개네? 재사용도 안 하는데 왜 나눴지?"</b> 하고 헷갈리는 게 바로 이 지점이다. 목적은 크게 <b>둘</b>이다.
+        🧩 위 <code>MenuItem</code>은 <b>재사용</b>으로 쪼갠 경우다. 그런데 컴포넌트를 쪼개는 이유가 재사용만은 아니다 —
+        <b> 재사용 안 해도 역할별로 나눠 읽기 좋게(구조화)</b>가 목적일 때가 더 많다. 그 두 목적과 "업무 화면 vs 라이브러리" 이야기는
+        바로 다음 <b>🧩 개념 · 컴포넌트 쪼개는 이유</b>에서 예시 코드와 함께 본다.
       </p>
-      <div className="two-col">
-        <div className="card">
-          <div className="file-label">1️⃣ 재사용 (reuse)</div>
-          <p className="section-desc" style={{ margin: 0 }}>같은 UI를 <b>여러 곳에서</b> — <code>Button</code>·<code>MenuItem</code>·<code>Badge</code>. "정의는 하나, 사용은 여러 번."</p>
-        </div>
-        <div className="card">
-          <div className="file-label">2️⃣ 구조화 (분리·가독성)</div>
-          <p className="section-desc" style={{ margin: 0 }}>한 화면을 <b>역할·섹션 단위</b>로 쪼개 각 함수가 <b>한 가지만</b> 하게 — <code>Header</code>·<code>Sidebar</code>·<code>Content</code>. <b>재사용 안 해도</b> 읽기 좋으라고 나눈다.</p>
-        </div>
-      </div>
-      <p className="section-desc">
-        💡 <b>한 파일에 여러 컴포넌트</b>가 있으면 보통 재사용보다 <b>구조화</b> 목적이다 — 큰 화면을 역할별 조각으로 나눠 <b>보기 좋게·고치기 좋게</b> 한 것.
-        (구조화 안에는 <b>캡슐화 · 상태 격리(그 자식만 리렌더) · map 반복 단위 · 협업</b> 같은 세부 목적이 다 들어간다.)
-      </p>
-      <div className="concept">
-        <p className="concept-lead">🏢 어디서 쓰느냐로도 갈린다 — 업무 화면 vs 라이브러리</p>
-        <div className="table-wrap">
-          <table className="pvs-table">
-            <thead>
-              <tr><th></th><th>업무 화면 컴포넌트</th><th>라이브러리 컴포넌트</th></tr>
-            </thead>
-            <tbody>
-              <tr><td>예</td><td><code>OrderSummary</code>·<code>CheckoutForm</code></td><td><code>Button</code>·<code>Modal</code>·<code>DatePicker</code></td></tr>
-              <tr><td>쓰이는 횟수</td><td>보통 이 화면에서 <b>한 번</b></td><td>여러 앱·화면에서 <b>N번</b></td></tr>
-              <tr><td>도메인</td><td>특정 도메인에 묶임</td><td>도메인 무지·범용(props로 설정)</td></tr>
-              <tr><td>주 목적</td><td><b>구조화</b></td><td><b>재사용</b></td></tr>
-            </tbody>
-          </table>
-        </div>
-        <p className="section-desc" style={{ marginTop: 0 }}>
-          즉 <b>업무 화면은 구조화, 라이브러리는 재사용</b>이 주 목적이다 — 다만 <b>양 끝</b>이고 그 사이 스펙트럼이다(앱 안 공용 <code>components/</code>는 재사용 쪽으로 기움).
-          그리고 <b>널리 쓰이는 라이브러리 컴포넌트일수록 props 계약이 엄격·문서화</b>된다 — <b>🤝 Context 계약</b>에서 본 그 '계약'과 같은 맥락이다.
-        </p>
-        <TechTags items={[{ label: '🤝 Context 계약', to: 7.25 }, { label: '5-1 · 인스턴스 독립', to: 3.81 }]} onGo={onGo} />
-      </div>
+      <TechTags items={[{ label: '🧩 개념 · 컴포넌트 쪼개는 이유', to: 1.55 }]} onGo={onGo} />
 
       <h3 className="section-title">🤔 "순수 HTML도 CSS로 재사용되잖아?" — 이런 반박은?</h3>
       <span className="learn-tag">📎 학습 포인트 · CSS는 스타일만, 컴포넌트는 구조·데이터·동작까지 재사용한다</span>
