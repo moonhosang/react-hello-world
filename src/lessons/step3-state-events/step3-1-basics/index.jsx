@@ -83,8 +83,9 @@ export default function Step3_1() {
       <h3 className="section-title">① 먼저 — 상태(State)란?</h3>
       <span className="learn-tag">📎 학습 포인트 · 상태는 컴포넌트가 '기억'하는 값이고, 바뀌면 화면이 다시 그려진다</span>
       <p className="section-desc">
-        화면에서 <b>변하는 값</b>(카운트·좋아요 수 등)은 상태로 둔다.
+        화면에서 <b>시간이 지나며 달라지는 값</b>(카운트·좋아요 수 등)은 상태로 둔다.
         <code> const [count, setCount] = useState(0)</code> — <b>[현재값, 바꾸는 함수]</b>이다.
+        반대로 <b>언제나 같은 값</b>은 상태가 아니라 그냥 <b>상수</b> — 상태로 관리할 필요가 없다.
       </p>
       <div className="concept">
         <p className="concept-lead">
