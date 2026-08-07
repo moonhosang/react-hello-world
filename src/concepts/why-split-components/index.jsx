@@ -126,19 +126,59 @@ export default function WhySplitComponents({ onGo }) {
         </div>
         <div className="card compare-card react">
           <span className="compare-tag">🧩 역할별로 나눔 — 읽힌다</span>
-          <pre className="err-code">{`function ProfilePage() {     // 조각을 '배치'만 → 구조가 보인다
+          <pre className="err-code">{`function ProfilePage() {     // 위(부모)는 '배치'만 → 구조가 한눈에
   return (
     <div>
+      {/* 헤더 */}
       <ProfileHeader />
+      {/* 소개 */}
       <ProfileBio />
+      {/* 글 목록 */}
       <ProfilePosts />
     </div>
   )
 }
-function ProfileHeader() { … }   // 한 번만 쓰임 — 그래도 나눔
-function ProfileBio()    { … }   //  (재사용이 아니라 '보기 좋게')
-function ProfilePosts()  { … }`}</pre>
-          <p className="compare-hint">각 함수가 '한 가지만' 한다 → 읽기·고치기 쉽다.</p>
+
+// 옮겨온 내용은 각자 자기 함수로 (한 번만 쓰여도 나눔 — 재사용이 아니라 '보기 좋게')
+function ProfileHeader() {
+  return (
+    <div style={{ display: 'flex', gap: 12, padding: 16 }}>
+      <img src={avatar} style={{ width: 56, borderRadius: 99 }} />
+      <div>
+        <h2 style={{ margin: 0 }}>김코딩</h2>
+        <p style={{ margin: 0, color: '#888' }}>프론트엔드</p>
+      </div>
+      <button style={{ marginLeft: 'auto' }}>팔로우</button>
+    </div>
+  )
+}
+
+function ProfileBio() {
+  return (
+    <div style={{ padding: 16 }}>
+      <h3>소개</h3>
+      <p>React로 화면을 만든다. 커피와 단축키를 좋아한다.</p>
+      <div style={{ display: 'flex', gap: 8 }}>
+        <span className="tag">React</span>
+        <span className="tag">JS</span>
+      </div>
+    </div>
+  )
+}
+
+function ProfilePosts() {
+  return (
+    <div style={{ padding: 16 }}>
+      <h3>최근 글</h3>
+      <ul>
+        <li>오늘 배운 것</li>
+        <li>내일 할 것</li>
+        <li>다음 주 목표</li>
+      </ul>
+    </div>
+  )
+}`}</pre>
+          <p className="compare-hint">부모(맨 위)는 '목차'처럼 구조만 보인다 → 필요한 조각만 아래에서 열어 본다.</p>
         </div>
       </div>
       <div className="card">
