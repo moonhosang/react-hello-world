@@ -93,13 +93,13 @@ export default function WhySplitComponents({ onGo }) {
 <UserCard userId={2} />
 <UserCard userId={3} />`}</pre>
         <p className="demo-desc" style={{ marginTop: 8 }}>
-          버튼은 <b>글자</b>(<code>children</code>)를, 이 카드는 <b>데이터</b>(<code>userId</code>)를 바꿔 재사용한다 — 둘 다 <b>"정의 하나, 사용 여러 번".</b>
-          게다가 카드 <b>3개가 각자 자기 정보를 알아서 불러온다</b>(재사용 + 독립). <code>useUserInfo</code> 같은 커스텀 훅은 뒤에서 배우니 지금은 <b>흐름만</b> 보면 된다.
+          카드 <b>3개가 각자 자기 정보를 알아서 불러온다</b> — 재사용이면서 <b>서로 독립</b>이다.
+          (<code>useUserInfo</code> 같은 <b>커스텀 훅</b>은 뒤에서 배우니, 지금은 <b>흐름만</b> 보면 된다.)
         </p>
       </div>
       <p className="section-desc">
-        앞 <b>캡슐화</b> 레슨의 <code>MenuItem</code>·<code>Badge</code>도 이 경우다 — <b>똑같은 조각을 여러 번.</b>
-        한 번 만들어 두고 계속 갖다 쓴다. 이게 흔히 아는 "컴포넌트 = 재사용"이다.
+        정리하면 — <b>버튼은 글자</b>(<code>children</code>), <b>카드는 데이터</b>(<code>userId</code>)를 바꿔 재사용했다. 둘 다 <b>"정의 하나, 사용 여러 번".</b>
+        앞 <b>캡슐화</b> 레슨의 <code>MenuItem</code>·<code>Badge</code>도 같은 경우다 — 한 번 만들어 두고 계속 갖다 쓴다. 이게 흔히 아는 <b>"컴포넌트 = 재사용"</b>이다.
       </p>
 
       {/* 2️⃣ 정리 */}
