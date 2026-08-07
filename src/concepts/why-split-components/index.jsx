@@ -79,6 +79,7 @@ export default function WhySplitComponents({ onGo }) {
   const { loading, errors, userInfo } = useUserInfo({ userId })
 
   if (loading) return <p>불러오는 중…</p>
+  if (errors)  return <p>{errors.message}</p>   // 에러 나면 메시지 보여줌
   return (
     <div className="card">
       <h3>{userInfo.name}</h3>
