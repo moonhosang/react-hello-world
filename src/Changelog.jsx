@@ -6,6 +6,24 @@ import { useState } from 'react'
 
 const RELEASES = [
   {
+    date: '2026-08-07',
+    title: '컴포넌트 분리 이유 · export 용어 · 폴더 정렬',
+    groups: [
+      {
+        ch: '1 · 컴포넌트',
+        items: [{ no: '🧩', t: '캡슐화 — 쪼개는 이유', c: '재사용 vs 구조화 + 업무 화면/라이브러리 스펙트럼 (Context 계약과 연결)' }],
+      },
+      {
+        ch: '공통 · 도구',
+        items: [{ no: '📖', t: '용어 사전', c: 'default/named export · 컴포넌트 정의 vs 사용 · 쪼개는 이유 추가' }],
+      },
+      {
+        ch: '🧭 구조',
+        items: [{ no: 'nav', t: '폴더명 정렬', c: '레슨 폴더명을 표시 단계번호에 맞춤(step8-context 등) · id·URL 해시는 보존' }],
+      },
+    ],
+  },
+  {
     date: '2026-08-06',
     title: '입력 타입별 처리 · Context 계약',
     groups: [
@@ -155,7 +173,7 @@ const RELEASES = [
 ]
 
 // 자동 팝업 판단 기준 — 내용이 바뀔 때마다 올린다. 저장된 값과 다르면 "새 게 있다".
-export const CHANGELOG_LATEST = 'v16-2026-08-06'
+export const CHANGELOG_LATEST = 'v17-2026-08-07'
 
 // 챕터 번호가 어느 트랙 것인지 앞에 붙인다. 01~15=⚛️ React, J0~J7=🟨 JS 기본, 그 외(공통)는 없음.
 const trackPrefix = (ch) =>

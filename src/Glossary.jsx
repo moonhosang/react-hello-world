@@ -9,6 +9,8 @@ import { useState, useRef, useEffect } from 'react'
 const TERMS = [
   // ── ⚛️ React ──────────────────────────────
   { t: '컴포넌트', cat: 'react', to: 1, def: '화면 한 조각을 그리는 함수. 대문자로 시작하고 JSX를 return한다. 한 번 정의하면 <이름 />으로 여러 번 재사용한다.', ex: `function Hello() {\n  return <h1>안녕</h1>\n}\n<Hello />` },
+  { t: '컴포넌트 정의 vs 사용', cat: 'react', to: 1.5, def: '정의 = function Card() {...} — 설계도를 한 번 만든다(함수). 사용 = <Card /> — 그 설계도를 화면에 가져다 쓴다(JSX 태그, 여러 번). 둘을 섞어 헷갈리기 쉽다: 정의는 함수, 사용은 태그다.', ex: `function Card() { return <div/> }   // 정의(한 번)\n<Card />  <Card />  <Card />        // 사용(여러 번)` },
+  { t: '컴포넌트를 쪼개는 이유', cat: 'react', to: 1.5, def: '두 가지 — ① 재사용(같은 UI를 여러 곳에), ② 구조화(한 화면을 역할·섹션별로 나눠 읽기 좋게). 한 파일에 컴포넌트가 여러 개면 보통 재사용보다 구조화 목적이다. 구조화 안에 캡슐화·상태 격리·map 단위·협업이 포함된다.' },
   { t: 'JSX', cat: 'react', to: 1.45, def: 'HTML처럼 생긴 자바스크립트 문법. 빌드 도구가 함수 호출로 바꾸고, 그 결과는 객체다. class 대신 className, 값은 {중괄호}로 꽂는다.', ex: `const el = <b className="on">{name}</b>` },
   { t: 'props', cat: 'react', to: 2.1, def: '부모가 자식에게 내려주는 값(문자열·숫자·함수·JSX 등). 자식은 읽기만 하고 바꾸지 못한다. 함수의 인자와 같은 역할이다.', ex: `<Card title="공지" />\nfunction Card({ title }) {\n  return <h3>{title}</h3>\n}` },
   { t: 'children (합성)', cat: 'react', to: 2.3, def: '여는·닫는 태그 사이에 넣은 내용. props.children으로 받아 "무엇이 들어올지 모르는 껍데기"를 만든다.', ex: `<Box><p>내용</p></Box>\nfunction Box({ children }) {\n  return <div className="box">{children}</div>\n}` },
@@ -79,6 +81,7 @@ const TERMS = [
   { t: '가상 DOM (virtual DOM)', cat: 'core', to: 0, def: '리액트가 메모리에 그린 가벼운 사본. 새로 그린 것과 이전 것을 비교해 "바뀐 곳만" 진짜 DOM에 반영한다(그래서 빠르다).', ref: { u: 'https://ko.legacy.reactjs.org/docs/faq-internals.html', t: 'React 문서 · Virtual DOM' } },
   { t: '재조정 (reconciliation)', cat: 'core', to: 0, def: '옛 가상 DOM과 새 것을 비교(diff)해 최소한만 바꾸는 과정. 목록에서 key가 이때 "같은 항목"을 알려 준다.', ref: { u: 'https://ko.legacy.reactjs.org/docs/reconciliation.html', t: 'React 문서 · 재조정' } },
   { t: 'import / export (모듈)', cat: 'core', to: 1, def: '파일(모듈) 사이에 값을 주고받는 법. export로 내보내고 import로 가져온다. default(기본)와 이름 붙은 것 두 방식.', ex: `export default App\nimport App from './App.jsx'` },
+  { t: 'default export / named export', cat: 'core', to: 1, def: '내보내는 두 방식. default = 파일당 하나, 가져올 때 이름 자유(중괄호 없음). named = 여러 개, 가져올 때 정확한 이름(중괄호). 한 파일에 컴포넌트가 여럿이면 대표 하나를 default, 나머지를 named로 내보내 역할을 구분한다.', ex: `export default MenuItem        // import MenuItem from '...'\nexport function Badge() {}      // import { Badge } from '...'`, ref: { u: 'https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Statements/export', t: 'MDN · export' } },
   { t: '빌드 도구 (Vite)', cat: 'core', to: 1.45, def: 'JSX·최신 문법을 브라우저가 알아듣는 코드로 바꾸고, 저장하면 화면을 바로 갱신하는 개발 서버를 띄운다.' },
   { t: 'Babel / esbuild', cat: 'core', to: 1.45, def: 'JSX를 React.createElement 같은 함수 호출로 변환(컴파일)하는 도구. 빌드 타임(브라우저에 보내기 전)에 돈다.' },
   { t: 'npm / 패키지', cat: 'core', to: 0, def: '남이 만든 코드(라이브러리=패키지)를 받아 쓰는 도구·저장소. react·vite도 패키지다. package.json에 쓰는 목록이 적혀 있다.' },
