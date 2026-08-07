@@ -71,8 +71,23 @@ export default function WhySplitComponents({ onGo }) {
 <Button>취소</Button>
 <Button>삭제</Button>`}</pre>
       </div>
+      <div className="card">
+        <div className="file-label">📄 재사용 — 같은 카드를 데이터만 바꿔서</div>
+        <pre className="err-code">{`function UserCard({ userId }) {    // 카드를 '한 번' 만든다
+  // userId로 그 사람 정보를 찾아 보여준다
+  return <div className="card"> … {userId}번 사람 … </div>
+}
+
+// 여러 번 갖다 쓴다 — userId(누구냐)만 바꿔서
+<UserCard userId={1} />
+<UserCard userId={2} />
+<UserCard userId={3} />`}</pre>
+        <p className="demo-desc" style={{ marginTop: 8 }}>
+          버튼은 <b>글자</b>(<code>children</code>)를 바꿔 재사용했고, 이 카드는 <b>데이터</b>(<code>userId</code>)를 바꿔 재사용한다 — 둘 다 <b>"정의 하나, 사용 여러 번".</b>
+        </p>
+      </div>
       <p className="section-desc">
-        앞 <b>캡슐화</b> 레슨의 <code>MenuItem</code>·<code>Badge</code>가 이 경우다 — <b>똑같은 조각을 여러 번.</b>
+        앞 <b>캡슐화</b> 레슨의 <code>MenuItem</code>·<code>Badge</code>도 이 경우다 — <b>똑같은 조각을 여러 번.</b>
         한 번 만들어 두고 계속 갖다 쓴다. 이게 흔히 아는 "컴포넌트 = 재사용"이다.
       </p>
 
